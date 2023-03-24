@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Growing</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+      *{
+        
+font-family: 'Gowun Dodum', sans-serif;
+      }
+      #board_wrap {
+        width: 100%;
+        min-height: 700px;
+      }
+      #inner_wrap {
+        width: 1200px;
+        height: 700px;
+        margin: auto;
+      }
+      div {
+        box-sizing: border-box;
+        border: 1px solid red;
+      }
+      #inner_wrap > div {
+        height: 100%;
+        float: left;
+      }
+      #board {
+        width: 20%;
+      }
+      #board_area {
+        width: 80%;
+      }
+      #board >ul> li {
+        list-style-type: none;
+      }
+      #board >ul {
+        padding: 0;
+      }
+      .board_li {
+        height: 28px;
+        cursor: pointer;
+      }
+      .board_title{
+        font-size: large; 
+        font-weight: 700; 
+        padding-bottom: 10px;
+        padding-left: 14px;
+      }
+      .board_li:hover{
+        font-weight: 700;
+      } 
+      .board_li>div{
+        border-radius: 30px;
+        width: 100%;
+        height: 40px;
+        padding: 9px;
+        padding-left: 14px;
+      }
+      .board_li{
+        margin-bottom: 13px;
+      }
+      .board_hr{
+        padding: 7px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="board_wrap">
+      <div id="inner_wrap">
+        <div id="board">
+            <ul>
+              <li class="board_title">게시판</li>
+              <li class="board_li" id="board_recent"><div>최근 게시글</div></li>
+              <li class="board_li" id="board_notice"><div>알림장</div></li>
+              <li class="board_li" id="board_album"><div>앨범</div></li>
+              <li class="board_li" id="board_free"><div>자유게시판</div></li>
+              <li class="board_li" id="board_counsel"><div>상담게시판</div></li>
+              <li class="board_hr"><hr></li>
+              <li class="board_title">수업관리</li>
+              <li class="board_li" id="board_survey"><div>설문조사</div></li>
+              <li class="board_li" id="board_info"><div>출석조회</div></li>
+              <li class="board_hr"><hr></li>
+              <li class="board_title">클래스 관리</li>
+              <li class="board_li" id="class_info"><div>클래스 정보</div></li>
+           
+            </ul>
+        </div>
+        <div id="board_area"></div>
+      </div>
+      
+      <script>
+        $(function(){
+            $(".board_li").click(function(){
+                $(this).css("fontWeight","700").fadeIn(1000);
+                $(this).children().css("background","rgb(239, 243, 239)");
+                $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
+                $(this).siblings().children().css("background","");
+            
+            });
+        });
+     
+
+      </script>
+  </body>
+</html>
