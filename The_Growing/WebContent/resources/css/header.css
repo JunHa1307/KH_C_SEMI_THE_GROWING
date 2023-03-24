@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+/* 게시판 헤더 및 정보(게시판마다 공통) */
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+}
+
+html{
+	width:100%
+}
+
+.wrap {
+	width: 100%;
+	height: 100%;
+}
+
+#header {
+	display: inline-flex;
+}
+
+#searchBtn>img {
+	width: 20px;
+}
+
+#search {
+	margin-left: 390px;
+}
+
+#searchBtn {
+	border: 1px solid black;
+	height: 50px;
+	border-radius: 10px;
+	margin-top: 20px;
+}
+
+#logo {
+	width: 100px;
+}
+
+#logoBtn {
+	margin-left: 100px;
+}
+
+#seachClass {
+	width: 700px;
+	border: none;
+	outline: none;
+}
+
+#header {
+	width: 100%;
+	height: 10%;
+	margin-top: 10px;
+}
+
+#info>div {
+	display: table-cell;
+	width: 25%;
+}
+
+#classInfo, #userInfo {
+	padding-left: 50px;
+	vertical-align: middle;
+}
+
+#classInfo>div, #userInfo>div {
+	font-size: large;
+	font-weight: 900;
+}
+
+#info {
+	width: 100%;
+	margin-top: 20px;
+	display: table;
+	height: 20%;
+	background-color: #cff0cc;
+}
+
+#pSchool, #pUser {
+	padding-left: 300px;
+}
+
+.profile {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 150px;
+	border-radius: 50%;
+}
+
+.btnStyle {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+/* 버튼호버시 이벤트 css부여 */
+.btnStyle:hover {
+	color: #209dce;
+	transition: all .3s ease
+}
+
+.dropdown {
+	margin-left: 350px;
+}
+
+.dropdown>button {
+	background: none;
+	border: none;
+	border-radius: 40%;
+	margin-top: 20px;
+}
+
+.dropdown-item {
+	cursor: pointer;
+}
+
+#seachClass {
+	background: none;
+}
+
+#alarmIcon {
+	width: 30px;
+}
+
+.dropdown>button:hover {
+	background-color: #cff0cc;
+}
+
+button:focus {
+	outline: none;
+}
