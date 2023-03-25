@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.classes.model.vo.Class , java.util.ArrayList"%>
+<%
+	String contextPath = request.getContextPath();
+	ArrayList<Class> list = (ArrayList<Class>) request.getAttribute("list");
+%>	
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-<link rel="stylesheet" href="../../resources/css/mainPage.css">
+<title>TheGrowing</title>
+<link rel="stylesheet" href="<%= contextPath %>/resources/css/mainPage.css">
 
 <style>
 @media only screen and (min-width: 780px) {
@@ -27,7 +31,7 @@
 
 </head>
 <body>
-		<%@ include file="../common/header.jsp" %>
+		<%@ include file="/views/common/header.jsp" %>
 		<div class="contentBox">
 			<div class="myInfo">
 				<div class="myProfile">
@@ -44,37 +48,29 @@
 				</div>
 				<div class="myClass">
 					<div class="myClass-info">
-						<div class="myClass-list">
+					<% for(int i = 0; i < list.size();i++){ %>
+						<div  id="class<%= i %>" class="myClass-list">
 							<div class="myClass-img">
-								<img src="../../resources/image/bono.jpg" alt="클래스 프로필">
-							</div>
+								<img src="<%= request.getContextPath()+list.get(i).getFilePath()+"/"+list.get(i).getChangeName() %>" alt="클래스 프로필">
+							</div>							
 							<div class="myClass-text-list">
-								<div class="myClass-text">가나다라바1 초등학교 이1학년<br>준하반</div>
-								<div class="myClass-text">가입자 수 : 12340명</div>
+								<div class="myClass-text"><%= list.get(i).getClassTypeName()%><%=" "+ list.get(i).getClassGrade() %>학년<br><%= list.get(i).getClassName() %></div>
+								<div class="myClass-text">가입자 수 : <%= list.get(i).getUserCount()%>명</div>
 								<div class="myClass-text">가나다바라 선생님</div>
 							</div>
-						</div>
-						<div class="myClass-list">
-							<div class="myClass-img">
-								<img src="../../resources/image/flower.jpg" alt="클래스 프로필">
-							</div>
-							<div class="myClass-text-list">
-								<div class="myClass-text">세명 초등학교 3학년<br>예솔반</div>
-								<div class="myClass-text">가입자 수 : 20명</div>
-								<div class="myClass-text">문동은 선생님</div>
-							</div>
-						</div>
+						</div>		
+					<% } %>
 					</div>
-					<div class="myClass-btn">
-						<img src="../../resources/image/iconsample.png" alt="클래스 더보기" width="100%" height="90%"> 
-						<span>클래스 더보기</span>
+					<div class="myClass-btn" style="background-image: url('<%= contextPath %>/resources/image/houses-fill.svg');">
+						<img src="<%= contextPath %>/resources/image/houses-fill.svg" alt="클래스 더보기" width="0" height="90%"> 
+						<span>클래스<br>더보기</span>
 					</div>
-					<div class="myClass-btn">
-						<img src="../../resources/image/iconsample2.png" alt="새 클래스 만들기"width="100%" height="90%">
+					<div class="myClass-btn" style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
+						<img src="<%= contextPath %>/resources/image/house-add-fill.svg" alt="새 클래스 만들기" width="0" height="90%">
 						<span>새 클래스<br>만들기</span>
 					</div>
-					<div class="myClass-btn">
-						<img src="../../resources/image/treelogo.png" alt="초대코드로 가입하기"width="100%" height="90%">
+					<div class="myClass-btn" style="background-image: url('<%= contextPath %>/resources/image/door-open-fill.svg');">
+						<img src="<%= contextPath %>/resources/image/door-open-fill.svg" alt="초대코드로 가입하기"width="0" height="90%">
 						<span>초대코드로<br>가입</span>
 					</div>
 				</div>
@@ -229,30 +225,6 @@
         })();
     </script>
     <script>
-    	$.ajax({
-    		// 급식 가져오는 나이스포털 api
-    		/* url : 'https://open.neis.go.kr/hub/schoolInfo?KEY=42f9059625d34f7f989f556b3a16de4f&Type=json&SCHUL_NM=신성초등학교', */
-			/* ATPT_OFCDC_SC_CODE = 교육청 코드 SD_SCHUL_CODE = 학교 코드 MLSV_YMD = 가져올 날짜*/	    				
-    		url : 'https://open.neis.go.kr/hub/mealServiceDietInfo?Type=jsonp&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=T10&SD_SCHUL_CODE=9290083&MLSV_YMD=20230324',
-    		method : 'GET',
-    		contentType:'application/json;charset=utf-8',
-    		dataType:'jsonp',
-    		
-    		success:function(result){
-    			if(result != undefined || result != null){
-	    			$(".lunch").html("<h3>오늘의 급식표</h3><br>"+result.mealServiceDietInfo[1].row[0].DDISH_NM+
-	    					"<br><br> <span style='font-size:0.6vw;'>* 요리명에 표시된 번호는 알레르기를 유발할수 있는 식재료입니다<br><br>"+
-	    					"(1.난류, 2.우유, 3.메밀, 4.땅콩, 5.대두, 6.밀, 7.고등어, 8.게, 9.새우,<br> 10.돼지고기, 11.복숭아, 12.토마토, 13.아황산염, 14.호두, 15.닭고기, 16.쇠고기, 17.오징어, 18.조개류(굴,전복,홍합 등)</span>")
-    			}else{
-    				$(".lunch").html("<h3>급식이 없습니다</h3>");
-    			}
-    		},
-    		error:function(error,status,msg){
-    			alert("상태코드 " + status + "에러메시지" + msg );
-    		}
-    	});
-    </script>
-    <script>
       $(function () {
         $(".myClass-info").slick({ // 슬라이드 만들기
           slide: "div", //슬라이드 되어야 할 태그 ex) div, li
@@ -272,6 +244,55 @@
         });
       	$(".slick-prev,.slick-next").css("height","40%").css("background-color","#209dce").css("border-radius","2vw");
       });
+    </script>
+    <script>
+    	let index = 0;
+    	let atptCodeArr = [];
+    	let schulCodeArr = [];
+    	<% for(int i = 0; i < list.size(); i++){%>
+    		atptCodeArr.push("<%= list.get(i).getAtptOfcdcScCode()%>");
+    		schulCodeArr.push("<%= list.get(i).getSdSchulCode()%>");
+    	<%}%>
+    	
+	    function getToday(){
+	        var date = new Date();
+	        var year = date.getFullYear();
+	        var month = ("0" + (1 + date.getMonth())).slice(-2);
+	        var day = ("0" + date.getDate()).slice(-2);
+
+	        return year + month + day;
+	    }
+	    
+	    function lunch(){
+	    	let date = getToday();
+	    	$.ajax({
+	    		// 급식 가져오는 나이스포털 api
+	    		/* url : 'https://open.neis.go.kr/hub/schoolInfo?KEY=42f9059625d34f7f989f556b3a16de4f&Type=json&SCHUL_NM=신성초등학교', */
+				/* ATPT_OFCDC_SC_CODE = 교육청 코드 SD_SCHUL_CODE = 학교 코드 MLSV_YMD = 가져올 날짜*/	    				
+	    		url : "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=jsonp&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + atptCodeArr[index] + "&SD_SCHUL_CODE="+ schulCodeArr[index] +"&MLSV_YMD="+(date),
+	    		method : 'GET',
+	    		contentType:'application/json;charset=utf-8',
+	    		dataType:'jsonp',
+	    		
+	    		success:function(result){
+	    			if(typeof result.mealServiceDietInfo != "undefined"){
+		    			$(".lunch").html("<h3>오늘의 급식표</h3><br>"+result.mealServiceDietInfo[1].row[0].DDISH_NM+
+		    					"<br><br> <span style='font-size:0.6vw;'>* 요리명에 표시된 번호는 알레르기를 유발할수 있는 식재료입니다<br><br>"+
+		    					"(1.난류, 2.우유, 3.메밀, 4.땅콩, 5.대두, 6.밀, 7.고등어, 8.게, 9.새우,<br> 10.돼지고기, 11.복숭아, 12.토마토, 13.아황산염, 14.호두, 15.닭고기, 16.쇠고기, 17.오징어, 18.조개류(굴,전복,홍합 등)</span>")
+	    			}else{
+	    				$(".lunch").html("<h3>내용이 없습니다</h3>" + result.RESULT.MESSAGE);
+	    			}
+	    		},
+	    		error:function(error,status,msg){
+	    			alert("상태코드 " + status + "에러메시지" + msg );
+	    		}
+	    	});
+	    }
+	    lunch();
+	    $(".myClass-info").on('afterChange', function(event, slick, direction){
+	    	index = $(".slick-current>div>div").attr("id").substr(5);
+		    lunch();
+	    });
     </script>
 </body>
 </html>
