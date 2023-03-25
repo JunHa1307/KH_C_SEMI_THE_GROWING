@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 
 <!-- css -->
-<link rel="stylesheet" href="../../resources/css/button.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/button.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
 </head>
 <body>
