@@ -15,18 +15,27 @@ html{
 }
 
 #header {
-	display: inline-flex;
+	width: 100%;
+	margin: auto;
+	max-width:1500px;
+	height: 10%;
+	display: flex;
+	justify-content: center;
+	align-item: center;
 }
+
 
 #searchBtn>img {
 	width: 20px;
 }
 
 #search {
-	margin-left: 390px;
+	margin: auto;
+	width:40%;
 }
 
 #searchBtn {
+	width:100%;
 	border: 1px solid black;
 	height: 50px;
 	border-radius: 10px;
@@ -38,53 +47,13 @@ html{
 }
 
 #logoBtn {
-	margin-left: 100px;
+	margin: auto;
 }
 
 #seachClass {
-	width: 700px;
+	width: 100%;
 	border: none;
 	outline: none;
-}
-
-#header {
-	width: 100%;
-	height: 10%;
-	margin-top: 10px;
-}
-
-#info>div {
-	display: table-cell;
-	width: 25%;
-}
-
-#classInfo, #userInfo {
-	padding-left: 50px;
-	vertical-align: middle;
-}
-
-#classInfo>div, #userInfo>div {
-	font-size: large;
-	font-weight: 900;
-}
-
-#info {
-	width: 100%;
-	margin-top: 20px;
-	display: table;
-	height: 20%;
-	background-color: #cff0cc;
-}
-
-#pSchool, #pUser {
-	padding-left: 300px;
-}
-
-.profile {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 150px;
-	border-radius: 50%;
 }
 
 .btnStyle {
@@ -100,7 +69,7 @@ html{
 }
 
 .dropdown {
-	margin-left: 350px;
+	margin: auto;
 }
 
 .dropdown>button {

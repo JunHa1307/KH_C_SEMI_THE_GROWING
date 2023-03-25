@@ -5,15 +5,10 @@
 	display: flex;
 	background: #ffffff;
 	color: #000000;
-	width: 150px;
-	height: 50px;
-	border-radius: 30px;
 }
 
 .button_UI {
 	float: left;
-	width: 150px;
-	height: 50px;
 	display: block;
 	border: none;
 	background: none;
@@ -22,8 +17,6 @@
 	z-index: 1;
 	-webkit-backface-visibility: hidden;
 	-moz-osx-font-smoothing: grayscale;
-	border-radius: 30px;
-	border: 3px solid;
 }
 
 .button_UI :active {
@@ -58,7 +51,6 @@
 }
 
 .button--winona::after, .button--winona>span {
-	padding: 10px;
 	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
 	transition: transform 0.3s, opacity 0.3s;
 	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
@@ -82,4 +74,44 @@
 	opacity: 0;
 	-webkit-transform: translate3d(0, -25%, 0);
 	transform: translate3d(0, -25%, 0);
+}
+/* 화면 너비 780 이상일 떄 */
+@media only screen and (min-width: 780px) {
+	.box {
+	width: 6.375vw;
+	height: 2.125vw;
+	border-radius: 4vw;
+	font-size:0.9vw;
+	}
+	
+	.button_UI {
+	width: 6.375vw;
+	height: 2.125vw;
+	border-radius: 4vw;
+	border: 0.15vw solid;
+	}
+	
+	.button--winona::after, .button--winona>span {
+	padding: 0.335vw;
+	}
+}
+/* 화면 너비 780 이하일 떄 */
+@media only screen and (max-width: 780px) {
+	.box {
+	width: 15vw;
+	height: 7vw;
+	border-radius: 4vw;
+	font-size: 2vw;
+	}
+	
+	.button_UI {
+	width: 15vw;
+	height: 7vw;
+	border-radius: 4vw;
+	border: 0.5vw solid;
+	}
+	
+	.button--winona::after, .button--winona>span {
+	padding: 0.335vw;
+	}
 }
