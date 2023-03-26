@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+	String contextPath = request.getContextPath();
+    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,33 +12,39 @@
     <title>Document</title>
     <!--부트스트랩 알림을 위한 css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <!-- 부트스트랩 게시판 목록을 위한 css -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    
+    <!-- 슬릭 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> 
+    
     <style>
-
         /* 게시판 헤더 및 정보(게시판마다 공통) */
         *{
         
         font-family: 'Gowun Dodum', sans-serif;
         
         }
-        /* div{
-            border: 1px solid red;
-        } */
+         div{
+           /*  border: 1px solid red; */
+            box-sizing: border-box;
+        } 
         .wrap{
             width:100%;
-            height:100%;
+            min-height: 100%;
+            position: absolute;
+            top: 0;
+  			left: 0;
         }
 
         #header{
@@ -138,26 +147,33 @@
         #board_wrap {
             margin-top: 50px;
             width: 100%;
-            min-height: 700px;
+           height: 100%
+           
         }
         #inner_wrap {
             width: 1200px;
-            height: 700px;
+    			height: 100%;
             margin: auto;
         }
-        /* div {
-            box-sizing: border-box;
-            border: 1px solid red;
-        } */
+        
         #inner_wrap > div {
             height: 100%;
             float: left;
         }
         #board {
+            width: 239px;
+            height:700px;
+           position: fixed;
+        }
+         #board_fixed {
             width: 20%;
+             height:100%;
+         	position: relative;
+         	border : 1px solid white;
         }
         #board_area {
             width: 80%;
+           
         }
         #board >ul> li {
             list-style-type: none;
@@ -185,12 +201,26 @@
             padding: 9px;
             padding-left: 14px;
         }
+        .board_li>div>a{
+        		color:black;
+        	}
         .board_li{
             margin-bottom: 13px;
         }
         .board_hr{
             padding: 7px;
         }
+        #veil{
+        position: fixed;
+        width: 100%; 
+        height: 100%;
+        bottom: 0px; 
+        background-color: black; 
+        opacity: 0.6;
+        z-index: 1; 
+        display: none;
+      }
+    
 
     </style>
 </head>
@@ -234,16 +264,18 @@
                 <div>담임 : 류준하 선생님</div>
                 <div>학급 수 : 18명</div>
             </div>
-            <div id="pUser"><img class="profile" src="resources/image/bono.jpg"> </div>
+            <div id="pUser"><img class="profile" src="/resources/image/bono.jpg"> </div>
             <div id="userInfo">
                 <div>오현지 학부모</div>
                 <div><button class="btnStyle" type="button">로그아웃</button></div>
                 <div><button class="btnStyle" type="button">마이페이지</button></div>
             </div>
         </div>
-
+		<div id="veil"></div>
+		
         <div id="board_wrap">
             <div id="inner_wrap">
+          	    <div id="board_fixed"></div>
               <div id="board">
                   <ul>
                     <li class="board_title">게시판</li>
@@ -262,9 +294,9 @@
                     <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>
-              </div>
-              <div id="board_area"></div>
-            </div>
+             </div>
+           
+           
             
             <script>
               $(function(){
@@ -275,11 +307,18 @@
                       $(this).siblings().children().css("background","");
                   
                   });
+                  
+                  
+          	
+        			$("#board_album").click(function(){
+        				location.href = "<%=contextPath %>/list.al";
+        			})
+        		
               });
            
       
             </script>
 
-    </div>
+   
 </body>
 </html>

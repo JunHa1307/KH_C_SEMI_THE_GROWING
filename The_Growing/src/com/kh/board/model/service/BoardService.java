@@ -1,0 +1,53 @@
+package com.kh.board.model.service;
+
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.kh.board.model.dao.BoardDao;
+import com.kh.board.model.vo.Attachment;
+import com.kh.board.model.vo.Board;
+
+public class BoardService {
+
+	public ArrayList<Board> selectAlbumList() {
+		Connection conn = getConnection();
+		ArrayList<Board> list = new BoardDao().selectAlbumList(conn);
+		close(conn);
+		return list;
+	}
+
+	public int insertAlbumBoard(Board b, ArrayList<Attachment> list) {
+
+		Connection conn = getConnection();
+
+		int result1 = new BoardDao().insertAlbumBoard(conn, b);
+
+		int result2 = new BoardDao().insertAttachmentList(conn, list);
+
+		if (result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return result1 * result2;
+	}
+	
+	public ArrayList<Attachment> selectAttachList(){
+		Connection conn = getConnection();
+			
+			ArrayList<Attachment> list = new BoardDao().selectAttachList(conn);
+			
+			close(conn);
+			
+			return list;
+		}
+
+}
