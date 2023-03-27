@@ -46,10 +46,10 @@ public class MemberService {
 		return result;
 	}
 	
-	public Member loginMember(String userId, String userPwd) {
+	public Member loginMember(String userId, String userPwd, int userLevel) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Member m = new MemberDao().loginMember(conn, userId, userPwd);
+		Member m = new MemberDao().loginMember(conn, userId, userPwd, userLevel);
 		
 		try {
 			conn.close();

@@ -99,7 +99,7 @@ public class MemberDao {
 				
 	}
 	
-	public Member loginMember(Connection conn, String userId, String userPwd) {
+	public Member loginMember(Connection conn, String userId, String userPwd, int userLevel) {
 		
 		// Select문 => ResultSet객체(조회된 행은 1개이거나 없거나)
 		Member m = null;
@@ -116,6 +116,7 @@ public class MemberDao {
 			
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPwd);
+			pstmt.setInt(3, userLevel);
 			
 			rset = pstmt.executeQuery();
 			

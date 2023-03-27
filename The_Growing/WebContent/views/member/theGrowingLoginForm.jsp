@@ -174,7 +174,6 @@
         </div>
 		
 		<form class="content" id="login-form" action="<%= request.getContextPath() %>/login.me" method="post">
-	        <!-- <div > -->
 	
 	            <div class="content_1"></div>
 	
@@ -200,7 +199,7 @@
 	                <div id="start_area"> <!-- 시작하기 버튼-->
 	                        <button id="start_btn" onclick="submitLogin();">시작하기</button>
 	                </div>
-	
+					</form>
 	                <div id="text_area">
 	                    <span style="font-weight: bold;">
 	                        The Growing 계정이 없으신가요? <br>
@@ -209,14 +208,12 @@
 	                </div>
 	
 	                <div id="loginEnroll_area"> <!-- 회원가입 버튼-->
-	                        <button id="enroll_btn" onclick="enrollPage();">회원가입 바로가기</button>
+	                        <button id="enroll_btn" type="button" onclick="enrollPage();">회원가입 바로가기</button>
 	                </div>
 	            </div>
 	
 	            <div class="content_3"></div>
-	        <!-- </div> -->
-	    </form>
-        
+
        	<script>
        		/* 회원가입을 위한 페이지 */
 			function enrollPage(){

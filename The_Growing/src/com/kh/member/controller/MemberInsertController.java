@@ -49,7 +49,7 @@ public class MemberInsertController extends HttpServlet {
 		String phone = request.getParameter("phone");// 빈문자열이 전달될수도 있다.
 		String address = request.getParameter("address");// 빈문자열이 전달될수도 있다.
 				
-		int userLevel = (int) request.getSession().getAttribute("userLevel");
+		int userLevel = (int) request.getSession().getAttribute("userLevel"); // 입력받지는 않지만 필수값
 			
 		// 이메일 암호화 (개발자가 정보 못보게)
 //		email = AEScryptor.encrypt(email);

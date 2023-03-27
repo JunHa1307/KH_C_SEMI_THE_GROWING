@@ -41,7 +41,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 	                </tr>
 	                <tr>
 	                    <td>* 비밀번호 확인</td>
-	                    <td><input type="password" maxlength="15" required></td> <!-- 단순 비교 확인 용도라 key 값을 부여 안해도 됨 -->
+	                    <td><input type="password" name="userPwdCheck" maxlength="15" required></td> <!-- 단순 비교 확인 용도라 key 값을 부여 안해도 됨 -->
 	                    <td></td>
 	                </tr>
 	                <tr>
@@ -117,9 +117,19 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 				}
 					
 			});
-			
-			
 		}
+		
+		/* 비밀번호 확인 */
+		$("#submit").click(function(){
+			let userPwd = $("#enroll-form [name=userPwd]").val();
+			let userPwdCheck = $("#enroll-form [name=userPwdCheck]").val();
+			
+			if(userPwd != userPwdCheck){
+				$("#enroll-form [name=userPwdCheck]").val("");
+				$("#enroll-form [name=userPwdCheck]").focus();
+				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요^^");
+			}
+		});
 	</script>
 	
 </body>

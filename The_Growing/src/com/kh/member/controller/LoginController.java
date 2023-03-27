@@ -57,9 +57,10 @@ public class LoginController extends HttpServlet {
 		// 2) 요청 시 전달값을 꺼내서 변수 OR 객체에 기록
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-	
+		int userLevel = (int) request.getSession().getAttribute("userLevel");		
+		
 		// 3) 해당 요청을 처리하는 서비스 클래스의 메소드 호출
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
+		Member loginUser = new MemberService().loginMember(userId, userPwd, userLevel);
 	
 		// 4) 처리된 결과를 가지고 사용자가 보게될 화면(view)를 지정 후 포워딩 or url재요청
 		
@@ -105,7 +106,7 @@ public class LoginController extends HttpServlet {
 			
 			// 2. url재요청방식 (sendRedirect 방식)
 			//    localhost:8082/jspproject라는 url로 재요청 보냄
-			response.sendRedirect("views/member/mainPage.jsp"); // 로그인시에는 redirect방식이 사용된다
+			response.sendRedirect("views/member/mainPageTest.jsp"); // 로그인시에는 redirect방식이 사용된다
 		}
 		
 	

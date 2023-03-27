@@ -31,6 +31,7 @@
 		FROM MEMBER
 		WHERE USER_ID = ?
 		  AND USER_PWD = ?
+		  AND USER_LEVEL = ?
 		  AND STATUS = 'Y'
 	</entry>
 </properties>
