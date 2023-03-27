@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.classes.model.service.ClassService;
 import com.kh.classes.model.vo.Class;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class MainPageController
@@ -31,9 +32,9 @@ public class MainPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = 3;
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		ArrayList<Class> list = new ClassService().selectClassList(userNo);
+		ArrayList<Class> list = new ClassService().selectClassList(loginUser.getUserNo());
 		
 		request.setAttribute("list", list);
 		

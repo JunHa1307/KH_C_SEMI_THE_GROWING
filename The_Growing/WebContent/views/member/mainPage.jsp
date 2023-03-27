@@ -32,12 +32,14 @@
 
 </head>
 <body>
-		<%@ include file="/views/common/header.jsp" %>
+	<%@ include file="/views/common/header.jsp" %>
+	
 		<div class="contentBox">
+			<!-- 상단컨텐츠 -->
 			<div class="myInfo">
 				<div class="myProfile">
 					<div class="myProfile-img">
-						<img src="../../resources/image/bono.jpg" alt="">
+						<img src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="">
 					</div>
 					<span class="myProfile-name"><%= loginUser.getUserName() %></span>
 					<button class="button_UI button--winona" data-text="마이페이지">
@@ -49,37 +51,57 @@
 				</div>
 				<div class="myClass">
 					<div class="myClass-info">
-					<% for(int i = 0; i < list.size();i++){ %>
-						<div  id="class<%= i %>" class="myClass-list">
-							<div class="myClass-img">
-								<img src="<%= request.getContextPath()+list.get(i).getFilePath()+"/"+list.get(i).getChangeName() %>" alt="클래스 프로필">
-							</div>							
-							<div class="myClass-text-list">
-								<div class="myClass-text"><%= list.get(i).getClassTypeName()%><%=" "+ list.get(i).getClassGrade() %>학년<br><%= list.get(i).getClassName() %></div>
-								<div class="myClass-text">가입자 수 : <%= list.get(i).getUserCount()%>명</div>
-								<div class="myClass-text">가나다바라 선생님</div>
-							</div>
-						</div>		
+					<% if(list.size() != 0){ %>
+						<% for(int i = 0; i < list.size();i++){ %>
+							<div  id="class<%= i %>" class="myClass-list">
+								<div class="myClass-img">
+									<img src="<%= contextPath +list.get(i).getFilePath()+"/"+list.get(i).getChangeName() %>" alt="클래스 프로필">
+								</div>							
+								<div class="myClass-text-list">
+									<div class="myClass-text"><%= list.get(i).getClassTypeName()%><%=" "+ list.get(i).getClassGrade() %>학년<br><%= list.get(i).getClassName() %></div>
+									<div class="myClass-text">가입자 수 : <%= list.get(i).getUserCount()%>명</div>
+									<div class="myClass-text">가나다바라 선생님</div>
+								</div>
+							</div>		
+						<% } %>
+					<% } else { %>
+						<div  id="class0" class="myClass-list">
+								<div class="myClass-img">
+									<img src="<%= contextPath %>/resources/image/bono.jpg" alt="클래스 프로필">
+								</div>							
+								<div class="myClass-text-list">
+									<div class="myClass-text">가입된 클래스가 없습니다.</div>
+								</div>
+							</div>		
 					<% } %>
 					</div>
 					<div class="myClass-btn" style="background-image: url('<%= contextPath %>/resources/image/houses-fill.svg');">
 						<img src="<%= contextPath %>/resources/image/houses-fill.svg" alt="클래스 더보기" width="0" height="90%"> 
 						<span>클래스<br>더보기</span>
 					</div>
-					<div class="myClass-btn" style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
-						<img src="<%= contextPath %>/resources/image/house-add-fill.svg" alt="새 클래스 만들기" width="0" height="90%">
-						<span>새 클래스<br>만들기</span>
-					</div>
-					<div class="myClass-btn" style="background-image: url('<%= contextPath %>/resources/image/door-open-fill.svg');">
+					<%-- if(선생님이면) {--%>
+						<div class="myClass-btn" data-toggle="modal" data-target="#newClassModal" style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
+							<img src="<%= contextPath %>/resources/image/house-add-fill.svg" alt="새 클래스 만들기" width="0" height="90%">
+							<span>새 클래스<br>만들기</span>
+						</div>
+					<%-- } else { --%>
+					<%--<div class="myClass-btn" onclick="ClassSearch(구현안됨);" style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
+							<img src="<%= contextPath %>/resources/image/house-add-fill.svg" alt=" 클래스 찾기" width="0" height="90%">
+							<span>클래스<br>찾기</span>
+						</div> --%>
+					<%-- } --%>
+					<div class="myClass-btn" data-toggle="modal" data-target="#classCode" style="background-image: url('<%= contextPath %>/resources/image/door-open-fill.svg');">
 						<img src="<%= contextPath %>/resources/image/door-open-fill.svg" alt="초대코드로 가입하기"width="0" height="90%">
 						<span>초대코드로<br>가입</span>
 					</div>
 				</div>
 			</div>
+			
 			<div class="today-date">
 				오늘은 <b>2023년 03월 23일 목요일</b> 이에요! 행복한 하루 되세요~
 			</div>
-			<!-- 하단 메뉴 -->
+			
+			<!-- 하단 컨텐츠 -->
 			<div class="other-info">
 				<!-- 급식표 -->
 				<div class="lunch">
@@ -88,27 +110,6 @@
 					<h3>시간표</h3>
 					<div>
 						<div id="time-table" style="border-radius: 10px;"></div>
-					</div>
-					<!-- 시간표 테이블 모달창 -->
-					<div id="tableModal" class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" >
-						<div class="modal-dialog modal-dialog-centered modal-xl">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="modalLabel"></h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<div id="time-table1" style="border-radius: 10px;"></div>
-								</div>
-								
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-									<button type="button" id="btn_register" class="btn btn-primary" onclick="tableUpdate();">확인</button>
-								</div>
-							</div>
-						</div>
 					</div>					
 					<div class="table-btn">
 						<button type="button" class="button_UI button--winona" data-text="업데이트" onclick="tableUpdate();">업데이트</button>
@@ -119,6 +120,120 @@
 					<div id='calendar'></div>
 				</div>
 			</div>
+			
+			<!-- modal-wrap -->
+			<div>
+				<!-- 새 클래스 만들기 모달창 -->
+				<div id="newClassModal" class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" >
+					<div class="modal-dialog modal-dialog-centered modal-xl">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 style="font-weight:700;">새 클래스 만들기</h1>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							
+							<form action="" method="post">
+								<div class="modal-body">
+					                <div class="title">
+					                    <h2>학교</h2>
+					                </div>
+					
+					                <div class="title_box">
+					                    <input class="school_search" type="text" placeholder="내용을 입력해주세요">
+					                </div>
+					
+					                <div class="info">
+					                    <h2>연도</h2>
+					                    <h2>학년</h2>
+					                    <h2>클래스 이름</h2>
+					                    <h2>선생님 이름</h2>
+					                </div>
+					
+					                <div class="info_box">
+					                        <input class="year" type="number" name="amount" min="2010" max="2030" step="1" value="2023">
+					                        <input class="grade" type="number" name="amount" min="1" max="6" step="1" value="1">
+					                        <input class="class_name" type="text" placeholder="학교이름을 입력해주세요">
+					                        <input class="teacher_name" type="text" placeholder="선생님 이름을 입력하세요">
+					                </div>
+				                    <h2>대표 이미지 설정</h2>
+					                <div class="profile_img_area">
+					                    <img class="prof_img"  src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F66%2Ff4%2F1a%2F66f41a22733442b2af0ed3538d713eb5.jpg&type=ff332_332">                          
+					                </div>
+					                <div class="box_1" style="margin-bottom:0;">
+					                    <div class="box">
+					                        <button class="button_UI button--winona" data-text="수정"><span>수정</span></button>
+					                    </div>
+					                    <div class="box">
+					                        <button class="button_UI button--winona" data-text="삭제"><span>삭제</span></button>
+					                    </div>
+					                </div>      
+								</div>
+								
+								<div class="modal-footer">
+				                    <div class="box">
+				                        <button class="button_UI button--winona" data-dismiss="modal" data-text="취소"><span>취소</span></button>
+				                    </div>
+				                    <div class="box">
+				                        <button id="btn_register" class="button_UI button--winona" data-text="완료"><span>완료</span></button>
+				                    </div>
+				                
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- 시간표 테이블 모달창 -->
+				<div id="tableModal" class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" >
+					<div class="modal-dialog modal-dialog-centered modal-xl">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modalLabel"></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div id="time-table1" style="border-radius: 10px;"></div>
+							</div>
+							
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+								<button type="button" id="btn_register" class="btn btn-primary" onclick="tableUpdate();">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 초대코드로 가입 모달창 -->
+				<div id="classCode" class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" >
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-body">
+								<h3 style="display:inline-block;font-weight:700;">초대코드로 가입하기</h3>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h5>선생님께 전달받은 초대 코드를 입력하세요.</h5>
+								<form action="" method="post">
+									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
+									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
+									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
+									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
+									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
+									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
+								</form>
+							</div>
+							
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+								<button type="button" id="btn_register" class="btn btn-primary" onclick="tableUpdate();">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				
 		</div>
 	<script>
 	//버튼 UI 애니메이션
@@ -294,6 +409,7 @@
 	    	index = $(".slick-current>div>div").attr("id").substr(5);
 		    lunch();
 	    });
+	    
     </script>
 </body>
 </html>
