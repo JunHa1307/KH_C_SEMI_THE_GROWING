@@ -28,15 +28,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> 
     
+    <!-- summernote -->
+    <script src="resources/summernote/summernote-lite.js"></script>
+	<script src="resources/summernote/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="resources/summernote/summernote-lite.css">
+    
     <style>
         /* 게시판 헤더 및 정보(게시판마다 공통) */
-        *{
+       *{
         
         font-family: 'Gowun Dodum', sans-serif;
         
         }
          div{
-           /*  border: 1px solid red; */
+             /* border: 1px solid red; */  
             box-sizing: border-box;
         } 
         .wrap{
@@ -147,12 +152,12 @@
         #board_wrap {
             margin-top: 50px;
             width: 100%;
-           height: 100%
+           min-height: 700px;
            
         }
         #inner_wrap {
             width: 1200px;
-    			height: 100%;
+    	    min-height: 700px;
             margin: auto;
         }
         
@@ -163,16 +168,20 @@
         #board {
             width: 239px;
             height:700px;
-           position: fixed;
+          position: fixed;
+           
         }
-         #board_fixed {
+       #board_fix {
             width: 20%;
-             height:100%;
-         	position: relative;
-         	border : 1px solid white;
+            height:700px;
+          position: relative;
+          border : 1px solid white;
+           
         }
+        
         #board_area {
             width: 80%;
+            padding : 20px;
            
         }
         #board >ul> li {
@@ -220,9 +229,151 @@
         z-index: 1; 
         display: none;
       }
+    /* 버튼 css */
+.box {
+      display: flex;
+      background: #ffffff;
+      color: #000000;
+      width: 150px;
+      height: 50px;
+      border-radius: 30px;
+    }
+    .button_UI {
+      float: left;
+      width: 150px;
+      height: 50px;
+      display: block;
+      border: none;
+      background: none; 
+      color: inherit;
+      position: relative;
+      z-index: 1;
+      -webkit-backface-visibility: hidden;
+      -moz-osx-font-smoothing: grayscale;
+      border-radius: 30px;
+      border: 3px solid;
+    }
+    .button_UI :active{
+     color :rgb(137, 180, 166);
+    }
+    .button_UI:focus {
+      outline: none;
+    }
+    
+    .button--winona {
+      overflow: hidden;
+      padding: 0;
+      -webkit-transition: border-color 0.3s, background-color 0.3s;
+      transition: border-color 0.3s, background-color 0.3s;
+      -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+      transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    .button--winona::after {
+      content: attr(data-text);
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      color: rgb(137, 180, 166);
+      font-weight: 600;
+      -webkit-transform: translate3d(0, 25%, 0);
+      transform: translate3d(0, 25%, 0);
+    }
+    .button--winona::after,
+    .button--winona > span {
+      padding: 10px;
+      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+      transition: transform 0.3s, opacity 0.3s;
+      -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+      transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+      display: block;
+      font-weight: 600;
+    }
+    .button--winona:hover {
+      border-color: rgb(137, 180, 166);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .button--winona:hover::after {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+    .button--winona:hover > span {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -25%, 0);
+      transform: translate3d(0, -25%, 0);
+    }
+      .board_hr {
+        padding: 7px;
+      }
+      #album_header {
+        height: 80px;
+        width: 100%;
+        position: sticky;
+        /* background-color: antiquewhite; */
+      }
+      #album_area > div {
+        float: left;
+        height: 100%;
+      }
+      #album_title {
+        width: 70%;
+        font-size: 25px;
+        font-weight: 700;
+        padding-top: 13px;
+        padding-left: 14px;
+      }
+      #album_button {
+        width: 30%;
+      }
+      #album_area {
+        width: 100%;
+        height: 70%;
+        /* background-color: aliceblue; */
+      }
+
+      #album_button {
+        width: 30%;
+      }
+     
+      #album_hr {
+        width: 100%;
+        height: 30%;
+
+        /* background-color: aquamarine; */
+      }
+      #album_hr > hr {
+        margin: 0;
+
+        /* background-color: aquamarine; */
+      }
+
     
 
     </style>
+                <script>
+              $(function(){
+                  $(".board_li").click(function(){
+                      $(this).css("fontWeight","700").fadeIn(1000);
+                      $(this).children().css("background","rgb(239, 243, 239)");
+                      $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
+                      $(this).siblings().children().css("background","");
+                  
+                  });
+                  
+                  
+          	
+        			$("#board_album").click(function(){
+        				location.href = "<%=contextPath %>/list.al";
+        			})
+        		
+              });
+           
+      
+            </script>
 </head>
 <body>
     <div class="wrap">
@@ -275,7 +426,7 @@
 		
         <div id="board_wrap">
             <div id="inner_wrap">
-          	    <div id="board_fixed"></div>
+          	  <div id="board_fix"></div>
               <div id="board">
                   <ul>
                     <li class="board_title">게시판</li>
@@ -298,26 +449,7 @@
            
            
             
-            <script>
-              $(function(){
-                  $(".board_li").click(function(){
-                      $(this).css("fontWeight","700").fadeIn(1000);
-                      $(this).children().css("background","rgb(239, 243, 239)");
-                      $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
-                      $(this).siblings().children().css("background","");
-                  
-                  });
-                  
-                  
-          	
-        			$("#board_album").click(function(){
-        				location.href = "<%=contextPath %>/list.al";
-        			})
-        		
-              });
-           
-      
-            </script>
+
 
    
 </body>

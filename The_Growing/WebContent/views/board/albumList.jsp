@@ -17,84 +17,6 @@
    
     <style>
 
-/* 버튼 css */
-.box {
-      display: flex;
-      background: #ffffff;
-      color: #000000;
-      width: 150px;
-      height: 50px;
-      border-radius: 30px;
-    }
-    .button_UI {
-      float: left;
-      width: 150px;
-      height: 50px;
-      display: block;
-      border: none;
-      background: none; 
-      color: inherit;
-      position: relative;
-      z-index: 1;
-      -webkit-backface-visibility: hidden;
-      -moz-osx-font-smoothing: grayscale;
-      border-radius: 30px;
-      border: 3px solid;
-    }
-    .button_UI :active{
-     color :rgb(137, 180, 166);
-    }
-    .button_UI:focus {
-      outline: none;
-    }
-    
-    .button--winona {
-      overflow: hidden;
-      padding: 0;
-      -webkit-transition: border-color 0.3s, background-color 0.3s;
-      transition: border-color 0.3s, background-color 0.3s;
-      -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-      transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-    }
-    .button--winona::after {
-      content: attr(data-text);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      color: rgb(137, 180, 166);
-      font-weight: 600;
-      -webkit-transform: translate3d(0, 25%, 0);
-      transform: translate3d(0, 25%, 0);
-    }
-    .button--winona::after,
-    .button--winona > span {
-      padding: 10px;
-      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-      transition: transform 0.3s, opacity 0.3s;
-      -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-      transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-      display: block;
-      font-weight: 600;
-    }
-    .button--winona:hover {
-      border-color: rgb(137, 180, 166);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .button--winona:hover::after {
-      opacity: 1;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-    .button--winona:hover > span {
-      opacity: 0;
-      -webkit-transform: translate3d(0, -25%, 0);
-      transform: translate3d(0, -25%, 0);
-    }
-
 
 
 /* 좋아요 하트 */
@@ -130,50 +52,7 @@
         /* border: 1px solid red; */
       }
     
-      .board_hr {
-        padding: 7px;
-      }
-      #album_header {
-        height: 80px;
-        width: 100%;
-        position: sticky;
-        /* background-color: antiquewhite; */
-      }
-      #album_area > div {
-        float: left;
-        height: 100%;
-      }
-      #album_title {
-        width: 70%;
-        font-size: 25px;
-        font-weight: 700;
-        padding-top: 13px;
-        padding-left: 14px;
-      }
-      #album_button {
-        width: 30%;
-      }
-      #album_area {
-        width: 100%;
-        height: 70%;
-        /* background-color: aliceblue; */
-      }
 
-      #album_button {
-        width: 30%;
-      }
-     
-      #album_hr {
-        width: 100%;
-        height: 30%;
-
-        /* background-color: aquamarine; */
-      }
-      #album_hr > hr {
-        margin: 0;
-
-        /* background-color: aquamarine; */
-      }
       .album_content {
         height: 250px;
         width: 100%;
@@ -491,15 +370,13 @@
   </head>
   <body>
   <%@include file="boardFrame.jsp" %>
-  
-   
         <div id="board_area">
           <div id="album_header">
             <div id="album_area">
               <div id="album_title">앨범</div>
               <div id="album_button" align="right" class="box">
                   <button id="album_Enroll" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
-                  <button class="button_UI button--winona" data-text="게시물 모아보기"><span>게시물 모아보기</span></button>
+                  <button id="album_file" class="button_UI button--winona" data-text="게시물 모아보기"><span>게시물 모아보기</span></button>
               </div>
             </div>
             <div id="album_hr">
@@ -754,7 +631,9 @@
 		location.href="<%=contextPath%>/insert.al";
 	})
             
-     
+       $("#album_file").click(function () {
+		location.href="<%=contextPath%>/att.al";
+	})
         
 
     
