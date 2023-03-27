@@ -106,7 +106,7 @@ public class LoginController extends HttpServlet {
 			
 			// 2. url재요청방식 (sendRedirect 방식)
 			//    localhost:8082/jspproject라는 url로 재요청 보냄
-			response.sendRedirect("views/member/mainPageTest.jsp"); // 로그인시에는 redirect방식이 사용된다
+			response.sendRedirect(request.getContextPath()+"/mainpage.me"); // 로그인시에는 redirect방식이 사용된다
 		}
 		
 	

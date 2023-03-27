@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.classes.model.vo.Class , java.util.ArrayList"%>
+	pageEncoding="UTF-8" import="com.kh.classes.model.vo.Class , java.util.ArrayList, com.kh.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
 	ArrayList<Class> list = (ArrayList<Class>) request.getAttribute("list");
+	Member loginUser = (Member) session.getAttribute("loginUser");
 %>	
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +39,7 @@
 					<div class="myProfile-img">
 						<img src="../../resources/image/bono.jpg" alt="">
 					</div>
-					<span class="myProfile-name">사용자 이름</span>
+					<span class="myProfile-name"><%= loginUser.getUserName() %></span>
 					<button class="button_UI button--winona" data-text="마이페이지">
 						<span>마이페이지</span>
 					</button>
