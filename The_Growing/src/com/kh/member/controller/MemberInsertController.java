@@ -44,7 +44,7 @@ public class MemberInsertController extends HttpServlet {
 		
 		//2) 요청시 전달값을 뽑아서 변수 , 객체에 기록해줄것
 		String userId = request.getParameter("userId");// 필수값
-		String userPwd = request.getParameter("userPwd");// 필수값
+		String userPwd = request.getParameter("userPwd");// 필수값(api사용시 null값 들어감)
 		String userName = request.getParameter("userName");// 필수값
 		String phone = request.getParameter("phone");// 빈문자열이 전달될수도 있다.
 		String address = request.getParameter("address");// 빈문자열이 전달될수도 있다.
