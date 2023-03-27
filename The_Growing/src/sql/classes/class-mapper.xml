@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectClassList">
+		SELECT 
+			CM.REF_CNO, CLASS_GRADE, CLASS_CODE, CLASS_NAME,
+			CLASS_TYPE_NAME, CHANGE_NAME, FILE_PATH, TEACHER_NAME,
+			ATPT_OFCDC_SC_CODE, SD_SCHUL_CODE,
+			(SELECT COUNT(*) FROM CLASS_MEMBER WHERE REF_CNO = CM.REF_CNO) AS USER_COUNT
+		FROM CLASS_MEMBER CM
+		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
+		LEFT JOIN ATTACHMENT A ON (A.REF_CNO = C.CLASS_NO)
+		WHERE CM.REF_UNO = ?
+	</entry>
+</properties>

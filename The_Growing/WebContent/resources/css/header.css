@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+/* 게시판 헤더 및 정보(게시판마다 공통) */
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+}
+
+html{
+	width:100%
+}
+
+.wrap {
+	width: 100%;
+	height: 100%;
+}
+
+#header {
+	width: 100%;
+	margin: auto;
+	max-width:1500px;
+	height: 10%;
+	display: flex;
+	justify-content: center;
+	align-item: center;
+}
+
+
+#searchBtn>img {
+	width: 20px;
+}
+
+#search {
+	margin: auto;
+	width:40%;
+}
+
+#searchBtn {
+	width:100%;
+	border: 1px solid black;
+	height: 50px;
+	border-radius: 10px;
+	margin-top: 20px;
+}
+
+#logo {
+	width: 100px;
+}
+
+#logoBtn {
+	margin: auto;
+}
+
+#seachClass {
+	width: 100%;
+	border: none;
+	outline: none;
+}
+
+.btnStyle {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+/* 버튼호버시 이벤트 css부여 */
+.btnStyle:hover {
+	color: #209dce;
+	transition: all .3s ease
+}
+
+.dropdown {
+	margin: auto;
+}
+
+.dropdown>button {
+	background: none;
+	border: none;
+	border-radius: 40%;
+	margin-top: 20px;
+}
+
+.dropdown-item {
+	cursor: pointer;
+}
+
+#seachClass {
+	background: none;
+}
+
+#alarmIcon {
+	width: 30px;
+}
+
+.dropdown>button:hover {
+	background-color: #cff0cc;
+}
+
+button:focus {
+	outline: none;
+}

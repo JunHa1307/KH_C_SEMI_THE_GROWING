@@ -221,7 +221,7 @@
 				userLevel = 0;
 			}
     		
-    		location.href = "<%= contextPath%>/login.me?userLevel="+userLevel;
+    		location.href = "<%= contextPath%>/loginpage.me?userLevel="+userLevel;
     		
     	});
     	
