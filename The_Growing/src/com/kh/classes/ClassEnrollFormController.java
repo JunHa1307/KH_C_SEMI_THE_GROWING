@@ -11,16 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.classes.model.service.ClassService;
+import com.kh.classes.model.vo.Class;
+import com.kh.common.model.vo.HttpConnection;
 import com.kh.common.MyFileRenamePolicy;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
-import com.kh.classes.model.service.ClassService;
-import com.kh.classes.model.vo.Class;
 /**
  * Servlet implementation class ClassEnrollFormController
  */
-@WebServlet("/ClassEnrollFormController")
+@WebServlet("/classEnrollForm.c")
 public class ClassEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,7 +38,28 @@ public class ClassEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		
+		int code = 
+						(Integer.parseInt(request.getParameter("code0"))*100000) +
+						(Integer.parseInt(request.getParameter("code1"))*10000) +
+						(Integer.parseInt(request.getParameter("code2"))*1000) +
+						(Integer.parseInt(request.getParameter("code3"))*100) +
+						(Integer.parseInt(request.getParameter("code4"))*10) +
+						Integer.parseInt(request.getParameter("code5"));
+		
+		int result = new ClassService().insertClassMember(code, m.getUserNo());
+		
+		if(result > 0) {
+			
+			request.getSession().setAttribute("alertMsg", "클래스 가입 성공");
+			response.sendRedirect(request.getContextPath()+"/mainpage.me");
+		}else {
+			
+			request.setAttribute("errorMsg", "클래스 가입 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		}
 	}
 
 	/**
@@ -54,10 +76,20 @@ public class ClassEnrollFormController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/image/classProfile/");
 			
 			MultipartRequest multi = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
-			String classTypeName = multi.getParameter("classTypeName");
+			String classTypeName = multi.getParameter("classTypeName").replaceAll(" ", "");
 			int classGrade = Integer.parseInt(multi.getParameter("classYear"))*100 + Integer.parseInt(multi.getParameter("classGrade"));
 			String className = multi.getParameter("className");
+			System.out.println(classTypeName);
 			String teacherName = multi.getParameter("teacherName");
+			String atCode = multi.getParameter("atCode");
+			
+			
+			new HttpConnection();
+			
+			
+			String lunchCode = HttpConnection.getSchoolCode(classTypeName, atCode);
+			
+			
 			int classCode = (int)(Math.random()*900000+100000);
 			
 			int refUno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo(); 
@@ -68,6 +100,8 @@ public class ClassEnrollFormController extends HttpServlet {
 			c.setClassName(className);
 			c.setTeacherName(teacherName);
 			c.setClassCode(classCode);
+			c.setAtptOfcdcScCode(atCode);
+			c.setSdSchulCode(Integer.parseInt(lunchCode));
 			
 			
 			Attachment at = null;// 처음에는 null값으로 초기화시키고, 실제로 사용자가 첨부파일을 업로드 했을 때만 객체생성
@@ -85,7 +119,7 @@ public class ClassEnrollFormController extends HttpServlet {
 			
 			if(result > 0) {
 				
-				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
+				request.getSession().setAttribute("alertMsg", "클래스 생성 성공");
 				response.sendRedirect(request.getContextPath()+"/mainpage.me");
 			}else {// 실패시에는 -> 첨부파일이 있었을 경우 이미 업로드된 첨부파일을 삭제해주기(용량만 차지함)
 				
@@ -93,7 +127,7 @@ public class ClassEnrollFormController extends HttpServlet {
 					// 삭제시키고자 하는 파일 객체 생성 후 delete메서드 호출시 파일이 삭제된다
 					new File(savePath+at.getChangeName()).delete();
 				}
-				request.setAttribute("errorMsg", "게시글 작성 실패");
+				request.setAttribute("errorMsg", "클래스 생성 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				
 			}

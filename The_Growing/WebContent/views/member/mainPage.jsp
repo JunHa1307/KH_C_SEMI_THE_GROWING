@@ -41,11 +41,14 @@
 					<div class="myProfile-img">
 						<img src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="">
 					</div>
-					<span class="myProfile-name"><%= loginUser.getUserName() %></span>
+					<span class="myProfile-name">
+						<%= loginUser.getUserName() %>&nbsp;
+						<%=( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %>
+					</span>
 					<button class="button_UI button--winona" data-text="마이페이지">
 						<span>마이페이지</span>
 					</button>
-					<button class="button_UI button--winona" data-text="로그아웃">
+					<button onclick="location.href='logout.me'" class="button_UI button--winona" data-text="로그아웃">
 						<span>로그아웃</span>
 					</button>
 				</div>
@@ -55,12 +58,12 @@
 						<% for(int i = 0; i < list.size();i++){ %>
 							<div  id="class<%= i %>" class="myClass-list">
 								<div class="myClass-img">
-									<img src="<%= contextPath +list.get(i).getFilePath()+"/"+list.get(i).getChangeName() %>" alt="클래스 프로필">
+									<img src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>" alt="클래스 프로필">
 								</div>							
 								<div class="myClass-text-list">
-									<div class="myClass-text"><%= list.get(i).getClassTypeName()%><%=" "+ list.get(i).getClassGrade() %>학년<br><%= list.get(i).getClassName() %></div>
+									<div class="myClass-text"><%= list.get(i).getClassTypeName()%><%=" "+ (list.get(i).getClassGrade()+"").substring(4) %>학년<br><%= list.get(i).getClassName() %></div>
 									<div class="myClass-text">가입자 수 : <%= list.get(i).getUserCount()%>명</div>
-									<div class="myClass-text">가나다바라 선생님</div>
+									<div class="myClass-text"><%= list.get(i).getTeacherName()%> 선생님</div>
 								</div>
 							</div>		
 						<% } %>
@@ -79,17 +82,17 @@
 						<img src="<%= contextPath %>/resources/image/houses-fill.svg" alt="클래스 더보기" width="0" height="90%"> 
 						<span>클래스<br>더보기</span>
 					</div>
-					<%-- if(선생님이면) {--%>
+					<%if( loginUser.getUserLevel() == 1) {%>
 						<div class="myClass-btn" data-toggle="modal" data-target="#newClassModal" style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
 							<img src="<%= contextPath %>/resources/image/house-add-fill.svg" alt="새 클래스 만들기" width="0" height="90%">
 							<span>새 클래스<br>만들기</span>
 						</div>
-					<%-- } else { --%>
-					<%--<div class="myClass-btn" onclick="ClassSearch(구현안됨);" style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
+					<%} else { %>
+					<div class="myClass-btn" onclick="ClassSearch(구현안됨);" style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
 							<img src="<%= contextPath %>/resources/image/house-add-fill.svg" alt=" 클래스 찾기" width="0" height="90%">
 							<span>클래스<br>찾기</span>
-						</div> --%>
-					<%-- } --%>
+						</div>
+					<% } %>
 					<div class="myClass-btn" data-toggle="modal" data-target="#classCode" style="background-image: url('<%= contextPath %>/resources/image/door-open-fill.svg');">
 						<img src="<%= contextPath %>/resources/image/door-open-fill.svg" alt="초대코드로 가입하기"width="0" height="90%">
 						<span>초대코드로<br>가입</span>
@@ -134,7 +137,7 @@
 								</button>
 							</div>
 							
-							<form action="" method="post">
+							<form action="classEnrollForm.c" method="post" enctype="multipart/form-data" id="classEnrollForm">
 								<div class="modal-body">
 					                <div class="title">
 					                    <h2>학교</h2>
@@ -152,10 +155,36 @@
 					                </div>
 					
 					                <div class="info_box">
-					                        <input class="year" type="number" name="classYear" min="2010" max="2099" step="1" value="2023">
-					                        <input class="grade" type="number" name="classGrade" min="1" max="6" step="1" value="1">
-					                        <input class="class_name" type="text" name="className" placeholder="학교이름을 입력해주세요">
-					                        <input class="teacher_name" type="text" name="teacherName" placeholder="선생님 이름을 입력하세요">
+				                        <input class="year" type="number" name="classYear" min="2010" max="2099" step="1" value="2023">
+				                        <input class="grade" type="number" name="classGrade" min="1" max="6" step="1" value="1">
+				                        <input class="class_name" type="text" name="className" placeholder="학교이름을 입력해주세요">
+				                        <input class="teacher_name" type="text" name="teacherName" placeholder="선생님 이름을 입력하세요">
+					                </div>
+					                <div class="info">
+					                	<h2>관할 교육청</h2>
+					                </div>
+					                <div>
+					                	<select name="atCode" form="classEnrollForm">
+										    <option value="Z00">없음</option>
+										    <option value="B10">서울특별시교육청</option>
+										    <option value="C10">부산광역시교육청</option>
+										    <option value="D10">대구광역시교육청</option>
+										    <option value="E10">인천광역시교육청</option>
+										    <option value="F10">광주광역시교육청</option>
+										    <option value="G10">대전광역시교육청</option>
+										    <option value="H10">울산광역시교육청</option>
+										    <option value="I10">세종특별자치시교육청</option>
+										    <option value="J10">경기도교육청</option>
+										    <option value="K10">강원도교육청</option>
+										    <option value="M10">충청북도교육청</option>
+										    <option value="N10">충청남도교육청</option>
+										    <option value="P10">전라북도교육청</option>
+										    <option value="Q10">전라남도교육청</option>
+										    <option value="R10">경상북도교육청</option>
+										    <option value="S10">경상남도교육청</option>
+										    <option value="T10">제주특별자치도교육청</option>
+										    <option value="V10">재외한국학교교육청</option>
+										</select>
 					                </div>
 				                    <h2>대표 이미지 설정</h2>
 					                <div class="profile_img_area">
@@ -209,26 +238,26 @@
 				<div id="classCode" class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" >
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
-							<div class="modal-body">
-								<h3 style="display:inline-block;font-weight:700;">초대코드로 가입하기</h3>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<h5>선생님께 전달받은 초대 코드를 입력하세요.</h5>
-								<form action="" method="post">
-									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
-									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
-									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
-									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
-									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
-									<input type="tel" maxlength="1" class="codeItem" style="text-transform: uppercase;">
-								</form>
-							</div>
-							
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-								<button type="button" id="btn_register" class="btn btn-primary" onclick="tableUpdate();">확인</button>
-							</div>
+							<form action="classEnrollForm.c" method="get">
+								<div class="modal-body">
+									<h3 style="display:inline-block;font-weight:700;">초대코드로 가입하기</h3>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h5>선생님께 전달받은 초대 코드를 입력하세요.</h5>
+										<input type="tel" maxlength="1" name="code0" class="codeItem">
+										<input type="tel" maxlength="1" name="code1" class="codeItem">
+										<input type="tel" maxlength="1" name="code2" class="codeItem">
+										<input type="tel" maxlength="1" name="code3" class="codeItem">
+										<input type="tel" maxlength="1" name="code4" class="codeItem">
+										<input type="tel" maxlength="1" name="code5" class="codeItem">
+								</div>
+								
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+									<button type="submit" id="btn_register" class="btn btn-primary"">확인</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -378,6 +407,12 @@
 
 	        return year + month + day;
 	    }
+	    
+	    let week = ['일', '월', '화', '수', '목', '금', '토'];
+	    let todayYear = getToday().substring(0,4);
+	    let todayMonth = getToday().substring(4,6);
+	    let todayDay = getToday().substring(6,8);
+	    $(".today-date>b").text(todayYear + "년 " + todayMonth + "월 " + todayDay + "일 " + week[new Date(todayYear+"-"+todayMonth+"-"+todayDay).getDay()]+"요일");
 	    
 	    function lunch(){
 	    	let date = getToday();

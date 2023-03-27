@@ -29,13 +29,13 @@ public class ClassService {
 
 		Connection conn = getConnection();
 
-		int result1 = new ClassDao().insertClass(conn, c, c.getClassCode());
-		int result2 = new ClassDao().insertClassMember(conn, refUno, c.getClassCode());
+		int result1 = new ClassDao().insertClass(conn, c);
+		int result2 = new ClassDao().insertClassMember(conn, c.getClassCode(), refUno, 0);
 		// attachment테이블 등록여부 판단할 변수
 		int result3 = 1;// 1로 미리 선언과 동시에 초기화 시키는 이유는 attachment테이블에 insert문이 실행되지 않을 수 있으므로
 
 		if (at != null) {
-			result3 = new ClassDao().updateAttachment(conn, at);
+			result3 = new ClassDao().insertClassAttachment(conn, at, c.getClassCode());
 		}
 
 		// 트랜잭션 처리
@@ -50,5 +50,20 @@ public class ClassService {
 		close(conn);
 
 		return result1 * result2 * result3; // 혹시 하나라도 실패해서 0이 반환될경우 실패값을 반환하기위해 곱셈결과를 리턴
+	}
+	
+	public int insertClassMember(int code, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new ClassDao().insertClassMember(conn, code, userNo, 0);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
 	}
 }

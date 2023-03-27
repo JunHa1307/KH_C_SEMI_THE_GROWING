@@ -14,9 +14,15 @@
 	</entry>
 	<entry key="insertClass">
 		INSERT INTO CLASS
-			VALUES (SEQ_CNO.NEXTVAL,1234,1243,'asdf','asdf','asdfq','t10','123423');
+			VALUES (SEQ_CNO.NEXTVAL,?,?,?,?,?,?,?)
+	</entry>
+	<entry key="insertClassMember">
+		INSERT INTO CLASS_MEMBER
+			VALUES ((SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?,?)
+	</entry>
+	<entry key="insertClassAttachment">
 		INSERT INTO ATTACHMENT
             (FILE_NO,REF_CNO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,FILE_LEVEL)
-            VALUES (SEQ_ANO,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = 1243), 'A','A','A',1);
-	</entry>
+            VALUES (SEQ_ANO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?), ?, ?, '/resources/image/classProfile/',1)
+    </entry>
 </properties>
