@@ -23,7 +23,8 @@ public class JDBCTemplate {
 		// JDBCTemplate.class는 컴파일된 class파일을 의미
 		// getResource함수의 첫번째 / 는 classes폴더를 의미함 
 		
-		//String fileName= "C:\Web-workspace2\JSP_Project\WebContent\WEB-INF\classes\sql\driver";
+		// 안녕하세요 세미조 여러분 오늘도 파이팅입니당!(현지가)
+		//String fileName= "C:\The_Growing\growing\WebContent\WEB-INF\classes\sql\driver";
 		
 		try {
 			prop.load(new FileInputStream(fileName));
