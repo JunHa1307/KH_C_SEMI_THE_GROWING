@@ -62,4 +62,31 @@ public class ClassDao {
 		}
 		return list;
 	}
+	
+	public int insertClass(Connection conn, Class c, int classCode) {
+
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertClass");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(c.getCategory()));
+			pstmt.setString(2, c.getBoardTitle());
+			pstmt.setString(3, c.getBoardContent());
+			pstmt.setString(4, c.getBoardWriter());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+
+	}
 }

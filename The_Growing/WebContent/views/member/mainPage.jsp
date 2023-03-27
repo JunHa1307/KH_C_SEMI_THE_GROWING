@@ -141,7 +141,7 @@
 					                </div>
 					
 					                <div class="title_box">
-					                    <input class="school_search" type="text" placeholder="내용을 입력해주세요">
+					                    <input class="school_search" type="text" name="classTypeName" placeholder="내용을 입력해주세요">
 					                </div>
 					
 					                <div class="info">
@@ -152,21 +152,21 @@
 					                </div>
 					
 					                <div class="info_box">
-					                        <input class="year" type="number" name="amount" min="2010" max="2030" step="1" value="2023">
-					                        <input class="grade" type="number" name="amount" min="1" max="6" step="1" value="1">
-					                        <input class="class_name" type="text" placeholder="학교이름을 입력해주세요">
-					                        <input class="teacher_name" type="text" placeholder="선생님 이름을 입력하세요">
+					                        <input class="year" type="number" name="classYear" min="2010" max="2099" step="1" value="2023">
+					                        <input class="grade" type="number" name="classGrade" min="1" max="6" step="1" value="1">
+					                        <input class="class_name" type="text" name="className" placeholder="학교이름을 입력해주세요">
+					                        <input class="teacher_name" type="text" name="teacherName" placeholder="선생님 이름을 입력하세요">
 					                </div>
 				                    <h2>대표 이미지 설정</h2>
 					                <div class="profile_img_area">
-					                    <img class="prof_img"  src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F66%2Ff4%2F1a%2F66f41a22733442b2af0ed3538d713eb5.jpg&type=ff332_332">                          
+					                    <input type="file" class="prof_img" name="upfile">                          
 					                </div>
 					                <div class="box_1" style="margin-bottom:0;">
 					                    <div class="box">
-					                        <button class="button_UI button--winona" data-text="수정"><span>수정</span></button>
+					                        <button type="button" class="button_UI button--winona" data-text="수정"><span>수정</span></button>
 					                    </div>
 					                    <div class="box">
-					                        <button class="button_UI button--winona" data-text="삭제"><span>삭제</span></button>
+					                        <button type="button" class="button_UI button--winona" data-text="삭제"><span>삭제</span></button>
 					                    </div>
 					                </div>      
 								</div>
@@ -176,7 +176,7 @@
 				                        <button class="button_UI button--winona" data-dismiss="modal" data-text="취소"><span>취소</span></button>
 				                    </div>
 				                    <div class="box">
-				                        <button id="btn_register" class="button_UI button--winona" data-text="완료"><span>완료</span></button>
+				                        <button type="submit" id="btn_register" class="button_UI button--winona" data-text="완료"><span>완료</span></button>
 				                    </div>
 				                
 								</div>
