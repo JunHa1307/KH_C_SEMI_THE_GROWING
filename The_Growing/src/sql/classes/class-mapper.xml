@@ -12,4 +12,17 @@
 		LEFT JOIN ATTACHMENT A ON (A.REF_CNO = C.CLASS_NO)
 		WHERE CM.REF_UNO = ?
 	</entry>
+	<entry key="insertClass">
+		INSERT INTO CLASS
+			VALUES (SEQ_CNO.NEXTVAL,?,?,?,?,?,?,?)
+	</entry>
+	<entry key="insertClassMember">
+		INSERT INTO CLASS_MEMBER
+			VALUES ((SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?,?)
+	</entry>
+	<entry key="insertClassAttachment">
+		INSERT INTO ATTACHMENT
+            (FILE_NO,REF_CNO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,FILE_LEVEL)
+            VALUES (SEQ_ANO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?), ?, ?, '/resources/image/classProfile/',1)
+    </entry>
 </properties>
