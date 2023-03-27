@@ -1,6 +1,84 @@
 @charset "UTF-8";
 
-        
+/* 새클래스 만들기 모달창 */
+#newClassModal .modal-body {
+	display:flex;
+	flex-direction:column;
+	align-items: center;
+}
+
+#newClassModal .modal-body>div{
+	margin-bottom: 1vw;
+}
+
+
+.school_search {
+    height: 50px;   
+    font-size: 1em;    
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info_box {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info>h2{
+	min-width: 70px;
+	margin: 0 1vw 0 1vw;
+	font-size: 2vw;
+}
+
+.info_box>input {
+	margin: 0 1vw 0 1vw;
+	font-size: 1vw;
+}
+
+.year, .grade{
+    min-height: 50px;
+}
+
+.profile_img_area {
+    height: 35%;           
+    width: 40%;
+}
+
+.prof_img {
+    width: 100%;
+	object-fit: cover;
+	cursor: pointer;
+}   
+
+.box_1 {
+    display: flex;
+}
+
+.box {
+	margin: 0 1vw 0 1vw;
+}
+
+/* 초대코드로 가입 모달창 */
+.codeItem{
+	display: inline-block;
+    width: 30px;
+    height: 37px;
+    line-height: 35px;
+    margin: 0 6px;
+    border: 0;
+    border-bottom: 2px solid #333;
+    vertical-align: middle;
+    font-size: 30px;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* 메인 페이지 */
+/* 공통 */        
 .contentBox {
     max-width:1500px;
     width: 95%; 

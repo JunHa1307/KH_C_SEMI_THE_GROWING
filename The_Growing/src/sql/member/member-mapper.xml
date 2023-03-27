@@ -27,8 +27,9 @@
 	</entry>
 	
 	<entry key="loginMember">
-		SELECT * 
-		FROM MEMBER
+		SELECT M.*, A.CHANGE_NAME, A.FILE_PATH
+		FROM MEMBER M
+		LEFT JOIN ATTACHMENT A ON (A.REF_UNO = M.USER_NO)
 		WHERE USER_ID = ?
 		  AND USER_PWD = ?
 		  AND USER_LEVEL = ?

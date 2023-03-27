@@ -26,9 +26,30 @@ public class Member {
 	private String status;
 	private String childrenName;
 	private int userLevel; // 1:선,2:부,3:학
+	private String changeName;
+	private String filePath;
 	
 	public Member() {
 		super();
+	}
+	
+	public Member(int userNo, String userId, String userPwd, String userName, String phone, String address,
+			Date enrollDate, Date modifyDate, String status, String childrenName, int userLevel, String changeName,
+			String filePath) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.childrenName = childrenName;
+		this.userLevel = userLevel;
+		this.changeName = changeName;
+		this.filePath = filePath;
 	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String address,
@@ -145,11 +166,29 @@ public class Member {
 		this.userLevel = userLevel;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", phone=" + phone + ", address=" + address + ", enrollDate=" + enrollDate + ", modifyDate="
 				+ modifyDate + ", status=" + status + ", childrenName=" + childrenName + ", userLevel=" + userLevel
-				+ "]";
+				+ ", changeName=" + changeName + ", filePath=" + filePath + "]";
 	}
+
+	
 }
