@@ -46,6 +46,16 @@ public class Member {
 		this.childrenName = childrenName;
 		this.userLevel = userLevel;
 	}
+	
+	public Member(String userId, String userPwd, String userName, String phone, String address, int userLevel) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.address = address;
+		this.userLevel = userLevel;
+	}
 
 	public int getUserNo() {
 		return userNo;
