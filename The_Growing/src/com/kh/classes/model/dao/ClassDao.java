@@ -162,10 +162,17 @@ public class ClassDao {
 			
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
-				cInfo = new Class(rset.getInt("CLASS_NO"), rset.getInt("CLASS_GRADE"),
-						rset.getInt("CLASS_CODE"), rset.getString("CLASS_NAME"), rset.getString("CLASS_TYPE_NAME"),
+				cInfo = new Class(rset.getInt("CLASS_NO"),
+						rset.getInt("CLASS_GRADE"),
+						rset.getInt("CLASS_CODE"),
+						rset.getString("CLASS_NAME"),
+						rset.getString("CLASS_TYPE_NAME"),
+						rset.getString("CHANGE_NAME"),
+						rset.getString("FILE_PATH"),
 						rset.getString("TEACHER_NAME"),
-						rset.getString("ATPT_OFCDC_SC_CODE"),rset.getInt("SD_SCHUL_CODE"));
+						rset.getString("ATPT_OFCDC_SC_CODE"),
+						rset.getInt("SD_SCHUL_CODE"),
+						rset.getInt("USER_COUNT"));
 				
 			}
 

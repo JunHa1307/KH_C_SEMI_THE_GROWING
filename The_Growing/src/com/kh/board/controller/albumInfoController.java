@@ -33,8 +33,8 @@ public class albumInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = Integer.parseInt(request.getParameter("uno"));
-		int cno = Integer.parseInt(request.getParameter("cno"));
+		int uno = 2;
+		int cno = 2;
 	
 		Class cInfo = new ClassService().selectClass(cno);
 		Member mInfo = new MemberService().loginMemberInfo(uno);

@@ -50,18 +50,7 @@ public class Class {
 
 	
 	
-	public Class(int classNo, int classGrade, int classCode, String className, String classTypeName, String teacherName,
-			String atptOfcdcScCode, int sdSchulCode) {
-		super();
-		this.classNo = classNo;
-		this.classGrade = classGrade;
-		this.classCode = classCode;
-		this.className = className;
-		this.classTypeName = classTypeName;
-		this.teacherName = teacherName;
-		this.atptOfcdcScCode = atptOfcdcScCode;
-		this.sdSchulCode = sdSchulCode;
-	}
+
 
 	public Class(int classNo, int classCode) {
 		super();

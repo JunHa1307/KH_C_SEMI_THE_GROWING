@@ -244,16 +244,12 @@
         float: left;
         height: 100%;
       }
-      #mo_picture {
-        width: 100%;
-        background-color: black;
-      
-      }
+   
      
       #mo_picture_wrap {
         width: 100%;
         height: 100%;
-       
+       background-color: black;
         /* background-color: aqua; */
        
       }
@@ -520,7 +516,7 @@
               <div id="album_title">앨범</div>
               <div id="album_button" align="right" class="box">
                 <button class="button_UI button--winona" data-text="다운로드" style="margin-right: 10px;" ><span>다운로드</span></button>
-                  <button class="button_UI button--winona" data-text="게시물 모아보기" ><span>게시물 모아보기</span></button>
+                  <button class="button_UI button--winona board_album" data-text="게시물 보기" ><span>게시물 보기</span></button>
               </div>
             </div>
             <div id="album_hr">
@@ -530,7 +526,7 @@
           <div class="album_content">
           <%for(int i = 0; i<list.size(); i++) {%>
             <div class="album_con1">
-            <input type="hidden" id="fno" name="fno" value="<%=list.get(i).getFileNo() %>">
+            <input type="hidden" id="fno"  value="<%=list.get(i).getFileNo() %>">
                <input type="checkbox" class="file_check">
               <div  class="album_con_file album_click">
                 <img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %> " width="200" height="150" >
@@ -546,23 +542,21 @@
         </div>
          </div>
         <div id="modal">
-          <div id="mo_picture" >
-            <div id="mo_picture_wrap">
-              <div
-                style="
-                  width: 100%;
-                  height: 100%;
-                  padding-left: 60px;
-                  padding-right: 60px;
-                "
-              >
-                <div id="slider-div" >
-                  <%for(int i = 0; i<list.size(); i++) {%>
-                  <div ><img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" class="img_1" ></div>
-                   <%} %>
-                </div>
-              </div>
-            </div>
+           <div id="mo_picture_wrap">
+             <div
+               style="
+                 width: 100%;
+                 height: 100%;
+                 padding-left: 60px;
+                 padding-right: 60px;
+               "
+             >
+               <div id="slider-div" >
+                 <%for(int i = 0; i<list.size(); i++) {%>
+                 <div ><img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" class="img_1" ></div>
+                  <%} %>
+               </div>
+             </div>
           </div>
         </div>
 	</div>
@@ -604,7 +598,7 @@
 
 
         $(".album_click").click(function(){
-        	console.log($("#fno"));
+        	console.log($("#fno").val());
                 if($("#modal").css("visibility")=="hidden"){
                    $("#modal").css("visibility","visible");
                     $('body').css({overflow :"hidden",scroll:"no"});
@@ -644,9 +638,10 @@
                     }
                });
      
-     
+    
     
       });
+      
     </script>
   </body>
 </html>

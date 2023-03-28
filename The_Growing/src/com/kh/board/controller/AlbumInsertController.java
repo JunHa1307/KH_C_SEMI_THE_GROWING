@@ -64,7 +64,7 @@ public class AlbumInsertController extends HttpServlet {
 			b.setBoardContent(multi.getParameter("content"));
 			//b.setRefUno( ((Member) request.getSession().getAttribute("loginUser")).getUserNo() );
 			int cno = 2;
-			int uno = 4;
+			int uno = 2;
 			
 			//Attachment테이블에 여러번 insert할 데이터를 뽑기
 			//단, 여러개의 첨부파일이 있을것이기 때문에 attahment들을 ArrayList에 담을예정 => 반드시 1개이상은 담김(대표이미지)

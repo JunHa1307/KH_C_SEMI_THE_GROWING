@@ -7,9 +7,7 @@
 	String contextPath = request.getContextPath();
     Class cInfo = (Class) request.getAttribute("cInfo");
 	Member mInfo = (Member) request.getAttribute("mInfo");
-	
-	int uno = (Integer) session.getAttribute("uno");
-	int cno = (Integer) session.getAttribute("cno");
+
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -374,10 +372,15 @@
                   
                   
           	
+        			$(".board_album").click(function(){
+        				location.href = "<%=contextPath %>/list.al";
+        			})
         			$("#board_album").click(function(){
         				location.href = "<%=contextPath %>/list.al";
         			})
-        		
+        			$("#board_survey").click(function(){
+        				location.href="<%=contextPath %>/enroll.su";
+        			})
               });
            
       
@@ -421,7 +424,7 @@
           
                 <div></div>
                 <div></div>
-                <div>담임 : </div>
+                <div>담임 :</div>
                 <div>학급 수 : </div>
              
             </div>
@@ -442,7 +445,7 @@
                     <li class="board_title">게시판</li>
                     <li class="board_li" id="board_recent"><div>최근 게시글</div></li>
                     <li class="board_li" id="board_notice"><div>알림장</div></li>
-                    <li class="board_li" id="board_album"><div>앨범</div></li>
+                    <li class="board_li" id="board_album" class="board_album"><div>앨범</div></li>
                     <li class="board_li" id="board_free"><div>자유게시판</div></li>
                     <li class="board_li" id="board_counsel"><div>상담게시판</div></li>
                     <li class="board_hr"><hr></li>

@@ -376,7 +376,7 @@
               <div id="album_title">앨범</div>
               <div id="album_button" align="right" class="box">
                   <button id="album_Enroll" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
-                  <button id="album_file" class="button_UI button--winona" data-text="게시물 모아보기"><span>게시물 모아보기</span></button>
+                  <button id="album_file" class="button_UI button--winona" data-text="사진 모아보기"><span>사진 모아보기</span></button>
               </div>
             </div>
             <div id="album_hr">
