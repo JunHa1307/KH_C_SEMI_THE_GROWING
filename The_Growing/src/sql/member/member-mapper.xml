@@ -35,4 +35,11 @@
 		  AND USER_LEVEL = ?
 		  AND STATUS = 'Y'
 	</entry>
+	
+		<entry key="loginMemberInfo">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_NO =?
+		  AND STATUS = 'Y'
+	</entry>
 </properties>

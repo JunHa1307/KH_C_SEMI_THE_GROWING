@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
+import com.kh.common.model.vo.Attachment;
 
 public class BoardDao {
 private Properties prop = new Properties();
@@ -65,7 +65,7 @@ private Properties prop = new Properties();
 	}
 	
 
-	public int insertAlbumBoard(Connection conn, Board b) {
+	public int insertAlbumBoard(Connection conn, Board b, int cno, int uno) {
 		
 		int result = 0;
 		
@@ -78,7 +78,8 @@ private Properties prop = new Properties();
 			
 			pstmt.setString(1, b.getBoardTitle());
 			pstmt.setString(2, b.getBoardContent());
-			pstmt.setInt(3, b.getRefUno());
+			pstmt.setInt(3, uno);
+			pstmt.setInt(4, cno);
 			
 			result = pstmt.executeUpdate();
 			
@@ -90,7 +91,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
-	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list) {
+	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list , int cno, int uno) {
 		int result = 1;
 		
 		PreparedStatement pstmt = null;
@@ -105,6 +106,8 @@ private Properties prop = new Properties();
 				pstmt.setString(2, at.getChangeName());
 				pstmt.setString(3, at.getFilePath());
 				pstmt.setInt(4, at.getFileLevel());
+				pstmt.setInt(5, uno);
+				pstmt.setInt(6, cno);
 
 				result *= pstmt.executeUpdate();
 			}
@@ -117,7 +120,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
-public ArrayList<Attachment> selectAttachList(Connection conn){
+public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		
 		ArrayList<Attachment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -129,6 +132,8 @@ public ArrayList<Attachment> selectAttachList(Connection conn){
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cno);
 			
 			rset = pstmt.executeQuery();
 			

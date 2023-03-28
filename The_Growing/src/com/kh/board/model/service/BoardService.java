@@ -9,8 +9,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.board.model.dao.BoardDao;
-import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
+import com.kh.common.model.vo.Attachment;
 
 public class BoardService {
 
@@ -21,13 +21,13 @@ public class BoardService {
 		return list;
 	}
 
-	public int insertAlbumBoard(Board b, ArrayList<Attachment> list) {
+	public int insertAlbumBoard(Board b, ArrayList<Attachment> list, int cno, int uno) {
 
 		Connection conn = getConnection();
 
-		int result1 = new BoardDao().insertAlbumBoard(conn, b);
+		int result1 = new BoardDao().insertAlbumBoard(conn, b, cno, uno);
 
-		int result2 = new BoardDao().insertAttachmentList(conn, list);
+		int result2 = new BoardDao().insertAttachmentList(conn, list, cno, uno);
 
 		if (result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -40,10 +40,10 @@ public class BoardService {
 		return result1 * result2;
 	}
 	
-	public ArrayList<Attachment> selectAttachList(){
+	public ArrayList<Attachment> selectAttachList(int cno){
 		Connection conn = getConnection();
 			
-			ArrayList<Attachment> list = new BoardDao().selectAttachList(conn);
+			ArrayList<Attachment> list = new BoardDao().selectAttachList(conn, cno);
 			
 			close(conn);
 			

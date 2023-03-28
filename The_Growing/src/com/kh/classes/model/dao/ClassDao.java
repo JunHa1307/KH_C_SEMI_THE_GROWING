@@ -64,6 +64,7 @@ public class ClassDao {
 		return list;
 	}
 	
+	
 	public int insertClass(Connection conn, Class c) {
 
 		int result = 0;
@@ -143,4 +144,38 @@ public class ClassDao {
 		}
 		return result;
 	}
+	
+	public Class selectClass(Connection conn, int classNo) {
+
+		Class cInfo = null;
+
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectClass");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, classNo);
+			
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				cInfo = new Class(rset.getInt("CLASS_NO"), rset.getInt("CLASS_GRADE"),
+						rset.getInt("CLASS_CODE"), rset.getString("CLASS_NAME"), rset.getString("CLASS_TYPE_NAME"),
+						rset.getString("TEACHER_NAME"),
+						rset.getString("ATPT_OFCDC_SC_CODE"),rset.getInt("SD_SCHUL_CODE"));
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cInfo;
+	}
+	
 }

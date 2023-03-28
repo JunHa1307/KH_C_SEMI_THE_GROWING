@@ -1,29 +1,28 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.board.model.service.BoardService;
-import com.kh.common.model.vo.Attachment;
-
+import com.kh.classes.model.service.ClassService;
+import com.kh.classes.model.vo.Class;
+import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class AlbumAttachListController
+ * Servlet implementation class AlbumFirstController
  */
-@WebServlet("/att.al")
-public class AlbumAttachListController extends HttpServlet {
+@WebServlet("/first.al")
+public class AlbumFirstController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AlbumAttachListController() {
+    public AlbumFirstController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +31,16 @@ public class AlbumAttachListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cno = 2;
-		ArrayList<Attachment> list = new BoardService().selectAttachList(cno);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/board/albumFileView.jsp").forward(request, response);
+		int uno = 4; //Integer.parseInt(request.getParameter("uno"));
+		int cno =2; //Integer.parseInt(request.getParameter("cno"));
 		
+		Class cInfo = new ClassService().selectClass(cno);
+		Member mInfo = new MemberService().loginMemberInfo(uno);
+		
+		
+		request.setAttribute("cInfo", cInfo);
+		request.setAttribute("mInfo", mInfo);
+		request.getRequestDispatcher("views/board/boardFrame.jsp").forward(request, response);
 	}
 
 	/**

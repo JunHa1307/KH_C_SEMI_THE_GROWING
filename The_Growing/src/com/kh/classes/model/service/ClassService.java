@@ -66,4 +66,14 @@ public class ClassService {
 		
 		return result;
 	}
+	public Class selectClass(int classNo) {
+		Connection conn = getConnection();
+
+		Class cInfo = new ClassDao().selectClass(conn, classNo);
+
+		close(conn);
+
+		return cInfo;
+
+	}
 }

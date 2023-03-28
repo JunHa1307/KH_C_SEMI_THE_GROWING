@@ -25,4 +25,11 @@
             (FILE_NO,REF_CNO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,FILE_LEVEL)
             VALUES (SEQ_ANO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?), ?, ?, '/resources/image/classProfile/',1)
     </entry>
+    
+    	<entry key="selectClass">
+		SELECT 
+			*
+		FROM CLASS
+		WHERE CLASS_NO = ? 
+	</entry>
 </properties>

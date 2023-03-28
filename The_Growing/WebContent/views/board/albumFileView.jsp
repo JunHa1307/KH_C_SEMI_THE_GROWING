@@ -1,5 +1,9 @@
+<%@page import="com.kh.common.model.vo.Attachment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+         <%  
+     ArrayList<Attachment> list= (ArrayList<Attachment>)request.getAttribute("list");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -524,51 +528,20 @@
             </div>
           </div>
           <div class="album_content">
+          <%for(int i = 0; i<list.size(); i++) {%>
             <div class="album_con1">
+            <input type="hidden" id="fno" name="fno" value="<%=list.get(i).getFileNo() %>">
                <input type="checkbox" class="file_check">
-              <div class="album_con_file album_click">
-                <img src="/resources/image/bono.jpg" />
+              <div  class="album_con_file album_click">
+                <img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %> " width="200" height="150" >
               </div>
             </div>
-            <div class="album_con1">
-                <input type="checkbox" class="file_check">
-                <div class="album_con_file album_click">
-                  <img src="/resources/image/bono.jpg" />
-                </div>
-              </div>
-            <div class="album_con1">
-                <input type="checkbox" class="file_check">
-                <div class="album_con_file album_click">
-                  <img src="/resources/image/bono.jpg" />
-                </div>
-              </div>
-              <div class="album_con1">
-                <input type="checkbox" class="file_check">
-                <div class="album_con_file album_click">
-                  <img src="/resources/image/bono.jpg" />
-                </div>
-              </div>
+            <%} %>
+         
+       
           </div>
-          <div class="album_content">
-            <div class="album_con1">
-                <input type="checkbox" class="file_check">
-              <div class="album_con_file album_click">
-                <img src="/resources/image/bono.jpg" />
-              </div>
-            </div>
-            <div class="album_con1">
-                <input type="checkbox" class="file_check">
-                <div class="album_con_file album_click">
-                  <img src="/resources/image/bono.jpg" />
-                </div>
-              </div>
-            <div class="album_con1">
-                <input type="checkbox" class="file_check">
-                <div class="album_con_file album_click">
-                  <img src="/resources/image/bono.jpg" />
-                </div>
-              </div>
-          </div>
+         
+      
          
         </div>
          </div>
@@ -584,9 +557,9 @@
                 "
               >
                 <div id="slider-div" >
-                  <div ><img src="<%=contextPath %>/resources/image/사진33.PNG" class="img_1" ></div>
-                  <div><video  class="img_1"  src="/resources/video/video1.mp4" controls style="display: block;" ></video></div>
-                  <div><img src="/resources/image/사진 11_1.png" class="img_1"></div>
+                  <%for(int i = 0; i<list.size(); i++) {%>
+                  <div ><img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" class="img_1" ></div>
+                   <%} %>
                 </div>
               </div>
             </div>
@@ -631,6 +604,7 @@
 
 
         $(".album_click").click(function(){
+        	console.log($("#fno"));
                 if($("#modal").css("visibility")=="hidden"){
                    $("#modal").css("visibility","visible");
                     $('body').css({overflow :"hidden",scroll:"no"});
@@ -668,7 +642,9 @@
                     }else{
                         $(this).siblings().css('border','none');
                     }
-                });
+               });
+     
+     
     
       });
     </script>

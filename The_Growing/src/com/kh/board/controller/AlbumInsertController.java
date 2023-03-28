@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.common.MyFileRenamePolicy;
+import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -38,6 +38,7 @@ public class AlbumInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	
 		request.getRequestDispatcher("views/board/albumEnrollform.jsp").forward(request, response);
 	}
 
@@ -61,14 +62,16 @@ public class AlbumInsertController extends HttpServlet {
 			Board b = new Board();
 			b.setBoardTitle(multi.getParameter("title"));
 			b.setBoardContent(multi.getParameter("content"));
-			b.setRefUno( ((Member) request.getSession().getAttribute("loginUser")).getUserNo() );
+			//b.setRefUno( ((Member) request.getSession().getAttribute("loginUser")).getUserNo() );
+			int cno = 2;
+			int uno = 4;
 			
 			//Attachment테이블에 여러번 insert할 데이터를 뽑기
 			//단, 여러개의 첨부파일이 있을것이기 때문에 attahment들을 ArrayList에 담을예정 => 반드시 1개이상은 담김(대표이미지)
 			
 			ArrayList<Attachment> list = new ArrayList();
 			
-			for(int i = 1; i<=4; i++) {// 파일의갯수는 최대 4개이기때문에 4번반복시킴
+			for(int i = 1; i<=5; i++) {// 파일의갯수는 최대 4개이기때문에 4번반복시킴
 				
 				String key = "file"+i;// file1, file2, file3, file4
 				
@@ -86,7 +89,7 @@ public class AlbumInsertController extends HttpServlet {
 				}
 			}
 			
-			int result = new BoardService().insertAlbumBoard(b, list);
+			int result = new BoardService().insertAlbumBoard(b, list, cno, uno);
 			
 			if(result > 0) { // 성공 -> list.th를 요청
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다");

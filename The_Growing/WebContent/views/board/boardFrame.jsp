@@ -1,7 +1,15 @@
+<%@page import="com.kh.classes.model.vo.Class"%>
+<%@page import="com.kh.member.model.vo.Member"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
 	String contextPath = request.getContextPath();
+    Class cInfo = (Class) request.getAttribute("cInfo");
+	Member mInfo = (Member) request.getAttribute("mInfo");
+	
+	int uno = (Integer) session.getAttribute("uno");
+	int cno = (Integer) session.getAttribute("cno");
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -410,14 +418,16 @@
                 <img class="profile" src="resources/image/bono.jpg">
             </div>
             <div id="classInfo">
-                <div>준하초등학교</div>
-                <div>1학년 3반</div>
-                <div>담임 : 류준하 선생님</div>
-                <div>학급 수 : 18명</div>
+          
+                <div></div>
+                <div></div>
+                <div>담임 : </div>
+                <div>학급 수 : </div>
+             
             </div>
             <div id="pUser"><img class="profile" src="/resources/image/bono.jpg"> </div>
             <div id="userInfo">
-                <div>오현지 학부모</div>
+                <div></div>
                 <div><button class="btnStyle" type="button">로그아웃</button></div>
                 <div><button class="btnStyle" type="button">마이페이지</button></div>
             </div>
