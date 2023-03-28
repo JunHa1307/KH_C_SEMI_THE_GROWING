@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String alertMsg = (String) session.getAttribute("alertMsg");
+%>
 <html lang="en">
 <head>
 <!-- 폰트 -->
@@ -32,6 +35,15 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
 </head>
 <body>
+	<script>
+		const msg = "<%= alertMsg  %>";
+		
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("alertMsg"); %>
+		}
+	
+	</script>
 <div class="wrap">
     <div id="header">
        <button id="logoBtn" class="btnStyle" type="button">
