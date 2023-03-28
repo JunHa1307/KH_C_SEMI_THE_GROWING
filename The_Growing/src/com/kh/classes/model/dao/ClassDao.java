@@ -143,4 +143,96 @@ public class ClassDao {
 		}
 		return result;
 	}
+	
+	public ArrayList<String> selectTableList(Connection conn, int userNo) {
+
+		ArrayList<String> tableList = new ArrayList<>();
+
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectTableList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				String table = rset.getString("TIME_TABLE_CONTENT");
+				if(table != null) {
+					tableList.add(table);
+				}else {
+					tableList.add("[{\"name\":\"\",\"mon\":\"\",\"tue\":\"\",\"wed\":\"\",\"thur\":\"\",\"fri\":\"\",\"sat\":\"\"}]");
+				}
+			}
+			
+			if (tableList.isEmpty()) {
+				tableList.add("[{\"name\":\"\",\"mon\":\"\",\"tue\":\"\",\"wed\":\"\",\"thur\":\"\",\"fri\":\"\",\"sat\":\"\"}]");
+			}
+			System.out.println(tableList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return tableList;
+	}
+	
+	public int insertTable(Connection conn, int classCode, String row) {
+
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertTable");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, classCode);
+			pstmt.setString(2, row);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+
+	}
+	
+	public int updateTable(Connection conn, int classNo, String arr) {
+		
+		// UPDATE문 => 반환값 처리된 행의 갯수가 반환됨
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateTable");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, arr);
+			pstmt.setInt(2, classNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
