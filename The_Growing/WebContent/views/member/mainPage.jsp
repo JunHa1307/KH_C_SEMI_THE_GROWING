@@ -15,19 +15,19 @@
 <link rel="stylesheet" href="<%= contextPath %>/resources/css/mainPage.css">
 
 <style>
-@media only screen and (min-width: 780px) {
-	.other-info{
-		font-size:0.8vw;
+	@media only screen and (min-width: 780px) {
+		.other-info{
+			font-size:0.8vw;
+		}
+		.other-info h3{
+			font-size:1.6vw;
+		}
 	}
-	.other-info h3{
-		font-size:1.6vw;
+	@media only screen and (max-width: 780px) {
+		.other-info{
+			font-size:2vw;
+		}
 	}
-}
-@media only screen and (max-width: 780px) {
-	.other-info{
-		font-size:2vw;
-	}
-}
 </style>
 
 </head>
@@ -39,11 +39,10 @@
 			<div class="myInfo">
 				<div class="myProfile">
 					<div class="myProfile-img">
-						<img src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="">
+						<img src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 					</div>
 					<span class="myProfile-name">
-						<%= loginUser.getUserName() %>&nbsp;
-						<%=( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %>
+						<%= loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %>
 					</span>
 					<button class="button_UI button--winona" data-text="마이페이지">
 						<span>마이페이지</span>
@@ -57,8 +56,8 @@
 					<% if(list.size() != 0){ %>
 						<% for(int i = 0; i < list.size();i++){ %>
 							<div  id="class<%= i %>" class="myClass-list">
-								<div class="myClass-img">
-									<img src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>" alt="클래스 프로필">
+								<div class="myClass-img" onclick="moveToBoard();">
+									<img src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>" alt="클래스 프로필" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 								</div>							
 								<div class="myClass-text-list">
 									<div class="myClass-text"><%= list.get(i).getClassTypeName()%><%=" "+ (list.get(i).getClassGrade()+"").substring(4) %>학년<br><%= list.get(i).getClassName() %></div>
@@ -68,9 +67,9 @@
 							</div>		
 						<% } %>
 					<% } else { %>
-						<div  id="class0" class="myClass-list">
+						<div  id="class0" class="myClass-list" onclick="moveToBoard();">
 								<div class="myClass-img">
-									<img src="<%= contextPath %>/resources/image/bono.jpg" alt="클래스 프로필">
+									<img src="" alt="클래스 프로필" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 								</div>							
 								<div class="myClass-text-list">
 									<div class="myClass-text">가입된 클래스가 없습니다.</div>
@@ -150,20 +149,20 @@
 					                <div class="info">
 					                    <h2>연도</h2>
 					                    <h2>학년</h2>
-					                    <h2>클래스 이름</h2>
-					                    <h2>선생님 이름</h2>
+					                    <h2 class="class_name1">클래스 이름</h2>
+					                    <h2 class="class_name1">선생님 이름</h2>
 					                </div>
 					
 					                <div class="info_box">
 				                        <input class="year" type="number" name="classYear" min="2010" max="2099" step="1" value="2023">
 				                        <input class="grade" type="number" name="classGrade" min="1" max="6" step="1" value="1">
-				                        <input class="class_name" type="text" name="className" placeholder="학교이름을 입력해주세요">
-				                        <input class="teacher_name" type="text" name="teacherName" placeholder="선생님 이름을 입력하세요">
+				                        <input class="class_name2" type="text" name="className" placeholder="학교이름을 입력해주세요">
+				                        <input class="class_name2" type="text" name="teacherName" placeholder="선생님 이름을 입력하세요">
 					                </div>
 					                <div class="info">
 					                	<h2>관할 교육청</h2>
 					                </div>
-					                <div>
+					                <div class="info_box">
 					                	<select name="atCode" form="classEnrollForm">
 										    <option value="Z00">없음</option>
 										    <option value="B10">서울특별시교육청</option>
@@ -188,14 +187,17 @@
 					                </div>
 				                    <h2>대표 이미지 설정</h2>
 					                <div class="profile_img_area">
-					                    <input type="file" class="prof_img" name="upfile">                          
+					                    <img class="prof_img" src="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">                          
 					                </div>
+					                <div id="file-area" style="display:none;">
+										<input type="file" id="classProfile" name="upfile" onchange="loadImg(this);">
+									</div>
 					                <div class="box_1" style="margin-bottom:0;">
 					                    <div class="box">
-					                        <button type="button" class="button_UI button--winona" data-text="수정"><span>수정</span></button>
+					                        <button type="button" class="button_UI button--winona fileUpdate" data-text="수정"><span>수정</span></button>
 					                    </div>
 					                    <div class="box">
-					                        <button type="button" class="button_UI button--winona" data-text="삭제"><span>삭제</span></button>
+					                        <button type="button" class="button_UI button--winona fileDelete" data-text="삭제"><span>삭제</span></button>
 					                    </div>
 					                </div>      
 								</div>
@@ -207,7 +209,6 @@
 				                    <div class="box">
 				                        <button type="submit" id="btn_register" class="button_UI button--winona" data-text="완료"><span>완료</span></button>
 				                    </div>
-				                
 								</div>
 							</form>
 						</div>
@@ -255,7 +256,7 @@
 								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-									<button type="submit" id="btn_register" class="btn btn-primary"">확인</button>
+									<button type="submit" id="btn_register" class="btn btn-primary">확인</button>
 								</div>
 							</form>
 						</div>
@@ -270,6 +271,49 @@
             $(this).css('color', 'rgb(137, 180, 166)');
             $(this).siblings(".button_UI").css('color', "black");
         });
+        
+		$(".prof_img, .fileUpdate").on('click',function(){
+			$("#classProfile").click();
+		});
+		
+		$(".fileDelete").on('click',function(){
+			$(".prof_img").attr("src", "<%= contextPath %>/resources/image/noImage.png");
+		    $("#classProfile").val("");
+		});
+		function loadImg(inputFile){
+					// inputFile : 현재 변화가 생긴 input type="file"의 요소
+					
+					/*
+						파일 선택시 length = 1, 파일 선택 취소시 length = 0 배열안의 내용이 비어있게 됨
+						length값을 가지고 파일의 존재유무를 알 수 있다.
+						
+						files속성은 업로드된 파일의 정보를 "배열"형식으로 여러개 묶어서 반환, length: 그 배열의 크기를 의미
+					*/
+					if(inputFile.files.length != 0){
+						// 선택된 파일이 존재할 경우에 선택된 파일들을 읽어들여서 그 영역에 맞는 곳에 미리보기 추가
+						
+						// 파일을 읽어들일 FileReader 객체 생성
+						let reader = new FileReader();
+						
+						// 파일을 읽어들이는 메소드 -> 어느 파일을 읽을 지 매개변수에 제시해줘야함
+						// 0번째 인덱스에 담긴 파일정보를 제시
+						// -> 해당 파일을 읽어들이는 순간 해당파일만의 고유한 url 부여됨
+						// -> 해당 url을 src속성값으로 제시
+						reader.readAsDataURL(inputFile.files[0]);
+						
+						// 파일 읽기가 완료되었을 때 실행할 함수 정의
+						reader.onload = function(e){// e.target.result에 고유한 url부여됨.
+							// 각 영역에 맞춰서 이미지 미리보기 기능 제시
+							let url = e.target.result;
+							
+							$(".prof_img").attr("src",url);
+						}	
+				
+					}else {
+						// 선택된 파일이 없을경우 미리보기도 함께 사라지게끔 작업.
+						$(".prof_img").removeAttr("src");
+					}
+				}
     </script>
 	<script>
         let tabledata = [
@@ -283,22 +327,42 @@
             { id: 8, name: "16:00 ~ 16:50", mon: "16", tue: "yellow", wed: "31/01/1999", thur: "ekrtdd", fri: "ekrtdd" },
             { id: 9, name: "17:00 ~ 17:50", mon: "16", tue: "yellow", wed: "31/01/1999", thur: "ekrtdd" },
         ];
+        
+        var editCheck = function(cell){
+            //cell - the cell component for the editable cell
+			
+            let isTeacher = false;
+            let teacherName = $(".slick-current>div>div .myClass-text").eq(2).text();
+            let name = $(".myProfile-name").text().trim();
+            
+            <% if(loginUser.getUserLevel() == 1){ %>
+            	if(name == teacherName){
+            		isTeacher = true;
+            	}
+            <% } %> 
 
+            return isTeacher;
+        }
+        
+		table();
+		
         // id "time-table"인 tabulator 테이블 만들기
-        let table = new Tabulator("#time-table", {
-            height: "100%", // 높이 지정(css 높이 가능)
-            data: tabledata, // 테이블 데이터 설정
-            layout: "fitDataFill", // 데이터에 맞춰서 보이기(보이는 방식 설정)
-            columns: [ // 테이블 열 설정( 선생님일때 포매터 : editor <- 수정 , 아닐 때 : textarea <- 조회)
-                { title: "", field: "name", formatter: "textarea", variableHeight: true, headerSort: false },
-                { title: "월요일", field: "mon", formatter: "textarea", variableHeight: true, headerSort: false },
-                { title: "화요일", field: "tue", formatter: "textarea", variableHeight: true, headerSort: false },
-                { title: "수요일", field: "wed", formatter: "textarea", variableHeight: true, headerSort: false },
-                { title: "목요일", field: "thur", formatter: "textarea", variableHeight: true, headerSort: false },
-                { title: "금요일", field: "fri", editor: "input", variableHeight: true, headerSort: false }
-            ],
-        });
-
+        function table(){
+	        let table = new Tabulator("#time-table", {
+	            height: "100%", // 높이 지정(css 높이 가능)
+	            data: tabledata, // 테이블 데이터 설정
+	            layout: "fitDataFill", // 데이터에 맞춰서 보이기(보이는 방식 설정)
+	            columns: [ // 테이블 열 설정( 선생님일때 포매터 : editor <- 수정 , 아닐 때 : textarea <- 조회)
+	                { title: "", field: "name", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+	                { title: "월요일", field: "mon", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+	                { title: "화요일", field: "tue", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+	                { title: "수요일", field: "wed", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+	                { title: "목요일", field: "thur", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+	                { title: "금요일", field: "fri", editor:"input", editable:editCheck, variableHeight: true, headerSort: false }
+	            ],
+	        });
+        }
+        
         function tableUpdate() {
             for (let i = 0; i < $(".tabulator-row").length; i++) {
                 let cell = $(".tabulator-row").eq(i).children(".tabulator-cell");
@@ -307,14 +371,15 @@
                     wed: cell.eq(3).text(), thur: cell.eq(4).text(), fri: cell.eq(5).text(), sat: cell.eq(6).text()
                 });
             }
+            table.replaceData([{id:1, name:"bob", mon:"male"}, {id:2, name:"Jenny", tue:"female"}])
             alert("수정되었습니다");
         }
 
         // 행을 클릭했을 때 이벤트
-        table.on("rowClick", function(e, row){
+        /* table.on("rowClick", function(e, row){
         	$("#time-table1").html(document.getElementById('time-table').cloneNode(true));
         	$('#tableModal').modal("show");
-        });
+        }); */
     </script>
 	<script>
         (function () {
@@ -394,9 +459,11 @@
     	let index = 0;
     	let atptCodeArr = [];
     	let schulCodeArr = [];
+    	let classList = [];
     	<% for(int i = 0; i < list.size(); i++){%>
     		atptCodeArr.push("<%= list.get(i).getAtptOfcdcScCode()%>");
     		schulCodeArr.push("<%= list.get(i).getSdSchulCode()%>");
+			classList.push("<%= list.get(i).getClassNo()%>");
     	<%}%>
     	
 	    function getToday(){
@@ -409,16 +476,15 @@
 	    }
 	    
 	    let week = ['일', '월', '화', '수', '목', '금', '토'];
-	    let todayYear = getToday().substring(0,4);
-	    let todayMonth = getToday().substring(4,6);
-	    let todayDay = getToday().substring(6,8);
+    	let date = getToday();
+	    let todayYear = date.substring(0,4);
+	    let todayMonth = date.substring(4,6);
+	    let todayDay = date.substring(6,8);
 	    $(".today-date>b").text(todayYear + "년 " + todayMonth + "월 " + todayDay + "일 " + week[new Date(todayYear+"-"+todayMonth+"-"+todayDay).getDay()]+"요일");
 	    
 	    function lunch(){
-	    	let date = getToday();
 	    	$.ajax({
 	    		// 급식 가져오는 나이스포털 api
-	    		/* url : 'https://open.neis.go.kr/hub/schoolInfo?KEY=42f9059625d34f7f989f556b3a16de4f&Type=json&SCHUL_NM=신성초등학교', */
 				/* ATPT_OFCDC_SC_CODE = 교육청 코드 SD_SCHUL_CODE = 학교 코드 MLSV_YMD = 가져올 날짜*/	    				
 	    		url : "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=jsonp&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + atptCodeArr[index] + "&SD_SCHUL_CODE="+ schulCodeArr[index] +"&MLSV_YMD="+(date),
 	    		method : 'GET',
@@ -444,6 +510,13 @@
 	    	index = $(".slick-current>div>div").attr("id").substr(5);
 		    lunch();
 	    });
+	    
+	    function moveToBoard(){
+	    	
+	    	cno = classList[index];
+	    	
+	    	location.href="/boardmove.bo?cno="+ cno;
+	    }
 	    
     </script>
 </body>
