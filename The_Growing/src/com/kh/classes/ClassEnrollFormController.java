@@ -79,7 +79,6 @@ public class ClassEnrollFormController extends HttpServlet {
 			String classTypeName = multi.getParameter("classTypeName").replaceAll(" ", "");
 			int classGrade = Integer.parseInt(multi.getParameter("classYear"))*100 + Integer.parseInt(multi.getParameter("classGrade"));
 			String className = multi.getParameter("className");
-			System.out.println(classTypeName);
 			String teacherName = multi.getParameter("teacherName");
 			String atCode = multi.getParameter("atCode");
 			
