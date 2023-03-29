@@ -561,7 +561,7 @@
             
             return isTeacher;
         }
-		
+       
 		// 테이블 생성
         let table = new Tabulator("#time-table", { 
             height: "100%", // 높이 지정(css 높이 가능)
@@ -569,10 +569,10 @@
             layout: "fitDataFill", // 데이터에 맞춰서 보이기(보이는 방식 설정)
             columns: [ // 테이블 열 설정( 선생님일때 포매터 : editor <- 수정 , 아닐 때 : textarea <- 조회)
             	{formatter:"buttonCross", title:"삭제", headerSort:false, cellClick:function(e, cell){ // 행 삭제 버튼 열
-          		  if(confirm('정말 이 행을 삭제하시겠습니까?'))
-          		      cell.getRow().delete();
-          		  }
-          		},
+    		  		if(confirm('정말 이 행을 삭제하시겠습니까?'))
+    		    		  cell.getRow().delete();
+	  				}
+            	},
                 { title: "제목", field: "name", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
                 { title: "월요일", field: "mon", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
                 { title: "화요일", field: "tue", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
@@ -632,6 +632,11 @@
 	    	$("#time-table1").html(document.getElementById('time-table').cloneNode(true));
 	    	$('#tableModal').modal("show");
 		});
+	 	
+	    <% if( loginUser.getUserLevel() == 1) {%>
+	    	$(:)
+	    <% } %>
+	    }
     </script>
 </body>
 </html>
