@@ -48,6 +48,10 @@ public class Class {
 		this.userCount = userCount;
 	}
 
+	
+	
+
+
 	public Class(int classNo, int classCode) {
 		super();
 		this.classNo = classNo;
