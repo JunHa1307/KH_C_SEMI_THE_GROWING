@@ -162,6 +162,7 @@
         <div id="survey_wrap">
           <h1>설문조사</h1>
           <h2 style="text-align: center;">작성하기</h2>
+           	<form action="<%= request.getContextPath() %>/insert.su" id="enroll-su" method="post">
             <div class="multiple">
              <table  border-collapse:collapse; id="multiple_table">
                 <tr>
@@ -257,6 +258,7 @@
                       });
                     })
                 </script>
+        </form>
     </div>
   </body>
   </html>

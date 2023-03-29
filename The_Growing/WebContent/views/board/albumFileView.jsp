@@ -524,8 +524,11 @@
             </div>
           </div>
           <div class="album_content">
+          
+          <% int[] albumlist; %>
           <%for(int i = 0; i<list.size(); i++) {%>
-            <div class="album_con1">
+          	
+            <div class="album_con1 class<%=i%>">
             <input type="hidden" id="fno"  value="<%=list.get(i).getFileNo() %>">
                <input type="checkbox" class="file_check">
               <div  class="album_con_file album_click">

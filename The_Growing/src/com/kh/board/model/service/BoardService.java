@@ -21,13 +21,13 @@ public class BoardService {
 		return list;
 	}
 
-	public int insertAlbumBoard(Board b, ArrayList<Attachment> list, int cno, int uno) {
+	public int insertAlbumBoard(Board b, ArrayList<Attachment> list) {
 
 		Connection conn = getConnection();
 
-		int result1 = new BoardDao().insertAlbumBoard(conn, b, cno, uno);
+		int result1 = new BoardDao().insertAlbumBoard(conn, b);
 
-		int result2 = new BoardDao().insertAttachmentList(conn, list, cno, uno);
+		int result2 = new BoardDao().insertAttachmentList(conn, list);
 
 		if (result1 > 0 && result2 > 0) {
 			commit(conn);

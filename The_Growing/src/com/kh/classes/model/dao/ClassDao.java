@@ -234,5 +234,76 @@ public class ClassDao {
 		
 		return result;
 	}
+	 public Class selectClass(Connection conn, int classNo) {
 
+	      Class cInfo = null;
+
+	      PreparedStatement pstmt = null;
+
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectClass");
+
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setInt(1, classNo);
+	         
+	         rset = pstmt.executeQuery();
+	         if (rset.next()) {
+	            cInfo = new Class(rset.getInt("CLASS_NO"),
+	                  rset.getInt("CLASS_GRADE"),
+	                  rset.getInt("CLASS_CODE"),
+	                  rset.getString("CLASS_NAME"),
+	                  rset.getString("CLASS_TYPE_NAME"),
+	                  rset.getString("CHANGE_NAME"),
+	                  rset.getString("FILE_PATH"),
+	                  rset.getString("TEACHER_NAME"),
+	                  rset.getString("ATPT_OFCDC_SC_CODE"),
+	                  rset.getInt("SD_SCHUL_CODE"),
+	                  rset.getInt("USER_COUNT"));
+	            
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      return cInfo;
+	   }
+
+	 public ArrayList<Class> selectMyClass(Connection conn, int userNo) {
+
+			ArrayList<Class> list = new ArrayList<>();
+
+			PreparedStatement pstmt = null;
+
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("selectMyClass");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, userNo);
+				
+				rset = pstmt.executeQuery();
+				while (rset.next()) {
+					Class c = new Class(rset.getInt("REF_CNO"), rset.getInt("CLASS_GRADE"),
+							rset.getInt("CLASS_CODE"), rset.getString("CLASS_NAME"), rset.getString("CLASS_TYPE_NAME"),
+							rset.getString("CHANGE_NAME"),rset.getString("FILE_PATH"),rset.getString("TEACHER_NAME"),
+							rset.getString("ATPT_OFCDC_SC_CODE"),rset.getInt("SD_SCHUL_CODE"),rset.getInt("USER_COUNT"));
+					list.add(c);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
 }

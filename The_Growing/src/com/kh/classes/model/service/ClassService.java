@@ -100,4 +100,27 @@ public class ClassService {
 		
 		return table;
 	}
+	public Class selectClass(int classNo) {
+	      Connection conn = getConnection();
+
+	      Class cInfo = new ClassDao().selectClass(conn, classNo);
+
+	      close(conn);
+
+	      return cInfo;
+
+	   }
+	public ArrayList<Class> selectMyClass(int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Class> list = new ClassDao().selectMyClass(conn, userNo);
+
+		close(conn);
+
+		return list;
+
+	}
+	
+
+
 }

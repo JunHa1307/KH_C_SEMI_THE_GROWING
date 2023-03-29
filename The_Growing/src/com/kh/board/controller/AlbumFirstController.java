@@ -31,7 +31,7 @@ public class AlbumFirstController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = 2; //Integer.parseInt(request.getParameter("uno"));
+		int uno = 4; //Integer.parseInt(request.getParameter("uno"));
 		int cno =2; //Integer.parseInt(request.getParameter("cno"));
 		
 		Class cInfo = new ClassService().selectClass(cno);

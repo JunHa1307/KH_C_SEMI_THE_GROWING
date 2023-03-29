@@ -65,7 +65,7 @@ private Properties prop = new Properties();
 	}
 	
 
-	public int insertAlbumBoard(Connection conn, Board b, int cno, int uno) {
+	public int insertAlbumBoard(Connection conn, Board b) {
 		
 		int result = 0;
 		
@@ -78,8 +78,7 @@ private Properties prop = new Properties();
 			
 			pstmt.setString(1, b.getBoardTitle());
 			pstmt.setString(2, b.getBoardContent());
-			pstmt.setInt(3, uno);
-			pstmt.setInt(4, cno);
+	
 			
 			result = pstmt.executeUpdate();
 			
@@ -91,7 +90,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
-	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list , int cno, int uno) {
+	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list) {
 		int result = 1;
 		
 		PreparedStatement pstmt = null;
@@ -102,12 +101,12 @@ private Properties prop = new Properties();
 			pstmt = conn.prepareStatement(sql);
 			
 			for(Attachment at : list) {
-				pstmt.setString(1, at.getOriginName());
-				pstmt.setString(2, at.getChangeName());
-				pstmt.setString(3, at.getFilePath());
-				pstmt.setInt(4, at.getFileLevel());
-				pstmt.setInt(5, uno);
-				pstmt.setInt(6, cno);
+				pstmt.setInt(1, at.getRefBno());
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, at.getFileLevel());
+			
 
 				result *= pstmt.executeUpdate();
 			}
