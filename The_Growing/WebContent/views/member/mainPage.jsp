@@ -46,6 +46,7 @@
 		<div class="myInfo">
 			<div class="myProfile">
 				<div class="myProfile-img">
+					<% if(loginUser){ %>
 					<img
 						src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>"
 						alt=""
