@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectClassList">
+		SELECT 
+			CM.REF_CNO, CLASS_GRADE, CLASS_CODE, CLASS_NAME,
+			CLASS_TYPE_NAME, CHANGE_NAME, FILE_PATH, TEACHER_NAME,
+			ATPT_OFCDC_SC_CODE, SD_SCHUL_CODE,
+			(SELECT COUNT(*) FROM CLASS_MEMBER WHERE REF_CNO = CM.REF_CNO) AS USER_COUNT
+		FROM CLASS_MEMBER CM
+		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
+		LEFT JOIN ATTACHMENT A ON (A.REF_CNO = C.CLASS_NO)
+		WHERE CM.REF_UNO = ?
+		ORDER BY REF_CNO
+	</entry>
+	<entry key="insertClass">
+		INSERT INTO CLASS
+			VALUES (SEQ_CNO.NEXTVAL,?,?,?,?,?,?,?)
+	</entry>
+	<entry key="insertClassMember">
+		INSERT INTO CLASS_MEMBER
+			VALUES ((SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?,?)
+	</entry>
+	<entry key="insertClassAttachment">
+		INSERT INTO ATTACHMENT
+            (FILE_NO,REF_CNO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,FILE_LEVEL)
+            VALUES (SEQ_ANO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?), ?, ?, '/resources/image/classProfile/',1)
+    </entry>
+    <entry key="selectTableList">
+    	SELECT CLASS_NO, TIME_TABLE_CONTENT
+    	FROM CLASS_MEMBER CM
+		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
+        LEFT JOIN TIME_TABLE T USING(REF_CNO)
+	   	WHERE CM.REF_UNO = ?
+	    ORDER BY REF_CNO
+    </entry>
+    <entry key="insertTable">
+		INSERT INTO TIME_TABLE
+            VALUES (SEQ_TNO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?)
+    </entry>
+    <entry key="updateTable">
+		UPDATE TIME_TABLE
+		SET TIME_TABLE_CONTENT = ?
+		WHERE REF_CNO = ?
+	</entry>
+</properties>
