@@ -56,6 +56,13 @@ public class Member {
 		this.address = address;
 		this.userLevel = userLevel;
 	}
+	
+	public Member(String snsId, String snsName, int userLevel) {
+		super();
+		this.userId = snsId;
+		this.userName = snsName;
+		this.userLevel = userLevel;
+	}
 
 	public int getUserNo() {
 		return userNo;

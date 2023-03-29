@@ -1,9 +1,11 @@
+<%@page import="com.kh.member.model.vo.SnsLogin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.classes.model.vo.Class , java.util.ArrayList, com.kh.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
 	ArrayList<Class> list = (ArrayList<Class>) request.getAttribute("list");
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	SnsLogin snsLoginUser = (SnsLogin) session.getAttribute("snsLoginUser");
 %>	
 <!DOCTYPE html>
 <html lang="en">
@@ -37,8 +39,9 @@
 			<div class="myInfo">
 				<div class="myProfile">
 					<div class="myProfile-img">
-						<img src="../../resources/image/bono.jpg" alt="">
+						<img src="<%= snsLoginUser.getFilePath() %>" alt="">
 					</div>
+					
 					<span class="myProfile-name"><%= loginUser.getUserName() %></span>
 					<button class="button_UI button--winona" data-text="마이페이지">
 						<span>마이페이지</span>
