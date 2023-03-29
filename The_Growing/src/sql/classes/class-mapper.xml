@@ -11,5 +11,53 @@
 		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
 		LEFT JOIN ATTACHMENT A ON (A.REF_CNO = C.CLASS_NO)
 		WHERE CM.REF_UNO = ?
+		ORDER BY REF_CNO
+	</entry>
+	<entry key="insertClass">
+		INSERT INTO CLASS
+			VALUES (SEQ_CNO.NEXTVAL,?,?,?,?,?,?,?)
+	</entry>
+	<entry key="insertClassMember">
+		INSERT INTO CLASS_MEMBER
+			VALUES ((SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?,?)
+	</entry>
+	<entry key="insertClassAttachment">
+		INSERT INTO ATTACHMENT
+            (FILE_NO,REF_CNO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,FILE_LEVEL)
+            VALUES (SEQ_ANO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?), ?, ?, '/resources/image/classProfile/',1)
+    </entry>
+    <entry key="selectTableList">
+    	SELECT CLASS_NO, TIME_TABLE_CONTENT
+    	FROM CLASS_MEMBER CM
+		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
+        LEFT JOIN TIME_TABLE T USING(REF_CNO)
+	   	WHERE CM.REF_UNO = ?
+	    ORDER BY REF_CNO
+    </entry>
+    <entry key="insertTable">
+		INSERT INTO TIME_TABLE
+            VALUES (SEQ_TNO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?)
+    </entry>
+    <entry key="updateTable">
+		UPDATE TIME_TABLE
+		SET TIME_TABLE_CONTENT = ?
+		WHERE REF_CNO = ?
+	</entry>
+	 <entry key="insertCalendar">
+		INSERT INTO SCHEDULE
+            VALUES (SEQ_SCNO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?)
+    </entry>
+    <entry key="selectCalendarList">
+    	SELECT CLASS_NO, S_CONTENT
+    	FROM CLASS_MEMBER CM
+		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
+        LEFT JOIN SCHEDULE S USING(REF_CNO)
+	   	WHERE CM.REF_UNO = ?
+	    ORDER BY REF_CNO
+    </entry>
+     <entry key="updateCalendar">
+		UPDATE SCHEDULE
+		SET S_CONTENT = ?
+		WHERE REF_CNO = ?
 	</entry>
 </properties>

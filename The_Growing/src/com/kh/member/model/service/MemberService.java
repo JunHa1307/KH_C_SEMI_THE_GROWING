@@ -85,4 +85,18 @@ public class MemberService {
 		return m;
 	}
 	
+	public Member loginMemberInfo(int uno) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().loginMemberInfo(conn, uno);
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return m;
+	}
+	
 }
