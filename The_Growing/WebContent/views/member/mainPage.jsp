@@ -3,6 +3,7 @@
 <%
 	String contextPath = request.getContextPath();
 	ArrayList<Class> list = (ArrayList<Class>) request.getAttribute("list");
+	ArrayList<String> tableList = (ArrayList<String>) request.getAttribute("tableList");
 	Member loginUser = (Member) session.getAttribute("loginUser");
 %>	
 <!DOCTYPE html>
@@ -115,6 +116,7 @@
 					</div>					
 					<div class="table-btn">
 						<button type="button" class="button_UI button--winona" data-text="업데이트" onclick="tableUpdate();">업데이트</button>
+						<button type="button" class="button_UI button--winona" data-text="행 추가" onclick="insertRow();">행 추가</button>
 					</div>
 				</div>
 				<!-- 캘린더 -->
@@ -229,8 +231,7 @@
 							</div>
 							
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-								<button type="button" id="btn_register" class="btn btn-primary" onclick="tableUpdate();">확인</button>
+								<button type="button" id="btn_register" class="btn btn-primary" data-dismiss="modal">닫기</button>
 							</div>
 						</div>
 					</div>
@@ -316,72 +317,6 @@
 				}
     </script>
 	<script>
-        let tabledata = [
-            { id: 1, name: "09:00 ~ 09:50", mon: "12", tue: "red", wed: "", thur: "ekrtdd", fri: "ekrtdd" },
-            { id: 2, name: "10:00 ~ 10:50", mon: "1", tue: "blue", wed: "14/05/1982", thur: "ekrtdd", fri: "" },
-            { id: 3, name: "11:00 ~ 11:50", mon: "42", tue: "green", wed: "22/05/1982", thur: "ekrtdd", fri: "스마트학원수학" },
-            { id: 4, name: "12:00 ~ 12:50", mon: "125", tue: "orange", wed: "01/08/1980", thur: "밥먹기", fri: "ekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdf\nekrtasasekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdfekrtasasdffekrtasasdfekrtasasdfekrtasasdfdfekrtasasdfekrtasasdfekrtasasdf" },
-            { id: 5, name: "13:00 ~ 13:50", mon: "16", tue: "yellow", wed: "31/01/1999", thur: "ekrtdd", fri: "ekrtdd" },
-            { id: 6, name: "14:00 ~ 14:50", mon: "16", tue: "yellow", wed: "31/01/1999", thur: "ekrtdd", fri: "ekrtdd" },
-            { id: 7, name: "15:00 ~ 15:50", mon: "16", tue: "yellow", wed: "31/01/1999", thur: "ekrtdd", fri: "ekrtdd" },
-            { id: 8, name: "16:00 ~ 16:50", mon: "16", tue: "yellow", wed: "31/01/1999", thur: "ekrtdd", fri: "ekrtdd" },
-            { id: 9, name: "17:00 ~ 17:50", mon: "16", tue: "yellow", wed: "31/01/1999", thur: "ekrtdd" },
-        ];
-        
-        var editCheck = function(cell){
-            //cell - the cell component for the editable cell
-			
-            let isTeacher = false;
-            let teacherName = $(".slick-current>div>div .myClass-text").eq(2).text();
-            let name = $(".myProfile-name").text().trim();
-            
-            <% if(loginUser.getUserLevel() == 1){ %>
-            	if(name == teacherName){
-            		isTeacher = true;
-            	}
-            <% } %> 
-
-            return isTeacher;
-        }
-        
-		table();
-		
-        // id "time-table"인 tabulator 테이블 만들기
-        function table(){
-	        let table = new Tabulator("#time-table", {
-	            height: "100%", // 높이 지정(css 높이 가능)
-	            data: tabledata, // 테이블 데이터 설정
-	            layout: "fitDataFill", // 데이터에 맞춰서 보이기(보이는 방식 설정)
-	            columns: [ // 테이블 열 설정( 선생님일때 포매터 : editor <- 수정 , 아닐 때 : textarea <- 조회)
-	                { title: "", field: "name", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
-	                { title: "월요일", field: "mon", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
-	                { title: "화요일", field: "tue", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
-	                { title: "수요일", field: "wed", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
-	                { title: "목요일", field: "thur", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
-	                { title: "금요일", field: "fri", editor:"input", editable:editCheck, variableHeight: true, headerSort: false }
-	            ],
-	        });
-        }
-        
-        function tableUpdate() {
-            for (let i = 0; i < $(".tabulator-row").length; i++) {
-                let cell = $(".tabulator-row").eq(i).children(".tabulator-cell");
-                table.updateRow(i + 1, {
-                    name: cell.eq(0).text(), mon: cell.eq(1).text(), tue: cell.eq(2).text(),
-                    wed: cell.eq(3).text(), thur: cell.eq(4).text(), fri: cell.eq(5).text(), sat: cell.eq(6).text()
-                });
-            }
-            table.replaceData([{id:1, name:"bob", mon:"male"}, {id:2, name:"Jenny", tue:"female"}])
-            alert("수정되었습니다");
-        }
-
-        // 행을 클릭했을 때 이벤트
-        /* table.on("rowClick", function(e, row){
-        	$("#time-table1").html(document.getElementById('time-table').cloneNode(true));
-        	$('#tableModal').modal("show");
-        }); */
-    </script>
-	<script>
         (function () {
             $(function () {
                 // calendar element 취득
@@ -464,6 +399,7 @@
     		atptCodeArr.push("<%= list.get(i).getAtptOfcdcScCode()%>");
     		schulCodeArr.push("<%= list.get(i).getSdSchulCode()%>");
 			classList.push("<%= list.get(i).getClassNo()%>");
+			
     	<%}%>
     	
 	    function getToday(){
@@ -509,15 +445,102 @@
 	    $(".myClass-info").on('afterChange', function(event, slick, direction){
 	    	index = $(".slick-current>div>div").attr("id").substr(5);
 		    lunch();
+		    table.clearData();
+		    table.updateOrAddData(tabledata[index]);
 	    });
 	    
 	    function moveToBoard(){
 	    	
-	    	cno = classList[index];
+	    	let cno = classList[index];
 	    	
 	    	location.href="/boardmove.bo?cno="+ cno;
 	    }
 	    
+    </script>
+    <script>
+		let tabledata = <%= tableList%>;
+		
+        let editCheck = function(cell){
+			
+            let isTeacher = false;
+            let teacherName = $(".slick-current>div>div .myClass-text").eq(2).text();
+            let name = $(".myProfile-name").text().trim();
+            
+            <% if(loginUser.getUserLevel() == 1){ %>
+            	if(name == teacherName){
+            		isTeacher = true;
+            	}
+            <% } %> 
+            
+            return isTeacher;
+        }
+		
+        // id "time-table"인 tabulator 테이블 만들기
+       
+        let table = new Tabulator("#time-table", {
+            height: "100%", // 높이 지정(css 높이 가능)
+            data: tabledata[index], // 테이블 데이터 설정
+            layout: "fitDataFill", // 데이터에 맞춰서 보이기(보이는 방식 설정)
+            columns: [ // 테이블 열 설정( 선생님일때 포매터 : editor <- 수정 , 아닐 때 : textarea <- 조회)
+                { title: "", field: "name", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+                { title: "월요일", field: "mon", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+                { title: "화요일", field: "tue", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+                { title: "수요일", field: "wed", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+                { title: "목요일", field: "thur", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
+                { title: "금요일", field: "fri", editor:"input", editable:editCheck, variableHeight: true, headerSort: false }
+            ],	
+        });
+	   
+        function tableUpdate() {
+        	let arr = new Array();
+            for (let i = 0; i < $(".tabulator-row").length; i++) {
+        		let obj = new Object();
+                let cell = $(".tabulator-row").eq(i).children(".tabulator-cell");
+                obj.name= cell.eq(0).text();
+                obj.mon = cell.eq(1).text();
+                obj.tue = cell.eq(2).text();
+                obj.wed = cell.eq(3).text();
+                obj.thur= cell.eq(4).text();
+                obj.fri = cell.eq(5).text();
+                obj.sat = cell.eq(6).text();
+                //JSON.stringify(obj);
+                arr.push(obj);
+            }
+            arr = JSON.stringify(arr);
+            
+            $.ajax({
+	    		url : "<%=contextPath%>/tableUpdate.c",
+	    		method : 'POST',
+	    		data : {arr:arr , cno : classList[index]},	    		
+	    		success:function(result){
+	    			if(result != null){
+	    				
+    					table.replaceData(result);
+		                alert("수정되었습니다");
+		                
+	    			}else{
+	    				alert("수정 실패");
+	    			}
+	    		},
+	    		error:function(error,status,msg){
+	    			alert("상태코드 " + status + "에러메시지" + msg );
+	    		}
+	    	});
+        };
+        
+        function insertRow(){
+	        table.addRow({name: "", mon: "", tue: "", wed: "", thur: "", fri: ""}, true)
+	        .then(function(row){
+	           row.getCell("name").edit();
+	        });
+	    };
+	    
+	    table.on("rowDblClick", function(e, row){
+        
+	    	$("#time-table1").html(document.getElementById('time-table').cloneNode(true));
+	    	$('#tableModal').modal("show");
+    
+		});
     </script>
 </body>
 </html>

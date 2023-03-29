@@ -36,7 +36,10 @@ public class MainPageController extends HttpServlet {
 		
 		ArrayList<Class> list = new ClassService().selectClassList(loginUser.getUserNo());
 		
+		ArrayList<String> tableList = new ClassService().selectTableList(loginUser.getUserNo());
+		
 		request.setAttribute("list", list);
+		request.setAttribute("tableList", tableList);
 		
 		request.getRequestDispatcher("views/member/mainPage.jsp").forward(request, response);
 	}
