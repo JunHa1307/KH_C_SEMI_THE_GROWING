@@ -288,8 +288,9 @@
 	}
 	
 	.table-btn {
-		padding-top: 1em;
-		margin-left: 35%;
+		width:fit-content;
+		min-height: 2.124vw;
+		margin: 1em auto 1em auto;
 	}
 	
 	.schedule {
@@ -420,8 +421,8 @@
         }
 
         .table-btn {
-            padding-top: 1em;
-            margin-left: 40%;
+            width: fit-content;
+            margin: 1em auto 1em auto;
         }
 
         .lunch {
