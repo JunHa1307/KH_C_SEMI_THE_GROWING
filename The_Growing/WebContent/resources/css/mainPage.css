@@ -1,6 +1,119 @@
 @charset "UTF-8";
 
-        
+/* 새클래스 만들기 모달창 */
+#newClassModal .modal-body {
+	display:flex;
+	flex-direction:column;
+	align-items: center;
+}
+
+#newClassModal .modal-body>div{
+	margin-bottom: 1vw;
+}
+
+
+.school_search {
+    height: 50px;   
+    font-size: 1em;    
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info_box {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info>h2{
+	margin: 0 1vw 0 1vw;
+	font-size: 2vw;
+}
+
+.info_box>input {
+	margin: 0 1vw 0 1vw;
+	font-size: 1vw;
+}
+
+.year, .grade {
+    min-height: 50px;
+}
+
+.prof_img {
+	width: 100%;
+    height: 100%;
+     min-height: 10vw;
+    border: 1px solid black;
+	object-fit: cover;
+	cursor: pointer;
+} 
+
+@media only screen and (min-width: 780px) {
+	
+	.info>h2{
+		min-width: 50px;
+	}
+	.profile_img_area {
+	    height: 100%;           
+	    width: 9vw;
+	    text-align: center;
+	    overflow: hidden;
+	}
+	
+	.prof_img {
+	min-width: 9vw;
+	} 
+}
+
+@media only screen and (max-width: 780px) {
+	.profile_img_area {
+	    height: 25vw;           
+	    text-align: center;
+	    overflow: hidden;
+	}
+	
+	.prof_img {
+		min-width: 20vw;
+	} 
+	
+	.class_name1 {
+		min-width: 15vw;
+	}
+	
+	.class_name2 {
+		max-width: 15vw;
+	}
+}
+	
+
+.box_1 {
+    display: flex;
+}
+
+.box {
+	margin: 0 1vw 0 1vw;
+}
+
+/* 초대코드로 가입 모달창 */
+.codeItem{
+	display: inline-block;
+    width: 30px;
+    height: 37px;
+    line-height: 35px;
+    margin: 0 6px;
+    border: 0;
+    border-bottom: 2px solid #333;
+    vertical-align: middle;
+    font-size: 30px;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* 메인 페이지 */
+/* 공통 */        
 .contentBox {
     max-width:1500px;
     width: 95%; 

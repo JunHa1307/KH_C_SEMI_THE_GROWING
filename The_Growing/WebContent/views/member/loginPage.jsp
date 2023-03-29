@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	Integer userLevel = (Integer) request.getAttribute("userLevel");
+	/* Integer userLevel = (Integer) request.getAttribute("userLevel"); */
+	Integer userLevel = (Integer) session.getAttribute("userLevel");
 	String contextPath = request.getContextPath();
 %>
 
@@ -21,6 +22,12 @@
     <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
     <meta name ="google-signin-client_id" content="169084417109-f19btt7tlefea954g1c90s7qjo6i2u4r.apps.googleusercontent.com">
 
+	<!-- 구글 api 사용을 위한 스크립트 -->
+	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+	
+	<!-- 네이버 스크립트 -->
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -250,7 +257,27 @@
                     Kakao.API.request({
                     url: '/v2/user/me',
                     success: function (response) {
-                        console.log(response)
+                    	
+                        /* console.log(response); */
+                        console.log(response.id);
+                        console.log(response.kakao_account.profile.nickname);
+                        console.log(response.access_token);
+                        
+                        let userId = response.id;
+                        let userName = response.kakao_account.profile.nickname;
+                        
+                        <%-- location.href="<%= request.getContextPath() %>/insert.me"; --%>
+                        
+                        $.ajax({
+                        	url : "<%= request.getContextPath() %>/insert.me",
+                        	data : {userId, userName},
+                        	success: function(data){
+                        		location.replace("<%= request.getContextPath() %>/mainpage.me");
+                        	},
+                        	error: function(){
+                        		console.log("카카오로그인db저장실패");
+                        	}
+                        });
                     },
                     fail: function (error) {
                         console.log(error)
@@ -263,9 +290,6 @@
                 })
             }
         </script>
-
-        <!-- 네이버 스크립트 -->
-        <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
         <script>
 
@@ -348,9 +372,7 @@
                 console.log(t);
             }
             </script>
-            <!-- 구글 api 사용을 위한 스크립트 -->
-            <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-    </div>
+        </div>
     
 </body>
 </html>
