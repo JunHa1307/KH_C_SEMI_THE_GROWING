@@ -39,9 +39,9 @@
 <body>
 	<%@ include file="/views/common/header.jsp"%>
 
-	<div class="contentBox">
+	<main class="contentBox">
 		<!-- 상단컨텐츠 -->
-		<div class="myInfo">
+		<section class="myInfo">
 			<div class="myProfile">
 				<div class="myProfile-img">
 					<img
@@ -59,7 +59,7 @@
 					<span>로그아웃</span>
 				</button>
 			</div>
-			<div class="myClass">
+			<section class="myClass">
 				<div class="myClass-info">
 					<% if(list.size() != 0){ %>
 					<% for(int i = 0; i < list.size();i++){ %>
@@ -92,44 +92,44 @@
 					</div>
 					<% } %>
 				</div>
-				<div class="myClass-btn"
+				<nav class="myClass-btn"
 					style="background-image: url('<%= contextPath %>/resources/image/houses-fill.svg');">
 					<img src="<%= contextPath %>/resources/image/houses-fill.svg"
 						alt="클래스 더보기" width="0" height="90%"> <span>클래스<br>더보기
 					</span>
-				</div>
+				</nav>
 				<%if( loginUser.getUserLevel() == 1) {%>
-				<div class="myClass-btn" data-toggle="modal"
+				<nav class="myClass-btn" data-toggle="modal"
 					data-target="#newClassModal"
 					style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
 					<img src="<%= contextPath %>/resources/image/house-add-fill.svg"
 						alt="새 클래스 만들기" width="0" height="90%"> <span>새 클래스<br>만들기
 					</span>
-				</div>
+				</nav>
 				<%} else { %>
-				<div class="myClass-btn" onclick="ClassSearch(구현안됨);"
+				<nav class="myClass-btn" onclick="ClassSearch(구현안됨);"
 					style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
 					<img src="<%= contextPath %>/resources/image/house-add-fill.svg"
 						alt=" 클래스 찾기" width="0" height="90%"> <span>클래스<br>찾기
 					</span>
-				</div>
+				</nav>
 				<% } %>
-				<div class="myClass-btn" data-toggle="modal"
+				<nav class="myClass-btn" data-toggle="modal"
 					data-target="#classCode"
 					style="background-image: url('<%= contextPath %>/resources/image/door-open-fill.svg');">
 					<img src="<%= contextPath %>/resources/image/door-open-fill.svg"
 						alt="초대코드로 가입하기" width="0" height="90%"> <span>초대코드로<br>가입
 					</span>
-				</div>
-			</div>
-		</div>
+				</nav>
+			</section>
+		</section>
 
-		<div class="today-date">
+		<section class="today-date">
 			오늘은 <b>2023년 03월 23일 목요일</b> 이에요! 행복한 하루 되세요~
-		</div>
+		</section>
 
 		<!-- 하단 컨텐츠 -->
-		<div class="other-info">
+		<section class="other-info">
 			<!-- 급식표 -->
 			<div class="lunch"></div>
 			<div class="timeTable">
@@ -152,7 +152,7 @@
 							data-text="업데이트">업데이트</button>
 				</div>
 			</div>
-		</div>
+		</section>
 
 		<!-- modal-wrap -->
 		<div>
@@ -322,7 +322,7 @@
 			</div>
 		</div>
 
-	</div>
+	</main>
 	<script>
 		//버튼 UI 애니메이션
         $('.button_UI').on('click', function () {
