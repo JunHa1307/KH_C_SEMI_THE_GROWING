@@ -1,3 +1,4 @@
+<%@page import="com.kh.member.model.vo.SnsLogin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="com.kh.classes.model.vo.Class , java.util.ArrayList, com.kh.member.model.vo.Member"%>
@@ -7,6 +8,7 @@
 	ArrayList<String> tableList = (ArrayList<String>) request.getAttribute("tableList");
 	ArrayList<String> calendarList = (ArrayList<String>) request.getAttribute("calendarList");
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	SnsLogin snsLoginUser = (SnsLogin) session.getAttribute("snsLoginUser");
 %>
 <!DOCTYPE html>
 <html lang="en">

@@ -19,6 +19,26 @@
 					)
 	</entry>
 	
+	<entry key="insertMemberApi">
+		INSERT ALL
+		INTO MEMBER(USER_NO, USER_ID, USER_NAME, USER_LEVEL)
+		VALUES (SEQ_MNO.NEXTVAL,
+		                      ?,
+		                      ?,
+		                      ?)
+		INTO SNS_LOGIN(USER_NO,
+		               SNS_ID,
+		               SNS_NAME,
+		               SNS_TYPE,
+		               FILE_PATH)
+		VALUES (SEQ_MNO.CURRVAL, 
+					        ?, 
+					        ?, 
+					        ?,
+					        ?)
+		SELECT * FROM DUAL
+	</entry>
+	
 	
 	<entry key="idCheck">
 		SELECT COUNT(*)

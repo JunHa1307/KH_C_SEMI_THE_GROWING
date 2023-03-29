@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.SnsLogin;
 
 
 public class MemberDao {
@@ -50,6 +51,35 @@ public class MemberDao {
 			pstmt.setString(4, m.getPhone());
 			pstmt.setString(5, m.getAddress());
 			pstmt.setInt(6, m.getUserLevel());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertMemberApi(Connection conn, Member loginUser, SnsLogin snsLoginUser) {
+		//Insert문 => 처리된 행의 갯수
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertMemberApi");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, loginUser.getUserId());
+			pstmt.setString(2, loginUser.getUserName());
+			pstmt.setInt(3, loginUser.getUserLevel());
+			pstmt.setString(4, snsLoginUser.getSnsId());
+			pstmt.setString(5, snsLoginUser.getSnsName());
+			pstmt.setString(6, snsLoginUser.getSnsType());
+			pstmt.setString(7, snsLoginUser.getFilePath());
 			
 			result = pstmt.executeUpdate();
 			
