@@ -633,10 +633,10 @@
 	    	$('#tableModal').modal("show");
 		});
 	 	
-	    <% if( loginUser.getUserLevel() == 1) {%>
-	    	$(:)
+	    <% if( loginUser.getUserLevel() != 1) {%>
+	    	$(".table-btn").css("display","none");
 	    <% } %>
-	    }
+	    
     </script>
 </body>
 </html>
