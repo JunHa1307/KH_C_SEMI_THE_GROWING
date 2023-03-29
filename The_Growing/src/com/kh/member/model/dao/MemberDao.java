@@ -151,7 +151,54 @@ public class MemberDao {
 	}
 	
 	
-	
+public Member loginMemberInfo(Connection conn, int uno) {
+		
+		// Select문 => ResultSet객체(조회된 행은 1개이거나 없거나)
+		Member m = null;
+		
+		ResultSet rset= null;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("loginMemberInfo");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("USER_NO"),
+						       rset.getString("USER_ID"),
+						       rset.getString("USER_PWD"),
+						       rset.getString("USER_NAME"),
+						       rset.getString("PHONE"),
+						       rset.getString("ADDRESS"),
+						       rset.getDate("ENROLL_DATE"),
+						       rset.getDate("MODIFY_DATE"),
+						       rset.getString("STATUS"),
+						       rset.getString("CHILDREN_NAME"),
+						       rset.getInt("USER_LEVEL"),
+						       rset.getString("CHANGE_NAME"),
+						       rset.getString("FILE_PATH"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return m;		
+	}
 	
 	
 	
