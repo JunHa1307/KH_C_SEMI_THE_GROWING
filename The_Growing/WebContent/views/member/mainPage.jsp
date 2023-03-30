@@ -62,34 +62,34 @@
 			<section class="myClass">
 				<div class="myClass-info">
 					<% if(list.size() != 0){ %>
-					<% for(int i = 0; i < list.size();i++){ %>
-					<div id="class<%= i %>" class="myClass-list">
-						<div class="myClass-img" onclick="moveToBoard();">
-							<img
-								src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>"
-								alt="클래스 프로필"
-								onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
-						</div>
-						<div class="myClass-text-list">
-							<div class="myClass-text"><h6><%= list.get(i).getClassTypeName()%><%=" "+ (list.get(i).getClassGrade()+"").substring(5) %>학년<br><%= list.get(i).getClassName() %></h6></div>
-							<div class="myClass-text">
-								가입자 수 :
-								<%= list.get(i).getUserCount()%>명
+						<% for(int i = 0; i < list.size();i++){ %>
+							<div id="class<%= i %>" class="myClass-list">
+								<div class="myClass-img" onclick="moveToBoard();">
+									<img
+										src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>"
+										alt="클래스 프로필"
+										onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+								</div>
+								<div class="myClass-text-list">
+									<div class="myClass-text"><h6><%= list.get(i).getClassTypeName()%><%=" "+ (list.get(i).getClassGrade()+"").substring(5) %>학년<br><%= list.get(i).getClassName() %></h6></div>
+									<div class="myClass-text">
+										가입자 수 :
+										<%= list.get(i).getUserCount()%>명
+									</div>
+									<div class="myClass-text"><%= list.get(i).getTeacherName()%> 선생님</div>
+								</div>
 							</div>
-							<div class="myClass-text"><%= list.get(i).getTeacherName()%> 선생님</div>
-						</div>
-					</div>
-					<% } %>
+						<% } %>
 					<% } else { %>
-					<div id="class0" class="myClass-list" onclick="moveToBoard();">
-						<div class="myClass-img">
-							<img src="" alt="클래스 프로필"
-								onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+						<div id="class0" class="myClass-list" onclick="moveToBoard();">
+							<div class="myClass-img">
+								<img src="" alt="클래스 프로필"
+									onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+							</div>
+							<div class="myClass-text-list">
+								<div class="myClass-text">가입된 클래스가 없습니다.</div>
+							</div>
 						</div>
-						<div class="myClass-text-list">
-							<div class="myClass-text">가입된 클래스가 없습니다.</div>
-						</div>
-					</div>
 					<% } %>
 				</div>
 				<nav class="myClass-btn"
@@ -99,28 +99,28 @@
 					</span>
 				</nav>
 				<%if( loginUser.getUserLevel() == 1) {%>
-				<nav class="myClass-btn" data-toggle="modal"
-					data-target="#newClassModal"
-					style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
-					<img src="<%= contextPath %>/resources/image/house-add-fill.svg"
-						alt="새 클래스 만들기" width="0" height="90%"> <span>새 클래스<br>만들기
-					</span>
-				</nav>
+					<div class="myClass-btn" data-toggle="modal"
+						data-target="#newClassModal"
+						style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
+						<img src="<%= contextPath %>/resources/image/house-add-fill.svg"
+							alt="새 클래스 만들기" width="0" height="90%"> <span>새 클래스<br>만들기
+						</span>
+					</div>
 				<%} else { %>
-				<nav class="myClass-btn" onclick="ClassSearch(구현안됨);"
-					style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
-					<img src="<%= contextPath %>/resources/image/house-add-fill.svg"
-						alt=" 클래스 찾기" width="0" height="90%"> <span>클래스<br>찾기
-					</span>
-				</nav>
+					<nav class="myClass-btn" onclick="ClassSearch(구현안됨);"
+						style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
+						<img src="<%= contextPath %>/resources/image/house-add-fill.svg"
+							alt=" 클래스 찾기" width="0" height="90%"> <span>클래스<br>찾기
+						</span>
+					</nav>
 				<% } %>
-				<nav class="myClass-btn" data-toggle="modal"
+				<div class="myClass-btn" data-toggle="modal"
 					data-target="#classCode"
 					style="background-image: url('<%= contextPath %>/resources/image/door-open-fill.svg');">
 					<img src="<%= contextPath %>/resources/image/door-open-fill.svg"
 						alt="초대코드로 가입하기" width="0" height="90%"> <span>초대코드로<br>가입
 					</span>
-				</nav>
+				</div>
 			</section>
 		</section>
 
@@ -323,46 +323,7 @@
 		</div>
 
 	</main>
-	<script>
-		//버튼 UI 애니메이션
-        $('.button_UI').on('click', function () {
-            $(this).css('color', 'rgb(137, 180, 166)');
-            $(this).siblings(".button_UI").css('color', "black");
-        });
-        
-		// 새 클래스 만들기 파일 선택
-		$(".prof_img, .fileUpdate").on('click',function(){
-			$("#classProfile").click();
-		});
-		
-		// 새 클래스 만들기 파일 삭제
-		$(".fileDelete").on('click',function(){
-			$(".prof_img").attr("src", "<%= contextPath %>/resources/image/noImage.png");
-		    $("#classProfile").val("");
-		});
-		
-		// 새 클래스 만들기 이미지 미리보기 && 파일 업로드
-		function loadImg(inputFile){
-					
-					if(inputFile.files.length != 0){
-						
-						let reader = new FileReader();
-						
-						reader.readAsDataURL(inputFile.files[0]);
-						
-						reader.onload = function(e){
-							
-							let url = e.target.result;
-							
-							$(".prof_img").attr("src",url);
-						}	
-				
-					}else {
-						
-						$(".prof_img").removeAttr("src");
-					}
-				}
-    </script>
+	<script src="<%= contextPath %>/resources/js/calendar.js"></script>
 	<script>
       $(function () {
         $(".myClass-info").slick({ // 슬라이드 만들기
@@ -409,16 +370,20 @@
 	    }
 	    
 	    let week = ['일', '월', '화', '수', '목', '금', '토']; // 날짜 년월일 만들기
-    	let date = getToday();
-	    let todayYear = date.substring(0,4);
-	    let todayMonth = date.substring(4,6);
-	    let todayDay = date.substring(6,8);
+    	let today = getToday();
+	    let todayYear = today.substring(0,4);
+	    let todayMonth = today.substring(4,6);
+	    let todayDay = today.substring(6,8);
 	    $(".today-date>b").text(todayYear + "년 " + todayMonth + "월 " + todayDay + "일 " + week[new Date(todayYear+"-"+todayMonth+"-"+todayDay).getDay()]+"요일");
 	    
+	 	// 캘린더 생성
+       	let cData = <%= calendarList %>;
+        calendar(cData[index],"<%= contextPath %>",classList[index]);
+	    
 	    // 급식표 생성
-	    function lunch(){
+	    function lunch(atptCode,schulCode,day){
 	    	$.ajax({	    				
-	    		url : "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=jsonp&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + atptCodeArr[index] + "&SD_SCHUL_CODE="+ schulCodeArr[index] +"&MLSV_YMD="+(date),
+	    		url : "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=jsonp&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + atptCode + "&SD_SCHUL_CODE="+ schulCode +"&MLSV_YMD="+day,
 	    		method : 'GET',
 	    		contentType:'application/json;charset=utf-8',
 	    		dataType:'jsonp',
@@ -437,18 +402,18 @@
 	    		}
 	    	});
 	    }
-	    lunch();
+	    lunch(atptCodeArr[index],schulCodeArr[index],today);
 	    
 	    // 클래스 슬라이드 변화시 이벤트
 	    $(".myClass-info").on('afterChange', function(event, slick, direction){
 	    	index = $(".slick-current>div>div").attr("id").substr(5);
-		    lunch();
-		    calendar();
+	    	lunch(atptCodeArr[index],schulCodeArr[index],today);
+	    	calendar(cData[index],"<%= contextPath %>",classList[index]);
 		    table.clearData();
 		    table.updateOrAddData(tabledata[index]);
 	    });
 	    
-	    // 클래스 게시판으로 이동
+	    // 클래스 이미지 클릭 시 클래스 게시판으로 이동
 	    function moveToBoard(){
 	    	
 	    	let cno = classList[index];
@@ -456,90 +421,6 @@
 	    	location.href="/boardmove.bo?cno="+ cno;
 	    }
 	    
-    </script>
-    <script>
-		// 캘린더 생성
-       	let cData = <%= calendarList %>;
-        function calendar() {
-            $(function () {
-            	
-                // calendar element 취득
-                var calendarEl = $('#calendar')[0];
-                // full-calendar 생성하기
-                var calendar = new FullCalendar.Calendar(calendarEl, { // calendar 높이 설정
-                    expandRows: true, // 화면에 맞게 높이 재설정
-                    slotMinTime: '08:00', // Day 캘린더에서 시작 시간
-                    slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
-                    // 해더에 표시할 툴바
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                    },
-                    initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-                    navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
-                    editable: true, // 수정 가능?
-                    selectable: true, // 달력 일자 드래그 설정가능
-                    nowIndicator: true, // 현재 시간 마크
-                    dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-                    locale: 'ko', // 한국어 설정
-                    //   eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
-                    //     console.log(obj);
-                    //   },
-                    //   eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
-                    //     console.log(obj);
-                    //   },
-                    //   eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
-                    //     console.log(obj);
-                    //   },
-                    select: function (arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
-                        var title = prompt('일정을 입력하세요 : ');
-                        if (title) {
-                            calendar.addEvent({
-                                title: title,
-                                start: arg.start,
-                                end: arg.end,
-                                allDay: arg.allDay
-                            })
-                        }
-                        calendar.unselect()
-                    },
-                    events: cData[index]
-                });
-                // 캘린더 랜더링
-                calendar.render();
-                // 클릭 시 db에 업데이트
-                function getEvents() {
-                	cArr = calendar.getEvents();
-                	if(cArr.length == 0){
-                		cArr.push("{}");
-                	}
-                	cArr = JSON.stringify(cArr);
-                	console.log(cArr);
-                   	$.ajax({
-        	    		url : "<%= contextPath %>/calendarUpdate.c",
-        	    		method : 'POST',
-        	    		data : {cArr:cArr , cno : classList[index]},	    
-        	    		dataType : 'text',
-        	    		success:function(result){
-        	    			if(result != 'Fail'){
-        	    				
-        		                alert("수정되었습니다");
-        		                location.reload();
-        	    			}else{
-        	    				alert("수정 실패");
-        	    			}
-        	    		},
-        	    		error:function(error,status,msg){
-        	    			alert("상태코드 " + status + "에러메시지" + msg );
-        	    		}
-        	    	});
-                }
-                // 이벤트 버튼 추가
-                document.getElementById('calendar-button').addEventListener('click', getEvents);
-            });
-        }
-        calendar();
     </script>
 	<script>
     	// 클래스별 테이블 데이터 배열
@@ -561,7 +442,7 @@
             
             return isTeacher;
         }
-       
+		
 		// 테이블 생성
         let table = new Tabulator("#time-table", { 
             height: "100%", // 높이 지정(css 높이 가능)
@@ -635,6 +516,46 @@
 	    	$(".table-btn").css("display","none");
 	    <% } %>
 	    
+    </script>
+    <script>
+		//버튼 UI 애니메이션
+        $('.button_UI').on('click', function () {
+            $(this).css('color', 'rgb(137, 180, 166)');
+            $(this).siblings(".button_UI").css('color', "black");
+        });
+        
+		// 새 클래스 만들기 파일 선택
+		$(".prof_img, .fileUpdate").on('click',function(){
+			$("#classProfile").click();
+		});
+		
+		// 새 클래스 만들기 파일 삭제
+		$(".fileDelete").on('click',function(){
+			$(".prof_img").attr("src", "<%= contextPath %>/resources/image/noImage.png");
+		    $("#classProfile").val("");
+		});
+		
+		// 새 클래스 만들기 이미지 미리보기 && 파일 업로드
+		function loadImg(inputFile){
+					
+					if(inputFile.files.length != 0){
+						
+						let reader = new FileReader();
+						
+						reader.readAsDataURL(inputFile.files[0]);
+						
+						reader.onload = function(e){
+							
+							let url = e.target.result;
+							
+							$(".prof_img").attr("src",url);
+						}	
+				
+					}else {
+						
+						$(".prof_img").removeAttr("src");
+					}
+				}
     </script>
 </body>
 </html>
