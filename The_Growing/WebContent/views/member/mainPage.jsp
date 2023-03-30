@@ -1,12 +1,14 @@
+<%@page import="com.kh.member.model.vo.SnsLogin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	import="com.kh.classes.model.vo.Class , java.util.ArrayList, com.kh.member.model.vo.Member"%>
+   pageEncoding="UTF-8"
+   import="com.kh.classes.model.vo.Class , java.util.ArrayList, com.kh.member.model.vo.Member"%>
 <%
-	String contextPath = request.getContextPath();
-	ArrayList<Class> list = (ArrayList<Class>) request.getAttribute("list");
-	ArrayList<String> tableList = (ArrayList<String>) request.getAttribute("tableList");
-	ArrayList<String> calendarList = (ArrayList<String>) request.getAttribute("calendarList");
-	Member loginUser = (Member) session.getAttribute("loginUser");
+   String contextPath = request.getContextPath();
+   ArrayList<Class> list = (ArrayList<Class>) request.getAttribute("list");
+   ArrayList<String> tableList = (ArrayList<String>) request.getAttribute("tableList");
+   ArrayList<String> calendarList = (ArrayList<String>) request.getAttribute("calendarList");
+   Member loginUser = (Member) session.getAttribute("loginUser");
+   SnsLogin snsLoginUser = (SnsLogin) session.getAttribute("snsLoginUser");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,29 +18,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TheGrowing</title>
 <link rel="stylesheet"
-	href="<%= contextPath %>/resources/css/mainPage.css">
+   href="<%= contextPath %>/resources/css/mainPage.css">
 
 <style>
 @media only screen and (min-width: 780px) {
-	.other-info {
-		font-size: 0.8vw;
-	}
-	.other-info h3 {
-		font-size: 1.6vw;
-	}
+   .other-info {
+      font-size: 0.8vw;
+   }
+   .other-info h3 {
+      font-size: 1.6vw;
+   }
 }
 
 @media only screen and (max-width: 780px) {
-	.other-info {
-		font-size: 2vw;
-	}
+   .other-info {
+      font-size: 2vw;
+   }
 }
 </style>
 
 </head>
 <body>
-	<%@ include file="/views/common/header.jsp"%>
-
+   <%@ include file="/views/common/header.jsp"%>
 	<main class="contentBox">
 		<!-- 상단컨텐츠 -->
 		<section class="myInfo">
@@ -155,173 +156,174 @@
 			</div>
 		</section>
 
-		<!-- modal-wrap -->
-		<div>
-			<!-- 새 클래스 만들기 모달창 -->
-			<div id="newClassModal" class="modal fade" id="registerModal"
-				tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered modal-xl">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h1 style="font-weight: 700;">새 클래스 만들기</h1>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
+      <!-- modal-wrap -->
+      <div>
+         <!-- 새 클래스 만들기 모달창 -->
+         <div id="newClassModal" class="modal fade" id="registerModal"
+            tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h1 style="font-weight: 700;">새 클래스 만들기</h1>
+                     <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
 
-						<form action="classEnrollForm.c" method="post"
-							enctype="multipart/form-data" id="classEnrollForm">
-							<div class="modal-body">
-								<div class="title">
-									<h2>학교</h2>
-								</div>
+                  <form action="classEnrollForm.c" method="post"
+                     enctype="multipart/form-data" id="classEnrollForm">
+                     <div class="modal-body">
+                        <div class="title">
+                           <h2>학교</h2>
+                        </div>
 
-								<div class="title_box">
-									<input class="school_search" type="text" name="classTypeName"
-										placeholder="내용을 입력해주세요">
-								</div>
+                        <div class="title_box">
+                           <input class="school_search" type="text" name="classTypeName"
+                              placeholder="내용을 입력해주세요">
+                        </div>
 
-								<div class="info">
-									<h2>연도</h2>
-									<h2>학년</h2>
-									<h2 class="class_name1">클래스 이름</h2>
-									<h2 class="class_name1">선생님 이름</h2>
-								</div>
+                        <div class="info">
+                           <h2>연도</h2>
+                           <h2>학년</h2>
+                           <h2 class="class_name1">클래스 이름</h2>
+                           <h2 class="class_name1">선생님 이름</h2>
+                        </div>
 
-								<div class="info_box">
-									<input class="year" type="number" name="classYear" min="2010"
-										max="2099" step="1" value="2023"> <input class="grade"
-										type="number" name="classGrade" min="1" max="6" step="1"
-										value="1"> <input class="class_name2" type="text"
-										name="className" placeholder="학교이름을 입력해주세요"> <input
-										class="class_name2" type="text" name="teacherName"
-										placeholder="선생님 이름을 입력하세요">
-								</div>
-								<div class="info">
-									<h2>관할 교육청</h2>
-								</div>
-								<div class="info_box">
-									<select name="atCode" form="classEnrollForm">
-										<option value="Z00">없음</option>
-										<option value="B10">서울특별시교육청</option>
-										<option value="C10">부산광역시교육청</option>
-										<option value="D10">대구광역시교육청</option>
-										<option value="E10">인천광역시교육청</option>
-										<option value="F10">광주광역시교육청</option>
-										<option value="G10">대전광역시교육청</option>
-										<option value="H10">울산광역시교육청</option>
-										<option value="I10">세종특별자치시교육청</option>
-										<option value="J10">경기도교육청</option>
-										<option value="K10">강원도교육청</option>
-										<option value="M10">충청북도교육청</option>
-										<option value="N10">충청남도교육청</option>
-										<option value="P10">전라북도교육청</option>
-										<option value="Q10">전라남도교육청</option>
-										<option value="R10">경상북도교육청</option>
-										<option value="S10">경상남도교육청</option>
-										<option value="T10">제주특별자치도교육청</option>
-										<option value="V10">재외한국학교교육청</option>
-									</select>
-								</div>
-								<h2>대표 이미지 설정</h2>
-								<div class="profile_img_area">
-									<img class="prof_img" src=""
-										onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
-								</div>
-								<div id="file-area" style="display: none;">
-									<input type="file" id="classProfile" name="upfile"
-										onchange="loadImg(this);">
-								</div>
-								<div class="box_1" style="margin-bottom: 0;">
-									<div class="box">
-										<button type="button"
-											class="button_UI button--winona fileUpdate" data-text="수정">
-											<span>수정</span>
-										</button>
-									</div>
-									<div class="box">
-										<button type="button"
-											class="button_UI button--winona fileDelete" data-text="삭제">
-											<span>삭제</span>
-										</button>
-									</div>
-								</div>
-							</div>
+                        <div class="info_box">
+                           <input class="year" type="number" name="classYear" min="2010"
+                              max="2099" step="1" value="2023"> <input class="grade"
+                              type="number" name="classGrade" min="1" max="6" step="1"
+                              value="1"> <input class="class_name2" type="text"
+                              name="className" placeholder="학교이름을 입력해주세요"> <input
+                              class="class_name2" type="text" name="teacherName"
+                              placeholder="선생님 이름을 입력하세요">
+                        </div>
+                        <div class="info">
+                           <h2>관할 교육청</h2>
+                        </div>
+                        <div class="info_box">
+                           <select name="atCode" form="classEnrollForm">
+                              <option value="Z00">없음</option>
+                              <option value="B10">서울특별시교육청</option>
+                              <option value="C10">부산광역시교육청</option>
+                              <option value="D10">대구광역시교육청</option>
+                              <option value="E10">인천광역시교육청</option>
+                              <option value="F10">광주광역시교육청</option>
+                              <option value="G10">대전광역시교육청</option>
+                              <option value="H10">울산광역시교육청</option>
+                              <option value="I10">세종특별자치시교육청</option>
+                              <option value="J10">경기도교육청</option>
+                              <option value="K10">강원도교육청</option>
+                              <option value="M10">충청북도교육청</option>
+                              <option value="N10">충청남도교육청</option>
+                              <option value="P10">전라북도교육청</option>
+                              <option value="Q10">전라남도교육청</option>
+                              <option value="R10">경상북도교육청</option>
+                              <option value="S10">경상남도교육청</option>
+                              <option value="T10">제주특별자치도교육청</option>
+                              <option value="V10">재외한국학교교육청</option>
+                           </select>
+                        </div>
+                        <h2>대표 이미지 설정</h2>
+                        <div class="profile_img_area">
+                           <img class="prof_img" src=""
+                              onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+                        </div>
+                        <div id="file-area" style="display: none;">
+                           <input type="file" id="classProfile" name="upfile"
+                              onchange="loadImg(this);">
+                        </div>
+                        <div class="box_1" style="margin-bottom: 0;">
+                           <div class="box">
+                              <button type="button"
+                                 class="button_UI button--winona fileUpdate" data-text="수정">
+                                 <span>수정</span>
+                              </button>
+                           </div>
+                           <div class="box">
+                              <button type="button"
+                                 class="button_UI button--winona fileDelete" data-text="삭제">
+                                 <span>삭제</span>
+                              </button>
+                           </div>
+                        </div>
+                     </div>
 
-							<div class="modal-footer">
-								<div class="box">
-									<button class="button_UI button--winona" data-dismiss="modal"
-										data-text="취소">
-										<span>취소</span>
-									</button>
-								</div>
-								<div class="box">
-									<button type="submit" id="btn_register"
-										class="button_UI button--winona" data-text="완료">
-										<span>완료</span>
-									</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- 시간표 테이블 모달창 -->
-			<div id="tableModal" class="modal fade" id="registerModal"
-				tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered modal-xl">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="modalLabel"></h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div id="time-table1" style="border-radius: 10px;"></div>
-						</div>
+                     <div class="modal-footer">
+                        <div class="box">
+                           <button class="button_UI button--winona" data-dismiss="modal"
+                              data-text="취소">
+                              <span>취소</span>
+                           </button>
+                        </div>
+                        <div class="box">
+                           <button type="submit" id="btn_register"
+                              class="button_UI button--winona" data-text="완료">
+                              <span>완료</span>
+                           </button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <!-- 시간표 테이블 모달창 -->
+         <div id="tableModal" class="modal fade" id="registerModal"
+            tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="modalLabel"></h5>
+                     <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <div id="time-table1" style="border-radius: 10px;"></div>
+                  </div>
 
-						<div class="modal-footer">
-							<button type="button" id="btn_register" class="btn btn-primary"
-								data-dismiss="modal">닫기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 초대코드로 가입 모달창 -->
-			<div id="classCode" class="modal fade" id="registerModal"
-				tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<form action="classEnrollForm.c" method="get">
-							<div class="modal-body">
-								<h3 style="display: inline-block; font-weight: 700;">초대코드로
-									가입하기</h3>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<h5>선생님께 전달받은 초대 코드를 입력하세요.</h5>
-								<input type="tel" maxlength="1" name="code0" class="codeItem">
-								<input type="tel" maxlength="1" name="code1" class="codeItem">
-								<input type="tel" maxlength="1" name="code2" class="codeItem">
-								<input type="tel" maxlength="1" name="code3" class="codeItem">
-								<input type="tel" maxlength="1" name="code4" class="codeItem">
-								<input type="tel" maxlength="1" name="code5" class="codeItem">
-							</div>
+                  <div class="modal-footer">
+                     <button type="button" id="btn_register" class="btn btn-primary"
+                        data-dismiss="modal">닫기</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- 초대코드로 가입 모달창 -->
+         <div id="classCode" class="modal fade" id="registerModal"
+            tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-content">
+                  <form action="classEnrollForm.c" method="get">
+                     <div class="modal-body">
+                        <h3 style="display: inline-block; font-weight: 700;">초대코드로
+                           가입하기</h3>
+                        <button type="button" class="close" data-dismiss="modal"
+                           aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5>선생님께 전달받은 초대 코드를 입력하세요.</h5>
+                        <input type="tel" maxlength="1" name="code0" class="codeItem">
+                        <input type="tel" maxlength="1" name="code1" class="codeItem">
+                        <input type="tel" maxlength="1" name="code2" class="codeItem">
+                        <input type="tel" maxlength="1" name="code3" class="codeItem">
+                        <input type="tel" maxlength="1" name="code4" class="codeItem">
+                        <input type="tel" maxlength="1" name="code5" class="codeItem">
+                     </div>
 
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">취소</button>
-								<button type="submit" id="btn_register" class="btn btn-primary">확인</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                           data-dismiss="modal">취소</button>
+                        <button type="submit" id="btn_register" class="btn btn-primary">확인</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
 
 	</main>
 	<script src="<%= contextPath %>/resources/js/calendar.js"></script>
@@ -343,30 +345,29 @@
           nextArrow: "<button type='button' class='slick-next'>다음</button>", // 다음 화살표 모양 설정
           draggable: true, //드래그 가능 여부
         });
-      	$(".slick-prev,.slick-next").css("height","40%").css("background-color","#209dce").css("border-radius","2vw");
+         $(".slick-prev,.slick-next").css("height","40%").css("background-color","#209dce").css("border-radius","2vw");
       });
     </script>
-	<script>
-    	let index = 0;
-    	let atptCodeArr = [];
-    	let schulCodeArr = [];
-    	let classList = []; 
-    	
-    	// 보여줄 클래스 클래스 수에 따라  변경
-    	<% for(int i = 0; i < list.size(); i++){%>
-    		atptCodeArr.push("<%= list.get(i).getAtptOfcdcScCode()%>");
-    		schulCodeArr.push("<%= list.get(i).getSdSchulCode()%>");
-			classList.push("<%= list.get(i).getClassNo()%>");
-			
-    	<%}%>
-    	
-    	// 오늘 날짜 생성 (moment.js 라는 날라이브러리도있음 참고)
-	    function getToday(){
-	        var date = new Date();
-	        var year = date.getFullYear();
-	        var month = ("0" + (1 + date.getMonth())).slice(-2);
-	        var day = ("0" + date.getDate()).slice(-2);
-
+   <script>
+       let index = 0;
+       let atptCodeArr = [];
+       let schulCodeArr = [];
+       let classList = []; 
+       
+       // 보여줄 클래스 클래스 수에 따라  변경
+       <% for(int i = 0; i < list.size(); i++){%>
+          atptCodeArr.push("<%= list.get(i).getAtptOfcdcScCode()%>");
+          schulCodeArr.push("<%= list.get(i).getSdSchulCode()%>");
+         classList.push("<%= list.get(i).getClassNo()%>");
+         
+       <%}%>
+       
+       // 오늘 날짜 생성 (moment.js 라는 날라이브러리도있음 참고)
+       function getToday(){
+           var date = new Date();
+           var year = date.getFullYear();
+           var month = ("0" + (1 + date.getMonth())).slice(-2);
+           var day = ("0" + date.getDate()).slice(-2);
 	        return year + month + day;
 	    }
 	    
@@ -428,23 +429,24 @@
 		let tabledata = <%= tableList %>;
 		
 		// 테이블 수정 권한 부여
+
         let editCheck = function(cell){ 
-			
+         
             let isTeacher = false;
             let teacherName = $(".slick-current>div>div .myClass-text").eq(2).text();
             let name = $(".myProfile-name").text().trim();
             
             
             <% if(loginUser.getUserLevel() == 1){ %>
-            	if(name == teacherName){
-            		isTeacher = true;
-            	}
+               if(name == teacherName){
+                  isTeacher = true;
+               }
             <% } %> 
             
             return isTeacher;
         }
-		
-		// 테이블 생성
+      
+      // 테이블 생성
         let table = new Tabulator("#time-table", { 
             height: "100%", // 높이 지정(css 높이 가능)
             data: tabledata[index], // 테이블 데이터 설정
@@ -463,11 +465,13 @@
                 { title: "금요일", field: "fri", editor:"input", editable:editCheck, variableHeight: true, headerSort: false }    
             ],
         });
+
     	 // 테이블 업데이트 db저장
+
         function tableUpdate() {
-        	let arr = new Array();
+           let arr = new Array();
             for (let i = 0; i < $(".tabulator-row").length; i++) {
-        		let obj = new Object();
+              let obj = new Object();
                 let cell = $(".tabulator-row").eq(i).children(".tabulator-cell");
                 obj.name= cell.eq(1).text().trim();
                 obj.mon = cell.eq(2).text().trim();
@@ -480,26 +484,26 @@
             arr = JSON.stringify(arr); // JSON 배열로 만들어서 데이터 보내기
             
             $.ajax({
-	    		url : "<%= contextPath %>/tableUpdate.c",
-	    		method : 'POST',
-	    		data : {arr:arr , cno : classList[index]},	    
-	    		dataType : 'text',
-	    		success:function(result){
-	    			if(result != 'Fail'){
-	    				
-		                alert("수정되었습니다");
-		                location.reload();
-	    			}else{
-	    				alert("수정 실패");
-	    			}
-	    		},
-	    		error:function(error,status,msg){
-	    			alert("상태코드 " + status + "에러메시지" + msg );
-	    		}
-	    	});
+             url : "<%= contextPath %>/tableUpdate.c",
+             method : 'POST',
+             data : {arr:arr , cno : classList[index]},       
+             dataType : 'text',
+             success:function(result){
+                if(result != 'Fail'){
+                   
+                      alert("수정되었습니다");
+                      location.reload();
+                }else{
+                   alert("수정 실패");
+                }
+             },
+             error:function(error,status,msg){
+                alert("상태코드 " + status + "에러메시지" + msg );
+             }
+          });
         };
         
-     	// 테이블행 추가
+        // 테이블행 추가
         function insertRow(){
 	        table.addRow({name: "", mon: "", tue: "", wed: "", thur: "", fri: ""}, true)
 	        .then(function(row){
@@ -557,6 +561,7 @@
 						$(".prof_img").removeAttr("src");
 					}
 				}
+
     </script>
 </body>
 </html>

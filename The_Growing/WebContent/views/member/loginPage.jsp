@@ -2,9 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	/* Integer userLevel = (Integer) request.getAttribute("userLevel"); */
-	Integer userLevel = (Integer) session.getAttribute("userLevel");
-	String contextPath = request.getContextPath();
+   /* Integer userLevel = (Integer) request.getAttribute("userLevel"); */
+   Integer userLevel = (Integer) session.getAttribute("userLevel");
+   String contextPath = request.getContextPath();
 %>
 
 <!DOCTYPE html>
@@ -22,6 +22,12 @@
     <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
     <meta name ="google-signin-client_id" content="169084417109-f19btt7tlefea954g1c90s7qjo6i2u4r.apps.googleusercontent.com">
 
+   <!-- 구글 api 사용을 위한 스크립트 -->
+   <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+   
+   <!-- 네이버 스크립트 -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -31,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <style>
-    	div {
+       div {
             box-sizing: border-box;
             font-family: 'Gowun Dodum', sans-serif;
             /* border: 1px solid red; */
@@ -183,24 +189,27 @@
         <div class="content">
             <div id="content_1">
             <%
-            	String userType;
-            	
-            	if(userLevel.intValue() == 1){
-            		userType = "선생님으";
-            	} else if(userLevel.intValue() == 2){
-            		userType = "학부모";
-            	} else {
-            		userType = "학생으";
-            	}
+               String userType;
+               
+               if(userLevel.intValue() == 1){
+                  userType = "선생님으";
+               } else if(userLevel.intValue() == 2){
+                  userType = "학부모";
+               } else {
+                  userType = "학생으";
+               }
             %>
                <h1><%= userType %>로 로그인</h1>
             </div>  
             <div id="content_2">  
                 <button class="start_btn" id="start_btn1">The Growing으로 시작하기</button><br>
-                
+
                 <li onclick="kakaoLogin();">
                     <a href="javascript:void(0)">
-                        <img src="resources/kakao_login_button.png">
+                        <button class="start_btn" id="start_btn2">
+	                        <img id="kakao" src="https://www.hiclass.net/img/icon_login_kakao.7b0cff84.png">
+	                        카카오로 시작하기
+                		</button>
                     </a>
                 </li>
                 <!-- <li>
@@ -230,20 +239,21 @@
 
         </div>
 
-		<script>
-        	$(".goFirst").click(function(){
-        		location.href = "<%= contextPath %>";
-        	});
-        	
-        	$("#start_btn1").click(function(){
-        		location.href = "<%= contextPath %>/views/member/theGrowingLoginForm.jsp";
-        	});
+      <script>
+           $(".goFirst").click(function(){
+              location.href = "<%= contextPath %>";
+           });
+           
+           $("#start_btn1").click(function(){
+              location.href = "<%= contextPath %>/views/member/theGrowingLoginForm.jsp";
+           });
         </script>
 
         <!-- 카카오로그인 스크립트 -->
         <script>
             Kakao.init('2cbf161eadf2b860fc5c71113e38ec12'); //발급받은 키 중 javascript키를 사용해준다.
             console.log(Kakao.isInitialized()); // sdk초기화여부판단
+            
             //카카오로그인
             function kakaoLogin() {
                 Kakao.Auth.login({
@@ -251,7 +261,29 @@
                     Kakao.API.request({
                     url: '/v2/user/me',
                     success: function (response) {
-                        console.log(response)
+                       
+                       console.log(response);
+                       console.log(response.id);
+                       console.log(response.properties.nickname);
+                       console.log(response.properties.profile_image);
+                        
+                        let snsId = response.id;
+                        let snsName = response.properties.nickname;
+                        let snsType = 1;
+                        let filePath = response.properties.profile_image;
+                        
+                        $.ajax({
+                           url : "<%= request.getContextPath() %>/apinsert.me",
+                           data : {snsId, snsName, snsType, filePath},
+                           method : 'post',
+                           success: function(data){
+                        	   alert("카카오로 정상 로그인되었습니다.");
+                        	   location.replace("<%= request.getContextPath() %>/mainpage.me");
+                           },
+                           error: function(){
+                              console.log("카카오로그인db저장실패");
+                           }
+                        });
                     },
                     fail: function (error) {
                         console.log(error)
@@ -261,14 +293,11 @@
                 fail: function (error) {
                     console.log(error)
                 },
-                })
-            }
+                });
+            } 
         </script>
 
-        <!-- 네이버 스크립트 -->
-        <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-
-        <script>
+<!--         <script>
 
             var naverLogin = new naver.LoginWithNaverId(
                     {
@@ -277,7 +306,7 @@
                         isPopup: false,
                         callbackHandle: true
                     }
-                );	
+                );   
 
             naverLogin.init();
 
@@ -345,13 +374,11 @@
                     console.log(e);
                 })
             }
-            function onSignInFailure(t){		
+            function onSignInFailure(t){      
                 console.log(t);
             }
-            </script>
-            <!-- 구글 api 사용을 위한 스크립트 -->
-            <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-    </div>
+            </script> -->
+        </div>
     
 </body>
 </html>

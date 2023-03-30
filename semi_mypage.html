@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Growing</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+      *{
+        
+font-family: 'Gowun Dodum', sans-serif;
+      }
+      #board_wrap {
+        width: 100%;
+        min-height: 700px;
+      }
+      #inner_wrap {
+        width: 1200px;
+        height: 700px;
+        margin: auto;
+      }
+      div {
+        box-sizing: border-box;
+        border: 1px solid red;
+      }
+      #inner_wrap > div {
+        height: 100%;
+        float: left;
+      }
+      #board {
+        width: 20%;
+      }
+      #board_area {
+        width: 80%;
+      }
+      #board >ul> li {
+        list-style-type: none;
+      }
+      #board >ul {
+        padding: 0;
+      }
+      .my_li {
+        height: 28px;
+        cursor: pointer;
+      }
+      .my_title{
+        font-size: large; 
+        font-weight: 700; 
+        padding-bottom: 10px;
+        padding-left: 14px;
+      }
+      .my_li:hover{
+        font-weight: 700;
+      } 
+      .my_li>div{
+        border-radius: 30px;
+        width: 100%;
+        height: 40px;
+        padding: 9px;
+        padding-left: 14px;
+      }
+      .my_li{
+        margin-bottom: 13px;
+      }
+      .board_hr{
+        padding: 7px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="board_wrap">
+      <div id="inner_wrap">
+        <div id="board">
+            <ul>
+              <li class="my_title">마이페이지</li>
+              <li class="my_li" id="my_info"><div>개인정보</div></li>
+              <li class="my_li" id="my_class"><div>나의 클래스</div></li>
+              <li class="my_li" id="my_scrap"><div>나의 정보</div></li>
+            </ul>
+        </div>
+        <div id="board_area"></div>
+      </div>
+      
+      <script>
+        $(function(){
+            $(".my_li").click(function(){
+                $(this).css("fontWeight","700").fadeIn(1000);
+                $(this).children().css("background","rgb(239, 243, 239)");
+                $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
+                $(this).siblings().children().css("background","");
+            
+            });
+        });
+     
+
+      </script>
+  </body>
+</html>
