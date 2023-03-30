@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
    <!--부트스트랩 알림을 위한 css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -29,121 +30,17 @@
 	<script src="resources/summernote/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="resources/summernote/summernote-lite.css">
     
+    
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/button.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
     <style>
-        /* 게시판 헤더 및 정보(게시판마다 공통) */
        *{
         
         font-family: 'Gowun Dodum', sans-serif;
         
         }
-         div{
-             /* border: 1px solid red; */  
-            box-sizing: border-box;
-        } 
-        .wrap{
-            width:100%;
-            min-height: 100%;
-            position: absolute;
-            top: 0;
-  			left: 0;
-        }
-
-        #header{
-            display: inline-flex;
-        }
-        #searchBtn>img{
-            width: 20px;
-        }
-        #search{
-            margin-left: 390px;
-        }
-        #searchBtn{
-            border: 1px solid black;
-            height: 50px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        #logo{
-            width: 100px;
-        }
-        #logoBtn{
-            margin-left: 100px;
-        }
-        #seachClass{
-            width: 700px;
-            border: none;
-            outline: none;
-        }
-        
-        #header{
-            width:100%;
-            height: 10%;
-            margin-top: 10px;
-        }
-        #info>div{
-            display: table-cell;
-            width: 25%;
-        }
-        #classInfo, #userInfo {
-            padding-left: 50px;
-            vertical-align: middle;
-        }
-        #classInfo>div, #userInfo>div {
-            font-size: large;
-            font-weight: 900;
-        }
-        #info{
-            width: 100%;
-            margin-top: 20px;
-            display: table;
-            height: 20%;
-            background-color: #cff0cc;
-        }
-        #pSchool, #pUser{
-            padding-left: 300px;
-        }
-        .profile{
-            margin-top: 10px;
-            margin-bottom: 10px;
-            width: 150px;
-            border-radius: 50%;
-        }
-        .btnStyle{
-            border: none;
-            background: none;
-            cursor: pointer;
-        }
-
-        /* 버튼호버시 이벤트 css부여 */
-        .btnStyle:hover{
-            color:#209dce; transition:all .3s ease
-        }
-        .dropdown{
-            margin-left: 350px;
-        }
-        .dropdown>button{
-            background: none;
-            border: none;
-            border-radius: 40%;
-            margin-top: 20px;
-        }
-        .dropdown-item {
-            cursor: pointer;
-        }
-        #seachClass{
-            background: none;
-        }
-        #alarmIcon{
-            width: 30px;
-        }
-
-        .dropdown>button:hover{
-            background-color: #cff0cc;
-        }
-
-        button:focus {outline:none;}
-
-
+/* 화면 너비 900 이상 */
+@media only screen and (min-width: 1200px){
         /* 게시판 목록 css */
         #my_wrap {
             margin-top: 50px;
@@ -163,8 +60,8 @@
         }
         #myli {
             width: 20%;
-            height:700px;
-         
+           
+         	display:block;
            
         }
  
@@ -214,83 +111,6 @@
         z-index: 1; 
         display: none;
       }
-    /* 버튼 css */
-.box {
-      display: flex;
-      background: #ffffff;
-      color: #000000;
-      width: 150px;
-      height: 50px;
-      border-radius: 30px;
-    }
-    .button_UI {
-      float: left;
-      width: 150px;
-      height: 50px;
-      display: block;
-      border: none;
-      background: none; 
-      color: inherit;
-      position: relative;
-      z-index: 1;
-      -webkit-backface-visibility: hidden;
-      -moz-osx-font-smoothing: grayscale;
-      border-radius: 30px;
-      border: 3px solid;
-    }
-    .button_UI :active{
-     color :rgb(137, 180, 166);
-    }
-    .button_UI:focus {
-      outline: none;
-    }
-    
-    .button--winona {
-      overflow: hidden;
-      padding: 0;
-      -webkit-transition: border-color 0.3s, background-color 0.3s;
-      transition: border-color 0.3s, background-color 0.3s;
-      -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-      transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-    }
-    .button--winona::after {
-      content: attr(data-text);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      color: rgb(137, 180, 166);
-      font-weight: 600;
-      -webkit-transform: translate3d(0, 25%, 0);
-      transform: translate3d(0, 25%, 0);
-    }
-    .button--winona::after,
-    .button--winona > span {
-      padding: 10px;
-      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-      transition: transform 0.3s, opacity 0.3s;
-      -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-      transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-      display: block;
-      font-weight: 600;
-    }
-    .button--winona:hover {
-      border-color: rgb(137, 180, 166);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .button--winona:hover::after {
-      opacity: 1;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-    .button--winona:hover > span {
-      opacity: 0;
-      -webkit-transform: translate3d(0, -25%, 0);
-      transform: translate3d(0, -25%, 0);
-    }
 
   #board_area {
             width: 80%;
@@ -322,16 +142,52 @@
         width: 100%;
         height: 30%;
 
-        /* background-color: aquamarine; */
       }
-      #album_hr > hr {
+      #myclass_hr > hr {
         margin: 0;
 
-        /* background-color: aquamarine; */
       }
-        
-    
+      #hamburgur{
+ 		display:none;
+ 	}
+  }      
+ 
+@media only screen and (max-width: 1200px) {
+    #myli {
+         	display:none;
+        }
+ 	#hamburgur{
+ 		
+ 		display:block;
+ 		    padding-top: 13px;
+        padding-left: 14px;
+ 	}
+ 	#hamburgur>img{
+ 		
+ 		width:30px;
+ 	}
+ 	 #myclass_title {
+        width: 70%;
+        font-size: 1.5em;
+        font-weight: 700;
+        padding-top: 13px;
+       
+      }
+       #my_wrap {
+            margin-top: 50px;
+           
+           
+        }
+          #board_area {
+       
+            padding : 20px;
+         
+           
+        }
 
+        
+
+}  
     </style>
                 <script>
               $(function(){
@@ -359,13 +215,13 @@
     <div class="wrap">
         <div id="header">
             <button id="logoBtn" class="btnStyle" type="button">
-                <img id="logo" src="resources/KakaoTalk_20230317_141025465-removebg-preview.png">
+                <img id="logo" src="resources/image/logo.png">
             </button>
             <div id="search">
                 <button id="searchBtn" type="button">
-                    <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요.">
-                    <img src="resources/searchIcon.png">
+                    <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요."><img src="resources/image/search.svg">
                 </button>
+                
             </div>
             <div class="dropdown">
                 <button 
@@ -376,7 +232,8 @@
                     aria-haspopup="true" 
                     aria-expanded="false">
                     
-                    <img id="alarmIcon" src="resources/알림.png" />
+                    <img id="alarmIcon" src="resources/image/bell.svg" />
+                 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">알림3</a>
@@ -387,7 +244,7 @@
         </div>
          <div id="my_wrap">
             <div id="my_inner_wrap">
-          
+          	  <div id="hamburgur"><img src="resources/image/list.svg"></div>
               <div id="myli">
                   <ul>
                     <li class="mypage_title">마이페이지</li>

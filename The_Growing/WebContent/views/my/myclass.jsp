@@ -36,36 +36,91 @@
 #user_profile {
 	width: 100px;
 	height: 100px;
-	border-radius: 100%;
+	border-radius: 50%;
 	margin: auto;
+	 box-shadow:0px 8px 6px -6px;
+overflow: hidden;
+background-color: white;
+z-index:9;
 }
 
 #top {
 	height: 50px;
 	width: 100%;
 	background-color: white;
-}
-
-#bottom {
-	height: 200px;
-	width: 100%;
 	
 }
 
-#bottom>div {
-
-	font-size: large;
+#bottom {
+	height: 175px;
+	width: 100%;
+	border-radius:10px;
+	 box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+	
 }
+
 #user_profile>img{
 	width: 100%;
-	height : 100%;
-	border-radius: 100%;
+	height: 100%;
+	object-fit: cover;
+	cursor:pointer;
+	 transition : 0.5s;
+	
+	
 }
+#user_profile>img:hover{
+
+	 transform: scale(1.1);
+	
+	
+}
+
 #myclass_small{
 	width: 90%;
 	height: 90%;
-	background-color:rgb(244, 248, 240);
+	background-color:rgb(246, 249, 243);
 	margin : auto;
+
+	
+}
+
+.b1{
+padding:5px; 
+font-size:16px; 
+font-weight:700;
+border-radius: 10px;
+color:grey;
+}
+.b2{
+text-align: center; 
+padding-top:25px;
+font-size:25px; 
+font-weight:700;
+}
+.b3{
+text-align: center;
+font-size:20px; 
+}
+.b_hover:hover{
+	cursor: pointer;
+	color : grey;
+}
+
+
+
+@media only screen and (max-width: 1000px){
+#myclass_info {
+	width: 50%;
+
+}
+
+}
+@media only screen and (max-width: 800px){
+#myclass_info {
+	width: 100%;
+
+}
+
 }
 </style>
 </head>
@@ -92,9 +147,9 @@
 					<img src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>" alt="클래스 프로필" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
 				</div>
 				<div id="bottom">
-				 	<div style="padding:5px; font-size:16px; font-weight:700"><%=list.get(i).getClassGrade()%></div>
-					<div style=" text-align: center; padding-top:30px;"><%=list.get(i).getClassTypeName() %> <%=list.get(i).getClassName() %>반</div>
-					<div style=" text-align: center">
+				 	<div class="b1 "><%=list.get(i).getClassGrade()%>년</div>
+					<div class="b2 b_hover" ><%=list.get(i).getClassTypeName() %> <%=list.get(i).getClassName() %>반</div>
+					<div class="b3 b_hover">
 						담임 : <%=list.get(i).getTeacherName() %> 선생님 <br>학급 수 : <%=list.get(i).getUserCount() %>명
 					</div>
 				</div>
