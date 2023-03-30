@@ -453,7 +453,7 @@
 	    	
 	    	let cno = classList[index];
 	    	
-	    	location.href="/boardmove.bo?cno="+ cno;
+	    	location.href="<%=contextPath%>/boardmove.bo?cno="+ cno;
 	    }
 	    
     </script>

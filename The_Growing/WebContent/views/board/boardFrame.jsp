@@ -5,8 +5,7 @@
     pageEncoding="UTF-8"%>
     <%
 	String contextPath = request.getContextPath();
-    Class cInfo = (Class) request.getAttribute("cInfo");
-	Member mInfo = (Member) request.getAttribute("mInfo");
+  
 
     %>
 <!DOCTYPE html>

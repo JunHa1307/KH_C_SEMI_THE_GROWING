@@ -138,11 +138,16 @@
     margin: auto;
   }
 
-  #button_align,#bu_align{
+  #button_align{
     border : 1px red solid;
-    width: 350px;
+    width: 330px;
     margin: auto;
     
+  }
+  #bu_align{
+     border : 1px red solid;
+    width: 490px;
+    margin: auto;
   }
   #button_align>button, #bu_align>button{
   	margin-right:10px;
@@ -168,7 +173,7 @@
                 <tr>
                   <td width="50">기간</td>
                   <td width="130"><input type="date" name="fDate"></td>
-                  <td width="150" style="text-align: center;">~</td>
+                  <td width="140" style="text-align: center;">~</td>
                   <td width="130"><input type="date" name="lDate"></td>
                 </tr>
                 <tr>
@@ -225,7 +230,7 @@
                 <tr>
                   <td width="50">기간</td>
                   <td width="130"><input type="date" name="fDate"></td>
-                  <td width="150" style="text-align: center;">~</td>
+                  <td width="140" style="text-align: center;">~</td>
                   <td width="130"><input type="date" name="lDate"></td>
                 </tr>
                 <tr>
@@ -245,6 +250,7 @@
         <div id="bu_align">
         <button type="button" class="m_plus button_UI button--winona" data-text="객관식 질문 추가">객관식 질문 추가</button> 
         <button type="button"class="s_plus button_UI button--winona" data-text="주관식 질문 추가">주관식 질문 추가</button>
+         <button type="submit"class=" button_UI button--winona" data-text="등록">등록</button>
       </div>
 
         

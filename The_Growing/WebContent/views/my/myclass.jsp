@@ -110,7 +110,16 @@
 	</div>
 	</div>
 	
+	<script>
+	$(function(){
+	        $("#myClass").css("fontWeight","700").fadeIn(1000);
+	        $("#myClass").children().css("background","rgb(239, 243, 239)");
+	   
+	});
+
 	
+	
+	</script>
 	
 	
 	

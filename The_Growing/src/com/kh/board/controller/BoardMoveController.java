@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.classes.model.service.ClassService;
-import com.kh.classes.model.vo.Class;
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Board;
 
 /**
- * Servlet implementation class albumInfoController
+ * Servlet implementation class BoardMoveController
  */
-@WebServlet("/info.al")
-public class albumInfoController extends HttpServlet {
+@WebServlet("/boardmove.bo")
+public class BoardMoveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public albumInfoController() {
+    public BoardMoveController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +31,16 @@ public class albumInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = 4;
-		int cno = 2;
 	
-		Class cInfo = new ClassService().selectClass(cno);
-		Member mInfo = new MemberService().loginMemberInfo(uno);
+		int cno = Integer.parseInt(request.getParameter("cno"));
+		 ArrayList<Board> list = new BoardService().selectAlbumList(cno); 
+		 request.getSession().setAttribute("cno", cno);
+		 
+		 request.setAttribute("list", list);
+		 
 		
+		request.getRequestDispatcher("views/board/albumList.jsp").forward(request, response);
 		
-		request.setAttribute("cInfo", cInfo);
-		request.setAttribute("mInfo", mInfo);
-		request.getRequestDispatcher("views/board/boardFrame.jsp").forward(request, response);
 	}
 
 	/**

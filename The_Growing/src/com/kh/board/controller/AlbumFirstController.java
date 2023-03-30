@@ -31,8 +31,8 @@ public class AlbumFirstController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = 4; //Integer.parseInt(request.getParameter("uno"));
-		int cno =2; //Integer.parseInt(request.getParameter("cno"));
+		int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+		int cno = (int) request.getSession().getAttribute("cno");
 		
 		Class cInfo = new ClassService().selectClass(cno);
 		Member mInfo = new MemberService().loginMemberInfo(uno);

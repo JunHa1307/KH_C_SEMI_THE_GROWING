@@ -46,6 +46,8 @@ public class AlbumInsertController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			// 1_1. 전송용량제한
@@ -56,12 +58,19 @@ public class AlbumInsertController extends HttpServlet {
 			
 			// 2. 전달된 파일명 수정작업후 서버에 업로드
 			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
+			int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+			int cno = (int) request.getSession().getAttribute("cno");
 			// 3. db에 저장
 			// Board에 들어갈 값들 뽑아오기
 			Board b = new Board();
+			b.setBoardType(3);
 			b.setBoardTitle(multi.getParameter("title"));
 			b.setBoardContent(multi.getParameter("content"));
+			b.setRefUno(uno);
+			b.setRefCno(cno);
+			
+			
+			
 			//b.setRefUno( ((Member) request.getSession().getAttribute("loginUser")).getUserNo() );
 		
 			
@@ -79,6 +88,8 @@ public class AlbumInsertController extends HttpServlet {
 					// Attachment객체 생성 + 원본명,수정명,저장경로 + 파일레벨 담기.
 					// list에 추가해주기.
 					Attachment at = new Attachment();
+					at.setRefUno(2);
+					at.setRefCno(2);
 					at.setOriginName(multi.getOriginalFileName(key));
 					at.setChangeName(multi.getFilesystemName(key));
 					at.setFilePath("/resources/album_upfiles/");

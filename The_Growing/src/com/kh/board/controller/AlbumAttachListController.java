@@ -32,7 +32,8 @@ public class AlbumAttachListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cno = 2;
+		 int cno = Integer.parseInt(request.getParameter("cno"));
+		
 		ArrayList<Attachment> list = new BoardService().selectAttachList(cno);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/board/albumFileView.jsp").forward(request, response);

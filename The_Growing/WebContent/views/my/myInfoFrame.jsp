@@ -347,6 +347,7 @@
           	
         			$("#myClass").click(function(){
         				location.href = "<%=contextPath %>/info.c";
+        				
         			})
         			
               });

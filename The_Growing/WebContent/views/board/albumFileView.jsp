@@ -591,12 +591,8 @@
 
     <script>
       $(function () {
-        $(".board_li").click(function () {
-          $(this).css("fontWeight", "700");
-          $(this).children().css("background", "rgb(239, 243, 239)");
-          $(this).siblings(".board_li").css({ fontWeight: "", color: "black" });
-          $(this).siblings().children().css("background", "");
-        });
+          $("#board_album").css("fontWeight", "700");
+          $("#board_album").children().css("background", "rgb(239, 243, 239)");
 
 
 
