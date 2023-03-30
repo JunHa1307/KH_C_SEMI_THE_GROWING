@@ -56,7 +56,16 @@
 		  AND STATUS = 'Y'
 	</entry>
 	
-		<entry key="loginMemberInfo">
+	<entry key="snsLoginMember">
+		SELECT M.*, A.CHANGE_NAME, A.FILE_PATH
+		FROM MEMBER M
+		LEFT JOIN ATTACHMENT A ON (A.REF_UNO = M.USER_NO)
+		WHERE USER_ID = ?
+		  AND USER_LEVEL = ?
+		  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="loginMemberInfo">
 		SELECT *
 		FROM MEMBER
 		WHERE USER_NO =?
