@@ -47,7 +47,7 @@
 <div class="wrap">
     <div id="header">
        <button id="logoBtn" class="btnStyle" type="button">
-           <img id="logo" src="../../resources/image/KakaoTalk_20230317_141025465-removebg-preview.png">
+           <img id="logo" src="<%= request.getContextPath() %>/resources/image/removeBackgroundLogo.png">
        </button>
        <div id="search">
            <button id="searchBtn" type="button">
@@ -64,7 +64,7 @@
                aria-haspopup="true" 
                aria-expanded="false">
                
-               <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/알림.png" />
+               <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/alrimIcon.png" />
            </button>
            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
              <a class="dropdown-item" href="#">알림3</a>
