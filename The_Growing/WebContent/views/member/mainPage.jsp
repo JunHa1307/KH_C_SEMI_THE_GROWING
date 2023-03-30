@@ -71,7 +71,7 @@
 								onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 						</div>
 						<div class="myClass-text-list">
-							<div class="myClass-text"><%= list.get(i).getClassTypeName()%><%=" "+ (list.get(i).getClassGrade()+"").substring(4) %>학년<br><%= list.get(i).getClassName() %></div>
+							<div class="myClass-text"><h6><%= list.get(i).getClassTypeName()%><%=" "+ (list.get(i).getClassGrade()+"").substring(5) %>학년<br><%= list.get(i).getClassName() %></h6></div>
 							<div class="myClass-text">
 								가입자 수 :
 								<%= list.get(i).getUserCount()%>명
@@ -581,20 +581,18 @@
                 { title: "금요일", field: "fri", editor:"input", editable:editCheck, variableHeight: true, headerSort: false }    
             ],
         });
-	   
     	 // 테이블 업데이트 db저장
         function tableUpdate() {
         	let arr = new Array();
             for (let i = 0; i < $(".tabulator-row").length; i++) {
         		let obj = new Object();
                 let cell = $(".tabulator-row").eq(i).children(".tabulator-cell");
-                obj.name= cell.eq(0).text();
-                obj.mon = cell.eq(1).text();
-                obj.tue = cell.eq(2).text();
-                obj.wed = cell.eq(3).text();
-                obj.thur= cell.eq(4).text();
-                obj.fri = cell.eq(5).text();
-                obj.sat = cell.eq(6).text();
+                obj.name= cell.eq(1).text().trim();
+                obj.mon = cell.eq(2).text().trim();
+                obj.tue = cell.eq(3).text().trim();
+                obj.wed = cell.eq(4).text().trim();
+                obj.thur= cell.eq(5).text().trim();
+                obj.fri = cell.eq(6).text().trim();
                 arr.push(obj);
             }
             arr = JSON.stringify(arr); // JSON 배열로 만들어서 데이터 보내기
