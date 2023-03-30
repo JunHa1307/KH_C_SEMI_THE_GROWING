@@ -203,10 +203,13 @@
             </div>  
             <div id="content_2">  
                 <button class="start_btn" id="start_btn1">The Growing으로 시작하기</button><br>
-                
+
                 <li onclick="kakaoLogin();">
                     <a href="javascript:void(0)">
-                        <img src="resources/kakao_login_button.png">
+                        <button class="start_btn" id="start_btn2">
+	                        <img id="kakao" src="https://www.hiclass.net/img/icon_login_kakao.7b0cff84.png">
+	                        카카오로 시작하기
+                		</button>
                     </a>
                 </li>
                 <!-- <li>
@@ -251,34 +254,6 @@
             Kakao.init('2cbf161eadf2b860fc5c71113e38ec12'); //발급받은 키 중 javascript키를 사용해준다.
             console.log(Kakao.isInitialized()); // sdk초기화여부판단
             
-			/* function kakaoLoginToken(){
-               Kakao.Auth.authorize({
-                    redirectUri: '${REDIRECT_URI}'
-               });
-               
-               Kakao.Auth.setAccessToken('${ACCESS_TOKEN}');
-            }; */
-            
-           /*  function kakaoLogin(){
-            	kakao.Auth.login({
-            		scope: 'profile_nickname, profile_image'
-            		success: function(response){
-            			console.log(response);
-            			kakao.API.request({
-            				url: '/v2/user/me',
-            				data: {
-            					properties : {
-            						'${snsId}' : '${response.id}',
-            						'${snsName}' : '${response.kakao_account.profile.nickname}',
-            						'${filePath}' : '${response.kakao_account.profile.profile_image_url}'
-            						
-            					}
-            				}
-            			});
-            		}
-            	});
-            } */
-            
             //카카오로그인
             function kakaoLogin() {
                 Kakao.Auth.login({
@@ -302,8 +277,8 @@
                            data : {snsId, snsName, snsType, filePath},
                            method : 'post',
                            success: function(data){
-                              location.replace("<%= request.getContextPath() %>/mainpage.me");
-                              console.log("카카오로그인db저장가능");
+                        	   alert("카카오로 정상 로그인되었습니다.");
+                        	   location.replace("<%= request.getContextPath() %>/mainpage.me");
                            },
                            error: function(){
                               console.log("카카오로그인db저장실패");
@@ -319,25 +294,10 @@
                     console.log(error)
                 },
                 });
-                
-                Kakao.API.request({
-                	  url: '/v1/user/update_profile',
-                	  data: {
-                	    properties: {
-                	      '${CUSTOM_PROPERTY_KEY}': '${CUSTOM_PROPERTY_VALUE}',
-                	    },
-                	  },
-                	})
-                	  .then(function(response) {
-                	    console.log(response);
-                	  })
-                	  .catch(function(error) {
-                	    console.log(error);
-                	  });
             } 
         </script>
 
-        <script>
+<!--         <script>
 
             var naverLogin = new naver.LoginWithNaverId(
                     {
@@ -417,7 +377,7 @@
             function onSignInFailure(t){      
                 console.log(t);
             }
-            </script>
+            </script> -->
         </div>
     
 </body>

@@ -1,6 +1,8 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,33 +49,50 @@ public class MemberApiInsertController extends HttpServlet {
 				String snsType = request.getParameter("snsType"); // 1, 2, 3		
 				String filePath = request.getParameter("filePath");
 				int userLevel = (int) request.getSession().getAttribute("userLevel");
-				
-				System.out.println(snsId);
-				System.out.println(snsName);
-				System.out.println(snsType);
-				System.out.println(filePath);
 
 				// 전달받은 파라미터를 가지고 Member클래스로 만들어주기
 				Member loginUser = new Member(snsId, snsName, userLevel);
 				SnsLogin snsLoginUser = new SnsLogin(snsId, snsName, snsType, filePath);
 				
-				// 3) 요청처리 (서비스 메소드호출 결과값 돌려받기)
-				int result = new MemberService().insertMemberApi(loginUser, snsLoginUser);
+				int result2 = new MemberService().idCheck(snsId);
 				
-				// 4) 처리 결과를 가지고 사용자가보게될 응답화면을 지정
-				if(result > 0) { // 성공 => /jspproject (url 재요청방식)
-					request.getSession().setAttribute("loginUser", loginUser);
-					request.getSession().setAttribute("snsLoginUser", snsLoginUser);
-					request.getSession().setAttribute("alertMsg", "회원가입에 성공했습니다");
+				// 3) 요청처리 (서비스 메소드호출 결과값 돌려받기)
+				// if를 해가지고 select해서 가져옴. 
+				if(result2 < 0) {
+
+					int result = new MemberService().insertMemberApi(loginUser, snsLoginUser);
 					
-					response.sendRedirect(request.getContextPath()+"/mainpage.me");
+					// 4) 처리 결과를 가지고 사용자가보게될 응답화면을 지정
+					if(result > 0) { // 성공 => /jspproject (url 재요청방식)
+						request.getSession().setAttribute("loginUser", loginUser);
+						request.getSession().setAttribute("snsLoginUser", snsLoginUser);
+						request.getSession().setAttribute("alertMsg", "회원가입에 성공했습니다");
+						
+						response.sendRedirect(request.getContextPath()+"/mainpage.me");
+						
+					}else { // 실패 => 에러페이지 포워딩
+						request.setAttribute("errorMsg", "회원가입에 실패했습니다");
+						
+						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+					}
+				}else {
 					
-				}else { // 실패 => 에러페이지 포워딩
-					request.setAttribute("errorMsg", "회원가입에 실패했습니다");
+					loginUser = new MemberService().snsLoginMember(snsId, userLevel);
 					
-					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+					if(loginUser == null) {
+						request.setAttribute("errorMsg", "로그인에 실패했습니다.");
+						RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+						view.forward(request, response);
+					} else {
+						request.getSession().setAttribute("loginUser", loginUser);
+						request.getSession().setAttribute("snsLoginUser", snsLoginUser);
+						request.getSession().setAttribute("alertMsg", "로그인에 성공함ㅎㅎ");
+						
+						response.sendRedirect(request.getContextPath()+"/mainpage.me");
+					}
+					/* alert("이미 존재하는 아이디로, 성공적으로 로그인 되었습니다."); */
+					
 				}
-	
 	}
 
 }

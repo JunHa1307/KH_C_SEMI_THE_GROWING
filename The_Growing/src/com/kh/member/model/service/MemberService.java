@@ -85,6 +85,20 @@ public class MemberService {
 		return m;
 	}
 	
+	public Member snsLoginMember(String snsId, int userLevel) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().snsLoginMember(conn, snsId, userLevel);
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return m;
+	}
+	
 	public Member loginMemberInfo(int uno) {
 		Connection conn = JDBCTemplate.getConnection();
 		
