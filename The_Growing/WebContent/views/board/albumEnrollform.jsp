@@ -118,6 +118,9 @@
 						  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 				          
 					});
+					
+				      $("#board_album").css("fontWeight", "700");
+			          $("#board_album").children().css("background", "rgb(239, 243, 239)");
 				});
 			
 			</script>

@@ -100,6 +100,26 @@ public class ClassService {
 		
 		return result;
 	}
+	public Class selectClass(int cno, int uno) {
+	      Connection conn = getConnection();
+
+	      Class cInfo = new ClassDao().selectClass(conn, cno, uno);
+
+	      close(conn);
+
+	      return cInfo;
+
+	   }
+	public ArrayList<Class> selectMyClass(int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Class> list = new ClassDao().selectMyClass(conn, userNo);
+		
+		close(conn);
+
+		return list;
+
+	}
 	
 	public ArrayList<String> selectCalendarList(int userNo) {
 		
@@ -113,6 +133,8 @@ public class ClassService {
 
 	}
 	
+
+
 	public int updateCalendar(int classNo, String arr) {
 		
 		Connection conn = getConnection();

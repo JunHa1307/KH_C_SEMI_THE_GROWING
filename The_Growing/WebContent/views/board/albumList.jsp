@@ -4,6 +4,8 @@
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	int cno = (int)request.getSession().getAttribute("cno");
+
 %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -558,12 +560,11 @@
 
     <script>
       $(function () {
-        $(".board_li").click(function () {
-          $(this).css("fontWeight", "700");
-          $(this).children().css("background", "rgb(239, 243, 239)");
-          $(this).siblings(".board_li").css({ fontWeight: "", color: "black" });
-          $(this).siblings().children().css("background", "");
-        });
+   
+          $("#board_album").css("fontWeight", "700");
+          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+       
+      
 
 
 
@@ -628,11 +629,11 @@
       });
    
       $("#album_Enroll").click(function () {
-		location.href="<%=contextPath%>/insert.al";
+		location.href="<%=contextPath%>/insert.al?cno="+<%=cno%>;
 	})
             
        $("#album_file").click(function () {
-		location.href="<%=contextPath%>/att.al";
+		location.href="<%=contextPath%>/att.al?cno="+<%=cno%>;
 	})
         
 
