@@ -129,6 +129,45 @@ public class MemberDao {
 				
 	}
 	
+	public int idNlevelCheck(Connection conn, String userId, int userLevel) {
+		
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+		// ResultSet은 db에서 질의결과 창에 나오는  
+		// 그에해당하는 
+ 		ResultSet rset = null;
+		
+		String sql = prop.getProperty("idNlevelCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			// pstmt ? 값 채우기
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, userLevel);
+			
+			rset = pstmt.executeQuery();
+			
+			// 다음행이 존재한다면 값을 result에 넣기
+			// select문일때만 rset.next()사용해서 다음행이 있는지없는지 검사
+			// 다음행이 있다면 result변수에 컬럼의 값 얻어오기
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			
+		}
+		return result;
+				
+	}
+	
 	public Member loginMember(Connection conn, String userId, String userPwd, int userLevel) {
 		
 		// Select문 => ResultSet객체(조회된 행은 1개이거나 없거나)
@@ -180,7 +219,7 @@ public class MemberDao {
 		return m;		
 	}
 
-	public Member snsLoginMember(Connection conn, String snsId, int userLevel) {
+	public Member snsLoginMember(Connection conn, int userNo, String snsId, int userLevel) {
 		
 		// Select문 => ResultSet객체(조회된 행은 1개이거나 없거나)
 		Member m = null;
@@ -195,8 +234,9 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, snsId);
-			pstmt.setInt(2, userLevel);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, snsId);
+			pstmt.setInt(3, userLevel);
 			
 			rset = pstmt.executeQuery();
 			
@@ -280,7 +320,44 @@ public Member loginMemberInfo(Connection conn, int uno) {
 		return m;		
 	}
 	
+public int selectUserNo(Connection conn, String userId, int userLevel) {
 	
+	// Select문 => ResultSet객체(조회된 행은 1개이거나 없거나)
+	Member m = null;
+	
+	ResultSet rset= null;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("selectUserNo");
+	
+	int userNo = 0;
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, userId);
+		pstmt.setInt(2, userLevel);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			userNo = rset.getInt("USER_NO");
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			rset.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	return userNo;		
+}	
 	
 	
 	

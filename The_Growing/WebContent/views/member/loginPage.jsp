@@ -297,7 +297,7 @@
             } 
         </script>
 
-<!--         <script>
+         <script>
 
             var naverLogin = new naver.LoginWithNaverId(
                     {
@@ -377,7 +377,7 @@
             function onSignInFailure(t){      
                 console.log(t);
             }
-            </script> -->
+            </script>
         </div>
     
 </body>
