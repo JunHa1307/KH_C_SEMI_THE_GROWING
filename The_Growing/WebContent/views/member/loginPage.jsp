@@ -226,18 +226,21 @@
 				    apiURL += "&state=" + state;
 				    session.setAttribute("state", state);
 				 %>
-  				<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-               	
-               	<%-- 로그인 한 후 이동 --%>
-                <%-- <div id="g_id_onload" data-client_id="973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com"
-				  data-login_uri="<%= contextPath %>/mainpage.me" data-auto_prompt="false">
-				</div> --%>
-				<%-- 로그인 하는 div --%>
-				<div class="gDid_signin" data-type="standard" data-size="large" data-width="100%"
-				  	data-theme="filled_blue" data-text="sign_in_with" data-shape="circle" data-logo_alignment="left"
-				></div>
-                <div id="buttonDiv" class="start_btn start_btn4"></div>
-				
+				<li>
+	  				<a href="<%=apiURL%>">
+		  				<button class="start_btn start_btn3" id="start_btn3">
+		  					네이버로 시작하기
+		  				</button>
+	  				</a>
+               	</li>         
+				<%-- 구글 로그인 --%>
+				<li>
+					<div class="gDid_signin" data-type="standard" data-size="large" data-width="100%"
+					  	data-theme="filled_blue" data-text="sign_in_with" data-shape="circle" data-logo_alignment="right"></div>
+	                <a><button id="buttonDiv" class="start_btn">
+	                구글로 시작하기
+	                </button></a>
+				</li>
             </div>   
         </div>
 
@@ -303,18 +306,12 @@
             } 
         </script>
         <script>
+        
 	        // 구글 로그인 정보 받아서 로그인
 	        function handleCredentialResponse(response) {
 	        	// response.credential == 구글 로그인 토큰
 	        	// parseJwt(token) = json web token 파싱(디코딩)
 	            const responsePayload = parseJwt(response.credential);
-
-	            /* console.log("ID: " + responsePayload.sub);
-	            console.log('Full Name: ' + responsePayload.name);
-	            console.log('Given Name: ' + responsePayload.given_name);
-	            console.log('Family Name: ' + responsePayload.family_name);
-	            console.log("Image URL: " + responsePayload.picture);
-	            console.log("Email: " + responsePayload.email); */
 	            
 	            let snsId = responsePayload.sub;
 	            let snsName = responsePayload.name;
@@ -354,7 +351,7 @@
 	          });
 	          google.accounts.id.renderButton(
 	            document.getElementById("buttonDiv"),
-	            { theme: "filled_blue", size: "large", shape: "circle", width: "500" }  // customization attributes
+	            {theme: "filled_blue", size: "large", shape: "circle", width: "400", logo_alignment: "center" }  // customization attributes
 	          );
 	        }
 	    </script>

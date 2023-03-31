@@ -1,4 +1,4 @@
-package com.kh.member.model.vo;
+package com.kh.member.controller;
 
 //네이버 API - 회원프로필 조회
 import java.io.BufferedReader;
@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 @WebServlet("/naverlogin.me")
-public class NaverLogin extends HttpServlet {
+public class NaverLoginController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,7 +32,7 @@ public class NaverLogin extends HttpServlet {
 	    String clientSecret = "PxiuUGTk61";//애플리케이션 클라이언트 시크릿값";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
-	    String redirectURI = URLEncoder.encode("http://localhost:8085/growing/naverlogin.me", "UTF-8");
+	    String redirectURI = URLEncoder.encode("http://localhost:8085/growing/apinsert.me", "UTF-8");
 	    String apiURL;
 	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 	    apiURL += "client_id=" + clientId;
@@ -88,8 +89,8 @@ public class NaverLogin extends HttpServlet {
 			  request.getSession().setAttribute("snsName", snsName);
 			  request.getSession().setAttribute("snsType", snsType);
 			  request.getSession().setAttribute("filePath", filePath);
-			
-			  response.sendRedirect(request.getContextPath()+"/apinsert.me");
+			  
+			  response.sendRedirect(request.getContextPath()+"/views/member/naverLoginForm.jsp");
 		      
 	      }else {
 	    	  System.out.println(res.toString());
