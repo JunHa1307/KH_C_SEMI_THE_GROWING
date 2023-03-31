@@ -13,21 +13,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- google login api -->
+  	<meta name ="google-signin-client_id" content="973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com">
     <title>loginPage</title>
 
     <!-- kakao login api cdn -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>    
-
-    <!-- google login api -->
-    <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
-    <meta name ="google-signin-client_id" content="169084417109-f19btt7tlefea954g1c90s7qjo6i2u4r.apps.googleusercontent.com">
-
-   <!-- 구글 api 사용을 위한 스크립트 -->
-   <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
    
-   <!-- 네이버 스크립트 -->
-   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-   
+	<!-- 네이버 스크립트 -->
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+   	
+	<!-- 구글 api 사용을 위한 스크립트 -->
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -226,12 +224,17 @@
                         네이버로 시작하기
                     </button><br>
                 </a>
-               
-                <li id="GgCustomLogin">
-                    <a href="javascript:void(0)">
-                     <span>Google로 시작하기</span>
-                    </a>
-                </li>
+               	
+               	<%-- 로그인 한 후 이동 --%>
+                <%-- <div id="g_id_onload" data-client_id="973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com"
+				  data-login_uri="<%= contextPath %>/mainpage.me" data-auto_prompt="false">
+				</div> --%>
+				<%-- 로그인 하는 div --%>
+				<div class="gDid_signin" data-type="standard" data-size="large" data-width="100%"
+				  	data-theme="filled_blue" data-text="sign_in_with" data-shape="circle" data-logo_alignment="left"
+				></div>
+                <div id="buttonDiv" class="start_btn start_btn4"></div>
+				
             </div>   
         </div>
 
@@ -338,46 +341,65 @@
                 testPopUp.close();
             }
 
-        </script>
+        </script> -->
 
         <script>
+	        // 구글 로그인 정보 받아서 로그인
+	        function handleCredentialResponse(response) {
+	        	// response.credential == 구글 로그인 토큰
+	        	// parseJwt(token) = json web token 파싱(디코딩)
+	            const responsePayload = parseJwt(response.credential);
 
-            //처음 실행하는 함수
-            function init() {
-                gapi.load('auth2', function() {
-                    gapi.auth2.init();
-                    options = new gapi.auth2.SigninOptionsBuilder();
-                    options.setPrompt('select_account');
-                    // 추가는 Oauth 승인 권한 추가 후 띄어쓰기 기준으로 추가
-                    options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
-                    // 인스턴스의 함수 호출 - element에 로그인 기능 추가
-                    // GgCustomLogin은 li태그안에 있는 ID, 위에 설정한 options와 아래 성공,실패시 실행하는 함수들
-                    gapi.auth2.getAuthInstance().attachClickHandler('GgCustomLogin', options, onSignIn, onSignInFailure);
-                })
-            }
-            
-            function onSignIn(googleUser) {
-                var access_token = googleUser.getAuthResponse().access_token
-                $.ajax({
-                    // people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
-                    url: 'https://people.googleapis.com/v1/people/me'
-                    // key에 자신의 API 키를 넣습니다.
-                    , data: {personFields:'birthdays', key:'AIzaSyDDEQvcspx5BuggZOJ0k6XaYWEVyg2Oh3k', 'access_token': access_token}
-                    , method:'GET'
-                })
-                .done(function(e){
-                    //프로필을 가져온다.
-                    var profile = googleUser.getBasicProfile();
-                    console.log(profile)
-                })
-                .fail(function(e){
-                    console.log(e);
-                })
-            }
-            function onSignInFailure(t){      
-                console.log(t);
-            }
-            </script> -->
+	            console.log("ID: " + responsePayload.sub);
+	            console.log('Full Name: ' + responsePayload.name);
+	            console.log('Given Name: ' + responsePayload.given_name);
+	            console.log('Family Name: ' + responsePayload.family_name);
+	            console.log("Image URL: " + responsePayload.picture);
+	            console.log("Email: " + responsePayload.email);
+	            
+	            let snsId = responsePayload.sub;
+	            let snsName = responsePayload.name;
+	            let snsType = 3;
+	            let filePath = responsePayload.picture;
+	            
+				$.ajax({
+                    url : "<%= request.getContextPath() %>/apinsert.me",
+                    data : {snsId, snsName, snsType, filePath},
+                    method : 'post',
+                    success: function(data){
+                 	   alert("구글로 정상 로그인되었습니다.");
+                 	   location.replace("<%= request.getContextPath() %>/mainpage.me");
+                    },
+                    error: function(){
+                       console.log("구글로그인db저장실패근데왜db저장이죠");
+                    }
+                 });
+	        }
+	        
+	        // jwt 알아볼수있도록 변환
+	        function parseJwt(token) {
+	            var base64Url = token.split('.')[1];
+	            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+	            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+	                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+	            }).join(''));
+
+	            return JSON.parse(jsonPayload);
+	        };
+	        
+	        // 구글 로그인 버튼 만들기
+	        window.onload = function () {
+	          google.accounts.id.initialize({
+	            client_id: "973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com",
+	            callback: handleCredentialResponse
+	          });
+	          google.accounts.id.renderButton(
+	            document.getElementById("buttonDiv"),
+	            { theme: "filled_blue", size: "large", shape: "circle", width: "500" }  // customization attributes
+	          );
+	        }
+	    </script>
+	    
         </div>
     
 </body>
