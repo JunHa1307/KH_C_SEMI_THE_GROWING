@@ -362,7 +362,7 @@
 	            let snsType = 3;
 	            let filePath = responsePayload.picture;
 	            
-				<%-- $.ajax({
+				$.ajax({
                     url : "<%= request.getContextPath() %>/apinsert.me",
                     data : {snsId, snsName, snsType, filePath},
                     method : 'post',
@@ -373,7 +373,7 @@
                     error: function(){
                        console.log("구글로그인db저장실패근데왜db저장이죠");
                     }
-                 }); --%>
+                 });
 	        }
 	        
 	        // jwt 알아볼수있도록 변환
