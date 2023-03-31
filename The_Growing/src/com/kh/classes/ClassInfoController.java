@@ -1,6 +1,9 @@
-package com.kh.board.controller;
+package com.kh.classes;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,20 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.classes.model.service.ClassService;
 import com.kh.classes.model.vo.Class;
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
-
 /**
- * Servlet implementation class AlbumFirstController
+ * Servlet implementation class ClassInfoController
  */
-@WebServlet("/first.al")
-public class AlbumFirstController extends HttpServlet {
+@WebServlet("/info.c")
+public class ClassInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AlbumFirstController() {
+    public ClassInfoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +31,11 @@ public class AlbumFirstController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = 2; //Integer.parseInt(request.getParameter("uno"));
-		int cno =2; //Integer.parseInt(request.getParameter("cno"));
+		int userno=2;
+		ArrayList<Class> list = new ClassService().selectMyClass(userno);
 		
-		Class cInfo = new ClassService().selectClass(cno);
-		Member mInfo = new MemberService().loginMemberInfo(uno);
-		
-		
-		request.setAttribute("cInfo", cInfo);
-		request.setAttribute("mInfo", mInfo);
-		request.getRequestDispatcher("views/board/boardFrame.jsp").forward(request, response);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/my/myclass.jsp").forward(request, response);
 	}
 
 	/**

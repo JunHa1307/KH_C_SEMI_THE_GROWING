@@ -228,6 +228,75 @@ public class ClassDao {
 		
 		return result;
 	}
+	 public Class selectClass(Connection conn, int cno, int uno) {
+
+	      Class cInfo = null;
+
+	      PreparedStatement pstmt = null;
+
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectClass");
+
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setInt(1, cno);
+	         pstmt.setInt(2, uno);
+	         
+	         rset = pstmt.executeQuery();
+	         if (rset.next()) {
+	            cInfo = new Class();
+	            cInfo.setClassNo(rset.getInt("CLASS_NO"));
+	            cInfo.setClassName( rset.getString("CLASS_NAME"));
+	            cInfo.setClassTypeName(rset.getString("CLASS_TYPE_NAME"));
+	            cInfo.setTeacherName(rset.getString("TEACHER_NAME"));
+	            cInfo.setUserCount(rset.getInt("USER_COUNT"));
+	            cInfo.setChangeName(rset.getString("CHANGE_NAME"));
+	            cInfo.setFilePath(rset.getString("FILE_PATH"));
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      return cInfo;
+	   }
+
+	 public ArrayList<Class> selectMyClass(Connection conn, int userNo) {
+
+			ArrayList<Class> list = new ArrayList<>();
+
+			PreparedStatement pstmt = null;
+
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("selectMyClass");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, userNo);
+				
+				rset = pstmt.executeQuery();
+				while (rset.next()) {
+					Class c = new Class(rset.getInt("REF_CNO"), rset.getInt("CLASS_GRADE"),
+							rset.getInt("CLASS_CODE"), rset.getString("CLASS_NAME"), rset.getString("CLASS_TYPE_NAME"),
+							rset.getString("CHANGE_NAME"),rset.getString("FILE_PATH"),rset.getString("TEACHER_NAME"),
+							rset.getString("ATPT_OFCDC_SC_CODE"),rset.getInt("SD_SCHUL_CODE"),rset.getInt("USER_COUNT"));
+					list.add(c);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
 	
 	public ArrayList<String> selectCalendarList(Connection conn, int userNo) {
 

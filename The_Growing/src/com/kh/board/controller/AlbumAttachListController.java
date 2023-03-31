@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.BoardService;
+import com.kh.classes.model.service.ClassService;
+import com.kh.classes.model.vo.Class;
 import com.kh.common.model.vo.Attachment;
+import com.kh.member.model.vo.Member;
 
 
 /**
@@ -32,7 +35,12 @@ public class AlbumAttachListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cno = 2;
+		 int cno = Integer.parseInt(request.getParameter("cno"));
+		 Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+			int uno = loginUser.getUserNo();
+			Class cInfo = new ClassService().selectClass(cno, uno);
+			request.setAttribute("cInfo", cInfo);
+		 
 		ArrayList<Attachment> list = new BoardService().selectAttachList(cno);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/board/albumFileView.jsp").forward(request, response);

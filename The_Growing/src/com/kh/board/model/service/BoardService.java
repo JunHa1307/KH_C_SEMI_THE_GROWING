@@ -14,20 +14,24 @@ import com.kh.common.model.vo.Attachment;
 
 public class BoardService {
 
-	public ArrayList<Board> selectAlbumList() {
+	public ArrayList<Board> selectAlbumList(int cno) {
 		Connection conn = getConnection();
-		ArrayList<Board> list = new BoardDao().selectAlbumList(conn);
+		ArrayList<Board> list = new BoardDao().selectAlbumList(conn, cno);
 		close(conn);
 		return list;
 	}
 
-	public int insertAlbumBoard(Board b, ArrayList<Attachment> list, int cno, int uno) {
+	public int insertAlbumBoard(Board b, ArrayList<Attachment> list) {
 
 		Connection conn = getConnection();
 
-		int result1 = new BoardDao().insertAlbumBoard(conn, b, cno, uno);
+		int result1 = new BoardDao().insertAlbumBoard(conn, b);
+		int result2 =0;
+		if(result1>0) {
+			
+			result2 = new BoardDao().insertAttachmentList(conn, list);
+		}
 
-		int result2 = new BoardDao().insertAttachmentList(conn, list, cno, uno);
 
 		if (result1 > 0 && result2 > 0) {
 			commit(conn);
