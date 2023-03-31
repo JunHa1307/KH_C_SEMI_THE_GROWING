@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.classes.model.service.ClassService;
+import com.kh.classes.model.vo.Class;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardMoveController
@@ -32,13 +35,31 @@ public class BoardMoveController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		/*
+		 * int cno = Integer.parseInt(request.getParameter("cno")); ArrayList<Board>
+		 * list = new BoardService().selectAlbumList(cno);
+		 * request.getSession().setAttribute("cno", cno);
+		 * 
+		 * request.setAttribute("list", list);
+		 * 
+		 * 
+		 * request.getRequestDispatcher("views/board/albumList.jsp").forward(request,
+		 * response);
+		 */
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		int uno = loginUser.getUserNo();
 		int cno = Integer.parseInt(request.getParameter("cno"));
-		 ArrayList<Board> list = new BoardService().selectAlbumList(cno); 
-		 request.getSession().setAttribute("cno", cno);
-		 
-		 request.setAttribute("list", list);
-		 
+		request.getSession().setAttribute("cno", cno);
 		
+		Class cInfo = new ClassService().selectClass(cno, uno);
+
+		ArrayList<Board> list = new BoardService().selectAlbumList(cno);
+		
+		request.setAttribute("list", list);
+		
+		
+		request.setAttribute("cInfo", cInfo);
+		request.setAttribute("loginUser", loginUser);
 		request.getRequestDispatcher("views/board/albumList.jsp").forward(request, response);
 		
 	}

@@ -234,7 +234,7 @@ public class ClassDao {
 		
 		return result;
 	}
-	 public Class selectClass(Connection conn, int classNo) {
+	 public Class selectClass(Connection conn, int cno, int uno) {
 
 	      Class cInfo = null;
 
@@ -247,22 +247,19 @@ public class ClassDao {
 	      try {
 	         pstmt = conn.prepareStatement(sql);
 
-	         pstmt.setInt(1, classNo);
+	         pstmt.setInt(1, cno);
+	         pstmt.setInt(2, uno);
 	         
 	         rset = pstmt.executeQuery();
 	         if (rset.next()) {
-	            cInfo = new Class(rset.getInt("CLASS_NO"),
-	                  rset.getInt("CLASS_GRADE"),
-	                  rset.getInt("CLASS_CODE"),
-	                  rset.getString("CLASS_NAME"),
-	                  rset.getString("CLASS_TYPE_NAME"),
-	                  rset.getString("CHANGE_NAME"),
-	                  rset.getString("FILE_PATH"),
-	                  rset.getString("TEACHER_NAME"),
-	                  rset.getString("ATPT_OFCDC_SC_CODE"),
-	                  rset.getInt("SD_SCHUL_CODE"),
-	                  rset.getInt("USER_COUNT"));
-	            
+	            cInfo = new Class();
+	            cInfo.setClassNo(rset.getInt("CLASS_NO"));
+	            cInfo.setClassName( rset.getString("CLASS_NAME"));
+	            cInfo.setClassTypeName(rset.getString("CLASS_TYPE_NAME"));
+	            cInfo.setTeacherName(rset.getString("TEACHER_NAME"));
+	            cInfo.setUserCount(rset.getInt("USER_COUNT"));
+	            cInfo.setChangeName(rset.getString("CHANGE_NAME"));
+	            cInfo.setFilePath(rset.getString("FILE_PATH"));
 	         }
 
 	      } catch (SQLException e) {

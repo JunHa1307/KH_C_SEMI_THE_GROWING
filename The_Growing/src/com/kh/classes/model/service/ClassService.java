@@ -100,10 +100,10 @@ public class ClassService {
 		
 		return table;
 	}
-	public Class selectClass(int classNo) {
+	public Class selectClass(int cno, int uno) {
 	      Connection conn = getConnection();
 
-	      Class cInfo = new ClassDao().selectClass(conn, classNo);
+	      Class cInfo = new ClassDao().selectClass(conn, cno, uno);
 
 	      close(conn);
 

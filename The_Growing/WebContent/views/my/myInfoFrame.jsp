@@ -61,7 +61,7 @@
         #myli {
             width: 20%;
            
-         	display:block;
+         	
            
         }
  
@@ -154,14 +154,24 @@
  
 @media only screen and (max-width: 1200px) {
     #myli {
-         	display:none;
+    opacity : 0.9;
+    left:-300px;
+    position: fixed;
+    transition: left .3s;
+    background-color: white;
+    top:150px;
+    border-radius: 10px;
         }
  	#hamburgur{
- 		
+ 		position:fixed;
+ 		top:100px;
  		display:block;
  		    padding-top: 13px;
         padding-left: 14px;
+        cursor: pointer;
  	}
+	
+ 
  	#hamburgur>img{
  		
  		width:30px;
@@ -185,7 +195,46 @@
            
         }
 
-        
+         #myli {
+            width: 200px;
+           
+         	
+           
+        }
+ 
+   
+        #myli >ul> li {
+            list-style-type: none;
+        }
+        #myli >ul {
+            padding: 0;
+        }
+        .my_li {
+            height: 28px;
+            cursor: pointer;
+        }
+        .mypage_title{
+            font-size: large; 
+            font-weight: 700; 
+            padding-bottom: 10px;
+            padding-left: 14px;
+        }
+        .my_li:hover{
+            font-weight: 700;
+        } 
+        .my_li>div{
+            border-radius: 30px;
+            width: 100%;
+            height: 40px;
+            padding: 9px;
+            padding-left: 14px;
+        }
+        .my_li>div>a{
+        		color:black;
+        	}
+        .my_li{
+            margin-bottom: 13px;
+        }
 
 }  
     </style>
@@ -206,6 +255,20 @@
         				
         			})
         			
+        	
+       				$("#hamburgur>img").click(function(){
+       					if($("#myli").css("left")=="-300px"){
+       						$("#myli").css("left","0");
+       					}else{
+       					$("#myli").css("left","-300px");
+       					}
+       				})
+       				
+  				
+        			
+        		
+        	
+        		
               });
            
       
@@ -219,9 +282,9 @@
             </button>
             <div id="search">
                 <button id="searchBtn" type="button">
-                    <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요."><img src="resources/image/search.svg">
+                    <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요." ><img src="resources/image/search.svg">
                 </button>
-                
+              
             </div>
             <div class="dropdown">
                 <button 
@@ -254,6 +317,6 @@
              
                   </ul>
              </div>
-	
+
 </body>
 </html>

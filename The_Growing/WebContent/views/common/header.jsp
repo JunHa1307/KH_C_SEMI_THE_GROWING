@@ -47,12 +47,12 @@
 <div class="wrap">
     <div id="header">
        <button id="logoBtn" class="btnStyle" type="button">
-           <img id="logo" src="../../resources/image/KakaoTalk_20230317_141025465-removebg-preview.png">
+           <img id="logo" src="resources/image/logo.png">
        </button>
        <div id="search">
            <button id="searchBtn" type="button">
                <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요.">
-               <img src="<%= request.getContextPath() %>/resources/image/searchIcon.png">
+               <img src="<%= request.getContextPath() %>/resources/image/search.svg">
            </button>
        </div>
        <div class="dropdown">
@@ -64,7 +64,7 @@
                aria-haspopup="true" 
                aria-expanded="false">
                
-               <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/알림.png" />
+               <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/bell.svg" />
            </button>
            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
              <a class="dropdown-item" href="#">알림3</a>

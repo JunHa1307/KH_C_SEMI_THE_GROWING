@@ -111,8 +111,10 @@ font-size:20px;
 @media only screen and (max-width: 1000px){
 #myclass_info {
 	width: 50%;
+	
 
 }
+
 
 }
 @media only screen and (max-width: 800px){
@@ -120,6 +122,7 @@ font-size:20px;
 	width: 100%;
 
 }
+
 
 }
 </style>

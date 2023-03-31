@@ -13,6 +13,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.classes.model.service.ClassService;
+import com.kh.classes.model.vo.Class;
 import com.kh.common.MyFileRenamePolicy;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
@@ -38,7 +40,11 @@ public class AlbumInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+		int cno = (int)request.getSession().getAttribute("cno");
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		int uno = loginUser.getUserNo();
+		Class cInfo = new ClassService().selectClass(cno, uno);
+		request.setAttribute("cInfo", cInfo);
 		request.getRequestDispatcher("views/board/albumEnrollform.jsp").forward(request, response);
 	}
 
@@ -99,9 +105,16 @@ public class AlbumInsertController extends HttpServlet {
 				}
 			}
 			
+			
+			
+			Class cInfo = new ClassService().selectClass(cno, uno);
+			request.setAttribute("cInfo", cInfo);
+			
+			
 			int result = new BoardService().insertAlbumBoard(b, list);
 			
 			if(result > 0) { // 성공 -> list.th를 요청
+				
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다");
 				response.sendRedirect(request.getContextPath()+"/list.al");
 			}else {
