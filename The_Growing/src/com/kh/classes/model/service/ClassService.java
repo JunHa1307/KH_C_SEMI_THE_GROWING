@@ -32,6 +32,8 @@ public class ClassService {
 		int result1 = new ClassDao().insertClass(conn, c);
 		int result2 = new ClassDao().insertClassMember(conn, c.getClassCode(), refUno, 0);
 		int result4 = new ClassDao().insertTable(conn, c.getClassCode(), "[{\"name\":\"\",\"mon\":\"\",\"tue\":\"\",\"wed\":\"\",\"thur\":\"\",\"fri\":\"\",\"sat\":\"\"}]");
+		int result5 = new ClassDao().insertCalendar(conn, c.getClassCode(), "[]");
+		
 		// attachment테이블 등록여부 판단할 변수
 		int result3 = 1;// 1로 미리 선언과 동시에 초기화 시키는 이유는 attachment테이블에 insert문이 실행되지 않을 수 있으므로
 
@@ -50,7 +52,7 @@ public class ClassService {
 
 		close(conn);
 
-		return result1 * result2 * result3 * result4; // 혹시 하나라도 실패해서 0이 반환될경우 실패값을 반환하기위해 곱셈결과를 리턴
+		return result1 * result2 * result3 * result4 * result5; // 혹시 하나라도 실패해서 0이 반환될경우 실패값을 반환하기위해 곱셈결과를 리턴
 	}
 	
 	public int insertClassMember(int code, int userNo) {
@@ -80,13 +82,11 @@ public class ClassService {
 
 	}
 	
-	public String updateTable(int classNo, String arr) {
+	public int updateTable(int classNo, String arr) {
 		
 		Connection conn = getConnection();
 		
 		int result = new ClassDao().updateTable(conn, classNo, arr);
-		
-		String table = null;
 		
 		if(result > 0) { // 성공
 			commit(conn);
@@ -98,7 +98,7 @@ public class ClassService {
 		close(conn);
 		
 		
-		return table;
+		return result;
 	}
 	public Class selectClass(int cno, int uno) {
 	      Connection conn = getConnection();
@@ -114,6 +114,18 @@ public class ClassService {
 		Connection conn = getConnection();
 
 		ArrayList<Class> list = new ClassDao().selectMyClass(conn, userNo);
+		
+		close(conn);
+
+		return list;
+
+	}
+	
+	public ArrayList<String> selectCalendarList(int userNo) {
+		
+		Connection conn = getConnection();
+
+		ArrayList<String> list = new ClassDao().selectCalendarList(conn, userNo);
 
 		close(conn);
 
@@ -123,4 +135,23 @@ public class ClassService {
 	
 
 
+	public int updateCalendar(int classNo, String arr) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ClassDao().updateCalendar(conn, classNo, arr);
+		
+		if(result > 0) { // 성공
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+	
 }
