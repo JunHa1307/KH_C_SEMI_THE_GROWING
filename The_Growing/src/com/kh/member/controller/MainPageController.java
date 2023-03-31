@@ -38,8 +38,11 @@ public class MainPageController extends HttpServlet {
 		
 		ArrayList<String> tableList = new ClassService().selectTableList(loginUser.getUserNo());
 		
+		ArrayList<String> calendarList = new ClassService().selectCalendarList(loginUser.getUserNo());
+		
 		request.setAttribute("list", list);
 		request.setAttribute("tableList", tableList);
+		request.setAttribute("calendarList", calendarList);
 		
 		request.getRequestDispatcher("views/member/mainPage.jsp").forward(request, response);
 	}

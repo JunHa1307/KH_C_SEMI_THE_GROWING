@@ -43,4 +43,21 @@
 		SET TIME_TABLE_CONTENT = ?
 		WHERE REF_CNO = ?
 	</entry>
+	 <entry key="insertCalendar">
+		INSERT INTO SCHEDULE
+            VALUES (SEQ_SCNO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?)
+    </entry>
+    <entry key="selectCalendarList">
+    	SELECT CLASS_NO, S_CONTENT
+    	FROM CLASS_MEMBER CM
+		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
+        LEFT JOIN SCHEDULE S USING(REF_CNO)
+	   	WHERE CM.REF_UNO = ?
+	    ORDER BY REF_CNO
+    </entry>
+     <entry key="updateCalendar">
+		UPDATE SCHEDULE
+		SET S_CONTENT = ?
+		WHERE REF_CNO = ?
+	</entry>
 </properties>
