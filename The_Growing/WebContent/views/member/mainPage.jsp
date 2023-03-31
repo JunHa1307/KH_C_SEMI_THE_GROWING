@@ -107,6 +107,7 @@
 										가입자 수 :
 										<%= list.get(i).getUserCount()%>명
 									</div>
+									<%-- vvv 이 div는 줄바꿈하면 안됨 vvv--%>
 									<div class="myClass-text"><%= list.get(i).getTeacherName()%> 선생님</div>
 								</div>
 							</div>
