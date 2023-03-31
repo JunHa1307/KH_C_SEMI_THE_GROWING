@@ -1,6 +1,9 @@
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%
    /* Integer userLevel = (Integer) request.getAttribute("userLevel"); */
    Integer userLevel = (Integer) session.getAttribute("userLevel");
@@ -22,6 +25,7 @@
    
 	<!-- 네이버 스크립트 -->
 	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+   	<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> -->
    	
 	<!-- 구글 api 사용을 위한 스크립트 -->
 	<script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -210,20 +214,19 @@
                 		</button>
                     </a>
                 </li>
-                <!-- <li>
-
-                    <a id="naverIdLogin_loginButton" href="javascript:void(0)">
-                        <span>네이버 로그인</span>
-                    </a>
-                </li> -->
-
-                <!-- 아래와같이 아이디를 꼭 써준다. -->
-                <a id="naverIdLogin_loginButton" href="javascript:void(0)">
-                    <button class="start_btn" id="start_btn3">
-                        <img id="naver" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160504_295%2Fzzlidde_1462360339348GT0M2_PNG%2F2016-05-04_20.11.40.png&type=a340">
-                        네이버로 시작하기
-                    </button><br>
-                </a>
+                <%-- 네이버 로그인(java) --%>
+                <%
+				    String clientId = "AoXLANkB0ykozQKaSUNj";//애플리케이션 클라이언트 아이디값";
+				    String redirectURI = URLEncoder.encode("http://localhost:8085/growing/naverlogin.me", "UTF-8");
+				    SecureRandom random = new SecureRandom();
+				    String state = new BigInteger(130, random).toString();
+				    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+				    apiURL += "&client_id=" + clientId;
+				    apiURL += "&redirect_uri=" + redirectURI;
+				    apiURL += "&state=" + state;
+				    session.setAttribute("state", state);
+				 %>
+  				<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
                	
                	<%-- 로그인 한 후 이동 --%>
                 <%-- <div id="g_id_onload" data-client_id="973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com"
@@ -299,50 +302,6 @@
                 });
             } 
         </script>
-
-<!--         <script>
-
-            var naverLogin = new naver.LoginWithNaverId(
-                    {
-                        clientId: "AoXLANkB0ykozQKaSUNj", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-                        callbackUrl: "http://localhost:8085/growing/views/member/mainPage.jsp", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
-                        isPopup: false,
-                        callbackHandle: true
-                    }
-                );   
-
-            naverLogin.init();
-
-            window.addEventListener('load', function () {
-                naverLogin.getLoginStatus(function (status) {
-                    if (status) {
-                        var email = naverLogin.user.getEmail(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.
-                        // 이부분 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        
-                        console.log(naverLogin.user); 
-                        
-                        if( email == undefined || email == null) {
-                            alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-                            naverLogin.reprompt();
-                            return;
-                        }
-                    } else {
-                        console.log("callback 처리에 실패하였습니다.");
-                    }
-                });
-            });
-
-
-            var testPopUp;
-            function openPopUp() {
-                testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
-            }
-            function closePopUp(){
-                testPopUp.close();
-            }
-
-        </script> -->
-
         <script>
 	        // 구글 로그인 정보 받아서 로그인
 	        function handleCredentialResponse(response) {
@@ -350,12 +309,12 @@
 	        	// parseJwt(token) = json web token 파싱(디코딩)
 	            const responsePayload = parseJwt(response.credential);
 
-	            console.log("ID: " + responsePayload.sub);
+	            /* console.log("ID: " + responsePayload.sub);
 	            console.log('Full Name: ' + responsePayload.name);
 	            console.log('Given Name: ' + responsePayload.given_name);
 	            console.log('Family Name: ' + responsePayload.family_name);
 	            console.log("Image URL: " + responsePayload.picture);
-	            console.log("Email: " + responsePayload.email);
+	            console.log("Email: " + responsePayload.email); */
 	            
 	            let snsId = responsePayload.sub;
 	            let snsName = responsePayload.name;
