@@ -45,7 +45,7 @@
 	</entry>
 	 <entry key="insertCalendar">
 		INSERT INTO SCHEDULE
-            VALUES (SEQ_SCNO.NEXTVAL,(SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?),?)
+            VALUES (SEQ_SCNO.NEXTVAL, ?, (SELECT CLASS_NO FROM CLASS WHERE CLASS_CODE = ?))
     </entry>
     <entry key="selectCalendarList">
     	SELECT CLASS_NO, S_CONTENT
