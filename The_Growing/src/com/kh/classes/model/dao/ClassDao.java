@@ -272,8 +272,8 @@ public class ClassDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, classCode);
-			pstmt.setString(2, data);
+			pstmt.setString(1, data);
+			pstmt.setInt(2, classCode);
 			
 			result = pstmt.executeUpdate();
 
