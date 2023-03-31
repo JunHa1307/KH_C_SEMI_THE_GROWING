@@ -46,6 +46,13 @@
 		WHERE USER_ID = ?
 	</entry>
 	
+	<entry key="idNlevelCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = ?
+		AND USER_LEVEL = ?
+	</entry>
+	
 	<entry key="loginMember">
 		SELECT M.*, A.CHANGE_NAME, A.FILE_PATH
 		FROM MEMBER M
@@ -60,7 +67,8 @@
 		SELECT M.*, A.CHANGE_NAME, A.FILE_PATH
 		FROM MEMBER M
 		LEFT JOIN ATTACHMENT A ON (A.REF_UNO = M.USER_NO)
-		WHERE USER_ID = ?
+		WHERE USER_NO = ? 
+		  AND USER_ID = ?
 		  AND USER_LEVEL = ?
 		  AND STATUS = 'Y'
 	</entry>
@@ -69,6 +77,14 @@
 		SELECT *
 		FROM MEMBER
 		WHERE USER_NO =?
+		  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectUserNo">
+		SELECT USER_NO
+		FROM MEMBER
+		WHERE USER_ID = ?
+		  AND USER_LEVEL = ?
 		  AND STATUS = 'Y'
 	</entry>
 </properties>

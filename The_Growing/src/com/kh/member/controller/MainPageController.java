@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.classes.model.service.ClassService;
 import com.kh.classes.model.vo.Class;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.SnsLogin;
 
 /**
  * Servlet implementation class MainPageController
@@ -33,6 +34,10 @@ public class MainPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		/*
+		 * SnsLogin snsLoginUser =
+		 * (SnsLogin)request.getSession().getAttribute("snsLoginUser");
+		 */
 		
 		ArrayList<Class> list = new ClassService().selectClassList(loginUser.getUserNo());
 		
