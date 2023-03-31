@@ -58,7 +58,7 @@
       FROM CLASS_MEMBER CM
       LEFT JOIN CLASS C ON(C.CLASS_NO = CM.REF_CNO)
     LEFT JOIN ATTACHMENT A ON (C.CLASS_NO = A.REF_CNO)
-      WHERE C.CLASS_NO = ? and CM.REF_UNO = ?
+      WHERE C.CLASS_NO = ? AND CM.REF_UNO = ?
         
 	</entry>
 	
