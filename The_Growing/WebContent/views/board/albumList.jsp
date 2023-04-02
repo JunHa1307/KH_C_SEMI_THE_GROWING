@@ -97,6 +97,7 @@
         height: 100%;
         cursor: pointer;
         transition: transform 0.7s;
+        object-fit: cover;
       }
 
       .album_con_date {

@@ -249,6 +249,7 @@ public class ClassDao {
 	            cInfo = new Class();
 	            cInfo.setClassNo(rset.getInt("CLASS_NO"));
 	            cInfo.setClassName( rset.getString("CLASS_NAME"));
+	            cInfo.setClassGrade(rset.getInt("CLASS_GRADE"));
 	            cInfo.setClassTypeName(rset.getString("CLASS_TYPE_NAME"));
 	            cInfo.setTeacherName(rset.getString("TEACHER_NAME"));
 	            cInfo.setUserCount(rset.getInt("USER_COUNT"));
@@ -282,10 +283,16 @@ public class ClassDao {
 				
 				rset = pstmt.executeQuery();
 				while (rset.next()) {
-					Class c = new Class(rset.getInt("REF_CNO"), rset.getInt("CLASS_GRADE"),
-							rset.getInt("CLASS_CODE"), rset.getString("CLASS_NAME"), rset.getString("CLASS_TYPE_NAME"),
-							rset.getString("CHANGE_NAME"),rset.getString("FILE_PATH"),rset.getString("TEACHER_NAME"),
-							rset.getString("ATPT_OFCDC_SC_CODE"),rset.getInt("SD_SCHUL_CODE"),rset.getInt("USER_COUNT"));
+					Class c = new Class();
+		            c.setClassNo(rset.getInt("REF_CNO"));
+		            c.setClassDate(rset.getInt("CLASS_DATE"));
+		            c.setClassGrade(rset.getInt("CLASS_GRADE"));
+		            c.setClassName( rset.getString("CLASS_NAME"));
+		            c.setClassTypeName(rset.getString("CLASS_TYPE_NAME"));
+		            c.setTeacherName(rset.getString("TEACHER_NAME"));
+		            c.setUserCount(rset.getInt("USER_COUNT"));
+		            c.setChangeName(rset.getString("CHANGE_NAME"));
+		            c.setFilePath(rset.getString("FILE_PATH"));
 					list.add(c);
 				}
 

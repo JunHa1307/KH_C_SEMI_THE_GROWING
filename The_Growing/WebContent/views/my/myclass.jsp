@@ -80,7 +80,7 @@ z-index:9;
 	height: 90%;
 	background-color:rgb(246, 249, 243);
 	margin : auto;
-
+	min-width: 270px;
 	
 }
 
@@ -131,28 +131,30 @@ font-size:20px;
 	<%@include file="myInfoFrame.jsp"%>
 	<div id="board_area">
 		<div id="myclass_header">
-			<div id="myclass_area">
+		<div id="myclass_area">
 				<div id="myclass_title">나의 클래스</div>
-				<div id="myclass_hr">
-					<hr />
-				</div>
-			</div>
 		</div>
+		<div id="myclass_hr">
+			<hr />
+		</div>
+		</div>
+		
 		<div class="myclass_content">
 			<%
 				for (int i =0; i<list.size(); i++) {
 					
 			%>
-			<div id="myclass_info">
+			<div id="myclass_info" >
+			<div id="index<%=i%>" class="index"></div>
 				<div id="myclass_small">
 				<div id="top">
 					<div id="user_profile">
-					<img src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>" alt="클래스 프로필" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
+					<img class="move" src="<%= contextPath +list.get(i).getFilePath()+list.get(i).getChangeName() %>" alt="클래스 프로필" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
 				</div>
 				<div id="bottom">
-				 	<div class="b1 "><%=list.get(i).getClassGrade()%>년</div>
-					<div class="b2 b_hover" ><%=list.get(i).getClassTypeName() %> <%=list.get(i).getClassName() %>반</div>
-					<div class="b3 b_hover">
+				 	<div class="b1 move"><%=list.get(i).getClassDate()%>년</div>
+					<div class="b2 b_hover move" ><%=list.get(i).getClassTypeName() %> <%=list.get(i).getClassGrade()%>학년 <%=list.get(i).getClassName() %>반</div>
+					<div class="b3 b_hover move">
 						담임 : <%=list.get(i).getTeacherName() %> 선생님 <br>학급 수 : <%=list.get(i).getUserCount() %>명
 					</div>
 				</div>
@@ -172,6 +174,24 @@ font-size:20px;
 	$(function(){
 	        $("#myClass").css("fontWeight","700").fadeIn(1000);
 	        $("#myClass").children().css("background","rgb(239, 243, 239)");
+	       
+	        let classList = []; 
+	       
+	        
+	        <% for(int i = 0; i < list.size(); i++){%>
+	          classList.push("<%= list.get(i).getClassNo()%>");
+	          
+	          <%}%>
+	        
+	        $(".move").click(function(){
+	       
+	        let index =  $("div[class*=index]").attr("id").substr(-1);
+		    		let cno = classList[index];
+		    		location.href="<%=contextPath%>/boardmove.bo?cno="+ cno;
+	        });
+		    	
+		    
+		    
 	   
 	});
 

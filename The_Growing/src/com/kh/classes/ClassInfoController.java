@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.classes.model.service.ClassService;
 import com.kh.classes.model.vo.Class;
+import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class ClassInfoController
  */
@@ -31,8 +32,8 @@ public class ClassInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userno=2;
-		ArrayList<Class> list = new ClassService().selectMyClass(userno);
+		int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+		ArrayList<Class> list = new ClassService().selectMyClass(uno);
 		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/my/myclass.jsp").forward(request, response);

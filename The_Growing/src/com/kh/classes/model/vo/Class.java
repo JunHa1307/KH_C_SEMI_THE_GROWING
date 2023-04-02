@@ -3,6 +3,7 @@ package com.kh.classes.model.vo;
 public class Class {
 	private int classNo;
 	private int classGrade;
+	private int classDate;
 	private int classCode;
 	private String className;
 	private String classTypeName;
@@ -18,7 +19,31 @@ public class Class {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Class(int classNo, int classGrade, int classCode, String className, String classTypeName, String changeName,
+	
+	
+	
+	public Class(int classNo, int classGrade, int classDate, int classCode, String className, String classTypeName,
+			String changeName, String filePath, String teacherName, String atptOfcdcScCode, int sdSchulCode,
+			int userCount) {
+		super();
+		this.classNo = classNo;
+		this.classGrade = classGrade;
+		this.classDate = classDate;
+		this.classCode = classCode;
+		this.className = className;
+		this.classTypeName = classTypeName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.teacherName = teacherName;
+		this.atptOfcdcScCode = atptOfcdcScCode;
+		this.sdSchulCode = sdSchulCode;
+		this.userCount = userCount;
+	}
+
+
+
+
+	public Class(int classNo, int classGrade,  int classCode, String className, String classTypeName, String changeName,
 			String filePath, String teacherName, String atptOfcdcScCode, int sdSchulCode, int userCount) {
 		super();
 		this.classNo = classNo;
@@ -34,21 +59,6 @@ public class Class {
 		this.userCount = userCount;
 	}
 
-	public Class(int classNo, int classGrade, int classCode, String className, String classTypeName, String changeName,
-			String filePath, String teacherName, int userCount) {
-		super();
-		this.classNo = classNo;
-		this.classGrade = classGrade;
-		this.classCode = classCode;
-		this.className = className;
-		this.classTypeName = classTypeName;
-		this.changeName = changeName;
-		this.filePath = filePath;
-		this.teacherName = teacherName;
-		this.userCount = userCount;
-	}
-
-	
 	
 
 
@@ -56,6 +66,16 @@ public class Class {
 		super();
 		this.classNo = classNo;
 		this.classCode = classCode;
+	}
+	
+	
+
+	public int getClassDate() {
+		return classDate;
+	}
+
+	public void setClassDate(int classDate) {
+		this.classDate = classDate;
 	}
 
 	public int getClassNo() {
@@ -148,8 +168,12 @@ public class Class {
 
 	@Override
 	public String toString() {
-		return "Class [classNo=" + classNo + ", classGrade=" + classGrade + ", classCode=" + classCode + ", className="
-				+ className + ", classTypeName=" + classTypeName + "]";
+		return "Class [classNo=" + classNo + ", classGrade=" + classGrade + ", classDate=" + classDate + ", classCode="
+				+ classCode + ", className=" + className + ", classTypeName=" + classTypeName + ", changeName="
+				+ changeName + ", filePath=" + filePath + ", teacherName=" + teacherName + ", atptOfcdcScCode="
+				+ atptOfcdcScCode + ", sdSchulCode=" + sdSchulCode + ", userCount=" + userCount + "]";
 	}
+
+	
 
 }
