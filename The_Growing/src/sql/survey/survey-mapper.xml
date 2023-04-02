@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="insertSurvey">
+		INSERT INTO SURVEY
+			VALUES (SEQ_SNO.NEXTVAL, ?, 0, ?, ?, 'Y', ?)		
+	</entry>
+	<entry key="selectSurvey">
+		SELECT *
+		FROM SURVEY
+		WHERE FIRST_DATE = ?
+		  AND REF_CNO = ?
+	</entry>
+	<entry key="insertQuestion">
+		INSERT INTO QUESTION
+			VALUES (SEQ_QNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)
+	</entry>
+</properties>
