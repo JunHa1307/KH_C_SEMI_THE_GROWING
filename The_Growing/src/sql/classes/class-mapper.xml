@@ -79,9 +79,31 @@
 	   	WHERE CM.REF_UNO = ?
 	    ORDER BY REF_CNO
     </entry>
-     <entry key="updateCalendar">
+    <entry key="updateCalendar">
 		UPDATE SCHEDULE
 		SET S_CONTENT = ?
 		WHERE REF_CNO = ?
+	</entry>
+	<entry key="selectAttendTable">
+		SELECT A_CONTENT
+		FROM ATTEND_CHECK A
+		LEFT JOIN CLASS C ON(C.CLASS_NO = A.REF_CNO)
+		WHERE C.CLASS_NO = ? AND A_DATE = ?
+	</entry>
+	<entry key="insertAttendTable">
+		INSERT INTO ATTEND_CHECK
+            VALUES (?, ?, ?)
+    </entry>
+    <entry key="selectClassMemberName">
+    	SELECT USER_NAME , REF_UNO
+    	FROM MEMBER
+    	JOIN CLASS_MEMBER ON (USER_NO = REF_UNO)
+    	WHERE REF_CNO = ?
+    	ORDER BY USER_NAME
+    </entry>
+    <entry key="updateAttendTable">
+		UPDATE ATTEND_CHECK
+		SET A_CONTENT = ?
+		WHERE REF_CNO = ? AND A_DATE = ?
 	</entry>
 </properties>
