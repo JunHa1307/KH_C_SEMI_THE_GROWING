@@ -262,7 +262,7 @@
                     <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>
-              </div>
+              </div>z
               <div id="board_area" style="padding-left: 1em;">
                 
                 <div style="margin-bottom: 1em;font-size: 1.5em;font-weight: 700;">설문조사</div>

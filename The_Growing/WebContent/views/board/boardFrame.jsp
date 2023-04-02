@@ -471,6 +471,10 @@ vertical-align: middle;
         					$("#board").css("left", "-300px");
         				}
         			});
+        			
+        			$("#board_check").click(function(){
+        				location.href="<%=contextPath%>/attendance.bo";
+        			})
               });
            
       
