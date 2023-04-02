@@ -154,4 +154,56 @@ public class ClassService {
 		return result;
 	}
 	
+	public ArrayList<String> selectAttendTable(int cno, int month) {
+	      Connection conn = getConnection();
+
+	      ArrayList<String> attendTable = new ClassDao().selectAttendTable(conn, cno, month);
+	      close(conn);
+
+	      return attendTable;
+
+	}
+	
+	public int insertAttendTable(int cno, String arr, int month) {
+		Connection conn = getConnection();
+		
+		int result = new ClassDao().insertAttendTable(conn, cno, arr, month);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<String> selectClassMemberName(int cno) {
+	      Connection conn = getConnection();
+
+	      ArrayList<String> memberName = new ClassDao().selectClassMemberName(conn, cno);
+	      close(conn);
+
+	      return memberName;
+	}
+	
+	public int updateAttendTable(String arr, int classNo, int month) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ClassDao().updateAttendTable(conn, arr, classNo, month);
+		
+		if(result > 0) { // 성공
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
 }

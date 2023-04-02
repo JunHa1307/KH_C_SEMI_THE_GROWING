@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -371,6 +372,121 @@ public class ClassDao {
 			
 			pstmt.setString(1, arr);
 			pstmt.setInt(2, classNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	 public ArrayList<String> selectAttendTable(Connection conn, int cno, int month) {
+	
+		ArrayList<String> attendTable = new ArrayList<String>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAttendTable");
+		
+		try {
+		   pstmt = conn.prepareStatement(sql);
+		
+		   pstmt.setInt(1, cno);
+		   pstmt.setInt(2, month);
+		     
+		   rset = pstmt.executeQuery();
+		   if (rset.next()) {
+			   attendTable = new ArrayList<String>(Arrays.asList(rset.getString("A_CONTENT").split(",")));
+	       }
+		
+		} catch (SQLException e) {
+		   e.printStackTrace();
+		} finally {
+		   close(rset);
+		   close(pstmt);
+		}
+		return attendTable;
+	 }	
+	 
+	public int insertAttendTable(Connection conn, int cno, String arr, int month) {
+
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertAttendTable");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setString(2, arr);
+			pstmt.setInt(3, month);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+
+	}
+	
+	public ArrayList<String> selectClassMemberName(Connection conn, int cno) {
+		
+		ArrayList<String> memberName = new ArrayList<String>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectClassMemberName");
+		
+		try {
+		   pstmt = conn.prepareStatement(sql);
+		
+		   pstmt.setInt(1, cno);
+		     
+		   rset = pstmt.executeQuery();
+		   
+		   while (rset.next()) {
+			   memberName.add(rset.getString("USER_NAME"));
+			   memberName.add(rset.getInt("REF_UNO")+"");
+	       }
+		
+		} catch (SQLException e) {
+		   e.printStackTrace();
+		} finally {
+		   close(rset);
+		   close(pstmt);
+		}
+		return memberName;
+	 }	
+	
+	public int updateAttendTable(Connection conn, String arr, int classNo, int month) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateAttendTable");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, arr);
+			pstmt.setInt(2, classNo);
+			pstmt.setInt(3, month);
 			
 			result = pstmt.executeUpdate();
 			
