@@ -65,13 +65,9 @@
 				<button class="button_UI button--winona" data-text="마이페이지">
 					<span>마이페이지</span>
 				</button>
-				<button type="button" onclick="kakaoLogout();"
-							class="button_UI button--winona" data-text="로그아웃">
-							<span>로그아웃</span>
-				</button>
 				<% try{
 					System.out.println(snsLoginUser.getSnsType());
-					if( (String) snsLoginUser.getSnsType() == "1"){ %>
+					if(snsLoginUser.getSnsType() == "1"){ %>
 						<button type="button" onclick="kakaoLogout();"
 							class="button_UI button--winona" data-text="로그아웃">
 							<a href="javascript:void(0)">
@@ -357,41 +353,22 @@
 
 	</main>
 	<script src="<%= contextPath %>/resources/js/calendar.js"></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>   
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script> 
 	<script>
 		function kakaoLogout() {
-			Kakao.init('2cbf161eadf2b860fc5c71113e38ec12');
-			Kakao.isInitialized();
+			Kakao.init('2cbf161eadf2b860fc5c71113e38ec12'); //발급받은 키 중 javascript키를 사용해준다.
+            console.log(Kakao.isInitialized());
 			
 			if(!Kakao.Auth.getAccessToken()) {
 				console.log('Not logged in.');
 				return;
 			}
-			
+				
 			Kakao.Auth.logout(function(){
+				location.href="<%= contextPath %>/logout.me";
 				console.log(Kakao.Auth.getAccessToken());
 			});
-			
-			location.href="<%= contextPath %>/logout.me";
-		    
-			
-			/* if (Kakao.Auth.getAccessToken()) {
-		      Kakao.API.request({
-		        url: '/v1/user/unlink',
-		        success: function (response) {
-		        	console.log(response)
-		        },
-		        fail: function (error) {
-		          console.log(error)
-		        },
-		      })
-		      Kakao.Auth.setAccessToken(undefined)
-		      if(!Kakao.Auth.getAccessToken()) {
-		    	  console.log('Not logged in.');
-		    	  return;
-		      }
-		    } */
-		 };
+         
 	</script>
 	<script>
       $(function () {
