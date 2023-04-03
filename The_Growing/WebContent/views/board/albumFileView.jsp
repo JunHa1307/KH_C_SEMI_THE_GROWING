@@ -128,10 +128,7 @@
         /* border: 1px solid red; */
       }
  
-      #board_area {
-        min-height: 698px;
-        width: 957px;
-      }
+
      
       .board_hr {
         padding: 7px;
@@ -150,7 +147,6 @@
         width: 70%;
         font-size: 25px;
         font-weight: 700;
-        padding-top: 13px;
         padding-left: 14px;
       }
       #album_button {
@@ -209,6 +205,7 @@
         margin: auto;
         overflow: hidden;
         border-radius: 10px;
+        
       }
       .album_con_file > img:hover {
         transform: scale(1.1);
@@ -219,6 +216,7 @@
         height: 100%;
         cursor: pointer;
         transition: transform 0.7s;
+        object-fit: cover;
       }
 
       .album_con_date {

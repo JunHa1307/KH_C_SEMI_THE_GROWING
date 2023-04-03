@@ -3,7 +3,7 @@
 <%
 	int lastDay = (int)request.getAttribute("lastDay");
 	String month = request.getAttribute("month") +"";
-	int classMember = 10;
+	int classMember = 2;
 	String[] arr = (request.getAttribute("attendTable")+"").replace("[","").replace(" ","").replace("]","").split(",");
 %>
 <!DOCTYPE html>
