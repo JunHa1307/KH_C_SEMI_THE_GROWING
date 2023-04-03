@@ -1,3 +1,4 @@
+<%@page import="com.kh.board.model.vo.Reply"%>
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,6 +6,7 @@
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	int cno = (int)request.getSession().getAttribute("cno");
+	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
 
 %>    
 <!DOCTYPE html>
@@ -388,8 +390,8 @@
           </div>
           <div class="album_content">
           	<% for( Board b : list) {%>
-            <div class="album_con1">
-            	<input type="hidden" value="<%=b.getBoardNo() %>">
+            <div class="album_con1" >
+            	<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
               <div class="album_con_title album_click"><p><%=b.getBoardTitle() %></p></div>
               <div class="album_con_file album_click">
                 <img src="<%=contextPath %><%=b.getTitleImg() %> ">
@@ -441,31 +443,39 @@
             </div>
 
             <!-- 댓글란 -->
+          
            <div class="mo_reply_wrap" style="overflow-y: scroll;">
+               <%if(rlist.isEmpty()) {%>
+            <div class="mo_reply">
+              <div class="mo_reply_content">
+                <div class="mo_reply_profile">
+                </div>
+                <div class="mo_reply_text">조회된 댓글이 없습니다 </div>
+              </div>
+              <div class="mo_reply_content2">
+              <!--   <div class="mo_reply_id">하예솔 학생</div>
+                <div class="mo_reply_date" >23.03.23 15:27</div> -->
+              </div>
+            </div>
+            <%}else{ %>
+            	<%for(Reply r : rlist){ %>
             <div class="mo_reply">
               <div class="mo_reply_content">
                 <div class="mo_reply_profile">
                   <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
                 </div>
-                <div class="mo_reply_text">이쁘네요</div>
+                <div class="mo_reply_text"><%=r.getReplyContent() %></div>
               </div>
               <div class="mo_reply_content2">
-                <div class="mo_reply_id">하예솔 학생</div>
-                <div class="mo_reply_date" >23.03.23 15:27</div>
+                <div class="mo_reply_id"><%=r.getReplyWriter() %></div>
+                <div class="mo_reply_date" ><%=r.getCreateDate() %></div>
               </div>
             </div>
-            <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text">선생님 늘 수고가 많으세요^^</div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id">박연진 부모</div>
-                <div class="mo_reply_date" >23.03.23 16:47</div>
-              </div>
-            </div>
+            	<%} %>
+			 			
+		<%} %>  
+            
+            
             <div class="mo_reply">
               <div class="mo_reply_content">
                 <div class="mo_reply_profile">
@@ -520,7 +530,7 @@
               <div id="mo_reply_write_text">
                 <div id="mo_reply_write_text_content"><textarea id="mo_reply_textarea" cols="45" rows="3" placeholder="댓글을 입력하여 주세요." style="resize: none;"></textarea></div>
                 <div id="mo_reply_bt" class="box">
-                  <button class="button_UI button--winona insert_bt" data-text="click"><span>등록</span></button>
+                  <button class="button_UI button--winona insert_bt" data-text="click" id="insertReply"><span>등록</span></button>
                 </div>
               </div>
             
@@ -573,13 +583,16 @@
 
 
         $(".album_click").click(function(){
+        	let bno = ($(this).parents(".album_con1").children("#hiddenNo").val());
+        	$("#modal").attr("class",bno);
+        	
                 if($("#modal").css("visibility")=="hidden"){
                    $("#modal").css("visibility","visible");
                     $('body').css({overflow :"hidden",scroll:"no"});
                     $("#veil").css("display","block");
                    
-
                 }
+               
             });
 
 
@@ -618,7 +631,7 @@
           $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
           i--;
           }
-        })
+        });
 
         $('.button_UI').on('click',function(){
           if($(this).css('color')=='rgb(137, 180, 166)'){
@@ -628,21 +641,78 @@
           }
         });
         
-
-
-      });
-   
-      $("#album_Enroll").click(function () {
-		location.href="<%=contextPath%>/insert.al?cno="+<%=cno%>;
-	})
-            
-       $("#album_file").click(function () {
-		location.href="<%=contextPath%>/att.al?cno="+<%=cno%>;
-	})
         
+        $("#album_Enroll").click(function () {
+    		location.href="<%=contextPath%>/insert.al?cno="+<%=cno%>;
+    	});
+                
+           $("#album_file").click(function () {
+    		location.href="<%=contextPath%>/att.al?cno="+<%=cno%>;
+    	});
 
-    
-         
+        $("#insertReply").click(function(){
+   			$.ajax({
+   				url : "<%=contextPath%>/rinsert.bo",
+   				data : {
+   					content : $("#mo_reply_textarea").val(), 
+   					bno     : $("#modal").attr("class")
+   				},
+   				success : function(result){
+   					console.log(result);
+   					
+   					// 댓글등록 성공시 result = 1
+   					
+   					// 댓글등록 실패시 result = 0 
+   					if(result > 0){
+   						// 새 댓글목록 불러오는 함수 호출
+   						selectReplyList();
+   						// 댓글내용 비워두기 
+   						$("#mo_reply_textarea").val("");
+   						
+   					}else{
+   						alert("댓글작성에 실패했습니다");
+   					}
+   				}, 
+   				error : function(){
+   					console.log("댓글 작성 실패")
+   				} 
+   			});
+   		}); 
+   		
+    		function selectReplyList(){
+   			$.ajax({
+   				url : "<%=contextPath%>/rlist.bo",
+   				data : { bno : $("#modal").attr("class")},
+   				success : function(list){
+   					 console.log(list);
+   					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
+   				/* 	 let result = "";
+   					for(let i of list){
+   					result  += 
+   						
+   					 '<div class="mo_reply_content">'+
+   					 	'<div class="mo_reply_profile">'+
+   	                  '<div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div></div>'+
+   	                '<div class="mo_reply_text">'+i.getReplyContent()+'</div></div>'
+   	             
+   	              '<div class="mo_reply_content2">'+
+   	                '<div class="mo_reply_id">'+i.getReplyWriter()+'</div>'
+   	                '<div class="mo_reply_date" >'i.getCreateDate() +'</div><div>';
+   						 
+   					}
+   					 $(".mo_reply").html(result);  */
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+   			}); 
+           
+
+     
+ 
+      };
+   
+      });
      
     </script>
   </body>

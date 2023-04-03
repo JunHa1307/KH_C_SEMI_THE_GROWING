@@ -168,7 +168,7 @@ vertical-align: middle;
 	justify-content: center;
 	align-item: center;
 	margin-top:20px;
-		margin: auto;
+		
 }
 .info_space{
 	padding:1em 0em 1em 0em;
@@ -371,7 +371,7 @@ vertical-align: middle;
 @media only screen and (max-width: 1200px) {
 #hamburgur {
 		position: fixed;
-		top: 210px;
+		top: 230px;
 		display: block;
 		padding-left: 30px;
 		cursor: pointer;
@@ -385,7 +385,7 @@ vertical-align: middle;
 		left: -300px;
 		transition: left .3s;
 		background-color: white;
-		top: 245px;
+		top: 260px;
 		border-radius: 10px;
 		max-width: 150px;
 		width: 239px;
