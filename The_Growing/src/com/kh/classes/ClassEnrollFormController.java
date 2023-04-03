@@ -87,7 +87,9 @@ public class ClassEnrollFormController extends HttpServlet {
 			
 			
 			String lunchCode = HttpConnection.getSchoolCode(classTypeName, atCode);
-			
+			if(lunchCode == null) {
+				lunchCode = "0";
+			}
 			
 			int classCode = (int)(Math.random()*900000+100000);
 			
