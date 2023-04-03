@@ -6,7 +6,7 @@
     <%
 	String contextPath = request.getContextPath();
     Member loginUser = (Member) session.getAttribute("loginUser");
-    Class cInfo = (Class)request.getAttribute("cInfo");
+    Class cInfo = (Class)session.getAttribute("cInfo");
 
     %>
 <!DOCTYPE html>
