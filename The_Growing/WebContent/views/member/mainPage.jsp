@@ -45,24 +45,47 @@
 		<section class="myInfo">
 			<div class="myProfile">
 				<div class="myProfile-img">
-				<% if(loginUser.getFilePath() == null){
-				 		String filePath = snsLoginUser.getFilePath();
+				<% try{
+				    if(loginUser.getFilePath() == null){
+				    	String filePath = snsLoginUser.getFilePath();
 						loginUser.setFilePath(filePath);
 				    } %>
-					<img
+				    <img
 						src="<%= loginUser.getFilePath() %>"
 						alt=""
-						onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+						onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">  
+				<% }catch(NullPointerException e){ %>
+				    <img src="<%= contextPath%>/resources/image/noImage.png">
+				    
+				<% } %>
+				
 				</div>
 				<span class="myProfile-name"> <%= loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %>
 				</span>
 				<button class="button_UI button--winona" data-text="마이페이지">
 					<span>마이페이지</span>
 				</button>
-				<button onclick="location.href='logout.me'"
+
+				<% try{
+					System.out.println(snsLoginUser.getSnsType());
+					if(snsLoginUser.getSnsType() == "1"){ %>
+						<button type="button" onclick="kakaoLogout();"
+							class="button_UI button--winona" data-text="로그아웃">
+							<a href="javascript:void(0)">
+								<span>카카오 로그아웃</span>
+							</a>
+						</button>
+				<% } else{ %>
+					<button onclick="location.href='logout.me'"
 					class="button_UI button--winona" data-text="로그아웃">
 					<span>로그아웃</span>
-				</button>
+					</button>
+				<% }} catch(NullPointerException e) {%>
+					<button onclick="location.href='logout.me'"
+						class="button_UI button--winona" data-text="로그아웃">
+						<span>로그아웃</span>
+					</button>
+				<% } %>
 			</div>
 			<section class="myClass">
 				<div class="myClass-info">
@@ -330,6 +353,22 @@
 
 	</main>
 	<script src="<%= contextPath %>/resources/js/calendar.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script> 
+	<script>
+		function kakaoLogout() {
+			Kakao.init('2cbf161eadf2b860fc5c71113e38ec12'); //발급받은 키 중 javascript키를 사용해준다.
+            console.log(Kakao.isInitialized());
+			
+			if(!Kakao.Auth.getAccessToken()) {
+				console.log('Not logged in.');
+				return;
+			}
+				
+			Kakao.Auth.logout(function(){
+				location.href="<%= contextPath %>/logout.me";
+				console.log(Kakao.Auth.getAccessToken());
+			});
+	</script>
 	<script>
       $(function () {
         $(".myClass-info").slick({ // 슬라이드 만들기

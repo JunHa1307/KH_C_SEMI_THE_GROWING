@@ -56,13 +56,26 @@ public class MemberService {
 		return result;
 	}
 	
-	
 	public int idCheck(String userId) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// MemberDao()에서 sql문 실행
 		int result = new MemberDao().idCheck(conn, userId);
+
+		// 트랜잭션 처리 안해도됨
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public int idNlevelCheck(String userId, int userLevel) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// MemberDao()에서 sql문 실행
+		int result = new MemberDao().idNlevelCheck(conn, userId, userLevel);
 
 		// 트랜잭션 처리 안해도됨
 		
@@ -85,10 +98,10 @@ public class MemberService {
 		return m;
 	}
 	
-	public Member snsLoginMember(String snsId, int userLevel) {
+	public Member snsLoginMember(int userNo, String snsId, int userLevel) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Member m = new MemberDao().snsLoginMember(conn, snsId, userLevel);
+		Member m = new MemberDao().snsLoginMember(conn, userNo, snsId, userLevel);
 		
 		try {
 			conn.close();
@@ -112,5 +125,20 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public int selectUserNo(String userId, int userLevel) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int userNo = new MemberDao().selectUserNo(conn, userId, userLevel);
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return userNo;
+	}
+	
 	
 }
