@@ -1,3 +1,4 @@
+
 <%@page import="com.kh.board.model.vo.Reply"%>
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,7 +7,7 @@
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	int cno = (int)request.getSession().getAttribute("cno");
-	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
+	//ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
 
 %>    
 <!DOCTYPE html>
@@ -416,9 +417,9 @@
                 "
               >
                 <div id="slider-div" >
-                  <div ><img src="../../resources/img/flower" class="img_1" ></div>
+                   <!--  <div ><img src="../../resources/img/flower" class="img_1" ></div>
               	 <div><img src="/resources/image/사진 11_1.png" class="img_1"></div>
-                  <div><img src="/resources/image/사진 11_1.png" class="img_1"></div>
+                  <div><img src="/resources/image/사진 11_1.png" class="img_1"></div>  -->
                 </div>
               </div>
             </div>
@@ -445,7 +446,7 @@
             <!-- 댓글란 -->
           
            <div class="mo_reply_wrap" style="overflow-y: scroll;">
-               <%if(rlist.isEmpty()) {%>
+           <%--     <%if(rlist.isEmpty()) {%>
             <div class="mo_reply">
               <div class="mo_reply_content">
                 <div class="mo_reply_profile">
@@ -457,38 +458,30 @@
                 <div class="mo_reply_date" >23.03.23 15:27</div> -->
               </div>
             </div>
-            <%}else{ %>
-            	<%for(Reply r : rlist){ %>
+            <%}else{ %> --%>
+         <%--    	<%for(Reply r : rlist){ %>
             <div class="mo_reply">
               <div class="mo_reply_content">
                 <div class="mo_reply_profile">
                   <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
                 </div>
-                <div class="mo_reply_text"><%=r.getReplyContent() %></div>
+                <div class="mo_reply_text"><%=r.getReplyContent()%></div>
               </div>
               <div class="mo_reply_content2">
                 <div class="mo_reply_id"><%=r.getReplyWriter() %></div>
                 <div class="mo_reply_date" ><%=r.getCreateDate() %></div>
               </div>
             </div>
-            	<%} %>
+            	<%} %> --%>
 			 			
-		<%} %>  
+		<%-- <%} %>   --%>
             
             
             <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text">선생님 늘 수고가 많으세요^^</div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id">박연진 부모</div>
-                <div class="mo_reply_date" >23.03.23 16:47</div>
-              </div>
+         
             </div>
-            <div class="mo_reply">
+            </div>
+         <!--    <div class="mo_reply">
               <div class="mo_reply_content">
                 <div class="mo_reply_profile">
                   <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
@@ -512,7 +505,7 @@
                 <div class="mo_reply_date" >23.03.23 16:47</div>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
             <div id="mo_reply_write">
@@ -570,9 +563,7 @@
           draggable: true, //드래그 가능 여부
         });
       });
-    </script>
-
-    <script>
+ 
       $(function () {
    
           $("#board_album").css("fontWeight", "700");
@@ -583,8 +574,62 @@
 
 
         $(".album_click").click(function(){
-        	let bno = ($(this).parents(".album_con1").children("#hiddenNo").val());
+          	let bno = ($(this).parents(".album_con1").children("#hiddenNo").val());
+        	console.log(bno);
         	$("#modal").attr("class",bno);
+        	
+        	
+        	$.ajax({
+   				url : "<%=contextPath%>/rlist.bo",
+   				data : { bno : ($(this).parents(".album_con1").children("#hiddenNo").val())},
+   				success : function(list){
+   					 console.log(list);
+   					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
+   				 	 let result = "";
+   					for(let i = 0; i<list.length; i++){
+   						
+   					result  += 
+   						
+   					  '<div class="mo_reply_content">'+
+   					 	'<div class="mo_reply_profile">'+
+   	                  '<div class="mo_reply_profileImg"><img src="'+list[i].filePath+list[i].changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'"></div></div>'+
+   	                '<div class="mo_reply_text">'+list[i].replyContent+'</div></div>'+
+   	             
+   	              '<div class="mo_reply_content2">'+
+   	                '<div class="mo_reply_id">'+list[i].replyWriter+'</div>'+
+   	                '<div class="mo_reply_date" >'+list[i].createDate +'</div></div>'; 
+   						 
+   					}
+   					 $(".mo_reply").html(result);  
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+        	});
+        	
+         	  $.ajax({
+   				url : "<%=contextPath%>/innerlist.al",
+   				data : { bno : ($(this).parents(".album_con1").children("#hiddenNo").val())},
+   				success : function(list){
+   					 console.log(list);
+   					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
+   				 	 let result = "";
+   					for(let i = 0; i<list.length; i++){
+   						
+   					result  += 
+   						
+   					  '<div><img src="'+list[i].filePath+list[i].changeName+'"></div>';
+   						 
+   					}
+   					 $(".slick-slide>div").html(result);  
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+        	});  
+        	
+        	
+      
         	
                 if($("#modal").css("visibility")=="hidden"){
                    $("#modal").css("visibility","visible");
@@ -592,8 +637,18 @@
                     $("#veil").css("display","block");
                    
                 }
+                
+                
                
             });
+        
+        
+        
+        
+        
+        
+        
+        
 
 
             $("#veil").click(function(){
@@ -665,7 +720,7 @@
    					// 댓글등록 실패시 result = 0 
    					if(result > 0){
    						// 새 댓글목록 불러오는 함수 호출
-   						selectReplyList();
+   						//selectReplyList();
    						// 댓글내용 비워두기 
    						$("#mo_reply_textarea").val("");
    						
@@ -678,29 +733,34 @@
    				} 
    			});
    		}); 
-   		
+/*    		
+        $(function(){
+			setInterval(selectReplyList, 1000); 
+		}); */
+        
+        
     		function selectReplyList(){
    			$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno : $("#modal").attr("class")},
-   				success : function(list){
-   					 console.log(list);
+   				success : function(rlist){
+   					 console.log(rlist);
    					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
-   				/* 	 let result = "";
-   					for(let i of list){
+   				 	 let result = "";
+   					for(let i of rlist){
    					result  += 
    						
    					 '<div class="mo_reply_content">'+
    					 	'<div class="mo_reply_profile">'+
    	                  '<div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div></div>'+
-   	                '<div class="mo_reply_text">'+i.getReplyContent()+'</div></div>'
+   	                '<div class="mo_reply_text">'+i.getReplyContent+'</div></div>'
    	             
    	              '<div class="mo_reply_content2">'+
-   	                '<div class="mo_reply_id">'+i.getReplyWriter()+'</div>'
-   	                '<div class="mo_reply_date" >'i.getCreateDate() +'</div><div>';
+   	                '<div class="mo_reply_id">'+i.getReplyWriter+'</div>'
+   	                '<div class="mo_reply_date" >'+i.getCreateDate +'</div></div>';
    						 
    					}
-   					 $(".mo_reply").html(result);  */
+   					 $("#slider-div").html(result);  
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")

@@ -76,11 +76,21 @@ public class BoardService {
 	public ArrayList<Reply> selectReplyList (int bno){
 		Connection conn = getConnection();
 		
-		ArrayList<Reply> rlist = new BoardDao().selectReplyList(conn, bno);
+		ArrayList<Reply> list = new BoardDao().selectReplyList(conn, bno);
 		
 		close(conn);
 		
-		return rlist; 
+		return list; 
+	}
+	
+	public ArrayList<Attachment> selectAlbumInnerList (int bno){
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> list = new BoardDao().selectAlbumInnerList(conn, bno);
+		
+		close(conn);
+		
+		return list; 
 	}
 
 }

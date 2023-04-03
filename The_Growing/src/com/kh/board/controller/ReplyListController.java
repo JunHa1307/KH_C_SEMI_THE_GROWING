@@ -33,16 +33,16 @@ public class ReplyListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//int bno = Integer.parseInt(request.getParameter("bno"));
-		int bno = 3;
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		ArrayList<Reply> rlist = new BoardService().selectReplyList(bno);
+		
+		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
 		
 		//Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기 
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
-		new Gson().toJson(rlist, response.getWriter());
+		new Gson().toJson(list, response.getWriter());
 		
 	
 	}

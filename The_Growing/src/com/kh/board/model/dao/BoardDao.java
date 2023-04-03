@@ -184,7 +184,7 @@ public int insertReply(Connection conn, String content, int bno, int writer) {
 }
 
 public ArrayList<Reply> selectReplyList(Connection conn, int bno){
-	ArrayList<Reply> rlist = new ArrayList<>();
+	ArrayList<Reply> list = new ArrayList<>();
 	PreparedStatement pstmt = null;
 	
 	ResultSet rset = null;
@@ -205,7 +205,7 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setReplyContent(rset.getString("REPLY_CONTENT"));
 			r.setCreateDate(rset.getString("CREATE_DATE"));
 			r.setReplyWriter(rset.getString("USER_ID"));
-			rlist.add(r);
+			list.add(r);
 		}
 	} catch (SQLException e) {
 		e.printStackTrace();
@@ -213,11 +213,45 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 		close(rset);
 		close(pstmt);
 	}
-	return rlist;
+	return list;
 	
 	
 }
 
+
+public ArrayList<Attachment> selectAlbumInnerList(Connection conn, int bno){
+	ArrayList<Attachment> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectAlbumInnerList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+
+			Attachment at = new Attachment();
+			
+			at.setFilePath(rset.getString("FILE_PATH"));
+			at.setChangeName(rset.getString("CHANGE_NAME"));
+			list.add(at);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+	
+	
+}
 
 }
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.Reply;
 import com.kh.classes.model.service.ClassService;
 import com.kh.classes.model.vo.Class;
 import com.kh.member.model.vo.Member;
@@ -57,6 +58,12 @@ public class BoardMoveController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		
+		
+		ArrayList<Reply> rlist = new BoardService().selectReplyList(2);
+	     
+	        		 request.setAttribute("rlist", rlist);
+	    
+	
 		
 		request.getSession().setAttribute("cInfo", cInfo);
 		request.getRequestDispatcher("views/board/albumList.jsp").forward(request, response);
