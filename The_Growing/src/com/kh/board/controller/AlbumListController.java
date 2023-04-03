@@ -36,18 +36,6 @@ public class AlbumListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = (int)request.getSession().getAttribute("cno");
 	
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		int uno = loginUser.getUserNo();
-		
-		Class cInfo = new ClassService().selectClass(cno, uno);
-		
-		
-		
-		request.setAttribute("cInfo", cInfo);
-		
-		
-		
-	
 		ArrayList<Board> list = new BoardService().selectAlbumList(cno);
 		
 		request.setAttribute("list", list);
