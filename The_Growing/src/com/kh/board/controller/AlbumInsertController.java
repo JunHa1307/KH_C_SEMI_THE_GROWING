@@ -40,11 +40,6 @@ public class AlbumInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int cno = (int)request.getSession().getAttribute("cno");
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		int uno = loginUser.getUserNo();
-		Class cInfo = new ClassService().selectClass(cno, uno);
-		request.setAttribute("cInfo", cInfo);
 		request.getRequestDispatcher("views/board/albumEnrollform.jsp").forward(request, response);
 	}
 

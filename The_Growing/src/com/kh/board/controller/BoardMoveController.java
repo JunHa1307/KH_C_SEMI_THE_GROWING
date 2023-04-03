@@ -58,8 +58,7 @@ public class BoardMoveController extends HttpServlet {
 		request.setAttribute("list", list);
 		
 		
-		request.setAttribute("cInfo", cInfo);
-		request.setAttribute("loginUser", loginUser);
+		request.getSession().setAttribute("cInfo", cInfo);
 		request.getRequestDispatcher("views/board/albumList.jsp").forward(request, response);
 		
 	}

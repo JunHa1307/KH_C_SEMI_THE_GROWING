@@ -31,16 +31,9 @@ public class BoardFrameController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cno = (int) request.getSession().getAttribute("cno");
-		
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-		Class cInfo = new ClassService().selectClass(cno, uno);
 		
 		
 		
-		request.setAttribute("cInfo", cInfo);
-		request.setAttribute("loginUser", loginUser);
 		request.getRequestDispatcher("views/board/boardFrame.jsp").forward(request, response);
 	}
 

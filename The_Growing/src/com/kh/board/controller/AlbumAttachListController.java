@@ -36,10 +36,6 @@ public class AlbumAttachListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 int cno = Integer.parseInt(request.getParameter("cno"));
-		 Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-			int uno = loginUser.getUserNo();
-			Class cInfo = new ClassService().selectClass(cno, uno);
-			request.setAttribute("cInfo", cInfo);
 		 
 		ArrayList<Attachment> list = new BoardService().selectAttachList(cno);
 		request.setAttribute("list", list);
