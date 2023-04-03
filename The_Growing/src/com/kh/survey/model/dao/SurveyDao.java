@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -58,7 +59,7 @@ public class SurveyDao {
 		return result;
 	}
 	
-	public Survey selectSurvey(Connection conn, Date fDate, int cno) {
+	public Survey selectSurvey(Connection conn, String surveyTitle, Date fDate, int cno) {
 			  Survey survey = null;
 	
 		      PreparedStatement pstmt = null;
@@ -72,6 +73,7 @@ public class SurveyDao {
 	
 		         pstmt.setDate(1, fDate);
 		         pstmt.setInt(2, cno);
+		         pstmt.setString(3, surveyTitle);
 		         
 		         rset = pstmt.executeQuery();
 		         if (rset.next()) {
@@ -116,5 +118,37 @@ public class SurveyDao {
 		}
 
 		return result;
+	}
+	
+	public ArrayList<Survey> selectSurveyList(Connection conn, int cno){
+		
+		ArrayList<Survey> surveyList = new ArrayList<>();
+
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectSurveyList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				Survey s = new Survey(rset.getInt("SURVEY_NO"),rset.getString("TITLE"),rset.getInt("SURVEY_COUNT")
+	        			,rset.getDate("FIRST_DATE"),rset.getDate("LAST_DATE"),rset.getString("STATUS"),rset.getInt("REF_CNO"));
+				
+				surveyList.add(s);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return surveyList;
 	}
 }

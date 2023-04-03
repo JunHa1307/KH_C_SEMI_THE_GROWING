@@ -7,6 +7,7 @@ import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.survey.model.dao.SurveyDao;
@@ -32,10 +33,10 @@ public class SurveyService {
 		return result;
 	}
 	
-	public Survey selectSurvey(Date fDate, int cno) {
+	public Survey selectSurvey(String surveyTitle, Date fDate, int cno) {
 		 Connection conn = getConnection();
 
-	      Survey survey = new SurveyDao().selectSurvey(conn, fDate, cno);
+	      Survey survey = new SurveyDao().selectSurvey(conn, surveyTitle, fDate, cno);
 
 	      close(conn);
 
@@ -56,5 +57,17 @@ public class SurveyService {
 		
 		close(conn);
 		return result;
+	}
+	
+	public ArrayList<Survey> selectSurveyList(int cno){
+		
+		Connection conn = getConnection();
+
+		ArrayList<Survey> surveyList = new SurveyDao().selectSurveyList(conn, cno);
+
+		close(conn);
+
+		return surveyList;
+
 	}
 }

@@ -10,9 +10,15 @@
 		FROM SURVEY
 		WHERE FIRST_DATE = ?
 		  AND REF_CNO = ?
+		  AND TITLE = ?
 	</entry>
 	<entry key="insertQuestion">
 		INSERT INTO QUESTION
 			VALUES (SEQ_QNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)
+	</entry>
+	<entry key="selectSurveyList">
+		SELECT *
+		FROM SURVEY
+		WHERE REF_CNO = ?
 	</entry>
 </properties>

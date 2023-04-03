@@ -2,6 +2,7 @@ package com.kh.survey.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,7 +65,7 @@ public class SurveyInsertFormController extends HttpServlet {
 		
 		if(result1 > 0) {
 			
-			survey = service.selectSurvey(fDate,cno);
+			survey = service.selectSurvey(surveyTitle,fDate,cno);
 			
 			Question ques = new Question();
 			
@@ -103,8 +104,12 @@ public class SurveyInsertFormController extends HttpServlet {
 			*/
 			
 			if(result2 > 0) {
+				
+				ArrayList<Survey> surveyList = service.selectSurveyList(cno);
+				request.getSession().setAttribute("surveyList", surveyList);
 				request.getSession().setAttribute("alertMsg", "설문 작성 성공");
-				response.sendRedirect(request.getContextPath()+"/slist.su");
+				
+				response.sendRedirect(request.getContextPath()+"/views/survey/surveyList.jsp");
 			}else {
 				request.setAttribute("errorMsg", "설문 생성 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

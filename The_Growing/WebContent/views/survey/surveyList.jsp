@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.survey.model.vo.Survey, java.util.ArrayList"%>
+<%
+	ArrayList<Survey> surveyList = (ArrayList<Survey>) request.getAttribute("surveyList");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,74 +198,7 @@
     </style>
 </head>
 <body>
-    <div class="wrap">
-        <div id="header">
-            <button id="logoBtn" class="btnStyle" type="button">
-                <img id="logo" src="resources/KakaoTalk_20230317_141025465-removebg-preview.png">
-            </button>
-            <div id="search">
-                <button id="searchBtn" type="button">
-                    <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요.">
-                    <img src="resources/searchIcon.png">
-                </button>
-            </div>
-            <div class="dropdown">
-                <button 
-                    class="btn btn-secondary" 
-                    type="button" 
-                    id="dropdownMenuButton" 
-                    data-toggle="dropdown" 
-                    aria-haspopup="true" 
-                    aria-expanded="false">
-                    
-                    <img id="alarmIcon" src="resources/알림.png" />
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">알림3</a>
-                  <a class="dropdown-item" href="#">알림2</a>
-                  <a class="dropdown-item" href="#">알림1</a>
-                </div>
-              </div>
-        </div>
-        <div id="info">
-            <div id="pSchool">
-                <img class="profile" src="resources/image/bono.jpg">
-            </div>
-            <div id="classInfo">
-                <div>준하초등학교</div>
-                <div>1학년 3반</div>
-                <div>담임 : 류준하 선생님</div>
-                <div>학급 수 : 18명</div>
-            </div>
-            <div id="pUser"><img class="profile" src="resources/image/bono.jpg"> </div>
-            <div id="userInfo">
-                <div>오현지 학부모</div>
-                <div><button class="btnStyle" type="button">로그아웃</button></div>
-                <div><button class="btnStyle" type="button">마이페이지</button></div>
-            </div>
-        </div>
-
-        <div id="board_wrap">
-            <div id="inner_wrap">
-              <div id="board">
-                  <ul>
-                    <li class="board_title">게시판</li>
-                    <li class="board_li" id="board_recent"><div>최근 게시글</div></li>
-                    <li class="board_li" id="board_notice"><div>알림장</div></li>
-                    <li class="board_li" id="board_album"><div>앨범</div></li>
-                    <li class="board_li" id="board_free"><div>자유게시판</div></li>
-                    <li class="board_li" id="board_counsel"><div>상담게시판</div></li>
-                    <li class="board_hr"><hr></li>
-                    <li class="board_title">수업관리</li>
-                    <li class="board_li" id="board_survey" style="color: black; font-weight: 700;"><div style="background: rgb(239, 243, 239);">설문조사</div></li>
-                    <li class="board_li" id="board_check"><div>출석체크</div></li>
-                    <li class="board_hr"><hr></li>
-                    <li class="board_title">클래스 관리</li>
-                    <li class="board_li" id="board_option"><div>클래스 설정</div></li>
-                    <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
-                    <li class="board_li" id="board_invite"><div>초대하기</div></li>
-                  </ul>
-              </div>
+    <%@include file="/views/board/boardFrame.jsp" %>
               <div id="board_area" style="padding-left: 1em;">
                 
                 <div style="margin-bottom: 1em;font-size: 1.5em;font-weight: 700;">설문조사</div>
@@ -270,44 +206,52 @@
                 <button type="button" style="background-color: #209dce;color: #ffffff;width: 100%;height: 50px;border: 0;border-radius: 5em;">설문조사 작성하기</button>
                 
                 <div style="margin: 1em 0 1em 0;font-size: 1.5em;"><a href="/" style="text-decoration: none;color: #000000;font-weight: 700;">진행 중</a> | <a href="/" style="text-decoration: none;color: #000000;">종료</a></div>
-                
-                
-                <div style="width:100%;border: 1px solid #cff0cc;border-radius: 1em;background-color: #cff0cc;margin-bottom: 2em;">
-                    <div style="padding: 1em;box-sizing: border-box;display: flex;justify-content: space-between;">
-                        <span><h4><b>우리아이 급식 투표에 대한 설문</b></h4> 2023-03-21 ~ 2023-03-25</span>
-                        <button type="button" style="margin: 1em 0 1em 0;width: 15em;height: 3em;border: 0;border-radius: 1em;background-color: #209dce;color: #ffffff;">설문하기</button></div>
-                   
+                <div id="surveying">
+	                <% for(int i = 0; i < surveyList.size(); i++) {%>
+	                <% Survey s = surveyList.get(i); %>
+		                <% if(s.getStatus().equals("Y")){ %>
+			                <div style="width:100%;border: 1px solid #cff0cc;border-radius: 1em;background-color: #cff0cc;margin-bottom: 2em;">
+			                    <div style="padding: 1em;box-sizing: border-box;display: flex;justify-content: space-between;">
+			                        <span><h4><b><%= s.getTitle() %></b></h4> <%= s.getFirstDate() %> ~ <%= s.getLastDate() %></span>
+			                        <button type="button" style="margin: 1em 0 1em 0;width: 15em;height: 3em;border: 0;border-radius: 1em;background-color: #209dce;color: #ffffff;">설문하기</button></div>
+			                    <% if(loginUser.getUserLevel() == 1) { %>    
+				                    <hr style="background-color: #000000;margin: 0;">
+				                    <div style="display: flex;justify-content: space-between; padding: 1em 1em 0 1em;">
+				                        응답인원 수 : <%= s.getSurveyCount() %> 
+				                        <div style="padding: 0 0.5em 0.5em 0.5em;"> 
+				                        <a href="/"><button type="button" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">결과보기</button></a>&nbsp;
+				                        <a href="/"><button type="button" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">종료</button></a>
+				                        </div>
+				                    </div>
+			                    <% } %>
+			                </div>
+		                <% } %>
+	                <% } %>
                 </div>
-                <div style="width:100%;border: 1px solid #cff0cc;border-radius: 1em;background-color: #cff0cc;margin-bottom: 2em;">
-                    <div style="padding: 1em;box-sizing: border-box;display: flex;justify-content: space-between;">
-                        <span><h4><b>우리아이 급식 투표에 대한 설문</b></h4> 2023-03-21 ~ 2023-03-25</span>
-                        <button type="button" style="margin: 1em 0 1em 0;width: 15em;height: 3em;border: 0;border-radius: 1em;background-color: #209dce;color: #ffffff;">설문하기</button></div>
-                    <hr style="background-color: #000000;margin: 0;">
-                    <div style="display: flex;justify-content: space-between; padding: 1em 1em 0 1em;">
-                        응답인원 수 : 0 
-                        <div style="padding: 0 0.5em 0.5em 0.5em;"> 
-                        <a href="/"><button type="button" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">결과보기</button></a>&nbsp;
-                        <a href="/"><button type="button" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">종료</button></a>
-                        </div>
-                    </div>
+                <div id="surveyEnd">
+                	<% for(int i = 0; i < surveyList.size(); i++) {%>
+	                <% Survey s = surveyList.get(i); %>
+		                <% if(s.getStatus().equals("N")){ %>
+			                <div style="width:100%;border: 1px solid #cff0cc;border-radius: 1em;background-color: #cff0cc;margin-bottom: 2em;">
+			                    <div style="padding: 1em;box-sizing: border-box;display: flex;justify-content: space-between;">
+			                        <span><h4><b><%= s.getTitle() %></b></h4> <%= s.getFirstDate() %> ~ <%= s.getLastDate() %></span>
+			                    </div>
+			                    <% if(loginUser.getUserLevel() == 1) { %>    
+				                    <hr style="background-color: #000000;margin: 0;">
+				                    <div style="display: flex;justify-content: space-between; padding: 1em 1em 0 1em;">
+				                        응답인원 수 : <%= s.getSurveyCount() %> 
+				                        <div style="padding: 0 0.5em 0.5em 0.5em;"> 
+				                        <a href="/"><button type="button" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">결과보기</button></a>&nbsp;
+				                        <a href="/"><button type="button" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">종료</button></a>
+				                        </div>
+				                    </div>
+			                    <% } %>
+			                </div>
+		                <% } %>
+	                <% } %>
                 </div>
-                
               </div>
-            </div>
-            
-            <script>
-              $(function(){
-                  $(".board_li").click(function(){
-                      $(this).css("fontWeight","700").fadeIn(1000);
-                      $(this).children().css("background","rgb(239, 243, 239)");
-                      $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
-                      $(this).siblings().children().css("background","");
-                  
-                  });
-              });
-           
-      
-            </script>
+            </div><!-- boardFrame -->
         </div>
     </div>
 </body>
