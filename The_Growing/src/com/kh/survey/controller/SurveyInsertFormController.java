@@ -106,7 +106,7 @@ public class SurveyInsertFormController extends HttpServlet {
 			if(result2 > 0) {
 				
 				ArrayList<Survey> surveyList = service.selectSurveyList(cno);
-				request.getSession().setAttribute("surveyList", surveyList);
+				request.setAttribute("surveyList", surveyList);
 				request.getSession().setAttribute("alertMsg", "설문 작성 성공");
 				
 				response.sendRedirect(request.getContextPath()+"/views/survey/surveyList.jsp");

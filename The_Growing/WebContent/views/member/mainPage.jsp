@@ -442,7 +442,7 @@
 	    $(".myClass-info").on('afterChange', function(event, slick, direction){
 	    	index = $(".slick-current>div>div").attr("id").substr(5);
 	    	lunch(atptCodeArr[index],schulCodeArr[index],today);
-	    	calendar(cData[index],"<%= contextPath %>",classList[index]);
+	    	calendar(cData[index].,"<%= contextPath %>",classList[index]);
 		    table.clearData();
 		    table.updateOrAddData(tabledata[index]);
 	    });

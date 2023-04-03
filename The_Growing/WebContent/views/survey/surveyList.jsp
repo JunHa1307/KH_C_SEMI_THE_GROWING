@@ -203,7 +203,7 @@
                 
                 <div style="margin-bottom: 1em;font-size: 1.5em;font-weight: 700;">설문조사</div>
                 
-                <button type="button" style="background-color: #209dce;color: #ffffff;width: 100%;height: 50px;border: 0;border-radius: 5em;">설문조사 작성하기</button>
+                <button type="button" onclick="location.href='<%= contextPath %>/enroll.su'" style="background-color: #209dce;color: #ffffff;width: 100%;height: 50px;border: 0;border-radius: 5em;">설문조사 작성하기</button>
                 
                 <div style="margin: 1em 0 1em 0;font-size: 1.5em;"><a href="/" style="text-decoration: none;color: #000000;font-weight: 700;">진행 중</a> | <a href="/" style="text-decoration: none;color: #000000;">종료</a></div>
                 <div id="surveying">
