@@ -97,6 +97,7 @@
         height: 100%;
         cursor: pointer;
         transition: transform 0.7s;
+        object-fit: cover;
       }
 
       .album_con_date {
@@ -515,12 +516,15 @@
                 </ul>
                 
               </div>
+            
               <div id="mo_reply_write_text">
                 <div id="mo_reply_write_text_content"><textarea id="mo_reply_textarea" cols="45" rows="3" placeholder="댓글을 입력하여 주세요." style="resize: none;"></textarea></div>
                 <div id="mo_reply_bt" class="box">
                   <button class="button_UI button--winona insert_bt" data-text="click"><span>등록</span></button>
                 </div>
               </div>
+            
+              
             </div>
             
           </div>

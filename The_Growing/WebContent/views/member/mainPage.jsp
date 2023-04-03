@@ -74,10 +74,15 @@
 								<span>로그아웃</span>
 							</a>
 						</button>
-				<% } else{ %>
+				<% } else if(snsLoginUser.getSnsType() == "3"){ %>
+						<button onclick="googleLogout();"
+							class="button_UI button--winona" data-text="로그아웃">
+							<span>로그아웃</span>
+						</button>
+				<% } else { %>
 					<button onclick="location.href='logout.me'"
-					class="button_UI button--winona" data-text="로그아웃">
-					<span>로그아웃</span>
+						class="button_UI button--winona" data-text="로그아웃">
+						<span>로그아웃</span>
 					</button>
 				<% }} catch(NullPointerException e) {%>
 					<button onclick="location.href='logout.me'"
@@ -353,23 +358,7 @@
 
 	</main>
 	<script src="<%= contextPath %>/resources/js/calendar.js"></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script> 
-	<script>
-		function kakaoLogout() {
-			Kakao.init('2cbf161eadf2b860fc5c71113e38ec12'); //발급받은 키 중 javascript키를 사용해준다.
-            console.log(Kakao.isInitialized());
-			
-			if(!Kakao.Auth.getAccessToken()) {
-				console.log('Not logged in.');
-				return;
-			}
-				
-			Kakao.Auth.logout(function(){
-				location.href="<%= contextPath %>/logout.me";
-				console.log(Kakao.Auth.getAccessToken());
-			});
-         
-	</script>
+	<script src="<%= contextPath %>/resources/js/logout.js"></script>
 	<script>
       $(function () {
         $(".myClass-info").slick({ // 슬라이드 만들기
