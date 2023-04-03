@@ -65,14 +65,13 @@
 				<button class="button_UI button--winona" data-text="마이페이지">
 					<span>마이페이지</span>
 				</button>
-
 				<% try{
 					System.out.println(snsLoginUser.getSnsType());
 					if(snsLoginUser.getSnsType() == "1"){ %>
 						<button type="button" onclick="kakaoLogout();"
 							class="button_UI button--winona" data-text="로그아웃">
 							<a href="javascript:void(0)">
-								<span>카카오 로그아웃</span>
+								<span>로그아웃</span>
 							</a>
 						</button>
 				<% } else{ %>
@@ -104,6 +103,7 @@
 										가입자 수 :
 										<%= list.get(i).getUserCount()%>명
 									</div>
+									<%-- vvv 이 div는 줄바꿈하면 안됨 vvv--%>
 									<div class="myClass-text"><%= list.get(i).getTeacherName()%> 선생님</div>
 								</div>
 							</div>
@@ -368,6 +368,7 @@
 				location.href="<%= contextPath %>/logout.me";
 				console.log(Kakao.Auth.getAccessToken());
 			});
+         
 	</script>
 	<script>
       $(function () {
