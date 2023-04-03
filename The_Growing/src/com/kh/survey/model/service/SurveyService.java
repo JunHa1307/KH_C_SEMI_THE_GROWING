@@ -70,4 +70,14 @@ public class SurveyService {
 		return surveyList;
 
 	}
+	
+	public Question selectQuestion(int sno) {
+		 Connection conn = getConnection();
+
+		 Question question = new SurveyDao().selectQuestion(conn, sno);
+
+	      close(conn);
+
+	      return question;
+	}
 }

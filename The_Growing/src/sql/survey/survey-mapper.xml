@@ -11,6 +11,8 @@
 		WHERE FIRST_DATE = ?
 		  AND REF_CNO = ?
 		  AND TITLE = ?
+		  AND STATUS = 'Y'
+		ORDER BY SURVEY_NO DESC
 	</entry>
 	<entry key="insertQuestion">
 		INSERT INTO QUESTION
@@ -20,5 +22,10 @@
 		SELECT *
 		FROM SURVEY
 		WHERE REF_CNO = ?
+	</entry>
+	<entry key="selectQuestion">
+		SELECT *
+		FROM QUESTION
+		WHERE REF_SNO = ?
 	</entry>
 </properties>

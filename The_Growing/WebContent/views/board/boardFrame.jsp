@@ -544,7 +544,7 @@ vertical-align: middle;
         				
         			});
         			$("#board_survey").click(function(){
-        				location.href="<%=contextPath %>/enroll.su";
+        				location.href="<%=contextPath %>/list.su";
         			});
         			
         			$("#mypage").click(function(){

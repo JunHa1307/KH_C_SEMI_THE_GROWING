@@ -47,7 +47,7 @@ public class SurveyInsertFormController extends HttpServlet {
 		
 		Date fDate = Date.valueOf(request.getParameter("fDate"));
 		Date lDate = Date.valueOf(request.getParameter("lDate"));
-		int cno = 2;
+		int cno = (int)request.getSession().getAttribute("cno");
 		
 		String[] questionType = request.getParameterValues("type"); 
 		String[] mTitle = request.getParameterValues("mTitle"); 
@@ -104,12 +104,9 @@ public class SurveyInsertFormController extends HttpServlet {
 			*/
 			
 			if(result2 > 0) {
-				
-				ArrayList<Survey> surveyList = service.selectSurveyList(cno);
-				request.setAttribute("surveyList", surveyList);
 				request.getSession().setAttribute("alertMsg", "설문 작성 성공");
 				
-				response.sendRedirect(request.getContextPath()+"/views/survey/surveyList.jsp");
+				response.sendRedirect(request.getContextPath()+"/list.su");
 			}else {
 				request.setAttribute("errorMsg", "설문 생성 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
