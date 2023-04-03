@@ -40,60 +40,179 @@
 	<link rel="stylesheet" href="resources/summernote/summernote-lite.css">
 	
 	    
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/button.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
     
     <style>
-/* 게시판 헤더 및 정보(게시판마다 공통) */
-#classInfo, #userInfo {
-	padding-left: 50px;
-	vertical-align: middle;
-	padding-top: 40px;
+  /* 버튼 css */
+.box {
+	display: flex;
+	background: #ffffff;
+	color: #000000;
 }
 
+.button_UI {
+	float: left;
+	display: block;
+	border: none;
+	background: none;
+	color: inherit;
+	position: relative;
+	z-index: 1;
+	-webkit-backface-visibility: hidden;
+	-moz-osx-font-smoothing: grayscale;
+}
 
-#classInfo>div, #userInfo>div {
-	font-size: large;
+.button_UI :active {
+	color: rgb(137, 180, 166);
+}
+
+.button_UI:focus {
+	outline: none;
+}
+
+.button--winona {
+	overflow: hidden;
+	padding: 0;
+	-webkit-transition: border-color 0.3s, background-color 0.3s;
+	transition: border-color 0.3s, background-color 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.button--winona::after {
+	content: attr(data-text);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	color: rgb(137, 180, 166);
+	font-weight: 600;
+	-webkit-transform: translate3d(0, 25%, 0);
+	transform: translate3d(0, 25%, 0);
+}
+
+.button--winona::after, .button--winona>span {
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	display: block;
+	font-weight: 600;
+}
+
+.button--winona:hover {
+	border-color: rgb(137, 180, 166);
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button--winona:hover::after {
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.button--winona:hover>span {
+	opacity: 0;
+	-webkit-transform: translate3d(0, -25%, 0);
+	transform: translate3d(0, -25%, 0);
+}
+/* 화면 너비 780 이상일 떄 */
+
+	.box {
+	width: 2vw;
+	height: 3vw;
+	border-radius: 4vw;
+	font-size:0.9vw;
+	}
+	
+	.button_UI {
+	width: 130px;
+	height: 45px;
+	border-radius: 4vw;
+	border: 0.15vw solid;
+	min-width:70px;
+	min-height:27px;
+	}
+	
+	.button--winona::after, .button--winona>span {
+	padding: 0.335vw;
+	}
+
+/* 화면 너비 780 이하일 떄 */
+
+
+
+/* 게시판 헤더 및 정보(게시판마다 공통) */
+#classInfo, #userInfo{
+	padding:1.3em 0em 1em 1em;
+	height:100%;
+}
+.small{
+	font-size: 1vw;
+}
+.big{
+	font-size: 1.3vw;
 	font-weight: 900;
 }
+.info_text{
+vertical-align: middle;
+}
+
 
 #info {
-	
-	
 	background-color: rgb(228, 236, 226);
 	width: 100%;
-	margin: auto;
+	height: 10%;
+	justify-content: center;
+	align-item: center;
 	margin-top:20px;
-	height: 170px;
+		margin: auto;
+}
+.info_space{
+	padding:1em 0em 1em 0em;
+	width: 60%;
+	min-width:350px;
+	margin: auto;
+	height: 100%;
+	min-height:120px;
 	display: flex;
 	justify-content: center;
 	align-item: center;
 }
 
-.info_space {
-	width: 20%;
-	height: 170px;
-	}
 
 .profile_area{
-	width:13%;
+	width: 8vw;
+	min-width: 85px;
+	min-height: 85px;
+    height:8vw;
+    border-radius: 50%;
+    text-align: center;
+    overflow: hidden;
+    vertical-align: middle;
+    
 }
 
 #classInfo{
 	width: 50%;
+	min-width:85px;
 }
 #userInfo {
-	width: 22%;
+	width: 25%;
+	min-width:75px;
 }
 
 
 .profile {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 100%;
-	min-height: 7vw;
-	border-radius: 50%;
-	height: 90%;
+	
+	width:100%;
+    object-fit: cover;
+	height: 100%;
+	vertical-align: middle;
+
+        
 }
 
 .btnStyle {
@@ -102,10 +221,10 @@
 	cursor: pointer;
 	padding: 0;
 }
-
+@media only screen and (min-width: 1200px) {
 /* 게시판 목록 css */
 #board_wrap {
-	margin-top: 50px;
+	margin-top: 30px;
 	width: 100%;
 	min-height: 700px;
 }
@@ -124,19 +243,21 @@
 #board {
 	width: 239px;
 	height: 700px;
-	position: fixed;
+	/* position: fixed; */
+	
 }
 
 #board_fix {
-	width: 20%;
+/* 	width: 20%;
 	height: 700px;
 	position: relative;
 	border: 1px solid white;
+	display:block; */
 }
 
 #board_area {
 	width: 80%;
-	padding: 20px;
+	padding: 0px 20px 20px 20px;
 }
 
 #board>ul>li {
@@ -201,8 +322,7 @@
 #album_header {
 	height: 80px;
 	width: 100%;
-	position: sticky;
-	/* background-color: antiquewhite; */
+	
 }
 
 #album_area>div {
@@ -214,7 +334,168 @@
 	width: 70%;
 	font-size: 25px;
 	font-weight: 700;
-	padding-top: 13px;
+	padding-left: 14px;
+}
+
+#album_button {
+	width: 30%;
+	align-item : right;
+}
+
+#album_area {
+	width: 100%;
+	height: 70%;
+	/* background-color: aliceblue; */
+}
+
+
+#album_hr {
+	width: 100%;
+	height: 30%;
+
+	/* background-color: aquamarine; */
+}
+
+#album_hr>hr {
+	margin: 0;
+
+	/* background-color: aquamarine; */
+}
+
+	#hamburgur {
+		display: none;
+	}
+	
+	
+}
+@media only screen and (max-width: 1200px) {
+#hamburgur {
+		position: fixed;
+		top: 210px;
+		display: block;
+		padding-left: 30px;
+		cursor: pointer;
+	}
+	#hamburgur>img {
+		width: 30px;
+	}
+
+	#board {
+		opacity: 0.9;
+		left: -300px;
+		transition: left .3s;
+		background-color: white;
+		top: 245px;
+		border-radius: 10px;
+		max-width: 150px;
+		width: 239px;
+	height: 700px;
+	position: fixed;
+	z-index:9;
+	}
+
+
+
+#board_wrap {
+	margin-top: 40px;
+
+}
+
+#inner_wrap {
+	
+	margin: auto;
+}
+
+
+
+
+#board_fix {
+/* 	width: 20%;
+	height: 700px;
+	position: relative;
+	border: 1px solid white;
+	display:none; */
+}
+
+#board_area {
+	padding: 0px 20px 20px 20px;
+	
+}
+
+#board>ul>li {
+	list-style-type: none;
+}
+
+#board>ul {
+	padding: 0;
+}
+
+.board_li {
+	height: 28px;
+	cursor: pointer;
+}
+
+.board_title {
+	font-size: large;
+	font-weight: 700;
+	padding-bottom: 10px;
+	padding-left: 14px;
+}
+
+.board_li:hover {
+	font-weight: 700;
+}
+
+.board_li>div {
+	border-radius: 30px;
+	width: 100%;
+	height: 40px;
+	padding: 9px;
+	padding-left: 14px;
+}
+
+.board_li>div>a {
+	color: black;
+}
+
+.board_li {
+	margin-bottom: 13px;
+}
+
+.board_hr {
+	padding: 7px;
+}
+
+#veil {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	bottom: 0px;
+	background-color: black;
+	opacity: 0.6;
+	z-index: 1;
+	display: none;
+}
+
+.board_hr {
+	padding: 7px;
+}
+
+#album_header {
+	height: 80px;
+	width: 100%;
+	margin-top:10px;
+}
+
+#album_area>div {
+	float: left;
+	height: 100%;
+}
+
+#album_title {
+	width: 70%;
+	font-size: 25px;
+	font-weight: 700;
 	padding-left: 14px;
 }
 
@@ -226,10 +507,6 @@
 	width: 100%;
 	height: 70%;
 	/* background-color: aliceblue; */
-}
-
-#album_button {
-	width: 30%;
 }
 
 #album_hr {
@@ -244,6 +521,8 @@
 
 	/* background-color: aquamarine; */
 }
+}
+
 </style>
                 <script>
               $(function(){
@@ -259,13 +538,29 @@
           	
         			$(".board_album").click(function(){
         				location.href = "<%=contextPath %>/list.al";
-        			})
+        			});
         			$("#board_album").click(function(){
         				location.href = "<%=contextPath %>/list.al";
         				
-        			})
+        			});
         			$("#board_survey").click(function(){
         				location.href="<%=contextPath %>/enroll.su";
+        			});
+        			
+        			$("#mypage").click(function(){
+        				location.href="<%=contextPath%>/info.c";
+        			});
+        			
+        			$("#hamburgur>img").click(function() {
+        				if ($("#board").css("left") == "-300px") {
+        					$("#board").css("left", "0");
+        				} else {
+        					$("#board").css("left", "-300px");
+        				}
+        			});
+        			
+        			$("#board_check").click(function(){
+        				location.href="<%=contextPath%>/attendance.bo";
         			})
               });
            
@@ -302,31 +597,34 @@
               </div>
         </div>
         <div id="info">
-        		<div class="info_space"></div>
+        		<div class="info_space">
             <div id="pSchool" class="profile_area">
                 <img class="profile" src="<%= contextPath+cInfo.getFilePath()+cInfo.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
             </div>
             <div id="classInfo">
           
-                <div style="font-size:20px; font-weight: 900;"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassName() %>반</div>
-                <div style=" font-weight: 450;">담임 : <%=cInfo.getTeacherName() %> 선생님</div>
-                <div style=" font-weight: 450;"> 학급 수 : <%=cInfo.getUserCount() %></div>
+                <div class="info_text big"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassGrade()%>학년 <%=cInfo.getClassName() %>반</div>
+                <div class="info_text small">담임 : <%=cInfo.getTeacherName() %> 선생님</div>
+                <div class="info_text small"> 학급 수 : <%=cInfo.getUserCount() %></div>
              
             </div>
             <div id="pUser" class="profile_area"><img class="profile" src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
             <div id="userInfo" >
-                <div style="font-size:20px; font-weight: 900;"><%=loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %></div>
-                <div><button class="btnStyle" type="button">로그아웃</button></div>
-                <div><button class="btnStyle" type="button">마이페이지</button></div>
+                <div class="info_text big"><%=loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %></div>
+                <div class="info_text small"><button class="btnStyle" type="button">로그아웃</button></div>
+                <div class="info_text small"><button id="mypage" class="btnStyle" type="button">마이페이지</button></div>
             </div>
-       		<div class="info_space"></div>
+       		</div>
         </div>
         
 		<div id="veil"></div>
-		
+		<%if( loginUser.getUserLevel() == 1) {%>
         <div id="board_wrap">
             <div id="inner_wrap">
           	  <div id="board_fix"></div>
+          	  <div id="hamburgur">
+					<img src="resources/image/list.svg">
+				</div>
               <div id="board">
                   <ul>
                     <li class="board_title">게시판</li>
@@ -336,7 +634,7 @@
                     <li class="board_li" id="board_free"><div>자유게시판</div></li>
                     <li class="board_li" id="board_counsel"><div>상담게시판</div></li>
                     <li class="board_hr"><hr></li>
-                    <li class="board_title">수업관리</li>
+                    <li class="board_title">수업 관리</li>
                     <li class="board_li" id="board_survey"><div>설문조사</div></li>
                     <li class="board_li" id="board_check"><div>출석체크</div></li>
                     <li class="board_hr"><hr></li>
@@ -346,7 +644,32 @@
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>
              </div>
+           <%}else{ %>
+           <div id="board_wrap">
+            <div id="inner_wrap">
+          	  <div id="board_fix"></div>
+          	  <div id="hamburgur">
+					<img src="resources/image/list.svg">
+				</div>
+              <div id="board">
+                  <ul>
+                    <li class="board_title">게시판</li>
+                    <li class="board_li" id="board_recent"><div>최근 게시글</div></li>
+                    <li class="board_li" id="board_notice"><div>알림장</div></li>
+                    <li class="board_li" id="board_album" class="board_album"><div>앨범</div></li>
+                    <li class="board_li" id="board_free"><div>자유게시판</div></li>
+                    <li class="board_li" id="board_counsel"><div>상담게시판</div></li>
+                    <li class="board_hr"><hr></li>
+                    <li class="board_title">수업</li>
+                    <li class="board_li" id="board_survey"><div>설문조사</div></li>
+                    <li class="board_li" id="board_check"><div>출석조회</div></li>
+                    <li class="board_hr"><hr></li>
+                    <li class="board_title">클래스</li>
+                    <li class="board_li" id="board_option"><div>클래스 정보</div></li>
+                  </ul>
+             </div>
            
+           <%} %>
            
             
 
