@@ -40,11 +40,110 @@
 	<link rel="stylesheet" href="resources/summernote/summernote-lite.css">
 	
 	    
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/button.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
     
     <style>
-  
+  /* 버튼 css */
+.box {
+	display: flex;
+	background: #ffffff;
+	color: #000000;
+}
+
+.button_UI {
+	float: left;
+	display: block;
+	border: none;
+	background: none;
+	color: inherit;
+	position: relative;
+	z-index: 1;
+	-webkit-backface-visibility: hidden;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.button_UI :active {
+	color: rgb(137, 180, 166);
+}
+
+.button_UI:focus {
+	outline: none;
+}
+
+.button--winona {
+	overflow: hidden;
+	padding: 0;
+	-webkit-transition: border-color 0.3s, background-color 0.3s;
+	transition: border-color 0.3s, background-color 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.button--winona::after {
+	content: attr(data-text);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	color: rgb(137, 180, 166);
+	font-weight: 600;
+	-webkit-transform: translate3d(0, 25%, 0);
+	transform: translate3d(0, 25%, 0);
+}
+
+.button--winona::after, .button--winona>span {
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	display: block;
+	font-weight: 600;
+}
+
+.button--winona:hover {
+	border-color: rgb(137, 180, 166);
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button--winona:hover::after {
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.button--winona:hover>span {
+	opacity: 0;
+	-webkit-transform: translate3d(0, -25%, 0);
+	transform: translate3d(0, -25%, 0);
+}
+/* 화면 너비 780 이상일 떄 */
+
+	.box {
+	width: 2vw;
+	height: 3vw;
+	border-radius: 4vw;
+	font-size:0.9vw;
+	}
+	
+	.button_UI {
+	width: 130px;
+	height: 45px;
+	border-radius: 4vw;
+	border: 0.15vw solid;
+	min-width:70px;
+	min-height:27px;
+	}
+	
+	.button--winona::after, .button--winona>span {
+	padding: 0.335vw;
+	}
+
+/* 화면 너비 780 이하일 떄 */
+
+
+
 /* 게시판 헤더 및 정보(게시판마다 공통) */
 #classInfo, #userInfo{
 	padding:1.3em 0em 1em 1em;
@@ -69,10 +168,11 @@ vertical-align: middle;
 	justify-content: center;
 	align-item: center;
 	margin-top:20px;
+		margin: auto;
 }
 .info_space{
 	padding:1em 0em 1em 0em;
-	width: 75%;
+	width: 60%;
 	min-width:350px;
 	margin: auto;
 	height: 100%;
@@ -96,11 +196,11 @@ vertical-align: middle;
 }
 
 #classInfo{
-	width: 55%;
+	width: 50%;
 	min-width:85px;
 }
 #userInfo {
-	width: 20%;
+	width: 25%;
 	min-width:75px;
 }
 
@@ -143,16 +243,16 @@ vertical-align: middle;
 #board {
 	width: 239px;
 	height: 700px;
-	position: fixed;
+	/* position: fixed; */
 	
 }
 
 #board_fix {
-	width: 20%;
+/* 	width: 20%;
 	height: 700px;
 	position: relative;
 	border: 1px solid white;
-	display:block;
+	display:block; */
 }
 
 #board_area {
@@ -239,6 +339,7 @@ vertical-align: middle;
 
 #album_button {
 	width: 30%;
+	align-item : right;
 }
 
 #album_area {
@@ -247,9 +348,6 @@ vertical-align: middle;
 	/* background-color: aliceblue; */
 }
 
-#album_button {
-	width: 30%;
-}
 
 #album_hr {
 	width: 100%;
@@ -273,7 +371,7 @@ vertical-align: middle;
 @media only screen and (max-width: 1200px) {
 #hamburgur {
 		position: fixed;
-		top: 235px;
+		top: 210px;
 		display: block;
 		padding-left: 30px;
 		cursor: pointer;
@@ -287,43 +385,36 @@ vertical-align: middle;
 		left: -300px;
 		transition: left .3s;
 		background-color: white;
-		top: 270px;
+		top: 245px;
 		border-radius: 10px;
 		max-width: 150px;
-		
+		width: 239px;
+	height: 700px;
+	position: fixed;
+	z-index:9;
 	}
 
 
 
 #board_wrap {
-	margin-top: 30px;
-	width: 100%;
-	min-height: 700px;
+	margin-top: 40px;
+
 }
 
 #inner_wrap {
-	width: 1200px;
-	min-height: 700px;
+	
 	margin: auto;
 }
 
-#inner_wrap>div {
-	height: 100%;
-	float: left;
-}
 
-#board {
-	width: 239px;
-	height: 700px;
-	position: fixed;
-}
+
 
 #board_fix {
-	width: 20%;
+/* 	width: 20%;
 	height: 700px;
 	position: relative;
 	border: 1px solid white;
-	display:none;
+	display:none; */
 }
 
 #board_area {
@@ -416,10 +507,6 @@ vertical-align: middle;
 	width: 100%;
 	height: 70%;
 	/* background-color: aliceblue; */
-}
-
-#album_button {
-	width: 30%;
 }
 
 #album_hr {

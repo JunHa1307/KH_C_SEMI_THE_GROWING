@@ -185,7 +185,7 @@ font-size:20px;
 	        
 	        $(".move").click(function(){
 	       
-	        let index =  $("div[class*=index]").attr("id").substr(-1);
+	      let index = $(this).parents("#myclass_info").children(".index").attr("id").substr(-1);
 		    		let cno = classList[index];
 		    		location.href="<%=contextPath%>/boardmove.bo?cno="+ cno;
 	        });
