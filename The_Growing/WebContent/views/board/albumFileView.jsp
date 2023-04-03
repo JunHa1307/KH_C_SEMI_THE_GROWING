@@ -524,8 +524,11 @@
             </div>
           </div>
           <div class="album_content">
+          
+          <% int[] albumlist; %>
           <%for(int i = 0; i<list.size(); i++) {%>
-            <div class="album_con1">
+          	
+            <div class="album_con1 class<%=i%>">
             <input type="hidden" id="fno"  value="<%=list.get(i).getFileNo() %>">
                <input type="checkbox" class="file_check">
               <div  class="album_con_file album_click">
@@ -588,12 +591,8 @@
 
     <script>
       $(function () {
-        $(".board_li").click(function () {
-          $(this).css("fontWeight", "700");
-          $(this).children().css("background", "rgb(239, 243, 239)");
-          $(this).siblings(".board_li").css({ fontWeight: "", color: "black" });
-          $(this).siblings().children().css("background", "");
-        });
+          $("#board_album").css("fontWeight", "700");
+          $("#board_album").children().css("background", "rgb(239, 243, 239)");
 
 
 

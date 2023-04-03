@@ -26,7 +26,8 @@ html{
 
 
 #searchBtn>img {
-	width: 20px;
+	width: 25px;
+
 }
 
 #search {
@@ -36,7 +37,7 @@ html{
 
 #searchBtn {
 	width:100%;
-	border: 1px solid black;
+	border: 1px solid rgb(224, 224, 224);
 	height: 50px;
 	border-radius: 10px;
 	margin-top: 20px;
@@ -44,6 +45,7 @@ html{
 
 #logo {
 	width: 100px;
+	padding-top:10px;
 }
 
 #logoBtn {
@@ -51,7 +53,7 @@ html{
 }
 
 #seachClass {
-	width: 100%;
+	width: 85%;
 	border: none;
 	outline: none;
 }
@@ -89,6 +91,9 @@ html{
 
 #alarmIcon {
 	width: 30px;
+}
+#alarmIcon:focus {
+	outline: none;
 }
 
 .dropdown>button:hover {
