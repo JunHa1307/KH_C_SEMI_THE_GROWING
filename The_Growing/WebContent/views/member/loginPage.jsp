@@ -265,12 +265,15 @@
             
             //카카오로그인
             function kakaoLogin() {
-                Kakao.Auth.login({
+             /* Kakao.Auth.login( */
+                Kakao.Auth.loginForm({
                 success: function (response) {
                     Kakao.API.request({
                     url: '/v2/user/me',
                     success: function (response) {
-                       
+                       let accessToken = Kakao.Auth.getAccessToken();
+                       Kakao.Auth.setAccessToken(accessToken);
+                    	
                        console.log(response);
                        console.log(response.id);
                        console.log(response.properties.nickname);
@@ -301,10 +304,11 @@
                 },
                 fail: function (error) {
                     console.log(error)
-                },
+                }
                 });
             } 
         </script>
+
         <script>
         
 	        // 구글 로그인 정보 받아서 로그인
