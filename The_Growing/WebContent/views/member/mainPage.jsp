@@ -66,23 +66,24 @@
 				<button class="button_UI button--winona" data-text="마이페이지">
 					<span>마이페이지</span>
 				</button>
-				<button type="button" onclick="kakaoLogout();"
-							class="button_UI button--winona" data-text="로그아웃">
-							<span>로그아웃</span>
-				</button>
 				<% try{
 					System.out.println(snsLoginUser.getSnsType());
-					if( (String) snsLoginUser.getSnsType() == "1"){ %>
+					if(snsLoginUser.getSnsType() == "1"){ %>
 						<button type="button" onclick="kakaoLogout();"
 							class="button_UI button--winona" data-text="로그아웃">
 							<a href="javascript:void(0)">
 								<span>로그아웃</span>
 							</a>
 						</button>
-				<% } else{ %>
+				<% } else if(snsLoginUser.getSnsType() == "3"){ %>
+						<button onclick="googleLogout();"
+							class="button_UI button--winona" data-text="로그아웃">
+							<span>로그아웃</span>
+						</button>
+				<% } else { %>
 					<button onclick="location.href='logout.me'"
-					class="button_UI button--winona" data-text="로그아웃">
-					<span>로그아웃</span>
+						class="button_UI button--winona" data-text="로그아웃">
+						<span>로그아웃</span>
 					</button>
 				<% }} catch(NullPointerException e) {%>
 					<button onclick="location.href='logout.me'"
@@ -358,42 +359,7 @@
 
 	</main>
 	<script src="<%= contextPath %>/resources/js/calendar.js"></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>   
-	<script>
-		function kakaoLogout() {
-			Kakao.init('2cbf161eadf2b860fc5c71113e38ec12');
-			Kakao.isInitialized();
-			
-			if(!Kakao.Auth.getAccessToken()) {
-				console.log('Not logged in.');
-				return;
-			}
-			
-			Kakao.Auth.logout(function(){
-				console.log(Kakao.Auth.getAccessToken());
-			});
-			
-			location.href="<%= contextPath %>/logout.me";
-		    
-			
-			/* if (Kakao.Auth.getAccessToken()) {
-		      Kakao.API.request({
-		        url: '/v1/user/unlink',
-		        success: function (response) {
-		        	console.log(response)
-		        },
-		        fail: function (error) {
-		          console.log(error)
-		        },
-		      })
-		      Kakao.Auth.setAccessToken(undefined)
-		      if(!Kakao.Auth.getAccessToken()) {
-		    	  console.log('Not logged in.');
-		    	  return;
-		      }
-		    } */
-		 };
-	</script>
+	<script src="<%= contextPath %>/resources/js/logout.js"></script>
 	<script>
       $(function () {
         $(".myClass-info").slick({ // 슬라이드 만들기
