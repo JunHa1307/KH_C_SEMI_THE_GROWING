@@ -44,7 +44,7 @@
 <body>
     <div class="wrap">
    	 <%@ include file="/views/board/boardFrame.jsp" %>
-                <!-- 자유게시판 상세보기-->
+                <!-- 자유게시판 작성하기-->
                 
                 <div id="board_area">
                     <h1 align="center">자유게시판</h1>

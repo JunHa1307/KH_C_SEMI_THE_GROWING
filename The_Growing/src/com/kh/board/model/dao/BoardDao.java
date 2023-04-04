@@ -200,26 +200,18 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			/* 
-			 * boardLimit이 10이라고 가정
-			 * currentPage 1을 요청시 -> 1 ~ 10
-			 * currentPage 2을 요청시 -> 11 ~ 20
-			 * currentPage n을 요청시 -> 시작값 : (currentPage -1) * boardLimit +1 ~ 시작값 + boardLimit -1
-			 * 
-			 * */
 			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-//			pstmt.setInt(1, startRow);
-//			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
-			pstmt.setInt(1, 1);
-			pstmt.setInt(2, 10);
+		
 		
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Board b = new Board(rset.getInt("BOARD_NO"),
-									rset.getInt("REF_UNO"),
+									rset.getString("USER_ID"),
 						            rset.getString("BOARD_TITLE"),
 						            rset.getDate("CREATE_DATE"));
 				list.add(b);
@@ -388,7 +380,7 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		return list;
 	}
 	
-	public int insertBoard(Connection conn, Board b, int uno, int cno) {
+	public int insertBoard(Connection conn, Board b) {
 		
 		int result = 0;
 		
@@ -399,11 +391,11 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, uno);
+			pstmt.setInt(1, b.getBoardType());
 			pstmt.setString(2, b.getBoardTitle());
 			pstmt.setString(3, b.getBoardContent());
-			pstmt.setInt(4, cno);
-			result = pstmt.executeUpdate();
+			pstmt.setInt(4, b.getRefUno());
+			pstmt.setInt(5, b.getRefCno());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -414,5 +406,33 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		return result;
 	}
 	
+	
+	public int insertAttachment(Connection conn, Attachment at) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileLevel());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
 }
 

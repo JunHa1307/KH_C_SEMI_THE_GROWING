@@ -48,7 +48,7 @@ public class BoardListController extends HttpServlet {
 		
 		pageLimit = 10;
 		
-		boardLimit = 10;
+		boardLimit = 8;
 		
 		
 		maxPage = (int) Math.ceil( ((double) listCount / boardLimit) );

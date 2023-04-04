@@ -142,19 +142,19 @@ public class BoardService {
 		return list;
 	}
 	
-	public int insertBoard(Board b , ArrayList<Attachment> list, int cno, int uno) {
+	public int insertBoard(Board b , Attachment at) {
 		
 		Connection conn = getConnection();
 		
-		int result1 = new BoardDao().insertBoard(conn, b, cno, uno);
+		int result1 = new BoardDao().insertBoard(conn, b);
 		
+		int result2 = 1; 
 		
-		int result2 = new BoardDao().insertAttachmentList(conn, list, cno, uno);
-		
-		
+		if (at != null) {
+			result2 = new BoardDao().insertAttachment(conn, at);
+		}
 		
 		if(result1 > 0 && result2 > 0) {
-			
 			commit(conn);
 		}else {
 			rollback(conn);

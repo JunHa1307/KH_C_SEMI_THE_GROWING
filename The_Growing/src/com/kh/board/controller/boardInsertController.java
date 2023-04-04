@@ -2,6 +2,7 @@ package com.kh.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.classes.model.service.ClassService;
+import com.kh.classes.model.vo.Class;
 import com.kh.common.MyFileRenamePolicy;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
@@ -60,34 +63,39 @@ public class boardInsertController extends HttpServlet {
 
 			 String title = multi.getParameter("title");
 			 String content = multi.getParameter("content");
-//			 int refUno = Integer.parseInt((((Member) request.getSession().getAttribute("loginUser")).getUserNo()+"")); 
+			 String createDate = multi.getParameter("createDate");
+			 int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+			 int cno = (int) request.getSession().getAttribute("cno");
 			 
 			 
 			 Board b = new Board();
+			 b.setBoardType(4);
 			 b.setBoardTitle(multi.getParameter("title"));
 			 b.setBoardContent(multi.getParameter("content"));
-			 int uno = 2;
-			 int cno = 1;
+			 b.setRefUno(uno);
+			 b.setRefCno(cno);
 			 
-			 ArrayList<Attachment> list = new ArrayList();
-			 Attachment at = new Attachment();
+			 Attachment at = null;
 			 if(multi.getOriginalFileName("upfile") != null) {
 				 at = new Attachment();
 				 at.setOriginName( multi.getOriginalFileName("upfile")  );
 				 at.setChangeName( multi.getFilesystemName("upfile") );
 				 at.setFilePath("resources/board_upfiles/");
+				 at.setFileLevel(1);
 			 }
 			 
-			
-			 int result = new BoardService().insertBoard(b, list, uno, cno );
+			 Class cInfo = new ClassService().selectClass(cno, uno);
+			 request.setAttribute("cInfo", cInfo);
+			 
+			 int result = new BoardService().insertBoard(b, at);
 			
 			 if(result > 0 ) { 
 				 
 				 request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-				 response.sendRedirect(request.getContextPath()+"/list.bo?currentPage=1");
+				 response.sendRedirect(request.getContextPath()+"/list.fr?currentPage=1");
 			 }else { 
 				 
-				 if(list != null) {
+				 if(at != null) {
 					 new File(savePath+at.getChangeName()).delete();
 				 }
 				 

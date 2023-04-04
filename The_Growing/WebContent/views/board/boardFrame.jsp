@@ -602,14 +602,14 @@ vertical-align: middle;
         <div id="info">
         		<div class="info_space">
             <div id="pSchool" class="profile_area">
-                <img class="profile" src="<%= contextPath+cInfo.getFilePath()+cInfo.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+                 <%-- <img class="profile" src="<%= contextPath+cInfo.getFilePath()+cInfo.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">   --%>
             </div>
             <div id="classInfo">
-          
-                <div class="info_text big"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassGrade()%>학년 <%=cInfo.getClassName() %>반</div>
+     
+                <%-- <div class="info_text big"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassGrade()%>학년 <%=cInfo.getClassName() %>반</div>
                 <div class="info_text small">담임 : <%=cInfo.getTeacherName() %> 선생님</div>
-                <div class="info_text small"> 학급 수 : <%=cInfo.getUserCount() %></div>
-             
+                <div class="info_text small"> 학급 수 : <%=cInfo.getUserCount() %></div>  --%>
+              
             </div>
             <div id="pUser" class="profile_area"><img class="profile" src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
             <div id="userInfo" >

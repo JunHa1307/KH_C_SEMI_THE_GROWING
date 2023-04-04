@@ -8,12 +8,11 @@
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 
-	int currentPage = pi.getCurrentPage();
+	int currentPage = pi.getCurrentPage(); 
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
+	int maxPage = pi.getMaxPage(); 
 	
-	Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +47,9 @@
            
         }
 		
-		
+		#box {
+			margin: 3% 0% 0% 30%;
+		}
         .list-table {
             margin: auto;
             min-width: 800px;
@@ -92,7 +93,7 @@
     	}
     	
     	.paging-area{
-			margin-left:60%;
+			margin-left:50%;
     	}
 
 		.pagination {
@@ -105,6 +106,7 @@
             padding: 8px 16px;
             text-decoration: none;
             border-radius:50%;
+            margin-right: 4px;
         }
                     
         .pagination button.active {
@@ -146,29 +148,43 @@
 						<td colspan="6">조회된 리스트가 없습니다.</td>
 					</tr>
 						<% } else { %>
+								<tr>
+									<th>글번호</td>
+									<th>제목</td>
+									<th>작성자</td>
+									<th>작성 일자</td>
+								</tr>
 							<% for(Board b  :  list) { %>
 								<tr>
 									<td><%= b.getBoardNo() %></td>
-									<td><%= b.getRefUno() %></td>
 									<td><%= b.getBoardTitle() %></td>
+									<td><%= b.getUserId() %></td>
 									<td><%= b.getCreateDate() %></td>
 								</tr>
 							<% } %>
 						<% } %>
                       </table>
+                      <script>
+						$(function(){
+							$(".list-table>tbody>tr").click(function(){
+								let bno = $(this).children().eq(0).text();
+								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
+							});
+						});
+					</script>
                     </div>
             </div>
             
             <div align="center" class="paging-area">
-               <div class="pagination">
+                <div class="pagination">
 				<% if(currentPage != 1) { %>
-					<button onclick="location.href = '/list.fr?currentPage=<%= currentPage -1 %>'">&lt;</button>
+					<button onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= currentPage -1 %>'">&lt;</button>
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
 					
 					<% if(i != currentPage) { %>
-						<button onclick="location.href = '/list.fr?currentPage=<%= i %>'; "><%= i %></button>
+						<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= i %>'; "><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -176,10 +192,10 @@
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
-					<button onclick="location.href = '/list.fr?currentPage=<%=currentPage + 1 %>' ">&gt;</button>
+					<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%=currentPage + 1 %>' ">&gt;</button>
 				<% } %>
                 
-              </div>
+              </div> 
             
             </div>
             
