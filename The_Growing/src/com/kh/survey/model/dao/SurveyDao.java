@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.google.gson.Gson;
 import com.kh.classes.model.dao.ClassDao;
+import com.kh.survey.model.vo.Answer;
 import com.kh.survey.model.vo.Question;
 import com.kh.survey.model.vo.Survey;
 
@@ -59,6 +59,35 @@ public class SurveyDao {
 		return result;
 	}
 	
+	public Survey selectSurvey(Connection conn, int sno) {
+		  Survey survey = null;
+
+	      PreparedStatement pstmt = null;
+
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectSurveyToNum");
+
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setInt(1, sno);
+	         
+	         rset = pstmt.executeQuery();
+	         if (rset.next()) {
+	        	survey = new Survey(rset.getInt("SURVEY_NO"),rset.getString("TITLE"),rset.getInt("SURVEY_COUNT")
+	        			,rset.getDate("FIRST_DATE"),rset.getDate("LAST_DATE"),rset.getString("STATUS"),rset.getInt("REF_CNO"));
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      return survey;
+	}
+	
 	public Survey selectSurvey(Connection conn, String surveyTitle, Date fDate, int cno) {
 			  Survey survey = null;
 	
@@ -96,7 +125,6 @@ public class SurveyDao {
 		PreparedStatement pstmt = null;
 
 		String sql = prop.getProperty("insertQuestion");
-		Gson gson = new Gson();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -190,7 +218,6 @@ public class SurveyDao {
 	      ResultSet rset = null;
 
 	      String sql = prop.getProperty("selectQuestion");
-	      Gson gson = new Gson();
 	      try {
 	         pstmt = conn.prepareStatement(sql);
 
@@ -220,14 +247,6 @@ public class SurveyDao {
 	        		question.setsTitle(str);
 	        	}
 	        	
-	        	if(rset.getString("S_CONTENT").contains(",")) {
-	        		arr = rset.getString("S_CONTENT").split(",");
-	        		question.setsContent(arr);
-	        	}else {
-	        		str[0] =  rset.getString("S_CONTENT");
-	        		question.setsContent(str);
-	        	}
-	        	
 	        	if(rset.getString("M_TITLE").contains(",")) {
 	        		arr = rset.getString("M_TITLE").split(",");
 	        		question.setmTitle(arr);
@@ -244,8 +263,13 @@ public class SurveyDao {
 	        		question.setmContent(str);
 	        	}
 	        	
-	        	str[0] =  rset.getString("ITEM_NO");
-	        	question.setItemNo(str);
+	        	if(rset.getString("ITEM_NO").contains(",")) {
+	        		arr = rset.getString("ITEM_NO").split(",");
+	        		question.setItemNo(arr);
+	        	}else {
+	        		str[0] =  rset.getString("ITEM_NO");
+	        		question.setItemNo(str);
+	        	}
 	        	
 	        	if(rset.getString("ITEM_CONTENT").contains(",")) {
 	        		arr = rset.getString("ITEM_CONTENT").split(",");
@@ -265,4 +289,92 @@ public class SurveyDao {
 	      }
 	      return question;
 	}
+	
+	public int insertAnswer(Connection conn, Answer ans) {
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			ArrayList<String> getWriteAns = new ArrayList<String>();
+			ArrayList<String> getItemAns = new ArrayList<String>();
+	
+			for(String s : ans.getWriteAns()) {
+				getWriteAns.add(s);
+			}
+			for(String s : ans.getItemAns()) {
+				getItemAns.add(s);
+			}
+			
+			pstmt.setInt(1, ans.getRefQno());
+			pstmt.setInt(2, ans.getRefUno());
+			pstmt.setString(3, getWriteAns.toString().substring(1).substring(0,  getWriteAns.toString().length() - 2));
+			pstmt.setString(4, getItemAns.toString().substring(1).substring(0,  getItemAns.toString().length() - 2));
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	public ArrayList<Answer> selectAnswer(Connection conn, int qno) {
+		  ArrayList<Answer> ansarr = new ArrayList<Answer>();
+		  
+	      PreparedStatement pstmt = null;
+
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectAnswer");
+	     
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setInt(1, qno);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         String[] arr;
+	         String[] str = new String[1];
+	         
+	         while (rset.next()) {
+	        	Answer ans = new Answer();
+	        	ans.setRefQno(rset.getInt("REF_QNO"));
+	        	ans.setRefUno(rset.getInt("REF_UNO"));
+	        	ans.setSubmitDate(rset.getDate("SUBMIT_DATE"));
+	        	
+	        	if(rset.getString("WRITE_ANS").contains(",")) {
+	        		arr = rset.getString("WRITE_ANS").split(",");
+	        		ans.setWriteAns(arr);
+	        	}else {
+	        		str[0] =  rset.getString("QUES_TYPE");
+	        		ans.setWriteAns(str);
+	        	}
+	        	
+	        	if(rset.getString("ITEM_ANS").contains(",")) {
+	        		arr = rset.getString("ITEM_ANS").split(",");
+	        		ans.setItemAns(arr);
+	        	}else {
+	        		str[0] =  rset.getString("ITEM_ANS");
+	        		ans.setItemAns(str);
+	        	}
+	        	ansarr.add(ans);
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      return ansarr;
+	}
+	
 }

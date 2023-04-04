@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.survey.model.dao.SurveyDao;
+import com.kh.survey.model.vo.Answer;
 import com.kh.survey.model.vo.Question;
 import com.kh.survey.model.vo.Survey;
 
@@ -31,6 +32,16 @@ public class SurveyService {
 		
 	
 		return result;
+	}
+	
+	public Survey selectSurvey(int sno) {
+		 Connection conn = getConnection();
+
+	      Survey survey = new SurveyDao().selectSurvey(conn, sno);
+
+	      close(conn);
+
+	      return survey;
 	}
 	
 	public Survey selectSurvey(String surveyTitle, Date fDate, int cno) {
@@ -80,4 +91,31 @@ public class SurveyService {
 
 	      return question;
 	}
+	
+	public int insertAnswer(Answer ans) {
+		Connection conn = getConnection();
+		
+		int result = new SurveyDao().insertAnswer(conn, ans);
+		
+		if(result > 0) { // 성공
+			
+			commit(conn);
+		}else { 
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	public ArrayList<Answer> selectAnswer(int qno) {
+		 Connection conn = getConnection();
+
+		 ArrayList<Answer> answer = new SurveyDao().selectAnswer(conn, qno);
+
+	      close(conn);
+
+	      return answer;
+	}
+	
 }

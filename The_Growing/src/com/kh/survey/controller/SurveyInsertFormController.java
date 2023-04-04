@@ -78,30 +78,7 @@ public class SurveyInsertFormController extends HttpServlet {
 			ques.setItemNo(itemCheck);
 			ques.setItemContent(itemContent);
 			
-			System.out.println(ques.toString());
-			
 			int result2 = service.insertQuestion(ques);
-			/*  가져올 때 이런 방식으로
-			int mIndex = 0;
-			int sIndex = 0;
-			int j = 0;
-			for(int i = 0; i < questionType.length; i++) {
-				if(questionType[i].equals("1")) {
-					
-					System.out.print("객관식 제목 : " + mTitle[mIndex] + " ");
-					System.out.print("내용 : " + mContent[mIndex] + " ");
-					int k = j;
-					for(; j < k + Integer.parseInt(itemCheck[mIndex]); j++) {					
-						System.out.print("항목 내용 : " + itemContent[j] + " ");
-					}
-					mIndex++;
-				}else {
-					System.out.print("주관식 제목 : " + sTitle[sIndex] + " ");
-					System.out.println("내용 : " + sContent[sIndex]);
-					sIndex++;
-				}
-			}
-			*/
 			
 			if(result2 > 0) {
 				request.getSession().setAttribute("alertMsg", "설문 작성 성공");

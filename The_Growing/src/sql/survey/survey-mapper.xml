@@ -5,6 +5,12 @@
 		INSERT INTO SURVEY
 			VALUES (SEQ_SNO.NEXTVAL, ?, 0, ?, ?, 'Y', ?)		
 	</entry>
+	<entry key="selectSurveyToNum">
+		SELECT *
+		FROM SURVEY
+		WHERE SURVEY_NO = ?
+		ORDER BY SURVEY_NO DESC
+	</entry>
 	<entry key="selectSurvey">
 		SELECT *
 		FROM SURVEY
@@ -22,10 +28,21 @@
 		SELECT *
 		FROM SURVEY
 		WHERE REF_CNO = ?
+		ORDER BY SURVEY_NO DESC
 	</entry>
 	<entry key="selectQuestion">
 		SELECT *
 		FROM QUESTION
 		WHERE REF_SNO = ?
+	</entry>
+	<entry key="insertAnswer">
+		INSERT INTO ANSWER
+			(REF_QNO, REF_UNO, WRITE_ANS, ITEM_ANS)
+			VALUES (?, ?, ?, ?)
+	</entry>
+	<entry key="selectAnswer">
+		SELECT *
+		FROM ANSWER
+		WHERE REF_QNO = ?
 	</entry>
 </properties>
