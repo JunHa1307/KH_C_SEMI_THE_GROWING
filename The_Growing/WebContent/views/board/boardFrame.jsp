@@ -128,7 +128,7 @@
 	}
 	
 	.button_UI {
-	width: 130px;
+	width: 140px;
 	height: 45px;
 	border-radius: 4vw;
 	border: 0.15vw solid;
@@ -137,6 +137,12 @@
 	}
 	
 	.button--winona::after, .button--winona>span {
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	display: block;
+	font-weight: 600;
 	padding: 0.335vw;
 	}
 
@@ -561,7 +567,12 @@ vertical-align: middle;
         			
         			$("#board_check").click(function(){
         				location.href="<%=contextPath%>/attendance.bo";
-        			})
+        			});
+        			
+
+        			$("#board_invite").click(function(){
+        				location.href="<%=contextPath%>/invite.bo";
+        			});
               });
            
       

@@ -1,4 +1,4 @@
-package com.kh.board.controller;
+package com.kh.management.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,16 +17,16 @@ import com.kh.classes.model.vo.Class;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class BoardMoveController
+ * Servlet implementation class ClassInvitationController
  */
-@WebServlet("/boardmove.bo")
-public class BoardMoveController extends HttpServlet {
+@WebServlet("/invite.bo")
+public class ClassInvitationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardMoveController() {
+    public ClassInvitationController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,32 +35,7 @@ public class BoardMoveController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		/*
-		 * int cno = Integer.parseInt(request.getParameter("cno")); ArrayList<Board>
-		 * list = new BoardService().selectAlbumList(cno);
-		 * request.getSession().setAttribute("cno", cno);
-		 * 
-		 * request.setAttribute("list", list);
-		 * 
-		 * 
-		 * request.getRequestDispatcher("views/board/albumList.jsp").forward(request,
-		 * response);
-		 */
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		int uno = loginUser.getUserNo();
-		int cno = Integer.parseInt(request.getParameter("cno"));
-		request.getSession().setAttribute("cno", cno);
-		
-		Class cInfo = new ClassService().selectClass(cno, uno);
-
-		ArrayList<Board> list = new BoardService().selectAlbumList(cno);
-		
-		request.setAttribute("list", list);
-		
-		
-		request.getSession().setAttribute("cInfo", cInfo);
-		request.getRequestDispatcher("views/board/albumList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/management/classInvitation.jsp").forward(request, response);
 		
 	}
 

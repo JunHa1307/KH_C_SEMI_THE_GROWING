@@ -235,7 +235,7 @@ div {
 
 #mo_writer_profileImg {
 	width: 90%;
-	height: 100%;
+	height: 90%;
 	border-radius: 100%;
 	overflow: hidden;
 }
@@ -258,8 +258,9 @@ div {
 
 #mo_writer_id {
 	width: 30%;
-	text-align: center;
+	
 	font-weight: 600;
+	padding-left:8.5%;
 }
 
 #mo_writer_date {
@@ -319,7 +320,7 @@ div {
 
 .mo_reply_id {
 	width: 30%;
-	padding-left: 5%;
+	padding-left: 8.5%;
 	font-size: smaller;
 	font-weight: 600;
 }
@@ -468,7 +469,7 @@ div {
 			</div>
 		</div>
 		<div id="mo_write">
-		<div id="a">
+		<div id="mo_write_inner">
 			<!-- <div id="mo_write_wrap">
 				<div id="mo_title">봄이 왔어요</div>
  				<div id="mo_date">23.03.01</div>
@@ -691,7 +692,7 @@ div {
   							
   		   						 
   		   					
-  		   					 $("#a").html(result); 
+  		   					 $("#mo_write_inner").html(result); 
   					 
   				 
   				},
