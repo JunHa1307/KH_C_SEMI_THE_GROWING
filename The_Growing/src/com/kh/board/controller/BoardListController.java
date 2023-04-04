@@ -16,7 +16,7 @@ import com.kh.common.model.vo.PageInfo;
 /**
  * Servlet implementation class BoardListController
  */
-@WebServlet("/list.bo")
+@WebServlet("/list.fr")
 public class BoardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

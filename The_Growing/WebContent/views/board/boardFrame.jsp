@@ -378,12 +378,16 @@
         			$("#board_album").click(function(){
         				location.href = "<%=contextPath %>/list.al";
         			})
+        			
+        			$("#board_free").click(function(){
+        				location.href = "<%=contextPath %>/list.fr";
+        			})
+        			
         			$("#board_survey").click(function(){
         				location.href="<%=contextPath %>/enroll.su";
         			})
               });
-           
-      
+
             </script>
 </head>
 <body>
