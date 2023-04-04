@@ -92,5 +92,15 @@ public class BoardService {
 		
 		return list; 
 	}
+	
+	public Board selectAlbumBoard (int bno){
+		Connection conn = getConnection();
+		
+		Board b = new BoardDao().selectAlbumBoard(conn, bno);
+		
+		close(conn);
+		
+		return b; 
+	}
 
 }

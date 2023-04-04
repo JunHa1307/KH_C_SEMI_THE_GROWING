@@ -53,4 +53,14 @@
 		ORDER BY FILE_NO
 	</entry>
 	
+	<entry key="selectAlbumBoard">
+	  SELECT BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE, FILE_PATH, CHANGE_NAME
+        FROM BOARD B 
+        JOIN MEMBER M ON (M.USER_NO = B.REF_UNO)
+        LEFT JOIN ATTACHMENT A ON (M.USER_NO = A.REF_UNO)
+        WHERE BOARD_NO = ? AND BOARD_TYPE=3
+	
+	
+	</entry>
+	
 </properties>

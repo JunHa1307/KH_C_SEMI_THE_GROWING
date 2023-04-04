@@ -40,6 +40,10 @@ public class Board {
 	private String secretStatus;
 	private int refCno;
 	
+	private String userId; 
+	private String filePath;
+	private String changeName;
+	
 	private String titleImg; 
 	
 	public Board() {
@@ -49,8 +53,12 @@ public class Board {
 
 
 
+
+
+
 	public Board(int boardNo, int boardType, int refUno, String boardTitle, String boardContent, int count, int likes,
-			Date createDate, String status, String secretStatus, int refCno) {
+			Date createDate, String status, String secretStatus, int refCno, String userId, String filePath,
+			String changeName, String titleImg) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -63,7 +71,68 @@ public class Board {
 		this.status = status;
 		this.secretStatus = secretStatus;
 		this.refCno = refCno;
+		this.userId = userId;
+		this.filePath = filePath;
+		this.changeName = changeName;
+		this.titleImg = titleImg;
 	}
+
+
+
+
+
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+
+
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
+
+
+
+
+	public String getChangeName() {
+		return changeName;
+	}
+
+
+
+
+
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+
+
+
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
 
 
 
@@ -211,13 +280,26 @@ public class Board {
 
 
 
+
+
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardType=" + boardType + ", refUno=" + refUno + ", boardTitle="
 				+ boardTitle + ", boardContent=" + boardContent + ", count=" + count + ", likes=" + likes
 				+ ", createDate=" + createDate + ", status=" + status + ", secretStatus=" + secretStatus + ", refCno="
-				+ refCno + "]";
+				+ refCno + ", userId=" + userId + ", filePath=" + filePath + ", changeName=" + changeName
+				+ ", titleImg=" + titleImg + "]";
 	}
+
+
+
+
+
+
+
+
+
 	
 	
 	

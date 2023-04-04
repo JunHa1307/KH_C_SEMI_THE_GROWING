@@ -253,5 +253,43 @@ public ArrayList<Attachment> selectAlbumInnerList(Connection conn, int bno){
 	
 }
 
+
+public Board selectAlbumBoard(Connection conn, int bno){
+	Board b = null;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectAlbumBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			b = new Board();
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setFilePath(rset.getString("FILE_PATH"));
+			b.setChangeName(rset.getString("CHANGE_NAME"));
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return b;
+	
+	
+}
+
 }
 
