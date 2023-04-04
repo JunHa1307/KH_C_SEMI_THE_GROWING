@@ -33,7 +33,7 @@ private Properties prop = new Properties();
 		}
 	}
 	
-	public ArrayList<Board> selectAlbumList(Connection conn) {
+	public ArrayList<Board> selectAlbumList(Connection conn, int cno) {
 		 
 		ArrayList<Board> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -44,6 +44,8 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cno);
 			
 			rset = pstmt.executeQuery();
 			
@@ -67,7 +69,7 @@ private Properties prop = new Properties();
 	}
 	
 
-	public int insertAlbumBoard(Connection conn, Board b, int cno, int uno) {
+	public int insertAlbumBoard(Connection conn, Board b) {
 		
 		int result = 0;
 		
@@ -77,11 +79,12 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, b.getBoardTitle());
-			pstmt.setString(2, b.getBoardContent());
-			pstmt.setInt(3, uno);
-			pstmt.setInt(4, cno);
+			pstmt.setInt(1, b.getBoardType());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
+			pstmt.setInt(4, b.getRefUno());
+			pstmt.setInt(5, b.getRefCno());
+	
 			
 			result = pstmt.executeUpdate();
 			
@@ -93,7 +96,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
-	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list , int cno, int uno) {
+	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list) {
 		int result = 1;
 		
 		PreparedStatement pstmt = null;
@@ -104,12 +107,12 @@ private Properties prop = new Properties();
 			pstmt = conn.prepareStatement(sql);
 			
 			for(Attachment at : list) {
+			
 				pstmt.setString(1, at.getOriginName());
 				pstmt.setString(2, at.getChangeName());
 				pstmt.setString(3, at.getFilePath());
 				pstmt.setInt(4, at.getFileLevel());
-				pstmt.setInt(5, uno);
-				pstmt.setInt(6, cno);
+			
 
 				result *= pstmt.executeUpdate();
 			}
@@ -412,3 +415,4 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 	}
 	
 }
+

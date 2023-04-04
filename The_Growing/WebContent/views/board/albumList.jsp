@@ -4,6 +4,8 @@
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	int cno = (int)request.getSession().getAttribute("cno");
+
 %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +97,7 @@
         height: 100%;
         cursor: pointer;
         transition: transform 0.7s;
+        object-fit: cover;
       }
 
       .album_con_date {
@@ -513,12 +516,15 @@
                 </ul>
                 
               </div>
+            
               <div id="mo_reply_write_text">
                 <div id="mo_reply_write_text_content"><textarea id="mo_reply_textarea" cols="45" rows="3" placeholder="댓글을 입력하여 주세요." style="resize: none;"></textarea></div>
                 <div id="mo_reply_bt" class="box">
                   <button class="button_UI button--winona insert_bt" data-text="click"><span>등록</span></button>
                 </div>
               </div>
+            
+              
             </div>
             
           </div>
@@ -558,12 +564,11 @@
 
     <script>
       $(function () {
-        $(".board_li").click(function () {
-          $(this).css("fontWeight", "700");
-          $(this).children().css("background", "rgb(239, 243, 239)");
-          $(this).siblings(".board_li").css({ fontWeight: "", color: "black" });
-          $(this).siblings().children().css("background", "");
-        });
+   
+          $("#board_album").css("fontWeight", "700");
+          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+       
+      
 
 
 
@@ -628,11 +633,11 @@
       });
    
       $("#album_Enroll").click(function () {
-		location.href="<%=contextPath%>/insert.al";
+		location.href="<%=contextPath%>/insert.al?cno="+<%=cno%>;
 	})
             
        $("#album_file").click(function () {
-		location.href="<%=contextPath%>/att.al";
+		location.href="<%=contextPath%>/att.al?cno="+<%=cno%>;
 	})
         
 

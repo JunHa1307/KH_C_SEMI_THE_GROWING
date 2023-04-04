@@ -45,20 +45,51 @@
 		<section class="myInfo">
 			<div class="myProfile">
 				<div class="myProfile-img">
-					<img
-						src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>"
+				<% try{
+				    if(loginUser.getFilePath() == null){
+				    	String filePath = snsLoginUser.getFilePath();
+						loginUser.setFilePath(filePath);
+				    } %>
+				    <img
+						src="<%= loginUser.getFilePath() %>"
 						alt=""
-						onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+						onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">  
+				<% }catch(NullPointerException e){ %>
+				    <img src="<%= contextPath%>/resources/image/noImage.png">
+				    
+				<% } %>
+				
 				</div>
 				<span class="myProfile-name"> <%= loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %>
 				</span>
 				<button class="button_UI button--winona" data-text="마이페이지">
 					<span>마이페이지</span>
 				</button>
-				<button onclick="location.href='logout.me'"
-					class="button_UI button--winona" data-text="로그아웃">
-					<span>로그아웃</span>
-				</button>
+				<% try{
+					System.out.println(snsLoginUser.getSnsType());
+					if(snsLoginUser.getSnsType() == "1"){ %>
+						<button type="button" onclick="kakaoLogout();"
+							class="button_UI button--winona" data-text="로그아웃">
+							<a href="javascript:void(0)">
+								<span>로그아웃</span>
+							</a>
+						</button>
+				<% } else if(snsLoginUser.getSnsType() == "3"){ %>
+						<button onclick="googleLogout();"
+							class="button_UI button--winona" data-text="로그아웃">
+							<span>로그아웃</span>
+						</button>
+				<% } else { %>
+					<button onclick="location.href='logout.me'"
+						class="button_UI button--winona" data-text="로그아웃">
+						<span>로그아웃</span>
+					</button>
+				<% }} catch(NullPointerException e) {%>
+					<button onclick="location.href='logout.me'"
+						class="button_UI button--winona" data-text="로그아웃">
+						<span>로그아웃</span>
+					</button>
+				<% } %>
 			</div>
 			<section class="myClass">
 				<div class="myClass-info">
@@ -327,6 +358,7 @@
 
 	</main>
 	<script src="<%= contextPath %>/resources/js/calendar.js"></script>
+	<script src="<%= contextPath %>/resources/js/logout.js"></script>
 	<script>
       $(function () {
         $(".myClass-info").slick({ // 슬라이드 만들기
@@ -420,7 +452,7 @@
 	    	
 	    	let cno = classList[index];
 	    	
-	    	location.href="/boardmove.bo?cno="+ cno;
+	    	location.href="<%=contextPath%>/boardmove.bo?cno="+ cno;
 	    }
 	    
     </script>
