@@ -17,7 +17,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Growing</title>
-    
  
    
     <style>
@@ -153,10 +152,14 @@
         /* background-color: rgb(164, 123, 123); */
       }
 
+
+
+
+
       .img_1 {
-        width: 80%;
+        width: 100%;
         height: 100%;
-        margin: auto;
+         object-fit: cover;
      
       }
       #mo_write{
@@ -393,8 +396,8 @@
           	<% for( Board b : list) {%>
             <div class="album_con1" >
             	<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
-              <div class="album_con_title album_click"><p><%=b.getBoardTitle() %></p></div>
-              <div class="album_con_file album_click">
+              <div class="album_con_title" onclick="albumClick('<%=b.getBoardNo() %>');"><p><%=b.getBoardTitle() %></p></div>
+              <div class="album_con_file" onclick="albumClick('<%=b.getBoardNo() %>');">
                 <img src="<%=contextPath %><%=b.getTitleImg() %> ">
               </div>
               <div class="album_con_date" ><%=b.getCreateDate() %></div>
@@ -415,11 +418,12 @@
                   padding-left: 60px;
                   padding-right: 60px;
                 "
+                id="a"
               >
+            
                 <div id="slider-div" >
-                   <!--  <div ><img src="../../resources/img/flower" class="img_1" ></div>
-              	 <div><img src="/resources/image/사진 11_1.png" class="img_1"></div>
-                  <div><img src="/resources/image/사진 11_1.png" class="img_1"></div>  -->
+                
+              	
                 </div>
               </div>
             </div>
@@ -544,7 +548,7 @@
 
     <script>
       $(function () {
-        $("#slider-div").slick({
+       /*  $("#slider-div").slick({
           slide: "div", //슬라이드 되어야 할 태그 ex) div, li
           infinite: false, //무한 반복 옵션
           slidesToShow: 1, // 한 화면에 보여질 컨텐츠 개수
@@ -562,26 +566,24 @@
           dotsClass: "slick-dots", //아래 나오는 페이지네이션(점) css class 지정
           draggable: true, //드래그 가능 여부
         });
-      });
+       */
  
-      $(function () {
+   
    
           $("#board_album").css("fontWeight", "700");
           $("#board_album").children().css("background", "rgb(239, 243, 239)");
        
-      
+          });
 
 
 
-        $(".album_click").click(function(){
-          	let bno = ($(this).parents(".album_con1").children("#hiddenNo").val());
-        	console.log(bno);
+        function albumClick(bno){
+          
+        	
         	$("#modal").attr("class",bno);
-        	
-        	
         	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
-   				data : { bno : ($(this).parents(".album_con1").children("#hiddenNo").val())},
+   				data : { bno : bno},
    				success : function(list){
    					 console.log(list);
    					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
@@ -600,33 +602,57 @@
    	                '<div class="mo_reply_date" >'+list[i].createDate +'</div></div>'; 
    						 
    					}
-   					 $(".mo_reply").html(result);  
+   					 $(".mo_reply").html(result); 
+   					 
+   					 
+   					 
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
         	});
         	
-         	  $.ajax({
+         $.ajax({
    				url : "<%=contextPath%>/innerlist.al",
-   				data : { bno : ($(this).parents(".album_con1").children("#hiddenNo").val())},
+   				data : { bno : bno},
    				success : function(list){
    					 console.log(list);
+   					 console.log(bno);
    					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
-   				 	 let result = "";
-   					for(let i = 0; i<list.length; i++){
+   					 let result = "";
+   					for(let i = 0; i<list.length; i++){ 
    						
-   					result  += 
+   			/* 	 	result  += 
    						
-   					  '<div><img src="'+list[i].filePath+list[i].changeName+'"></div>';
-   						 
-   					}
-   					 $(".slick-slide>div").html(result);  
+   					  '<div><img src="'list[i].filePath+list[i].changeName+'"></div>';
+   					$("img").attr("src",list[i].filePath+list[i].changeName);	 
+   					}  */
+   			 	result  += '<div style="width: 100%; display: inline-block;"><img src="resources/album_upfiles/'+list[i].changeName+'" class="img_1"></div>'; }
+   					 $("#slider-div").html(result); 
+   					 
+   					 $("#slider-div").slick({
+   			          slide: "div", //슬라이드 되어야 할 태그 ex) div, li
+   			          infinite: false, //무한 반복 옵션
+   			          slidesToShow: 1, // 한 화면에 보여질 컨텐츠 개수
+   			          slidesToScroll: 1, //스크롤 한번에 움직일 컨텐츠 개수
+   			          speed: 100, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+   			          arrows: true, // 옆으로 이동하는 화살표 표시 여부
+   			          dots: false, // 스크롤바 아래 점으로 페이지네이션 여부
+   			          autoplay: false, // 자동 스크롤 사용 여부
+   			          autoplaySpeed: 10000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+   			          pauseOnHover: true, // 슬라이드 이동	시 마우스 호버하면 슬라이더 멈추게 설정
+   			          vertical: false, // 세로 방향 슬라이드 옵션
+   			          prevArrow:
+   			            "<button type='button' class='slick-prev'>Previous</button>", // 이전 화살표 모양 설정
+   			          nextArrow: "<button type='button' class='slick-next'>Next</button>", // 다음 화살표 모양 설정
+   			          dotsClass: "slick-dots", //아래 나오는 페이지네이션(점) css class 지정
+   			          draggable: true, //드래그 가능 여부
+   			        });
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
-        	});  
+        	});        
         	
         	
       
@@ -638,17 +664,7 @@
                    
                 }
                 
-                
-               
-            });
-        
-        
-        
-        
-        
-        
-        
-        
+
 
 
             $("#veil").click(function(){
@@ -660,6 +676,8 @@
 
                 }
             });
+            
+        };
 
             let j = 0;
         $('.scrap').on('click',function(){
@@ -705,27 +723,35 @@
     		location.href="<%=contextPath%>/att.al?cno="+<%=cno%>;
     	});
 
+           
+           
+     
+    	
         $("#insertReply").click(function(){
+          	let bno = $("#modal").attr("class"); 
+        	console.log(bno);
    			$.ajax({
    				url : "<%=contextPath%>/rinsert.bo",
    				data : {
    					content : $("#mo_reply_textarea").val(), 
-   					bno     : $("#modal").attr("class")
+   					bno
    				},
    				success : function(result){
    					console.log(result);
+   					
    					
    					// 댓글등록 성공시 result = 1
    					
    					// 댓글등록 실패시 result = 0 
    					if(result > 0){
    						// 새 댓글목록 불러오는 함수 호출
-   						//selectReplyList();
+   						albumClick(bno);
    						// 댓글내용 비워두기 
    						$("#mo_reply_textarea").val("");
    						
    					}else{
    						alert("댓글작성에 실패했습니다");
+   						
    					}
    				}, 
    				error : function(){
@@ -739,7 +765,7 @@
 		}); */
         
         
-    		function selectReplyList(){
+    	<%-- 	function selectReplyList(){
    			$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno : $("#modal").attr("class")},
@@ -765,14 +791,13 @@
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
-   			}); 
+   			});  --%>
            
 
      
  
-      };
-   
-      });
+ 
+     
      
     </script>
   </body>
