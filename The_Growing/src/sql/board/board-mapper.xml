@@ -31,5 +31,36 @@
 		ORDER BY UPLOAD_DATE DESC
 	</entry>
 	
+	<entry key="insertReply">
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER)
+		VALUES (SEQ_RNO.NEXTVAL, ?, ?, ?)
+	</entry>
+	
+	<entry key="selectReplyList">
+	     SELECT REPLY_NO,  REPLY_CONTENT, USER_ID, TO_CHAR(CREATE_DATE, 'YY.MM.DD HH:MI:SS') AS CREATE_DATE, FILE_PATH, CHANGE_NAME
+        FROM REPLY R
+        JOIN MEMBER ON(REPLY_WRITER = USER_NO)
+        LEFT JOIN ATTACHMENT ON(REF_UNO = USER_NO)
+        WHERE R.REF_BNO = ?
+        AND R.STATUS = 'Y' 
+        ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<entry key="selectAlbumInnerList">
+	SELECT FILE_NO, CHANGE_NAME, FILE_PATH
+		FROM ATTACHMENT
+		WHERE REF_BNO = ?
+		ORDER BY FILE_NO
+	</entry>
+	
+	<entry key="selectAlbumBoard">
+	  SELECT BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE, FILE_PATH, CHANGE_NAME
+        FROM BOARD B 
+        JOIN MEMBER M ON (M.USER_NO = B.REF_UNO)
+        LEFT JOIN ATTACHMENT A ON (M.USER_NO = A.REF_UNO)
+        WHERE BOARD_NO = ? AND BOARD_TYPE=3
+	
+	
+	</entry>
 	
 </properties>

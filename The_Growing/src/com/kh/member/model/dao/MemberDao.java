@@ -301,9 +301,8 @@ public Member loginMemberInfo(Connection conn, int uno) {
 						       rset.getDate("MODIFY_DATE"),
 						       rset.getString("STATUS"),
 						       rset.getString("CHILDREN_NAME"),
-						       rset.getInt("USER_LEVEL"),
-						       rset.getString("CHANGE_NAME"),
-						       rset.getString("FILE_PATH"));
+						       rset.getInt("USER_LEVEL"));
+						 
 			}
 			
 		} catch (SQLException e) {
@@ -359,8 +358,32 @@ public int selectUserNo(Connection conn, String userId, int userLevel) {
 	return userNo;		
 }	
 	
+public int deleteMember(Connection conn, String userId, String userPwd) {
+	int result = 0;
 	
+	PreparedStatement pstmt = null;
 	
+	String sql = prop.getProperty("deleteMember");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, userId);
+		pstmt.setString(2, userPwd);
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		JDBCTemplate.close(pstmt);
+		
+	}
+	return result;
+			
+				
+}
+
 	
 	
 	
