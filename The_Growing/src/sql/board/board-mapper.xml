@@ -63,4 +63,26 @@
 	
 	</entry>
 	
+		<entry key="updateBoard">
+		UPDATE BOARD
+		SET BOARD_TITLE = ?,
+		BOARD_CONTENT = ?
+		WHERE BOARD_NO = ? 
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ?,
+			CHANGE_NAME = ?, 
+			FILE_PATH   = ?,
+			UPLOAD_DATE = SYSDATE
+		WHERE FILE_NO = ?
+		
+	</entry>
+	
+	<entry key="reInsertAttachment">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
+		VALUES(SEQ_ANO.NEXTVAL, ?, ?,?,?,?)	
+	</entry>
+	
 </properties>

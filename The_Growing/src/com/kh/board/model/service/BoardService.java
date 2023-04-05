@@ -102,5 +102,35 @@ public class BoardService {
 		
 		return b; 
 	}
+	public int updateBoard(Board b,ArrayList<Attachment> list) {
+
+		
+		Connection conn = getConnection() ;
+		
+		int result1 = new BoardDao().updateBoard(conn, b);
+		
+		int result2 = 1; // 애초에 insert나 update문이 실행조차 되지 않을 경우를 대비해서 1로 초기화 시킴 
+		
+		// 새롭게 첨부된 파일이 있는 경우에만 update, insert문을 실행시킴. 
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i)!=null) {
+				// 기존에 첨부파일이 있었을 경우 => update문을 실행하기 위해서 fileNo값이 필요함. 
+				if(list.get(i).getFileNo() != 0) {
+					result2 = new BoardDao().updateAttachment(conn, list); 
+				}else { // 기존에 첨부파일이 없는 경우 => insert문에는 fileNo값이 필요없어서 at객체에 fileNo값이 안담겨있음 
+					result2 = new BoardDao().reInsertAttachment(conn, list);
+				}
+			}
+		}
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+	}
 
 }

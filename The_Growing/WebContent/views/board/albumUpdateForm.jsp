@@ -16,12 +16,13 @@
 <%@include file="boardFrame.jsp" %>
 		<div id="board_area">
 			<form action="<%= contextPath %>/update.al" id="enroll-form" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="bno" value="<%= b.getBoardNo()%>">
             <div id="album_header">
                 <div id="album_area">
                   <div id="album_title">앨범</div>
                   <div id="album_button" align="right" class="box">
                       <button type="submit" class="button_UI button--winona" data-text="수정"><span>수정</span></button>
-                       <button type="submit" class="button_UI button--winona" data-text="삭제"><span>삭제</span></button>
+                       <button type="button" class="button_UI button--winona" data-text="삭제"><span>삭제</span></button>
                   </div>
                 </div>
                 <div id="album_hr">
@@ -29,14 +30,17 @@
                 </div>
               </div>
            		 <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99" value="<%=b.getBoardTitle()%>"></div>
-                <textarea id="summernote" name="content"></textarea>
+                <textarea id="summernote" name="content"><%=b.getBoardContent() %></textarea>
           
         		<div style="padding: 10px">
 					이미지 첨부
 					<%for (int i = 1; i<=list.size(); i++){ %>
-					<img id="contentImg<%i%>" src="<%=list.get(i-1).getFilePath()+list.get(i-1).getChangeName() %>" width="150" height="120">
-					
+					<img id="contentImg<%=i%>" src="resources/album_upfiles/<%=list.get(i-1).getChangeName() %>" style="width:150px; height:120px;">
 					<%} %>
+					<%for (int i = list.size()+1; i<=5; i++){ %>
+					<img id="contentImg<%=i%>"  style="width:150px; height:120px;">
+					<%} %>
+					
 				</div>
 			
 			<div id="file-area" style="display:none;">
@@ -46,6 +50,17 @@
 				<input type="file" id ="file4" name="file4" onchange="loadImg(this, 4);" >
 				<input type="file" id ="file5" name="file5" onchange="loadImg(this, 5);" >
 			</div>
+					<%for (int i =0; i<list.size(); i++){ %>
+						<% if(list.get(i) != null) { %>
+							
+							<!-- 원본파일의 파일번호, 수정명을 hidden으로 함께 전송할 예정 -->
+							<input type="hidden" name="originFileNo<%=i %>" value="<%=list.get(i).getFileNo() %>">
+							<input type="hidden" name="changeFileName<%=i %>" value="<%=list.get(i).getChangeName() %>">
+						<%} %>
+							
+					<%} %>
+							
+			
 		</form>
 	
 			</div>

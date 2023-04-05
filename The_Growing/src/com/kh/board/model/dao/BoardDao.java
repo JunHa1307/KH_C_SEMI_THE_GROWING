@@ -293,5 +293,85 @@ public Board selectAlbumBoard(Connection conn, int bno){
 	
 }
 
+public int updateBoard(Connection conn, Board b) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("updateBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, b.getBoardTitle() );
+		pstmt.setString(2, b.getBoardContent());
+		pstmt.setInt(3, b.getBoardNo());
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int updateAttachment(Connection conn, ArrayList<Attachment> list) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("updateAttachment");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		for(int i =1; i<=list.size(); i++) {
+		pstmt.setString(1,list.get(i).getOriginName());
+		pstmt.setString(2,list.get(i).getChangeName());
+		pstmt.setString(3, list.get(i).getFilePath());
+		pstmt.setInt(4, list.get(i).getFileNo());
+		
+		}
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+	
+}
+
+public int reInsertAttachment(Connection conn, ArrayList<Attachment> list) {
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("reInsertAttachment");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		for(int i =0; i<list.size(); i++) {
+			pstmt.setInt(1, list.get(i).getRefBno());
+			pstmt.setString(2, list.get(i).getOriginName());
+			pstmt.setString(3, list.get(i).getChangeName());
+			pstmt.setString(4, list.get(i).getFilePath());
+			pstmt.setInt(5, list.get(i).getFileLevel());
+		}
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
 }
 
