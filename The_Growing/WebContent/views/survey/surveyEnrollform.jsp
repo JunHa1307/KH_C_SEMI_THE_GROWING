@@ -26,166 +26,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
 	rel="stylesheet">
-<style>
-/* 버튼 css */
-.box {
-	display: flex;
-	background: #ffffff;
-	color: #000000;
-	width: 150px;
-	height: 50px;
-	border-radius: 30px;
-}
-
-.button_UI {
-	float: left;
-	width: 150px;
-	height: 50px;
-	display: block;
-	border: none;
-	background: none;
-	color: inherit;
-	position: relative;
-	z-index: 1;
-	-webkit-backface-visibility: hidden;
-	-moz-osx-font-smoothing: grayscale;
-	border-radius: 30px;
-	border: 3px solid;
-}
-
-.button_UI :active {
-	color: rgb(137, 180, 166);
-}
-
-.button_UI:focus {
-	outline: none;
-}
-
-.button--winona {
-	overflow: hidden;
-	padding: 0;
-	-webkit-transition: border-color 0.3s, background-color 0.3s;
-	transition: border-color 0.3s, background-color 0.3s;
-	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-.button--winona::after {
-	content: attr(data-text);
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	color: rgb(137, 180, 166);
-	font-weight: 600;
-	-webkit-transform: translate3d(0, 25%, 0);
-	transform: translate3d(0, 25%, 0);
-}
-
-.button--winona::after, .button--winona>span {
-	padding: 10px;
-	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-	transition: transform 0.3s, opacity 0.3s;
-	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	display: block;
-	font-weight: 600;
-}
-
-.button--winona:hover {
-	border-color: rgb(137, 180, 166);
-	background-color: rgba(255, 255, 255, 0.1);
-}
-
-.button--winona:hover::after {
-	opacity: 1;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-.button--winona:hover>span {
-	opacity: 0;
-	-webkit-transform: translate3d(0, -25%, 0);
-	transform: translate3d(0, -25%, 0);
-}
-
-#survey_wrap {
-	min-height: 800px;
-	width: 60%;
-	background-color: rgb(253, 253, 253);
-	margin: auto;
-}
-
-.title {
-	height: 150px;
-	width: 700px;
-	background-color: rgb(241, 253, 247);
-	border-radius: 10px;
-	border: 1px solid black;
-	padding: 10px;
-	margin: auto;
-	margin-bottom: 20px;
-}
-
-.multiple {
-	min-height: 380px;
-	width: 700px;
-	background-color: rgb(241, 253, 247);
-	border-radius: 10px;
-	border: 1px solid black;
-	padding: 10px;
-	padding-bottom: 60px;
-	margin: auto;
-	margin-bottom: 20px;
-}
-
-.short {
-	height: 230px;
-	width: 700px;
-	background-color: rgb(241, 253, 247);
-	border-radius: 10px;
-	border: 1px solid black;
-	padding: 10px;
-	margin: auto;
-	margin-bottom: 20px;
-}
-
-#title_table td, #multiple_table td, #short_table td {
-	height: 50px;
-}
-
-#title_table input, #multiple_table input, #short_table input,
-	#short_table textarea {
-	padding: 8px;
-}
-
-#title_table, #multiple_table, #short_table {
-	margin: auto;
-	caption-side: top;
-}
-
-#button_align {
-	border: 1px red solid;
-	width: 330px;
-	margin: auto;
-}
-
-#bu_align {
-	border: 1px red solid;
-	width: 490px;
-	margin: auto;
-}
-
-#button_align>button, #bu_align>button {
-	margin-right: 10px;
-}
-
-* {
-	font-family: 'Gowun Dodum', sans-serif;
-}
-</style>
+<link rel="stylesheet"
+   href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
 </head>
 <body>
 
@@ -198,9 +40,9 @@
 					<table border-collapse:collapse; id="title_table">
 						<tr>
 							<td width="50">기간</td>
-							<td width="130"><input type="date" name="fDate"></td>
+							<td width="130"><input type="date" name="fDate" required></td>
 							<td width="140" style="text-align: center;">~</td>
-							<td width="130"><input type="date" name="lDate"></td>
+							<td width="130"><input type="date" name="lDate" required></td>
 						</tr>
 						<tr>
 							<td>제목</td>
@@ -237,8 +79,8 @@
 							<td colspan="3"><input type="text" name="itemContent"
 								size="55" placeholder="항목 내용을 입력해주세요" required><br></td>
 						</tr>
-						<input type="number" name="type" value=1 readonly style="display:none;">
-						<input type="number" name="itemCheck" value="3" style="display:none;">
+						<input type="hidden" name="type" value=1 readonly>
+						<input type="hidden" name="itemCheck" value="3">
 					</table>
 					<div id="button_align">
 						<button type="button" class="item_plus button_UI button--winona"
@@ -286,9 +128,9 @@
 							<td>내용</td>
 							<td colspan="3"><textarea type="text" name="sContent"
 									style="resize: none;" rows="3" cols="56.5"
-									placeholder="질문 내용을 입력해주세요"></textarea></td>
+									placeholder="설문자가 대답하는 공간입니다." readonly></textarea></td>
 						</tr>
-						<input type="text" name="type" value=2 readonly style="display:none;">
+						<input type="hidden" name="type" value=2 readonly>
 					</table>
 				</div>
 

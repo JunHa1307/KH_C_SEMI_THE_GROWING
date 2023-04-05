@@ -34,7 +34,7 @@
 				</table>
 				<button onclick="update();">업데이트</button>
 			</div>
-		</div>
+		</div><!-- boardFrame -->
  	</div>
 </div>
 <script>
