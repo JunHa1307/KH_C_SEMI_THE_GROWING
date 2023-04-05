@@ -197,6 +197,7 @@ div {
 }
 
 #mo_title {
+	margin-top:10px;
 	width: 80%;
 	font-weight: 700;
 }

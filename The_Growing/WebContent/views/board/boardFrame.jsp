@@ -44,7 +44,7 @@
     
     <style>
   /* 버튼 css */
-.box {
+ .box {
 	display: flex;
 	background: #ffffff;
 	color: #000000;
@@ -60,7 +60,7 @@
 	z-index: 1;
 	-webkit-backface-visibility: hidden;
 	-moz-osx-font-smoothing: grayscale;
-}
+} 
 
 .button_UI :active {
 	color: rgb(137, 180, 166);
@@ -93,14 +93,14 @@
 	transform: translate3d(0, 25%, 0);
 }
 
-.button--winona::after, .button--winona>span {
+ .button--winona::after, .button--winona>span {
 	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
 	transition: transform 0.3s, opacity 0.3s;
 	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 	display: block;
 	font-weight: 600;
-}
+} 
 
 .button--winona:hover {
 	border-color: rgb(137, 180, 166);
@@ -145,6 +145,16 @@
 	font-weight: 600;
 	padding: 0.335vw;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 /* 화면 너비 780 이하일 떄 */
 
@@ -572,6 +582,10 @@ vertical-align: middle;
 
         			$("#board_invite").click(function(){
         				location.href="<%=contextPath%>/invite.bo";
+        			});
+        			
+        			$("#board_option").click(function(){
+        				location.href="<%=contextPath%>/infor.bo";
         			});
               });
            

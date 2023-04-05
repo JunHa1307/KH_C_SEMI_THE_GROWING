@@ -43,7 +43,7 @@
         LEFT JOIN ATTACHMENT ON(REF_UNO = USER_NO)
         WHERE R.REF_BNO = ?
         AND R.STATUS = 'Y' 
-        ORDER BY CREATE_DATE
+        ORDER BY CREATE_DATE DESC
 	</entry>
 	
 	<entry key="selectAlbumInnerList">
