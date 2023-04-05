@@ -47,13 +47,13 @@
 					       BOARD_NO,
 					       USER_ID,
 					       BOARD_TITLE,
-					       CREATE_DATE
+					       CREATE_DATE,
+					       REF_CNO
 					FROM BOARD B
 					JOIN MEMBER ON (REF_UNO = USER_NO)
 					WHERE BOARD_TYPE = 4
 					  AND B.STATUS = 'Y'
-					  AND REF_CNO = 1
-					ORDER BY CREATE_DATE DESC
+					ORDER BY BOARD_NO DESC
 				) A
 			)
 		WHERE RNUM BETWEEN ? AND ?
@@ -61,7 +61,7 @@
 	
 	<entry key="increaseCount">
 		UPDATE BOARD
-		SET COUNT = COUNT +1
+		SET BOARD_COUNT = BOARD_COUNT +1
 		WHERE BOARD_NO = ? 
 		  AND STATUS = 'Y'
 	</entry>
@@ -71,14 +71,47 @@
 			BOARD_NO,
 			BOARD_TYPE,
 			BOARD_TITLE,
-			REF_UNO,
+			USER_ID,
 			CREATE_DATE,
 			BOARD_CONTENT
 		FROM BOARD B
-		LEFT JOIN CATEGORY USING(CATEGORY_NO)
-		JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+		JOIN MEMBER ON (REF_UNO = USER_NO)
 		WHERE BOARD_NO = ?
 		  AND B.STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT 
+			FILE_NO ,
+			ORIGIN_NAME,
+			CHANGE_NAME,
+			FILE_PATH,
+			NVL(FILE_LEVEL , 0) AS FILE_LEVEL
+		FROM ATTACHMENT
+		WHERE REF_BNO = ?
+		ORDER BY FILE_LEVEL
+	</entry>
+	
+	<entry key="updateBoard">
+		UPDATE BOARD
+		SET 
+			BOARD_TITLE = ?,
+			BOARD_CONTENT =?
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ? ,
+		    CHANGE_NAME = ? ,
+		    FILE_PATH   = ? ,
+			UPLOAD_DATE = SYSDATE
+		WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME,FILE_PATH)
+		VALUES(SEQ_FNO.NEXTVAL , ? , ? , ?, ? )
 	</entry>
 	
 	<entry key="insertReply">
@@ -100,11 +133,11 @@
 	
 	<entry key="insertBoard">
 		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, REF_UNO, BOARD_TITLE, BOARD_CONTENT, REF_CNO)
-		VALUES (SEQ_BNO.NEXTVAL, ?, ? ,? ,?, ?)
+		VALUES (SEQ_BNO.NEXTVAL, ?, ? ,? ,?)
 	</entry>
 	
 	<entry key="insertAttachment">
 		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
-		VALUES(SEQ_ANO.NEXTVAL , SEQ_BNO.NEXTVAL, ? , ?, ?, ?)
+		VALUES(SEQ_ANO.NEXTVAL , SEQ_BNO.CURRVAL, ? , ?, ?, ?)
 	</entry>
 </properties>

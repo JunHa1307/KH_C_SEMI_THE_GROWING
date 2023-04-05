@@ -1,5 +1,11 @@
+<%@page import="com.kh.common.model.vo.Attachment"%>
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Board b = (Board) request.getAttribute("b");
+	Attachment at = (Attachment) request.getAttribute("at"); 
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +55,8 @@
                 <div id="board_area">
                     <h1 align="center">자유게시판</h1>
                 
-                <form action="">
+                <form action="<%= contextPath %>/update.bo" id="update-form" method="post" enctype="multipart/form-data"">
+                <input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
                     <table class="list-table"  border="5">
                         <tr >
                             <th>

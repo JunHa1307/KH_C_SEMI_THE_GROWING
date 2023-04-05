@@ -72,7 +72,8 @@
                     <table class="list-table"  border="5">
 	               		<tbody>
 	                        <tr >
-	                            <th><h1>제목</h1>
+	                            <th>
+	                            	<h1><%=b.getBoardTitle() %></h1>
 	                                  
 	                                  <div class="dropdown" style="float: right; margin-top: -11%;">
 	                                    <button 
@@ -86,7 +87,7 @@
 	                                        <img id="alarmIcon" src="<%=contextPath %>/resources/image/icons8-메뉴-2-48.png">
 	                                    </button>
 	                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	                                      <a class="dropdown-item" href="#">수정</a>
+	                                      <a class="dropdown-item" href="<%=contextPath %>/update.fr">수정</a>
 	                                      <a class="dropdown-item" href="#">삭제</a>
 	                                    </div>
 	                                  </div>
@@ -97,12 +98,12 @@
 	                        <tr>
 	                           <th height="50">
 	                            <img id="profile_img" src="<%=contextPath %>/resources/image/bono.jpg">
-	                           <%-- <%=b.getRefUno() %> --%>작성자<br><%-- <%=b.getCreateDate() %> --%>작성일</th>
+	                            <%=b.getUserId() %> <br> <%=b.getCreateDate() %> </th>
 	                        </tr>
 	                        <tr>
 	                            <th height="200">
 	                                <p style="height: 250px;">
-	                                	<%-- <%=b.getBoardContent() %> --%>내용
+	                                	 <%=b.getBoardContent() %>
 	                                </p>
 	                                <hr style="height: 10px;">
 	                                    <button id="down_btn">
