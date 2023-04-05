@@ -9,6 +9,8 @@ public class Answer {
 	private Date submitDate;
 	private String[] writeAns;
 	private String[] itemAns;
+	private String userName;
+	private String childName;
 	
 	public Answer() {
 		super();
@@ -71,10 +73,27 @@ public class Answer {
 		this.itemAns = itemAns;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getChildName() {
+		return childName;
+	}
+
+	public void setChildName(String childName) {
+		this.childName = childName;
+	}
+
 	@Override
 	public String toString() {
 		return "Answer [refQno=" + refQno + ", refUno=" + refUno + ", submitDate=" + submitDate + ", writeAns="
-				+ Arrays.toString(writeAns) + ", itemAns=" + Arrays.toString(itemAns) + "]";
+				+ Arrays.toString(writeAns) + ", itemAns=" + Arrays.toString(itemAns) + ", userName=" + userName
+				+ ", childName=" + childName + "]";
 	}
 	
 }

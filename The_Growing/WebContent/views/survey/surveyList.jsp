@@ -35,7 +35,7 @@
 				                    <div style="display: flex;justify-content: space-between; padding: 1em 1em 0 1em;">
 				                        응답인원 수 : <%= s.getSurveyCount() %> 
 				                        <div style="padding: 0 0.5em 0.5em 0.5em;">
-					                        <a href="javascript:void(0);"><button type="button" id="surveyResult" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">결과보기</button></a>&nbsp;
+					                        <a href="javascript:void(0);"><button type="button" class="surveyResult" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">결과보기</button></a>&nbsp;
 					                        <a href="javascript:void(0);"><button type="button" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">종료</button></a>
 				                        </div>
 				                    </div>
@@ -59,7 +59,7 @@
 				                    <div style="display: flex;justify-content: space-between; padding: 1em 1em 0 1em;">
 				                        응답인원 수 : <%= s.getSurveyCount() %> 
 				                        <div style="padding: 0 0.5em 0.5em 0.5em;"> 
-				                        <a href="javascript:void(0);"><button type="button" id="surveyResult" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">결과보기</button></a>&nbsp;
+				                        <a href="javascript:void(0);"><button type="button" class="surveyResult" style="border: 0.5px solid gray;border-radius: 0.5em;background-color: #ffffff;">결과보기</button></a>&nbsp;
 				                        </div>
 				                    </div>
 			                    <% } %>
@@ -88,7 +88,7 @@
     			$("#cantSurvey").css("font-weight", "700");
     		});
     		
-    		$("#surveyResult").click(function(){
+    		$(".surveyResult").click(function(){
     			location.href="answerResult.su?sno="+$(this).closest(".surveys").children("input[name='sno']").val();
     		});
     		

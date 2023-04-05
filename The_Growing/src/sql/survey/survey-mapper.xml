@@ -30,6 +30,11 @@
 		WHERE REF_CNO = ?
 		ORDER BY SURVEY_NO DESC
 	</entry>
+	<entry key="updateSurveyCount">
+		UPDATE SURVEY SET
+			SURVEY_COUNT = SURVEY_COUNT+1
+        WHERE SURVEY_NO = (SELECT REF_SNO FROM QUESTION WHERE QUES_NO = ?)
+	</entry>
 	<entry key="selectQuestion">
 		SELECT *
 		FROM QUESTION
@@ -41,8 +46,15 @@
 			VALUES (?, ?, ?, ?)
 	</entry>
 	<entry key="selectAnswer">
+		SELECT A.* , USER_NAME, CHILDREN_NAME
+		FROM ANSWER A
+		JOIN MEMBER ON (A.REF_UNO = USER_NO)
+		WHERE REF_QNO = ?
+	</entry>
+	<entry key="selectIsAnswered">
 		SELECT *
 		FROM ANSWER
 		WHERE REF_QNO = ?
+			AND REF_UNO = ?
 	</entry>
 </properties>
