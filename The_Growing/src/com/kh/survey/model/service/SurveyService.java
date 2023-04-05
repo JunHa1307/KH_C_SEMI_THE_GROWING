@@ -95,9 +95,10 @@ public class SurveyService {
 	public int insertAnswer(Answer ans) {
 		Connection conn = getConnection();
 		
-		int result = new SurveyDao().insertAnswer(conn, ans);
+		int result1 = new SurveyDao().insertAnswer(conn, ans);
+		int result2 = new SurveyDao().updateSurveyCount(conn,ans.getRefQno());
 		
-		if(result > 0) { // 성공
+		if(result1*result2 > 0) { // 성공
 			
 			commit(conn);
 		}else { 
@@ -105,7 +106,7 @@ public class SurveyService {
 		}
 		
 		close(conn);
-		return result;
+		return result1;
 	}
 	
 	public ArrayList<Answer> selectAnswer(int qno) {
@@ -118,4 +119,13 @@ public class SurveyService {
 	      return answer;
 	}
 	
+	public boolean isAnswered(int uno, int qno) {
+		Connection conn = getConnection();
+		
+		boolean isAnswered = new SurveyDao().isAnswered(conn,uno,qno);
+		
+		close(conn);
+		
+		return isAnswered;
+	}
 }

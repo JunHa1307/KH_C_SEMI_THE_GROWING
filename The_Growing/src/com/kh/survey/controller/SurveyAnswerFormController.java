@@ -50,24 +50,33 @@ public class SurveyAnswerFormController extends HttpServlet {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		int uno = loginUser.getUserNo();
 		int qno = Integer.parseInt(request.getParameter("qNo"));
-		String[] mNo = request.getParameterValues("mNo");
-		String[] writeAns = request.getParameterValues("sContent");
-		String[] itemAns = new String[mNo.length];
 		
-		for(int i = 0; i < mNo.length; i++) {
-			itemAns[i] = request.getParameter("mCheck"+i);
-		}
+		boolean isAnswered = new SurveyService().isAnswered(uno,qno);
 		
-		Answer ans = new Answer(qno, uno, writeAns, itemAns);
-		int result = new SurveyService().insertAnswer(ans);
-		
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "답안 작성 성공");
-			response.sendRedirect(request.getContextPath()+"/list.su");
-		}else {
-			request.setAttribute("errorMsg", "답안 작성 실패");
+		if(isAnswered) {
+			request.setAttribute("errorMsg", "이미 작성하신 설문입니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}else {
+			String[] mNo = request.getParameterValues("mNo");
+			String[] writeAns = request.getParameterValues("sContent");
+			String[] itemAns = new String[mNo.length];
+			
+			for(int i = 0; i < mNo.length; i++) {
+				itemAns[i] = request.getParameter("mCheck"+i);
+			}
+			
+			Answer ans = new Answer(qno, uno, writeAns, itemAns);
+			int result = new SurveyService().insertAnswer(ans);
+
+			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "답안 작성 성공");
+				response.sendRedirect(request.getContextPath()+"/list.su");
+			}else {
+				request.setAttribute("errorMsg", "답안 작성 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 		}
+		
 	}
 
 }
