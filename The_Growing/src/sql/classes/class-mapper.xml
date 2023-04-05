@@ -99,6 +99,7 @@
     	FROM MEMBER
     	JOIN CLASS_MEMBER ON (USER_NO = REF_UNO)
     	WHERE REF_CNO = ?
+    		AND USER_LEVEL = 3
     	ORDER BY USER_NAME
     </entry>
     <entry key="updateAttendTable">

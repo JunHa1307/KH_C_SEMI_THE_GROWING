@@ -2,6 +2,7 @@ package com.kh.survey.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +47,7 @@ public class SurveyInsertFormController extends HttpServlet {
 		
 		Date fDate = Date.valueOf(request.getParameter("fDate"));
 		Date lDate = Date.valueOf(request.getParameter("lDate"));
-		int cno = 2;
+		int cno = (int)request.getSession().getAttribute("cno");
 		
 		String[] questionType = request.getParameterValues("type"); 
 		String[] mTitle = request.getParameterValues("mTitle"); 
@@ -64,7 +65,7 @@ public class SurveyInsertFormController extends HttpServlet {
 		
 		if(result1 > 0) {
 			
-			survey = service.selectSurvey(fDate,cno);
+			survey = service.selectSurvey(surveyTitle,fDate,cno);
 			
 			Question ques = new Question();
 			
@@ -77,34 +78,12 @@ public class SurveyInsertFormController extends HttpServlet {
 			ques.setItemNo(itemCheck);
 			ques.setItemContent(itemContent);
 			
-			System.out.println(ques.toString());
-			
 			int result2 = service.insertQuestion(ques);
-			/*  가져올 때 이런 방식으로
-			int mIndex = 0;
-			int sIndex = 0;
-			int j = 0;
-			for(int i = 0; i < questionType.length; i++) {
-				if(questionType[i].equals("1")) {
-					
-					System.out.print("객관식 제목 : " + mTitle[mIndex] + " ");
-					System.out.print("내용 : " + mContent[mIndex] + " ");
-					int k = j;
-					for(; j < k + Integer.parseInt(itemCheck[mIndex]); j++) {					
-						System.out.print("항목 내용 : " + itemContent[j] + " ");
-					}
-					mIndex++;
-				}else {
-					System.out.print("주관식 제목 : " + sTitle[sIndex] + " ");
-					System.out.println("내용 : " + sContent[sIndex]);
-					sIndex++;
-				}
-			}
-			*/
 			
 			if(result2 > 0) {
 				request.getSession().setAttribute("alertMsg", "설문 작성 성공");
-				response.sendRedirect(request.getContextPath()+"/slist.su");
+				
+				response.sendRedirect(request.getContextPath()+"/list.su");
 			}else {
 				request.setAttribute("errorMsg", "설문 생성 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
