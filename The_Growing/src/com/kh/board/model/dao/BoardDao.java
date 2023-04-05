@@ -240,6 +240,7 @@ public ArrayList<Attachment> selectAlbumInnerList(Connection conn, int bno){
 			
 			at.setFilePath(rset.getString("FILE_PATH"));
 			at.setChangeName(rset.getString("CHANGE_NAME"));
+			at.setFileLevel(rset.getInt("FILE_LEVEL"));
 			list.add(at);
 		}
 	} catch (SQLException e) {
@@ -272,6 +273,7 @@ public Board selectAlbumBoard(Connection conn, int bno){
 		if(rset.next()) {
 
 			b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO"));
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
 			b.setUserId(rset.getString("USER_ID"));
