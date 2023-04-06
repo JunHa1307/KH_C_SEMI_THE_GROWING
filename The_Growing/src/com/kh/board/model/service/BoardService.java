@@ -134,5 +134,33 @@ public class BoardService {
 		
 		return result1 * result2;
 	}
-
+	
+	public int insertNotice(Board b) {
+		
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertNotice(conn, b);
+		
+		// 트랜잭션처리
+		if(result > 0) { // 성공
+			//커밋
+			commit(conn);
+		}else { // 실패
+			//롤백
+			rollback(conn);
+		}
+		
+		// 사용한 자원 반납. conn.close();
+		close(conn);
+		
+		// 컨트롤로에게 결과값 반환(처리된 행의 갯수)
+		return result;
+	}
+	
+	public ArrayList<Board> selectNoticeList(int refCno) {
+		Connection conn = getConnection();
+		ArrayList<Board> list = new BoardDao().selectNoticeList(conn, refCno);
+		close(conn);
+		return list;
+	}
 }

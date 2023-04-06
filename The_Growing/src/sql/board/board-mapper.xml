@@ -63,7 +63,7 @@
 	
 	</entry>
 	
-		<entry key="updateBoard">
+	<entry key="updateBoard">
 		UPDATE BOARD
 		SET BOARD_TITLE = ?,
 		BOARD_CONTENT = ?
@@ -90,6 +90,11 @@
 		DELETE FROM ATTACHMENT
 		WHERE REF_BNO = ? AND FILE_LEVEL =?
 		
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, REF_UNO, BOARD_TITLE, BOARD_CONTENT, REF_CNO)
+				VALUES (SEQ_BNO.NEXTVAL, ?, ?, ?, ?, ?)
 	</entry>
 	
 </properties>
