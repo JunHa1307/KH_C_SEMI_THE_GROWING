@@ -134,5 +134,30 @@ public class BoardService {
 		
 		return result1 * result2;
 	}
+	
+	public int deleteBoard(int bno,  ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteBoard(conn, bno);
+		
+		int result2 = 1;
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i) != null) {
+				result2 = new BoardDao().deleteAttachment(conn, bno, list.get(i).getFileLevel());
+			}
+		}
+		
+		if(result > 0 && result2> 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result * result2;
+		
+	}
+	
 
 }
