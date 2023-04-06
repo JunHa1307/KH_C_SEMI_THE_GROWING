@@ -47,20 +47,49 @@
 	</entry>
 	
 	<entry key="selectAlbumInnerList">
-	SELECT FILE_NO, CHANGE_NAME, FILE_PATH
+	SELECT FILE_NO, CHANGE_NAME, FILE_PATH, FILE_LEVEL
 		FROM ATTACHMENT
 		WHERE REF_BNO = ?
-		ORDER BY FILE_NO
+		ORDER BY FILE_LEVEL
 	</entry>
 	
 	<entry key="selectAlbumBoard">
-	  SELECT BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE, FILE_PATH, CHANGE_NAME
+	  SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE, FILE_PATH, CHANGE_NAME
         FROM BOARD B 
         JOIN MEMBER M ON (M.USER_NO = B.REF_UNO)
         LEFT JOIN ATTACHMENT A ON (M.USER_NO = A.REF_UNO)
         WHERE BOARD_NO = ? AND BOARD_TYPE=3
 	
 	
+	</entry>
+	
+		<entry key="updateBoard">
+		UPDATE BOARD
+		SET BOARD_TITLE = ?,
+		BOARD_CONTENT = ?
+		WHERE BOARD_NO = ? 
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ?,
+			CHANGE_NAME = ?, 
+			FILE_PATH   = ?,
+			FILE_LEVEL =?
+			UPLOAD_DATE = SYSDATE
+		WHERE FILE_NO = ?
+		
+	</entry>
+	
+	<entry key="reInsertAttachment">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
+		VALUES(SEQ_ANO.NEXTVAL, ?, ?,?,?,?)	
+	</entry>
+	
+		<entry key="deleteAttachment">
+		DELETE FROM ATTACHMENT
+		WHERE REF_BNO = ? AND FILE_LEVEL =?
+		
 	</entry>
 	
 </properties>
