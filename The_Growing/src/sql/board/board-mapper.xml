@@ -75,6 +75,7 @@
 		SET ORIGIN_NAME = ?,
 			CHANGE_NAME = ?, 
 			FILE_PATH   = ?,
+			FILE_LEVEL =?
 			UPLOAD_DATE = SYSDATE
 		WHERE FILE_NO = ?
 		
@@ -83,6 +84,12 @@
 	<entry key="reInsertAttachment">
 		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
 		VALUES(SEQ_ANO.NEXTVAL, ?, ?,?,?,?)	
+	</entry>
+	
+		<entry key="deleteAttachment">
+		DELETE FROM ATTACHMENT
+		WHERE REF_BNO = ? AND FILE_LEVEL =?
+		
 	</entry>
 	
 </properties>

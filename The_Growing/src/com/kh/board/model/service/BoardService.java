@@ -114,11 +114,13 @@ public class BoardService {
 		// 새롭게 첨부된 파일이 있는 경우에만 update, insert문을 실행시킴. 
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i)!=null) {
+				System.out.println(list.get(i).toString());
 				// 기존에 첨부파일이 있었을 경우 => update문을 실행하기 위해서 fileNo값이 필요함. 
 				if(list.get(i).getFileNo() != 0) {
-					result2 = new BoardDao().updateAttachment(conn, list); 
+					int result12 = new BoardDao().deleteAttachment(conn, list.get(i).getRefBno(), list.get(i).getFileLevel()); 
+					result2 = new BoardDao().reInsertAttachment(conn, list.get(i));
 				}else { // 기존에 첨부파일이 없는 경우 => insert문에는 fileNo값이 필요없어서 at객체에 fileNo값이 안담겨있음 
-					result2 = new BoardDao().reInsertAttachment(conn, list);
+					result2 = new BoardDao().reInsertAttachment(conn, list.get(i));
 				}
 			}
 		}

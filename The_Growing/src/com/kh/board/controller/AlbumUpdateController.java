@@ -36,8 +36,8 @@ public class AlbumUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//int bno = Integer.parseInt(request.getParameter("bno"));
-		int bno = 2;
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		//int bno = 4;
 		Board b= new BoardService().selectAlbumBoard(bno);
 		ArrayList<Attachment> list = new BoardService().selectAlbumInnerList(bno);
 		
@@ -75,18 +75,31 @@ public class AlbumUpdateController extends HttpServlet {
 						b.setBoardTitle(title);
 						b.setBoardContent(content);
 						b.setBoardNo(bno);
-					
+						
 						// 새롭게 전달된 첨부파일이 있는 경우에만 at변수에 필요한 값을 추가할것 
 						ArrayList<Attachment> list = new ArrayList<Attachment>();
-					for(int i=1; i<=5; i++) {
+						
+						int index = 1;
+					
+						for(int i=1; i<=5; i++) {
+							if(multi.getOriginalFileName("file"+i) != null) {
+							index = i;
+							System.out.println(index);
+							}
+						}
+						
+					for(int i=1; i<=index; i++) {
+						
 						if(multi.getOriginalFileName("file"+i) != null) {
+							System.out.println(i);
 							Attachment at = new Attachment();
-							list.add(i-1, at);
-							list.get(i-1).setOriginName(multi.getOriginalFileName("file"+i));
-							list.get(i-1).setChangeName(multi.getFilesystemName("file"+i));
-							list.get(i-1).setFilePath("resources/album_upfiles/");
-							list.get(i-1).setFileLevel(i);
 							
+							at.setRefBno(bno);
+							at.setOriginName(multi.getOriginalFileName("file"+i));
+							at.setChangeName(multi.getFilesystemName("file"+i));
+							at.setFilePath("/resources/album_upfiles/");
+							at.setFileLevel(i);
+							list.add(at);
 							// 첨부파일이 원래 등록되어 있을경우 원본파일의 파일번호, 수정된 이름을 hidden 넘겨받았음
 							if(multi.getParameter("originFileNo"+(i-1)) != null ) {
 							
@@ -96,7 +109,7 @@ public class AlbumUpdateController extends HttpServlet {
 							
 								// 기존의 파일번호를 저장시키기 
 								list.get(i-1).setFileNo(Integer.parseInt(multi.getParameter("originFileNo"+(i-1))));
-								
+								System.out.println(list.get(i-1).getFileNo());
 								// 기존의 첨부파일을 삭제 
 								new File(path+multi.getParameter("changeFileName"+(i-1))).delete();
 							}else {
@@ -104,8 +117,10 @@ public class AlbumUpdateController extends HttpServlet {
 								// Attachment 테이블의 정보를 insert
 								
 								// REF_BNO에 현재 게시글 번호를 추가시켜줌. 
-								list.get(i-1).setRefBno(Integer.parseInt(multi.getParameter("bno")));
-
+								/*
+								 * list.get(i-1).setRefBno(Integer.parseInt(multi.getParameter("bno")));
+								 * System.out.println((multi.getParameter("bno")));
+								 */
 								
 								}
 							}

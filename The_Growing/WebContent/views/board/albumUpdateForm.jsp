@@ -44,11 +44,11 @@
 				</div>
 			
 			<div id="file-area" style="display:none;">
-				<input type="file" id ="file1" name="file1" onchange="loadImg(this, 1);" required>
-				<input type="file" id ="file2" name="file2" onchange="loadImg(this, 2);" >
-				<input type="file" id ="file3" name="file3" onchange="loadImg(this, 3);" >
-				<input type="file" id ="file4" name="file4" onchange="loadImg(this, 4);" >
-				<input type="file" id ="file5" name="file5" onchange="loadImg(this, 5);" >
+				<input type="file" id ="file1" name="file1" value="1" onchange="loadImg(this, 1);">
+				<input type="file" id ="file2" name="file2" value="2"  onchange="loadImg(this, 2);" >
+				<input type="file" id ="file3" name="file3" value="3"  onchange="loadImg(this, 3);" >
+				<input type="file" id ="file4" name="file4" value="4"  onchange="loadImg(this, 4);" >
+				<input type="file" id ="file5" name="file5" value="5"  onchange="loadImg(this, 5);" >
 			</div>
 					<%for (int i =0; i<list.size(); i++){ %>
 						<% if(list.get(i) != null) { %>
@@ -56,6 +56,7 @@
 							<!-- 원본파일의 파일번호, 수정명을 hidden으로 함께 전송할 예정 -->
 							<input type="hidden" name="originFileNo<%=i %>" value="<%=list.get(i).getFileNo() %>">
 							<input type="hidden" name="changeFileName<%=i %>" value="<%=list.get(i).getChangeName() %>">
+							<input type="hidden" name="filelevel<%=i %>" value="<%=list.get(i).getFileLevel() %>">
 						<%} %>
 							
 					<%} %>
