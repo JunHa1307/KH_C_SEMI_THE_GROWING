@@ -1,5 +1,9 @@
 package com.kh.member.model.service;
 
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -140,5 +144,20 @@ public class MemberService {
 		return userNo;
 	}
 	
-	
+	public int deleteMember(String userId, String userPwd) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		
+		int result = new MemberDao().deleteMember(conn, userId, userPwd);
+		
+		if(result > 0) {
+			commit(conn);
+			} else {
+				rollback(conn);
+			}
+
+			close(conn);
+		return result;
+	}
 }

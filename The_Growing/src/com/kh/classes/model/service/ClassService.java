@@ -263,4 +263,33 @@ public class ClassService {
 	 * 
 	 * return result*result2; }
 	 */
+	public ArrayList<Class> selectClassListAll() {
+		Connection conn = getConnection();
+
+		ArrayList<Class> list = new ClassDao().selectClassListAll(conn);
+
+		close(conn);
+
+		return list;
+
+	}
+	
+	public int updateClassCode(int cno, int classCode) {
+
+		
+		Connection conn = getConnection() ;
+		
+		int result= new ClassDao().updateClassCode(conn, cno, classCode);
+	
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 }

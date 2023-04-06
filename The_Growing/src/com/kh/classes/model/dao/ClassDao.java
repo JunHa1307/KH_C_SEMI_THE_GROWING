@@ -205,7 +205,6 @@ public class ClassDao {
 	
 	public int updateTable(Connection conn, int classNo, String arr) {
 		
-		// UPDATE臾� => 諛섑솚媛� 泥섎━�맂 �뻾�쓽 媛��닔媛� 諛섑솚�맖
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -250,6 +249,7 @@ public class ClassDao {
 	            cInfo = new Class();
 	            cInfo.setClassNo(rset.getInt("CLASS_NO"));
 	            cInfo.setClassName( rset.getString("CLASS_NAME"));
+	            cInfo.setClassCode(rset.getInt("CLASS_CODE"));
 	            cInfo.setClassGrade(rset.getInt("CLASS_GRADE"));
 	            cInfo.setClassTypeName(rset.getString("CLASS_TYPE_NAME"));
 	            cInfo.setTeacherName(rset.getString("TEACHER_NAME"));
@@ -508,7 +508,6 @@ public class ClassDao {
 	
 	public int updateClass(Connection conn, Class c, int uno) {
 		
-		// UPDATE臾� => 諛섑솚媛� 泥섎━�맂 �뻾�쓽 媛��닔媛� 諛섑솚�맖
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -640,4 +639,63 @@ public class ClassDao {
 	 * }
 	 */
 	
+	 public ArrayList<Class> selectClassListAll(Connection conn) {
+
+			ArrayList<Class> list = new ArrayList<>();
+
+			PreparedStatement pstmt = null;
+
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("selectClassListAll");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				rset = pstmt.executeQuery();
+				while (rset.next()) {
+					Class c = new Class();
+		            c.setClassNo(rset.getInt("CLASS_NO"));
+		            c.setClassGrade(rset.getInt("CLASS_GRADE"));
+		            c.setClassCode(rset.getInt("CLASS_CODE"));
+		            c.setClassName( rset.getString("CLASS_NAME"));
+		            c.setClassTypeName(rset.getString("CLASS_TYPE_NAME"));
+		            c.setTeacherName(rset.getString("TEACHER_NAME"));
+		            c.setAtptOfcdcScCode(rset.getString("ATPT_OFCDC_SC_CODE"));
+		            c.setSdSchulCode(rset.getInt("SD_SCHUL_CODE"));
+					list.add(c);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+	 
+	 public int updateClassCode(Connection conn, int cno, int classCode) {
+			
+			int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("updateClassCode");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1,classCode );
+				pstmt.setInt(2, cno);
+			
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
 }

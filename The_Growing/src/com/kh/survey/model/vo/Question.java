@@ -3,7 +3,7 @@ package com.kh.survey.model.vo;
 import java.util.Arrays;
 
 public class Question {
-	private int[] quesNo;
+	private int quesNo;
 	private int refSno;
 	private String[] quesType;
 	private String[] sTitle;
@@ -17,7 +17,7 @@ public class Question {
 		super();
 	}
 
-	public Question(int[] quesNo, int refSno, String[] quesType, String[] sTitle, String[] sContent, String[] mTitle,
+	public Question(int quesNo, int refSno, String[] quesType, String[] sTitle, String[] sContent, String[] mTitle,
 			String[] mContent, String[] itemNo, String[] itemContent) {
 		super();
 		this.quesNo = quesNo;
@@ -31,11 +31,11 @@ public class Question {
 		this.itemContent = itemContent;
 	}
 
-	public int[] getQuesNo() {
+	public int getQuesNo() {
 		return quesNo;
 	}
 
-	public void setQuesNo(int[] quesNo) {
+	public void setQuesNo(int quesNo) {
 		this.quesNo = quesNo;
 	}
 
@@ -105,7 +105,7 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Question [quesNo=" + Arrays.toString(quesNo) + ", refSno=" + refSno + ", quesType="
+		return "Question [quesNo=" + quesNo + ", refSno=" + refSno + ", quesType="
 				+ Arrays.toString(quesType) + ", sTitle=" + Arrays.toString(sTitle) + ", sContent="
 				+ Arrays.toString(sContent) + ", mTitle=" + Arrays.toString(mTitle) + ", mContent="
 				+ Arrays.toString(mContent) + ", itemNo=" + Arrays.toString(itemNo) + ", itemContent="
