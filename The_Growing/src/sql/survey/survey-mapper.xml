@@ -20,6 +20,11 @@
 		  AND STATUS = 'Y'
 		ORDER BY SURVEY_NO DESC
 	</entry>
+	<entry key="updateSurveyStatus">
+		UPDATE SURVEY 
+		SET	STATUS = 'N'
+		WHERE SURVEY_NO = ?
+	</entry>
 	<entry key="insertQuestion">
 		INSERT INTO QUESTION
 			VALUES (SEQ_QNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)
