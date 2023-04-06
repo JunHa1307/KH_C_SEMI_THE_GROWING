@@ -205,7 +205,7 @@ public class ClassDao {
 	
 	public int updateTable(Connection conn, int classNo, String arr) {
 		
-		// UPDATE문 => 반환값 처리된 행의 갯수가 반환됨
+		// UPDATE臾� => 諛섑솚媛� 泥섎━�맂 �뻾�쓽 媛��닔媛� 諛섑솚�맖
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -366,7 +366,7 @@ public class ClassDao {
 	
 	public int updateCalendar(Connection conn, int classNo, String arr) {
 		
-		// UPDATE문 => 반환값 처리된 행의 갯수가 반환됨
+		// UPDATE臾� => 諛섑솚媛� 泥섎━�맂 �뻾�쓽 媛��닔媛� 諛섑솚�맖
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -505,4 +505,139 @@ public class ClassDao {
 		
 		return result;
 	}
+	
+	public int updateClass(Connection conn, Class c, int uno) {
+		
+		// UPDATE臾� => 諛섑솚媛� 泥섎━�맂 �뻾�쓽 媛��닔媛� 諛섑솚�맖
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateClass");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, c.getClassGrade());
+			pstmt.setString(2, c.getClassName());
+			pstmt.setInt(3, c.getClassNo());
+			pstmt.setInt(4, uno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateAttachment(Connection conn, Attachment at) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int insertNewAttachment(Connection conn, Attachment at) {
+
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertNewAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, at.getRefCno());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public Attachment selectAttachment(Connection conn, int cno) {
+		Attachment at = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment();
+				
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDate(rset.getDate("UPLOAD_DATE"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return at;
+	}
+	
+	/*
+	 * public int deleteClass(Connection conn, int cno) { int result = 0;
+	 * 
+	 * PreparedStatement pstmt = null;
+	 * 
+	 * String sql = prop.getProperty("deleteClass");
+	 * 
+	 * try { pstmt = conn.prepareStatement(sql);
+	 * 
+	 * pstmt.setString(1, userId); pstmt.setString(2, userPwd);
+	 * 
+	 * result = pstmt.executeUpdate();
+	 * 
+	 * 
+	 * } catch (SQLException e) { e.printStackTrace(); } finally { close(pstmt); }
+	 * 
+	 * return result;
+	 * 
+	 * }
+	 */
+	
 }

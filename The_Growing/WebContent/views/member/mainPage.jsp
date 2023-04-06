@@ -592,7 +592,7 @@
 						
 						$(".prof_img").removeAttr("src");
 					}
-				}
+		}
 
     </script>
 </body>

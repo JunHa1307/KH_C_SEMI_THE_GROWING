@@ -70,7 +70,9 @@ public class Class {
 	
 	public Class(int classNo, int classGrade , String className) {
 		super();
-		
+		this.classNo = classNo;
+		this.classGrade = classGrade;
+		this.className = className;
 	}
 
 	public int getClassDate() {

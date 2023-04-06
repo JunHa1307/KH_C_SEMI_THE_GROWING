@@ -1,4 +1,4 @@
-package com.kh.management.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,19 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.classes.model.service.ClassService;
-import com.kh.common.model.vo.Attachment;
+import com.kh.classes.model.vo.Class;
+import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class moveManabementController
+ * Servlet implementation class AlbumFirstController
  */
-@WebServlet("/moveManagement.bo")
-public class moveManagementController extends HttpServlet {
+@WebServlet("/first.al")
+public class AlbumFirstController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public moveManagementController() {
+    public AlbumFirstController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,13 +31,16 @@ public class moveManagementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int uno = 2; //Integer.parseInt(request.getParameter("uno"));
+		int cno =2; //Integer.parseInt(request.getParameter("cno"));
 		
-		int cno = (int) request.getSession().getAttribute("cno");
-		Attachment at = new ClassService().selectAttachment(cno);
+		Class cInfo = new ClassService().selectClass(cno);
+		Member mInfo = new MemberService().loginMemberInfo(uno);
 		
-		request.setAttribute("at", at);
-		request.getRequestDispatcher("views/management/classSetting.jsp").forward(request,response);
 		
+		request.setAttribute("cInfo", cInfo);
+		request.setAttribute("mInfo", mInfo);
+		request.getRequestDispatcher("views/board/boardFrame.jsp").forward(request, response);
 	}
 
 	/**

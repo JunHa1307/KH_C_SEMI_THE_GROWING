@@ -15,7 +15,7 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class AlbumFirstController
  */
-@WebServlet("/first.al")
+@WebServlet("/first.al2")
 public class BoardFrameController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
