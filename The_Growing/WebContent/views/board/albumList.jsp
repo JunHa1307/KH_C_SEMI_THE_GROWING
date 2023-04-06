@@ -7,6 +7,7 @@
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	int cno = (int)request.getSession().getAttribute("cno");
+	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
 	//ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
 
 %>
@@ -441,11 +442,11 @@ div {
 			<div class="album_con1">
 				<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
 				<div class="album_con_title"
-					onclick="albumClick('<%=b.getBoardNo() %>');">
+					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>');">
 					<p><%=b.getBoardTitle() %></p>
 				</div>
 				<div class="album_con_file"
-					onclick="albumClick('<%=b.getBoardNo() %>');">
+					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>');">
 					<img src="<%=contextPath %><%=b.getTitleImg() %> ">
 				</div>
 				<div class="album_con_date"><%=b.getCreateDate() %></div>
@@ -634,16 +635,18 @@ div {
 
 
 
-        function albumClick(bno){
+        function albumClick(bno, level){
           
         	
         	$("#modal").attr("class",bno);
         	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno : bno},
+   				type : "get",
+				dataType : "html", 
    				success : function(list){
    					 console.log(list);
-   					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
+   				/* 	// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
    				 	 let result = "";
    					for(let i = 0; i<list.length; i++){
    						
@@ -658,8 +661,8 @@ div {
    	                '<div class="mo_reply_id">'+list[i].replyWriter+'</div>'+
    	                '<div class="mo_reply_date" >'+list[i].createDate +'</div></div>'; 
    						 
-   					}
-   					 $(".mo_reply").html(result); 
+   					} */
+   					 $(".mo_reply").html(list); 
    					 
    					 
    					 
@@ -674,16 +677,17 @@ div {
   				url : "<%=contextPath%>/boardSelect.bo",
   				data : { bno},
   				success : function(b){
-  			
+  					console.log(level);
   					 console.log(b);
   					 console.log(bno);
   				 	 let result = ""; 
-  					 
+  				 	if(level==1){
   						  result  += 
-  		   						
+  		   						 
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
   							'<div id="mo_date">'+b.createDate+
+  							
   							'<div id="menu" class="dropdown"'+
                                 'style="float: right; margin: -7% 0% 0% 10%;">'+
                                 '<button class="btn btn-secondary" type="button"'+
@@ -691,15 +695,33 @@ div {
                                    'aria-haspopup="true" aria-expanded="false" style="margin-top:7px; padding:0;"><img id="alarmIcon"'+
                                       'src="/growing/resources/image/icons8-메뉴-2-48.png" /></button><div id="menu" class="dropdown-menu"'+
                                    'aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="/growing/update.al?bno='+b.boardNo+'">수정</a>'+ 
-                                   '<a class="dropdown-item" href="/growing/delete.al?bno='+b.boardNo+'">삭제</a></div></div></div></div>'+
+                                   '<a class="dropdown-item" href="/growing/delete.al?bno='+b.boardNo+'">삭제</a></div></div>'+
+                                   '</div></div>'+
   						'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
   									'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
   								'<div id="mo_writer_id">'+b.userId+'</div>'+
-  								'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
-  							
+  								'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
+  				 	}else{
+  				 	  result  += 
+	   						
+							'<div id="mo_write_wrap">'+
+						'<div id="mo_title">'+b.boardTitle+'</div>'+
+						'<div id="mo_date">'+b.createDate+
+						
+
+                             '</div></div>'+
+					'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
+								'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+								'</div></div>'+
+							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
+						'<div id="mo_writer_content2">'+
+							'<div id="mo_writer_id">'+b.userId+'</div>'+
+							'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
+  				 		
+  				 	}
   		   						 
   		   					
   		   					 $("#mo_write_inner").html(result); 

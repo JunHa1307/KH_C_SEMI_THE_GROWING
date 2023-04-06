@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <style>
 
-/* 버튼 css */
+/* /* 버튼 css */
 .box {
       display: flex;
       background: #ffffff;
@@ -87,7 +87,7 @@
       opacity: 0;
       -webkit-transform: translate3d(0, -25%, 0);
       transform: translate3d(0, -25%, 0);
-    }
+    } */
 
 
 
@@ -238,6 +238,7 @@
         visibility: hidden;
         z-index: 5;
       }
+     
       #modal > div {
         float: left;
         height: 100%;
@@ -269,6 +270,8 @@
         width: 80%;
         height: 100%;
         margin: auto;
+        object-fit : cover;
+ vertical-align: middle;
      
       }
       #mo_write{
@@ -513,7 +516,7 @@
             <div id="album_area">
               <div id="album_title">앨범</div>
               <div id="album_button" align="right" class="box">
-                <button class="button_UI button--winona" data-text="다운로드" style="margin-right: 10px;" ><span>다운로드</span></button>
+                <button class="button_UI button--winona" data-text="다운로드" style="margin-right: 10px;" id="down"><span>다운로드</span></button>
                   <button class="button_UI button--winona board_album" data-text="게시물 보기" ><span>게시물 보기</span></button>
               </div>
             </div>
@@ -528,9 +531,10 @@
           	
             <div class="album_con1 class<%=i%>">
             <input type="hidden" id="fno"  value="<%=list.get(i).getFileNo() %>">
-               <input type="checkbox" class="file_check">
+               <input type="hidden" id="index"  value="<%=i %>">
+               <input type="checkbox" class="file_check" name="file_check">
               <div  class="album_con_file album_click">
-                <img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %> " width="200" height="150" >
+                <img id="down" src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %> " width="200" height="150" >
               </div>
             </div>
             <%} %>
@@ -553,9 +557,11 @@
                "
              >
                <div id="slider-div" >
+           
                  <%for(int i = 0; i<list.size(); i++) {%>
-                 <div ><img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" class="img_1" ></div>
+                  <div ><img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %>" class="img_1" ></div>
                   <%} %>
+     
                </div>
              </div>
           </div>
@@ -566,6 +572,8 @@
 
     <script>
       $(function () {
+    	  
+    	  
         $("#slider-div").slick({
           slide: "div", //슬라이드 되어야 할 태그 ex) div, li
           infinite: false, //무한 반복 옵션
@@ -595,12 +603,12 @@
 
 
         $(".album_click").click(function(){
-        	console.log($("#fno").val());
+        	
                 if($("#modal").css("visibility")=="hidden"){
                    $("#modal").css("visibility","visible");
                     $('body').css({overflow :"hidden",scroll:"no"});
                     $("#veil").css("display","block");
-                   
+                    $('#slider-div').slick('goTo', $(this).siblings("#index").val());
 
                 }
             });
@@ -635,7 +643,26 @@
                     }
                });
      
-    
+    			$("#down").click(function(){
+    				let file = document.getElementsByName("file_check"); 
+
+    	            let checkedItem = "";
+
+    	            for(let i = 0; i < file.length; i++){
+    	                if(file[i].checked){
+    	                let a = document.createElement('a');
+    	                	a.href = "<%=contextPath+ list.get(0).getFilePath()+list.get(0).getChangeName()%>"
+    	                	a.download = "<%=list.get(0).getChangeName() %>"
+    	                	document.body.appendChild(a);
+    	                	a.click();
+    	                	document.body.removeChild(a);
+    	                }
+    	                
+    	            }
+    	            console.log(checkedItem);
+    	            console.log(file);
+    			});
+    				
     
       });
       

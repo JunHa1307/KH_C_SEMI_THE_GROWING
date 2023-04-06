@@ -38,12 +38,16 @@ public class ReplyListController extends HttpServlet {
 		
 		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
 		
-		//Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기 
-		
-		response.setContentType("application/json; charset=UTF-8");
-		
-		new Gson().toJson(list, response.getWriter());
-		
+		/*
+		 * //Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기
+		 * 
+		 * response.setContentType("application/json; charset=UTF-8");
+		 * 
+		 * new Gson().toJson(list, response.getWriter());
+		 * 
+		 */
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/board/ajaxAlbumboardReply.jsp").forward(request, response);
 	
 	}
 
