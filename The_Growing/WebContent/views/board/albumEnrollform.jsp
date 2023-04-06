@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+[id^=contentImg]{
+
+	object-fit: cover;
+}
+</style>
 </head>
 <body>
 <%@include file="boardFrame.jsp" %>
