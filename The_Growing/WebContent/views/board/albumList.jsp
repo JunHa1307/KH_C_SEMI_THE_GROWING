@@ -189,6 +189,7 @@ div {
 #mo_write_wrap {
 	width: 100%;
 	height: 60px;
+	
 }
 
 #mo_write_wrap>div {
@@ -197,14 +198,14 @@ div {
 }
 
 #mo_title {
-	margin-top:10px;
 	width: 80%;
 	font-weight: 700;
 }
 
 #mo_date {
 	width: 20%;
-	text-align: right;
+	vertical-align:bottom;
+	
 }
 
 #mo_writer {
@@ -682,7 +683,15 @@ div {
   		   						
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
-  							'<div id="mo_date">'+b.createDate+'</div></div>'+
+  							'<div id="mo_date">'+b.createDate+
+  							'<div id="menu" class="dropdown"'+
+                                'style="float: right; margin: -7% 0% 0% 10%;">'+
+                                '<button class="btn btn-secondary" type="button"'+
+                                   'id="dropdownMenuButton" data-toggle="dropdown"'+
+                                   'aria-haspopup="true" aria-expanded="false" style="margin-top:7px; padding:0;"><img id="alarmIcon"'+
+                                      'src="/growing/resources/image/icons8-메뉴-2-48.png" /></button><div id="menu" class="dropdown-menu"'+
+                                   'aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="/growing/update.al?bno='+b.boardNo+'">수정</a>'+ 
+                                   '<a class="dropdown-item" href="#">삭제</a></div></div></div></div>'+
   						'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
   									'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
   									'</div></div>'+
