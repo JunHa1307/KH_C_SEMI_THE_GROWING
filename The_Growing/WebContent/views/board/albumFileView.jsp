@@ -597,6 +597,8 @@
 
     <script>
       $(function () {
+    	
+             
           $("#board_album").css("fontWeight", "700");
           $("#board_album").children().css("background", "rgb(239, 243, 239)");
 
@@ -611,6 +613,8 @@
                     $('#slider-div').slick('goTo', $(this).siblings("#index").val());
 
                 }
+                
+           
             });
 
 
@@ -634,36 +638,107 @@
               });
 
         
-
+            let a = [];
+            let UserName =[];
+            let filepath = [];
      $('.file_check').change(function(){
                     if($(this).prop("checked")){ 
                         $(this).siblings().css('border','3px rgb(50, 113, 231) solid');
+                        
                     }else{
                         $(this).siblings().css('border','none');
                     }
-               });
+                    
+                    a.push( $(this).siblings(".album_click").children("img").attr("src").trim());
+               /*   
+                   console.log(a);
+                   */
+                 
+     });
+  /*    console.log(a); */
+  let exR = [];
+     function download1(){
+    	
+    	 console.log(a);
+                 	for(let i =0; i<a.length; i++){  // 하나씩 다운로드 명령어 수행.
+              		  //alert(AllFiles[x])
+/* 	console.log(a[i]); */
+              	/* 	 exR.push( ); */
+              	console.log(i);
+              	console.log(a[i]);
+              		  //alert(exR[0])
+              	
+              		/*   var UserName = exR[i];
+              		  var filepath = a[i];  // 다운로드 경로를 상대경로로 작성해준다.  */
+              		  UserName.push(a[i].substr(-23));
+              		filepath.push(a[i]);
+              	/*     console.log(UserName);
+            		  console.log(filepath);   */
+              		download(UserName[i],filepath[i]); 
+              		
+              		}
+                	/* console.log(exR); */
+     }; 
+             
+ 	
+     function download(filename, filepath) {
+    
+    	  var element = document.createElement('a');
+    	  element.setAttribute('href',filepath);
+    	  element.setAttribute('download', filename);
+    	  document.body.appendChild(element);
+    	  element.click();
+		
+    	  //document.body.removeChild(element);
+    	};
+
+    	 
+    /* 	 console.log(UserName);
+ 		  console.log(filepath); */
      
-    			$("#down").click(function(){
+   			$("#down").click(function(){
+    	/* 		
+   			 console.log(UserName);
+    		  console.log(filepath); */
+    		  download1();
+   				
     				let file = document.getElementsByName("file_check"); 
 
     	            let checkedItem = "";
 
     	            for(let i = 0; i < file.length; i++){
-    	                if(file[i].checked){
+    	            <%--     if(file[i].checked){
     	                let a = document.createElement('a');
-    	                	a.href = "<%=contextPath+ list.get(0).getFilePath()+list.get(0).getChangeName()%>"
-    	                	a.download = "<%=list.get(0).getChangeName() %>"
+    	               
+    	                	a.href = "resources/album_upfiles/<%=list.get(1).getChangeName()%>";
+    	                	a.download = "<%=list.get(1).getChangeName()%>";
     	                	document.body.appendChild(a);
     	                	a.click();
-    	                	document.body.removeChild(a);
+    	                	 $('a').attr("id",'[link]');
+    	                	document.body.removeChild(a); --%>
+    	                	
+    	                	
     	                }
     	                
-    	            }
-    	            console.log(checkedItem);
-    	            console.log(file);
-    			});
+    	            
+    	   /*          console.log(checkedItem);
+    	            console.log(file); */
+    			}); 
+    			
+    		/* 	(function() {
+    			      document.getElementById('link').click();
+    			    setTimeout(function() {
+    			      document.getElementById('link').click();
+    			    }, 4000); */
     				
     
+   /*    }); */
+    			
+    
+
+    			
+    			
+    			
       });
       
     </script>

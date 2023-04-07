@@ -159,5 +159,51 @@ public class BoardService {
 		
 	}
 	
+	public int selectLike(int bno, int uno) {
+		Connection conn = getConnection();
+		int like  = new BoardDao().selectLike(conn, bno, uno);
+		close(conn);
+		return like;
+	}
+	
+	public int deleteLike(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteLike(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public int insertLike(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertLike(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public int selectLikeCount(int bno) {
+		Connection conn = getConnection();
+		int like  = new BoardDao().selectLikeCount(conn, bno);
+		close(conn);
+		return like;
+	}
+	
 
 }

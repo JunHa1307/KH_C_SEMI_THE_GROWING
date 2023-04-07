@@ -98,4 +98,26 @@
 		WHERE BOARD_NO = ? 
 		
 	</entry>
+	
+	<entry key="selectLike">
+		SELECT REF_BNO, REF_UNO
+		FROM LIKESS 
+		WHERE REF_BNO= ? AND REF_UNO =?
+	</entry>
+	
+	<entry key="insertLike">
+		INSERT INTO LIKESS(REF_BNO, REF_UNO) VALUES(?, ?)
+	</entry>
+	
+	<entry key="deleteLike">
+		DELETE FROM LIKESS WHERE REF_BNO= ? AND REF_UNO =?
+	</entry>
+	
+	<entry key="selectLikeCount">
+	SELECT COUNT(REF_BNO) AS LIKES
+	FROM LIKESS
+	JOIN BOARD ON (REF_BNO = BOARD_NO)
+	WHERE REF_BNO = ?
+	
+	</entry>
 </properties>

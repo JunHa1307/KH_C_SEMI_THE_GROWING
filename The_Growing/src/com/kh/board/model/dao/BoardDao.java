@@ -427,5 +427,120 @@ public int deleteBoard(Connection conn, int bno) {
 	
 }
 
+
+public int selectLike(Connection conn, int bno, int uno){
+	int like = 0;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			like = 1;
+		
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return like;
+	
+	
+}
+
+public int deleteLike(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+public int insertLike(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("insertLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+
+public int selectLikeCount(Connection conn, int bno){
+	int like = 0;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectLikeCount");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			like =rset.getInt("LIKES");
+		
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return like;
+	
+	
+}
+
 }
 

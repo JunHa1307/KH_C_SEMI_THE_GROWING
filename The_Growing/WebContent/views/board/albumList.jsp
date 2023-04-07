@@ -8,6 +8,7 @@
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	int cno = (int)request.getSession().getAttribute("cno");
 	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
+	int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 	//ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
 
 %>
@@ -27,7 +28,7 @@
 	width: 100px;
 	height: 100px;
 	transform: translate(-50%, -50%);
-	background: url("views/resources/image/heart.png") no-repeat;
+	background: url("resources/image/heart.png") no-repeat;
 	background-position: 0 0;
 	cursor: pointer;
 	animation: fave-heart 1s steps(28);
@@ -172,7 +173,7 @@ div {
 
 .img_1 {
 	width: 100%;
-	
+	height:100%;
 	object-fit: cover;
 }
 
@@ -567,8 +568,8 @@ div {
 				</div>
 				<div id="mo_reply_list">
 					<ul id="mo_icon">
-						<li><div class="heart like"></div></li>
-						<li class="like"><i class="bi"></i>좋아요 3</li>
+						<li><div class="heart like" onclick="likeClick('<%=uno %>');"></div></li>
+						<li class="like"><i class="bi"></i>좋아요 <div id="likeCount"></div></li>
 						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 4</li>
 						<li class="scrap"><i class="bi bi-star"
 							style="padding-right: 10px;"></i>스크랩</li>
@@ -801,16 +802,53 @@ div {
         });
 
         let i = 0;
-        $('.like').on('click',function(){
-          if(i==0){
+        //$('.like').on('click',function(){
+        function likeClick(uno){
+        	
+        let bno = $("#modal").attr("class");
+        
+     
+         /*  if(i==0){
           $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 1s steps(28)'})
-          i++;
-        }else if(i==1){
-          $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
-          i--;
-          }
-        });
+          i++; */
+          
+      	$.ajax({
+				url : "<%=contextPath%>/like.bo",
+				data : { bno ,
+						 uno :uno
+				},
+				
+				success : function(list){
+					 console.log(list); 
+					 let ls = list.split(",");
+					if(ls[0]==0){
+						  $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
+				       ls[1]
+							$("#like_Count").html;
+					}else{
+						 $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 1s steps(28)'})
+					}
+				
+					 
+					 
+					 
+				},
+				error: function(){
+					console.log("게시글 목록조회 실패")
+				}
+    	});
+          
+      /*   }else if(i==1){
+        
+          } */
+          
+          
+          
+          
+        };
 
+        
+        
         $('.button_UI').on('click',function(){
           if($(this).css('color')=='rgb(137, 180, 166)'){
             $(this).css('color', "black" );
