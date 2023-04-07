@@ -37,9 +37,8 @@ public class NoticeMoveController extends HttpServlet {
 		
 		session.setAttribute("refUno", refUno);
 		session.setAttribute("refCno", refCno);
-		
-		request.getRequestDispatcher("views/board/noticeListView.jsp").forward(request, response);
 
+		request.getRequestDispatcher("views/board/noticeFirstPage.jsp").forward(request, response);
 		
 	}
 
