@@ -38,7 +38,7 @@ public class AlbumListController extends HttpServlet {
 		int cno = (int)request.getSession().getAttribute("cno");
 	
 		ArrayList<Board> list = new BoardService().selectAlbumList(cno);
-		
+	
 		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/board/albumList.jsp").forward(request, response);
