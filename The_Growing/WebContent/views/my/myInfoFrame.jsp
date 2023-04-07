@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
+	String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -230,20 +231,30 @@
 }
 </style>
 <script>
-              $(function(){
-                  $(".my_li").click(function(){
-                      $(this).css("fontWeight","700").fadeIn(1000);
-                      $(this).children().css("background","rgb(239, 243, 239)");
-                      $(this).siblings(".my_li").css({fontWeight:"", color:"black"})
-                      $(this).siblings().children().css("background","");
-                  
-                  });
-                  
-                  
-          	
-        			$("#myClass").click(function(){
-        				location.href = "<%=contextPath%>/info.c";
+		const msg = "<%= alertMsg  %>";
+		
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("alertMsg"); %>
+		}
+	
+	</script>
+<script>
+	$(function(){
+	    $(".my_li").click(function(){
+	        $(this).css("fontWeight","700").fadeIn(1000);
+	        $(this).children().css("background","rgb(239, 243, 239)");
+	        $(this).siblings(".my_li").css({fontWeight:"", color:"black"})
+	        $(this).siblings().children().css("background","");
+	    
+	    });
+	       
+	    $("#myInfo").click(function(){
+			location.href = "<%=contextPath%>/myPage.me";
+		});
 
+		$("#myClass").click(function(){
+			location.href = "<%=contextPath%>/info.c";
 		});
 
 		$("#hamburgur>img").click(function() {
@@ -295,7 +306,6 @@
 						<li class="my_li" id="myInfo"><div>개인정보</div></li>
 						<li class="my_li" id="myClass"><div>나의 클래스</div></li>
 						<li class="my_li" id="myScrap"><div>나의 스크랩</div></li>
-
 					</ul>
 				</div>
 </body>
