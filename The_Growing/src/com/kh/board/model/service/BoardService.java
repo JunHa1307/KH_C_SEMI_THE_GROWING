@@ -163,36 +163,4 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
-	
-	public Board selectNotice (int bno){
-		Connection conn = getConnection();
-		
-		Board b = new BoardDao().selectNotice(conn, bno);
-		
-		close(conn);
-		
-		return b; 
-	}
-	
-	public Board updateNotice(Board b) {
-
-		Connection conn = getConnection();
-		
-		int result = new BoardDao().updateNotice(conn, b);
-		
-		Board updateNotice = null;
-		
-		if(result > 0) { // 성공
-			commit(conn);
-			
-			updateNotice = new BoardDao().selectNotice(conn, b.getBoardNo());
-		}else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		
-		return updateNotice;
-	}
 }
