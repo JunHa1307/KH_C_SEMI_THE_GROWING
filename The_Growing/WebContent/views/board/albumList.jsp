@@ -9,6 +9,8 @@
 	int cno = (int)request.getSession().getAttribute("cno");
 	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
 	int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+
+
 	//ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
 
 %>
@@ -36,30 +38,9 @@
 	position: absolute;
 }
 
-@
-keyframes fave-heart { 0% {
-	background-position: 0 0;
-}
-
-100
-
-
-%
-{
-background-position
-
-
-:
-
-
--2800px
-
-
-0
-;
-
-
-}
+@keyframes fave-heart { 
+	0% {background-position: 0 0;}
+	100%{background-position: -2800px 0;}
 }
 * {
 	font-family: "Gowun Dodum", sans-serif;
@@ -408,12 +389,11 @@ div {
 	font-size: 30px;
 	cursor: pointer;
 	outline: none;
-	padding-left: 20px;
 }
 
 .bi-chat-quote {
 	color: rgb(165, 227, 206);
-	padding-right: 10px;
+	padding-right: 20px;
 }
 </style>
 </head>
@@ -569,7 +549,7 @@ div {
 				<div id="mo_reply_list">
 					<ul id="mo_icon">
 						<li><div class="heart like" onclick="likeClick('<%=uno %>');"></div></li>
-						<li class="like"><i class="bi"></i>좋아요 <div id="likeCount"></div></li>
+						<li class="like"><i class="bi"></i>좋아요<div id="likeCount" style="width:25px;"></div></li>
 						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 4</li>
 						<li class="scrap"><i class="bi bi-star"
 							style="padding-right: 10px;"></i>스크랩</li>
@@ -783,6 +763,34 @@ div {
                 }
             });
             
+            
+        	$.ajax({
+				url : "<%=contextPath%>/likeSelect.bo",
+				data : { bno ,
+						 uno
+				},
+				success : function(list){
+					 console.log(list); 
+					 let ls = list.split(",");
+					 console.log(ls[1]); 
+					if(ls[0]==0){
+						  $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
+							$("#likeCount").html(ls[1]);
+							
+					}else{
+						 $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 1s steps(28)'})
+						 $("#likeCount").html(ls[1]);
+					}
+				
+					 
+					 
+					 
+				},
+				error: function(){
+					console.log("게시글 목록조회 실패")
+				}
+    	});
+            
         };
 
             let j = 0;
@@ -815,18 +823,19 @@ div {
       	$.ajax({
 				url : "<%=contextPath%>/like.bo",
 				data : { bno ,
-						 uno :uno
+						 uno
 				},
-				
 				success : function(list){
 					 console.log(list); 
 					 let ls = list.split(",");
+					 console.log(ls[1]); 
 					if(ls[0]==0){
 						  $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
-				       ls[1]
-							$("#like_Count").html;
+							$("#likeCount").html(ls[1]);
+							
 					}else{
 						 $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 1s steps(28)'})
+						 $("#likeCount").html(ls[1]);
 					}
 				
 					 

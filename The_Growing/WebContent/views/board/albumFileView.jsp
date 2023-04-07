@@ -516,7 +516,7 @@
             <div id="album_area">
               <div id="album_title">앨범</div>
               <div id="album_button" align="right" class="box">
-                <button class="button_UI button--winona" data-text="다운로드" style="margin-right: 10px;" id="down"><span>다운로드</span></button>
+                <button id="down"  class="button_UI button--winona" data-text="다운로드" style="margin-right: 10px;" ><span>다운로드</span></button>
                   <button class="button_UI button--winona board_album" data-text="게시물 보기" ><span>게시물 보기</span></button>
               </div>
             </div>
@@ -534,7 +534,7 @@
                <input type="hidden" id="index"  value="<%=i %>">
                <input type="checkbox" class="file_check" name="file_check">
               <div  class="album_con_file album_click">
-                <img id="down" src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %> " width="200" height="150" >
+                <img src="<%=contextPath %><%=list.get(i).getFilePath()+list.get(i).getChangeName() %> " width="200" height="150" >
               </div>
             </div>
             <%} %>
@@ -638,107 +638,65 @@
               });
 
         
-            let a = [];
-            let UserName =[];
-            let filepath = [];
+            
+       //파일 다운로드
+      let a = [];
+      let filename =[];
+      let filepath = [];
      $('.file_check').change(function(){
                     if($(this).prop("checked")){ 
                         $(this).siblings().css('border','3px rgb(50, 113, 231) solid');
-                        
+                        a.push( $(this).siblings(".album_click").children("img").attr("src").trim());
                     }else{
                         $(this).siblings().css('border','none');
+                        a.pop();
                     }
                     
-                    a.push( $(this).siblings(".album_click").children("img").attr("src").trim());
-               /*   
-                   console.log(a);
-                   */
+             console.log(a);
                  
      });
-  /*    console.log(a); */
-  let exR = [];
+
+     $("#down").click(function(){
+    	 	download1();
+     });
+     
      function download1(){
     	
-    	 console.log(a);
-                 	for(let i =0; i<a.length; i++){  // 하나씩 다운로드 명령어 수행.
-              		  //alert(AllFiles[x])
-/* 	console.log(a[i]); */
-              	/* 	 exR.push( ); */
-              	console.log(i);
-              	console.log(a[i]);
-              		  //alert(exR[0])
+             for(let i =0; i<a.length; i++){  
+            	 	filename.push(a[i].substr(-23));
+              	filepath.push(a[i]);
               	
-              		/*   var UserName = exR[i];
-              		  var filepath = a[i];  // 다운로드 경로를 상대경로로 작성해준다.  */
-              		  UserName.push(a[i].substr(-23));
-              		filepath.push(a[i]);
-              	/*     console.log(UserName);
-            		  console.log(filepath);   */
-              		download(UserName[i],filepath[i]); 
-              		
-              		}
-                	/* console.log(exR); */
+              	console.log(filename);
+            		console.log(filepath);
+           
+              	download(filename[i],filepath[i]); 
+         
+              	
+          
+            };
+             for(let i =0; i<a.length; i++){  
+         	 	filename.pop();
+           		filepath.pop();
+           	
+           	   	console.log("pop : filename"+filename);
+    				console.log("pop : filepath"+filepath);
+        
+         };
      }; 
              
  	
      function download(filename, filepath) {
     
-    	  var element = document.createElement('a');
+    	  let element = document.createElement('a');
     	  element.setAttribute('href',filepath);
     	  element.setAttribute('download', filename);
     	  document.body.appendChild(element);
     	  element.click();
-		
-    	  //document.body.removeChild(element);
     	};
+    	
+    	
+   	
 
-    	 
-    /* 	 console.log(UserName);
- 		  console.log(filepath); */
-     
-   			$("#down").click(function(){
-    	/* 		
-   			 console.log(UserName);
-    		  console.log(filepath); */
-    		  download1();
-   				
-    				let file = document.getElementsByName("file_check"); 
-
-    	            let checkedItem = "";
-
-    	            for(let i = 0; i < file.length; i++){
-    	            <%--     if(file[i].checked){
-    	                let a = document.createElement('a');
-    	               
-    	                	a.href = "resources/album_upfiles/<%=list.get(1).getChangeName()%>";
-    	                	a.download = "<%=list.get(1).getChangeName()%>";
-    	                	document.body.appendChild(a);
-    	                	a.click();
-    	                	 $('a').attr("id",'[link]');
-    	                	document.body.removeChild(a); --%>
-    	                	
-    	                	
-    	                }
-    	                
-    	            
-    	   /*          console.log(checkedItem);
-    	            console.log(file); */
-    			}); 
-    			
-    		/* 	(function() {
-    			      document.getElementById('link').click();
-    			    setTimeout(function() {
-    			      document.getElementById('link').click();
-    			    }, 4000); */
-    				
-    
-   /*    }); */
-    			
-    
-
-    			
-    			
-    			
       });
       
     </script>
