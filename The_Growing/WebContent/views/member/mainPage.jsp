@@ -63,7 +63,7 @@
 				</div>
 				<span class="myProfile-name"> <%= loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %>
 				</span>
-				<button class="button_UI button--winona" data-text="마이페이지" onclick="location.href='<%= contextPath %>/myPage.me'">
+				<button class="button_UI button--winona" data-text="마이페이지">
 					<span>마이페이지</span>
 				</button>
 				<% try{
@@ -126,7 +126,7 @@
 						</div>
 					<% } %>
 				</div>
-				<nav class="myClass-btn" onclick="location.href='<%= contextPath %>/info.c'"
+				<nav class="myClass-btn"
 					style="background-image: url('<%= contextPath %>/resources/image/houses-fill.svg');">
 					<img src="<%= contextPath %>/resources/image/houses-fill.svg"
 						alt="클래스 더보기" width="0" height="90%"> <span>클래스<br>더보기

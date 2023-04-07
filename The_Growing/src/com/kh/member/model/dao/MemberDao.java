@@ -1,7 +1,5 @@
 package com.kh.member.model.dao;
 
-import static com.kh.common.JDBCTemplate.close;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +11,6 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
-import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
 import com.kh.member.model.vo.SnsLogin;
 
@@ -322,236 +319,80 @@ public Member loginMemberInfo(Connection conn, int uno) {
 		return m;		
 	}
 	
-	public int selectUserNo(Connection conn, String userId, int userLevel) {
+public int selectUserNo(Connection conn, String userId, int userLevel) {
+	
+	// Select문 => ResultSet객체(조회된 행은 1개이거나 없거나)
+	Member m = null;
+	
+	ResultSet rset= null;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("selectUserNo");
+	
+	int userNo = 0;
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		// Select문 => ResultSet객체(조회된 행은 1개이거나 없거나)
-		Member m = null;
+		pstmt.setString(1, userId);
+		pstmt.setInt(2, userLevel);
 		
-		ResultSet rset= null;
+		rset = pstmt.executeQuery();
 		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("selectUserNo");
-		
-		int userNo = 0;
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			pstmt.setInt(2, userLevel);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				userNo = rset.getInt("USER_NO");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rset.close();
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		if(rset.next()) {
+			userNo = rset.getInt("USER_NO");
 		}
 		
-		return userNo;		
-	}	
-		
-	public int deleteMember(Connection conn, String userId, String userPwd) {
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("deleteMember");
-		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
 		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
-			
-			result = pstmt.executeUpdate();
-			
+			rset.close();
+			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(pstmt);
-			
 		}
-		return result;
+	}
+	
+	return userNo;		
+}	
+	
+public int deleteMember(Connection conn, String userId, String userPwd) {
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteMember");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, userId);
+		pstmt.setString(2, userPwd);
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		JDBCTemplate.close(pstmt);
+		
+	}
+	return result;
+			
 				
-					
-	}
+}
+
 	
-	public int[] selectSnsType(Connection conn, int uno) {
-		int[] snsType = new int[2];
-		
-		PreparedStatement pstmt = null;
-		
-		ResultSet rset= null;
-		
-		String sql = prop.getProperty("selectSnsType");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, uno);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				snsType[0] = rset.getInt("SNS_TYPE");
-				snsType[1] = rset.getInt("SNS_ENROLL_DATE");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rset.close();
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return snsType;
-	}
-		
-	public int updateMember(Connection conn, Member m) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("updateMember");
-		
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, m.getUserId());
-			pstmt.setString(2, m.getUserName());
-			pstmt.setString(3, m.getPhone());
-			pstmt.setString(4, m.getAddress());
-			pstmt.setInt(5, m.getUserNo());
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-		
-	public int selectAttachmentNo(Connection conn, String changeName) {
-		int ano = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		ResultSet rset= null;
-		
-		String sql = prop.getProperty("selectAttachmentNo");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, changeName);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				ano = rset.getInt("FILE_NO");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rset.close();
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return ano;
-	}
-
-	public int updateAttachment(Connection conn, Attachment at) {
-		int result = 0;
-
-		PreparedStatement pstmt = null;
-
-		String sql = prop.getProperty("updateAttachment");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			pstmt.setInt(4, at.getFileNo());
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
 	
-	public int reInsertAttachment(Connection conn, Attachment at) {
-		int result = 0;
-
-		PreparedStatement pstmt = null;
-
-		String sql = prop.getProperty("reInsertAttachment");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, at.getRefUno());
-			pstmt.setString(2, at.getOriginName());
-			pstmt.setString(3, at.getChangeName());
-			pstmt.setString(4, at.getFilePath());
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
 	
-	public int updatePassword(Connection conn, int uno, String oldPwd, String newPwd) {
-		int result = 0;
-
-		PreparedStatement pstmt = null;
-
-		String sql = prop.getProperty("updatePassword");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, newPwd);
-			pstmt.setInt(2, uno);
-			pstmt.setString(3, oldPwd);
-
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
+	
+	
+	
+	
+	
+	
 	
 	
 }

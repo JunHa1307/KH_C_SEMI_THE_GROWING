@@ -88,51 +88,14 @@
 		  AND STATUS = 'Y'
 	</entry>
 	
-	<entry key="deleteMember">
-	UPDATE MEMBER SET
-	STATUS = 'N', 
-	MODIFY_DATE = SYSDATE
-	WHERE USER_ID = ? 
-	  AND USER_PWD = ? 
+		<entry key="deleteMember">
+		UPDATE MEMBER SET
+		STATUS = 'N', 
+		MODIFY_DATE = SYSDATE
+		WHERE USER_ID = ? 
+		  AND USER_PWD = ? 
 	
 	</entry>
-	<entry key="selectSnsType">
-		SELECT SNS_TYPE, SNS_ENROLL_DATE
-		FROM SNS_LOGIN
-		WHERE USER_NO = ?
-	</entry>
-	<entry key="updateMember">
-		UPDATE MEMBER 
-		SET USER_ID = ?,
-			USER_NAME = ?,
-			PHONE = ?,
-			ADDRESS = ?
-		WHERE USER_NO = ?
-			AND STATUS = 'Y'
-	</entry>
-	<entry key="selectAttachmentNo">
-		SELECT FILE_NO
-		FROM ATTACHEMENT
-		WHERE CHANGE_NAME = ?
-	</entry>
-	<entry key="updateAttachment">
-		UPDATE ATTACHMENT
-		SET ORIGIN_NAME = ?,
-		 	CHANGE_NAME = ?,
-		 	 FILE_PATH = ?,
-		 	 UPLOAD_DATE = SYSDATE
-		 WHERE FILE_NO = ?
-		 	AND STATUS = 'Y'
-	</entry>
-	<entry key="reInsertAttachment">
-		INSERT INTO ATTACHMENT(FILE_NO, REF_UNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL)
-		VALUES (SEQ_ANO.NEXTVAL, ?, ?, ? ,?, SYSDATE, 1)
-	</entry>
-	<entry key="updatePassword">
-		UPDATE MEMBER
-		SET USER_PWD = ?,
-			MODIFY_DATE = SYSDATE
-		 WHERE USER_NO = ?
-		 	AND USER_PWD = ?
-	</entry>
+	
+
 </properties>

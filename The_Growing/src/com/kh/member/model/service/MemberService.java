@@ -2,14 +2,12 @@ package com.kh.member.model.service;
 
 import static com.kh.common.JDBCTemplate.close;
 import static com.kh.common.JDBCTemplate.commit;
-import static com.kh.common.JDBCTemplate.getConnection;
 import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.kh.common.JDBCTemplate;
-import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
 import com.kh.member.model.vo.SnsLogin;
@@ -160,78 +158,6 @@ public class MemberService {
 			}
 
 			close(conn);
-		return result;
-	}
-	
-	public int[] selectSnsType(int uno) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int[] type = new MemberDao().selectSnsType(conn, uno);
-		
-		return type;
-	}
-	
-	public int updateMember(Member m) {
-		Connection conn = getConnection() ;
-		
-		int result= new MemberDao().updateMember(conn, m);
-	
-		
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		
-		return result;	
-	}
-	
-	public int selectAttachmentNo(String changeName) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int ano = new MemberDao().selectAttachmentNo(conn,changeName);
-		
-		return ano;
-	}
-	
-	public int updateAttachment(Attachment at) {
-		
-		Connection conn = getConnection();
-
-		int result = 1;
-
-		if (at != null) {
-			if (at.getFileNo() != 0) {
-				result = new MemberDao().updateAttachment(conn, at);
-			}else {	
-				result = new MemberDao().reInsertAttachment(conn, at);
-			}
-		}
-
-		if ( result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
-	
-	public int updatePassword(int uno, String oldPwd, String newPwd) {
-		
-		Connection conn = getConnection();
-
-		int result = new MemberDao().updatePassword(conn, uno, oldPwd, newPwd);
-
-		if ( result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
 		return result;
 	}
 }
