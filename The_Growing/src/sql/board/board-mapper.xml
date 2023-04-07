@@ -63,7 +63,7 @@
 	
 	</entry>
 	
-		<entry key="updateBoard">
+	<entry key="updateBoard">
 		UPDATE BOARD
 		SET BOARD_TITLE = ?,
 		BOARD_CONTENT = ?
@@ -90,6 +90,35 @@
 		DELETE FROM ATTACHMENT
 		WHERE REF_BNO = ? AND FILE_LEVEL =?
 		
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, REF_UNO, BOARD_TITLE, BOARD_CONTENT, REF_CNO)
+				VALUES (SEQ_BNO.NEXTVAL, ?, ?, ?, ?, ?)
+	</entry>
+	
+	<entry key="selectNoticeList">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE
+		FROM BOARD 
+		WHERE BOARD_TYPE = 2
+		AND REF_CNO = ?
+		AND STATUS = 'Y'
+		ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<entry key="selectNotice">
+	  SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE
+        FROM BOARD B
+        JOIN MEMBER M ON (M.USER_NO = B.REF_UNO)
+        WHERE BOARD_NO = ? 
+        AND BOARD_TYPE = 2
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE BOARD
+		SET BOARD_TITLE = ?,
+			BOARD_CONTENT = ?
+		WHERE BOARD_NO = ? 
 	</entry>
 	
 </properties>

@@ -1,6 +1,8 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,18 +12,19 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.common.model.vo.Attachment;
 
 /**
- * Servlet implementation class NoticeInsertController
+ * Servlet implementation class NoticeUpdateController
  */
-@WebServlet("/insert.no")
-public class NoticeInsertController extends HttpServlet {
+@WebServlet("/update.no")
+public class NoticeUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeInsertController() {
+    public NoticeUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,43 +33,41 @@ public class NoticeInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		
+		request.getSession().setAttribute("bno", bno);
+		Board b = new BoardService().selectNotice(bno);
+		
+		request.setAttribute("b", b);
+		request.getRequestDispatcher("views/board/noticeUpdateForm.jsp").forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("UTF-8");
 		
-		int refUno = (int) request.getSession().getAttribute("refUno");
-		int refCno = (int) request.getSession().getAttribute("refCno");
-		Board b2 = new Board();
+		Board b = new Board();
+		int bno = (int) request.getSession().getAttribute("bno");
+		b.setBoardNo(bno);
+		b.setBoardTitle(request.getParameter("title"));
+		b.setBoardContent(request.getParameter("content"));
 		
-		b2.setBoardType(2);
-		b2.setBoardTitle(request.getParameter("title"));
-		b2.setBoardContent(request.getParameter("content"));
-		b2.setRefUno(refUno);
-		b2.setRefCno(refCno);
-		
-		System.out.println(b2.toString());
-		int result = new BoardService().insertNotice(b2);
-		
-		if(result > 0) { // 성공적으로 작성 => 최신글 목록으로 이동
-			
+		Board updateNotice = new BoardService().updateNotice(b);
+				
+		if(updateNotice != null) {
 			HttpSession session = request.getSession();
+			session.setAttribute("updateNotice", updateNotice);
 			
-			session.setAttribute("b2", b2);
-			
-			request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
+			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
 			response.sendRedirect(request.getContextPath()+"/list.no");
-		} else { // 실패시에는 -> 첨부파일이 있었을 경우 이미 업로드된 첨부파일을 삭제해주기!(용량만 차지함)
-
-			request.setAttribute("errorMsg", "게시글 작성 실패");
+		}else {
+			request.setAttribute("errorMsg", "게시글 수정에 실패했습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
 		}
 		
 	}

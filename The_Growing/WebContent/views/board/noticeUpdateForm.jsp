@@ -1,5 +1,9 @@
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Board b = (Board) request.getAttribute("b");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +16,7 @@
 <body>
 <%@include file="boardFrame.jsp" %>
       <div id="board_area">
-         <form action="<%= contextPath %>/insert.no" id="enroll-form" method="post">
+         <form action="<%= contextPath %>/update.no" id="enroll-form" method="post">
             <div id="album_header">
                 <div id="album_area">
                   <div id="album_title">알림장</div>
@@ -24,8 +28,8 @@
                   <hr />
                 </div>
               </div>
-                  <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99"></div>
-                <textarea id="summernote" name="content"></textarea>
+                  <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" value="<%= b.getBoardTitle() %>" required size="99"></div>
+                <textarea id="summernote" name="content"><%= b.getBoardContent() %></textarea>
     
       </form>
    
