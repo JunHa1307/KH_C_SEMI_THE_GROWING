@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
+
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
 <!DOCTYPE html>
@@ -74,6 +75,7 @@
 <%@include file="boardFrame.jsp" %>
 <div id="board_area">
 	<form action="<%= contextPath %>/enroll.no" method="post">
+
 	<div id="album_header">
     	<div id="album_area">
        		<div id="album_title">알림장</div>
@@ -82,11 +84,12 @@
                   <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
             	  <button type="button" class="ctBtn button_UI button--winona" onclick="folderDeleteClick();">삭제</button>
             	<% } %>
+
             </div>
         </div>
         <hr>
      </div>
-     
+
      <script>
      	function folderDeleteClick(){
     	  var checkBoxArr = []; 

@@ -34,8 +34,9 @@ public class NoticeListController extends HttpServlet {
 		int refCno = (int) request.getSession().getAttribute("refCno");
 		
 		ArrayList<Board> list2 = new BoardService().selectNoticeList(refCno);
-		
+
 		request.getSession().setAttribute("list2", list2);
+
 		request.getRequestDispatcher("views/board/noticeListView.jsp").forward(request, response);
 	}
 

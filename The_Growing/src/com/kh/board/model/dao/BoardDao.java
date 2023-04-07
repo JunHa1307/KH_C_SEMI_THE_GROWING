@@ -525,5 +525,6 @@ public int deleteAttachment(Connection conn, int bno, int filelevel) {
 		
 		return result;
 	}
+
 }
 
