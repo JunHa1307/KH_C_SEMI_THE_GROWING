@@ -120,4 +120,31 @@
 	WHERE REF_BNO = ?
 	
 	</entry>
+	
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) AS COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y' AND REF_CNO =?
+			
+	</entry>
+	<entry key="selectList">
+	SELECT * 	
+	FROM(
+			SELECT ROWNUM RNUM, A.*
+			FROM(
+				SELECT
+					BOARD_NO,
+					BOARD_TYPE,
+					BOARD_TITLE,
+					USER_ID,
+					CREATE_DATE
+				FROM  BOARD B 
+				JOIN MEMBER ON (REF_UNO = USER_NO)
+				WHERE B.STATUS = 'Y' AND REF_CNO = ?
+				ORDER BY CREATE_DATE DESC
+			) A
+		)
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>

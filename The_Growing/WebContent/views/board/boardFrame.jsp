@@ -550,7 +550,9 @@ vertical-align: middle;
                   
                   });
                   
-                  
+                  $("#board_recent").click(function(){
+      				location.href="<%=contextPath%>/resent.bo";
+      			});
           	
         			$(".board_album").click(function(){
         				location.href = "<%=contextPath %>/list.al";
@@ -587,6 +589,8 @@ vertical-align: middle;
         			$("#board_option").click(function(){
         				location.href="<%=contextPath%>/infor.bo";
         			});
+        			
+        			
               });
            
       

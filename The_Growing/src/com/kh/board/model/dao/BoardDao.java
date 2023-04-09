@@ -14,6 +14,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.PageInfo;
 import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.Attachment;
 
@@ -540,6 +541,90 @@ public int selectLikeCount(Connection conn, int bno){
 	return like;
 	
 	
+}
+
+public ArrayList<Board> selectList(Connection conn, PageInfo pi, int cno){
+	
+	ArrayList<Board> list = new ArrayList<>();
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		/*
+		 * boardLimit가 10이라고 가정
+		 * currentPage 1을 요청시 -> 1 ~ 10 
+		 * currentPage 2을 요청시 -> 11 ~ 20
+		 * currentPage n을 요청시 -> 시작값 : (currentPage -1) * boardLimit + 1 ~ 시작값 + boardLimit -1 
+		 */
+		int startRow = ( pi.getCurrentPage() -1 ) * pi.getBoardLimit() + 1 ;
+		int endRow = startRow + pi.getBoardLimit() -1; 
+		
+		pstmt.setInt(1, cno);
+		pstmt.setInt(2, startRow);
+		pstmt.setInt(3, endRow);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			Board b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO"));
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+								
+			list.add(b);
+					
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return list;
+}
+
+public int selectListCount(Connection conn, int cno) {
+	int listCount = 0; 
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectListCount");
+	/*
+	 * SELECT COUNT(*) AS COUNT
+	 * FROM BOARD
+	 * WHERE STATUS = 'Y'
+	 *   AND BOARD_TYPE = 1
+	 * 
+	 */
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, cno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("COUNT");
+			
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return listCount;
 }
 
 }

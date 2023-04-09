@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.PageInfo;
 import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.Attachment;
 
@@ -205,5 +206,24 @@ public class BoardService {
 		return like;
 	}
 	
+	public ArrayList<Board> selectList(PageInfo pi, int cno){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectList(conn, pi, cno);
+		
+		close(conn);
+		
+		return list;
+	}
+	public int selectListCount(int cno) {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().selectListCount(conn, cno);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
 
 }
