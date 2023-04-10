@@ -63,69 +63,31 @@ public class AttendanceController extends HttpServlet {
 		ArrayList<String> memberInfo = service.selectClassMemberName(cno);
 		ArrayList<String> memberName = new ArrayList<String>();
 		ArrayList<String> memberUno = new ArrayList<String>();
-		
-		for(int i = 0; i < memberInfo.size(); i++) {
-			if(i%2 == 0) {
-				memberName.add(memberInfo.get(i));
-			}else {
-				memberUno.add(memberInfo.get(i));
-			}
-		}
-		Collections.sort(memberName);
-		if(attendTable.size() == 0) { 
+		if(memberInfo.size() == 0) {
+			request.setAttribute("errorMsg", "이 클래스에는 출석부에 등록할 학생이 없습니다.");
 			 
-			ArrayList<String> arr = new ArrayList<String>();
-			
-			for(int i = 0; i < memberName.size(); i++) {
-				
-				arr.add(addAttendMember(memberName.get(i),lastDay).replace("[", "").replace("]", ""));
-			}
-			
-			int result = service.insertAttendTable(cno,arr.toString(),month);
-			
-			if(result > 0) {
-				attendTable = service.selectAttendTable(cno, month);
-				request.setAttribute("attendTable", attendTable);
-			 
-				request.getRequestDispatcher("views/board/attendance.jsp").forward(request,response); 
-				 
-			}else { 
-				request.setAttribute("errorMsg", "출석부 생성에 실패 했습니다.");
-				 
-				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
-			} 
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
 		}else {
 			
-			ArrayList<String> tableCheck = new ArrayList<String>();
-			for(int i = 0; i < attendTable.size(); i++) {
-				tableCheck.add(attendTable.toString().replace("[","").split(",")[i].split("/")[0].trim());
-			}
-			Collections.sort(tableCheck);
-			boolean isUpdated = true;
-
-			for(int i = 0; i < tableCheck.size(); i++) {
-				String memberstr = memberName.get(i);
-				
-				if(!tableCheck.get(i).equals(memberstr)) {
-					isUpdated = false;
-					if(tableCheck.get(i-1).equals(memberstr)) {							
-						attendTable.add(addAttendMember(memberstr,lastDay));
-						tableCheck.add(memberstr);
-						Collections.sort(tableCheck);
-					}else if(tableCheck.get(i+1).equals(memberstr)){
-						attendTable.remove(i);
-						tableCheck.remove(i);
-					}else {
-						attendTable.add(addAttendMember(memberstr,lastDay));
-						tableCheck.add(memberstr);
-						Collections.sort(tableCheck);
-					}
+			for(int i = 0; i < memberInfo.size(); i++) {
+				if(i%2 == 0) {
+					memberName.add(memberInfo.get(i));
+				}else {
+					memberUno.add(memberInfo.get(i));
 				}
 			}
-			
-			 if(!isUpdated) {
-				int result = service.updateAttendTable(attendTable.toString(), cno, month);
+			Collections.sort(memberName);
+			if(attendTable.size() == 0) { 
+				 
+				ArrayList<String> arr = new ArrayList<String>();
+				
+				for(int i = 0; i < memberName.size(); i++) {
 					
+					arr.add(addAttendMember(memberName.get(i),lastDay).replace("[", "").replace("]", ""));
+				}
+				
+				int result = service.insertAttendTable(cno,arr.toString(),month);
+				
 				if(result > 0) {
 					attendTable = service.selectAttendTable(cno, month);
 					request.setAttribute("attendTable", attendTable);
@@ -137,11 +99,54 @@ public class AttendanceController extends HttpServlet {
 					 
 					RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
 				} 
-			 }else {
-				 request.setAttribute("attendTable", attendTable);
-				 request.getRequestDispatcher("views/board/attendance.jsp").forward(request,response); 				 
-			 }
-			 
+			}else {
+				
+				ArrayList<String> tableCheck = new ArrayList<String>();
+				for(int i = 0; i < attendTable.size(); i++) {
+					tableCheck.add(attendTable.toString().replace("[","").split(",")[i].split("/")[0].trim());
+				}
+				Collections.sort(tableCheck);
+				boolean isUpdated = true;
+	
+				for(int i = 0; i < tableCheck.size(); i++) {
+					String memberstr = memberName.get(i);
+					
+					if(!tableCheck.get(i).equals(memberstr)) {
+						isUpdated = false;
+						if(tableCheck.get(i-1).equals(memberstr)) {							
+							attendTable.add(addAttendMember(memberstr,lastDay));
+							tableCheck.add(memberstr);
+							Collections.sort(tableCheck);
+						}else if(tableCheck.get(i+1).equals(memberstr)){
+							attendTable.remove(i);
+							tableCheck.remove(i);
+						}else {
+							attendTable.add(addAttendMember(memberstr,lastDay));
+							tableCheck.add(memberstr);
+							Collections.sort(tableCheck);
+						}
+					}
+				}
+				
+				 if(!isUpdated) {
+					int result = service.updateAttendTable(attendTable.toString(), cno, month);
+						
+					if(result > 0) {
+						attendTable = service.selectAttendTable(cno, month);
+						request.setAttribute("attendTable", attendTable);
+					 
+						request.getRequestDispatcher("views/board/attendance.jsp").forward(request,response); 
+						 
+					}else { 
+						request.setAttribute("errorMsg", "출석부 생성에 실패 했습니다.");
+						 
+						RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
+					} 
+				 }else {
+					 request.setAttribute("attendTable", attendTable);
+					 request.getRequestDispatcher("views/board/attendance.jsp").forward(request,response); 				 
+				 }
+			}
 		}
 		 
 	}

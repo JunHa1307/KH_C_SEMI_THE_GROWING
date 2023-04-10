@@ -14,6 +14,9 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
+
+import com.kh.board.model.vo.PageInfo;
+
 import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.Attachment;
 import com.kh.common.model.vo.PageInfo;
@@ -160,293 +163,475 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		return list;
 	}
 
-	public int selectListCount(Connection conn) {
+
+
+public int insertReply(Connection conn, String content, int bno, int writer) {
+	int result = 0;
+	PreparedStatement pstmt = null;
 	
-		int listCount = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectListCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
+	String sql = prop.getProperty("insertReply");
 	
-		return listCount;
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, content);
+		pstmt.setInt(2, bno);
+		pstmt.setInt(3, writer);
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
 	}
 	
-		public ArrayList<Board> selectList(Connection conn, PageInfo pi){
+	return result;
+}
+
+public ArrayList<Reply> selectReplyList(Connection conn, int bno){
+	ArrayList<Reply> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectReplyList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		ArrayList<Board> list = new ArrayList<>();
+		pstmt.setInt(1, bno);
 		
-		PreparedStatement pstmt = null;
+		rset = pstmt.executeQuery();
 		
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-		
-		
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				Board b = new Board(rset.getInt("BOARD_NO"),
-									rset.getString("USER_ID"),
-						            rset.getString("BOARD_TITLE"),
-						            rset.getDate("CREATE_DATE"),
-						            rset.getInt("REF_CNO"));
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
+		while(rset.next()) {
+
+			Reply r = new Reply();
+			r.setReplyNo(rset.getInt("REPLY_NO"));
+			r.setReplyContent(rset.getString("REPLY_CONTENT"));
+			r.setCreateDate(rset.getString("CREATE_DATE"));
+			r.setReplyWriter(rset.getString("USER_ID"));
+			list.add(r);
 		}
-		return list;
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+	
+	
+}
+
+
+public ArrayList<Attachment> selectAlbumInnerList(Connection conn, int bno){
+	ArrayList<Attachment> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectAlbumInnerList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
+		pstmt.setInt(1, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+
+			Attachment at = new Attachment();
+			at.setFileNo(rset.getInt("FILE_NO"));
+			at.setFilePath(rset.getString("FILE_PATH"));
+			at.setChangeName(rset.getString("CHANGE_NAME"));
+			at.setFileLevel(rset.getInt("FILE_LEVEL"));
+			list.add(at);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+	
+	
+}
+
+
+public Board selectAlbumBoard(Connection conn, int bno){
+	Board b = null;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectAlbumBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setFilePath(rset.getString("FILE_PATH"));
+			b.setChangeName(rset.getString("CHANGE_NAME"));
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return b;
+	
+	
+}
+
+public int updateBoard(Connection conn, Board b) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("updateBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, b.getBoardTitle() );
+		pstmt.setString(2, b.getBoardContent());
+		pstmt.setInt(3, b.getBoardNo());
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int updateAttachment(Connection conn, ArrayList<Attachment> list) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("updateAttachment");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		for(int i =1; i<=list.size(); i++) {
+		pstmt.setString(1,list.get(i-1).getOriginName());
+		pstmt.setString(2,list.get(i-1).getChangeName());
+		pstmt.setString(3, list.get(i-1).getFilePath());
+		pstmt.setInt(4, list.get(i-1).getFileNo());
+		pstmt.setInt(5, list.get(i-1).getFileLevel());
+		
+		}
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
 	}
 	
-	public int increaseCount(Connection conn , int boardNo) {
+	return result;
+	
+}
+
+public int reInsertAttachment(Connection conn, Attachment at) {
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("reInsertAttachment");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		int result = 0;
 		
-		PreparedStatement pstmt = null;
+			pstmt.setInt(1, at.getRefBno());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			pstmt.setInt(5, at.getFileLevel());
 		
-		String sql = prop.getProperty("increaseCount");
 		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNo);
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int deleteAttachment(Connection conn, int bno, int filelevel) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteAttachment");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		return result;
+		
+		pstmt.setInt(1,bno);
+		pstmt.setInt(2,filelevel);
+	
+		
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
 	}
 	
-	public Board selectBoard(Connection conn, int boardNo) {
+	return result;
+	
+}
+
+public int deleteBoard(Connection conn, int bno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		Board b = null;
+		pstmt.setInt(1, bno);
 		
-		PreparedStatement pstmt = null;
 		
-		ResultSet rset = null;
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+	
+}
+
+
+public int selectLike(Connection conn, int bno, int uno){
+	int like = 0;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		String sql = prop.getProperty("selectBoard");
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
 		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				b = new Board(rset.getInt("BOARD_NO") ,
-						      rset.getInt("BOARD_TYPE"), 
-						      rset.getString("BOARD_TITLE"),
-						      rset.getString("USER_ID"),
-						      rset.getDate("CREATE_DATE"), 
-						      rset.getString("BOARD_CONTENT"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			like = 1;
+		
+		
 		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return like;
+	
+	
+}
+
+public int deleteLike(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		return b;
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+public int insertLike(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("insertLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+
+public int selectLikeCount(Connection conn, int bno){
+	int like = 0;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectLikeCount");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			like =rset.getInt("LIKES");
+		
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return like;
+	
+	
+}
+
+public ArrayList<Board> selectList(Connection conn, PageInfo pi, int cno){
+	
+	ArrayList<Board> list = new ArrayList<>();
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		/*
+		 * boardLimit가 10이라고 가정
+		 * currentPage 1을 요청시 -> 1 ~ 10 
+		 * currentPage 2을 요청시 -> 11 ~ 20
+		 * currentPage n을 요청시 -> 시작값 : (currentPage -1) * boardLimit + 1 ~ 시작값 + boardLimit -1 
+		 */
+		int startRow = ( pi.getCurrentPage() -1 ) * pi.getBoardLimit() + 1 ;
+		int endRow = startRow + pi.getBoardLimit() -1; 
+		
+		pstmt.setInt(1, cno);
+		pstmt.setInt(2, startRow);
+		pstmt.setInt(3, endRow);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			Board b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO"));
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+								
+			list.add(b);
+					
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
 	}
 	
-	public int updateBoard(Connection conn, Board b) {
+	return list;
+}
+
+public int selectListCount(Connection conn, int cno) {
+	int listCount = 0; 
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectListCount");
+	/*
+	 * SELECT COUNT(*) AS COUNT
+	 * FROM BOARD
+	 * WHERE STATUS = 'Y'
+	 *   AND BOARD_TYPE = 1
+	 * 
+	 */
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, cno);
 		
-		int result = 0;
+		rset = pstmt.executeQuery();
 		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("updateBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, b.getBoardTitle());
-			pstmt.setString(2, b.getBoardContent());
-			pstmt.setInt(3, b.getBoardNo());
+		if(rset.next()) {
+			listCount = rset.getInt("COUNT");
 			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
 		}
-		
-		return result;
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
 	}
 	
-	
-	public int insertReply(Connection conn, Reply r) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertReply");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, r.getReplyContent());
-			pstmt.setInt(2, r.getRefBno());
-			pstmt.setInt(3, (r.getReplyWriter()));
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-	
-	
-	public ArrayList<Reply> selectReplyList(Connection conn, int boardNo){
-		ArrayList<Reply> list = new ArrayList<>();
-		
-		PreparedStatement pstmt = null;
-		
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectReplyList");
-		
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNo);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Reply(
-						rset.getInt("REPLY_NO"),
-						rset.getString("USER_ID"),
-						rset.getDate("CREATE_DATE"),
-						rset.getString("REPLY_CONTENT")
-						));				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-	
-	public int insertBoard(Connection conn, Board b) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, b.getBoardType());
-			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardContent());
-			pstmt.setInt(4, b.getRefUno());
-			pstmt.setInt(5, b.getRefCno());
-	
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	public int deleteBoard(Connection conn, int boardNo, int userNo) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("deleteBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNo);
-			pstmt.setInt(2, userNo);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-	
-	public int deleteReply(Connection conn, int replyNo, int userNo) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("deleteReply");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, replyNo);
-			pstmt.setInt(2, userNo);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+	return listCount;
+}
+
+
 }
 

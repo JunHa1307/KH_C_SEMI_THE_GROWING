@@ -44,7 +44,7 @@
     
     <style>
   /* 버튼 css */
-.box {
+ .box {
 	display: flex;
 	background: #ffffff;
 	color: #000000;
@@ -60,7 +60,7 @@
 	z-index: 1;
 	-webkit-backface-visibility: hidden;
 	-moz-osx-font-smoothing: grayscale;
-}
+} 
 
 .button_UI :active {
 	color: rgb(137, 180, 166);
@@ -93,14 +93,14 @@
 	transform: translate3d(0, 25%, 0);
 }
 
-.button--winona::after, .button--winona>span {
+ .button--winona::after, .button--winona>span {
 	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
 	transition: transform 0.3s, opacity 0.3s;
 	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 	display: block;
 	font-weight: 600;
-}
+} 
 
 .button--winona:hover {
 	border-color: rgb(137, 180, 166);
@@ -128,7 +128,7 @@
 	}
 	
 	.button_UI {
-	width: 130px;
+	width: 140px;
 	height: 45px;
 	border-radius: 4vw;
 	border: 0.15vw solid;
@@ -137,8 +137,24 @@
 	}
 	
 	.button--winona::after, .button--winona>span {
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	display: block;
+	font-weight: 600;
 	padding: 0.335vw;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 /* 화면 너비 780 이하일 떄 */
 
@@ -168,7 +184,7 @@ vertical-align: middle;
 	justify-content: center;
 	align-item: center;
 	margin-top:20px;
-		margin: auto;
+		
 }
 .info_space{
 	padding:1em 0em 1em 0em;
@@ -371,7 +387,7 @@ vertical-align: middle;
 @media only screen and (max-width: 1200px) {
 #hamburgur {
 		position: fixed;
-		top: 210px;
+		top: 230px;
 		display: block;
 		padding-left: 30px;
 		cursor: pointer;
@@ -385,7 +401,7 @@ vertical-align: middle;
 		left: -300px;
 		transition: left .3s;
 		background-color: white;
-		top: 245px;
+		top: 260px;
 		border-radius: 10px;
 		max-width: 150px;
 		width: 239px;
@@ -534,7 +550,9 @@ vertical-align: middle;
                   
                   });
                   
-                  
+                  $("#board_recent").click(function(){
+      				location.href="<%=contextPath%>/resent.bo";
+      			});
           	
         			$(".board_album").click(function(){
         				location.href = "<%=contextPath %>/list.al";
@@ -569,7 +587,18 @@ vertical-align: middle;
         			
         			$("#board_check").click(function(){
         				location.href="<%=contextPath%>/attendance.bo";
-        			})
+        			});
+        			
+
+        			$("#board_invite").click(function(){
+        				location.href="<%=contextPath%>/invite.bo";
+        			});
+        			
+        			$("#board_option").click(function(){
+        				location.href="<%=contextPath%>/infor.bo";
+        			});
+        			
+        			
               });
 
             </script>

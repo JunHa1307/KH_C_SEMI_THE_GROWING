@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Reply;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class AjaxReplyListController
+ * Servlet implementation class AjaxReplySelectController
  */
-@WebServlet("/rlist.fr")
+@WebServlet("/rlist.bo")
+
 public class ReplyListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,15 +35,23 @@ public class ReplyListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNo = Integer.parseInt(request.getParameter("bno"));
+
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		ArrayList<Reply> list = new BoardService().selectReplyList(boardNo);
 		
+		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
 		
-		// Gson을 이용해서 응답 ArrayList- > JSONArray로 변환
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list , response.getWriter());
-		
+		/*
+		 * //Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기
+		 * 
+		 * response.setContentType("application/json; charset=UTF-8");
+		 * 
+		 * new Gson().toJson(list, response.getWriter());
+		 * 
+		 */
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/board/ajaxAlbumboardReply.jsp").forward(request, response);
+
 	}
 
 	/**

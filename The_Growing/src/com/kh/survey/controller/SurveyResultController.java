@@ -40,12 +40,15 @@ public class SurveyResultController extends HttpServlet {
 		Survey survey = service.selectSurvey(sno);
 		Question question = service.selectQuestion(sno);
 		ArrayList<Answer> answer = service.selectAnswer(question.getQuesNo());
-		
-		request.setAttribute("survey", survey);
-		request.setAttribute("question", question);
-		request.setAttribute("answer", answer);
-		
-		request.getRequestDispatcher("views/survey/surveyAnswerResult.jsp").forward(request, response);
+		if(answer.size() != 0) {
+			request.setAttribute("survey", survey);
+			request.setAttribute("question", question);
+			request.setAttribute("answer", answer);
+			request.getRequestDispatcher("views/survey/surveyAnswerResult.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errorMsg", "답안이 작성되지 않았습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

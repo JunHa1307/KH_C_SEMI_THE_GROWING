@@ -325,6 +325,28 @@ public class SurveyDao {
 		return result;
 	}
 	
+	public int updateSurveyCount(Connection conn, int qno) {
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("updateSurveyCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, qno);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
 	public ArrayList<Answer> selectAnswer(Connection conn, int qno) {
 		  ArrayList<Answer> ansarr = new ArrayList<Answer>();
 		  
@@ -365,6 +387,9 @@ public class SurveyDao {
 	        		str[0] =  rset.getString("ITEM_ANS");
 	        		ans.setItemAns(str);
 	        	}
+	        	
+	        	ans.setUserName(rset.getString("USER_NAME"));
+	        	ans.setChildName(rset.getString("CHILDREN_NAME"));
 	        	ansarr.add(ans);
 	         }
 
@@ -377,4 +402,34 @@ public class SurveyDao {
 	      return ansarr;
 	}
 	
+	public boolean isAnswered(Connection conn, int uno, int qno) {
+		boolean isAnswered = false;
+		
+	      PreparedStatement pstmt = null;
+	
+	      ResultSet rset = null;
+	
+	      String sql = prop.getProperty("selectIsAnswered");
+	
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	
+	         pstmt.setInt(1, qno);
+	         pstmt.setInt(2, uno);
+	         
+	         rset = pstmt.executeQuery();
+	         if (rset.next()) {
+	        	isAnswered = true;
+	         }
+	
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+		      
+		return isAnswered;
+		
+	}
 }

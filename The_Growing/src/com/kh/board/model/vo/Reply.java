@@ -4,19 +4,30 @@ import java.sql.Date;
 
 public class Reply {
 
+
+//	REPLY_NO	NUMBER
+//	REF_BNO	NUMBER
+//	REPLY_WRITER	NUMBER
+//	REPLY_CONTENT	VARCHAR2(500 BYTE)
+//	CREATE_DATE	DATE
+//	STATUS	VARCHAR2(1 BYTE)
+//	REPLY_SECRET	VARCHAR2(1 BYTE)
+	
 	private int replyNo;
 	private int refBno;
-	private int replyWriter;
+	private String replyWriter;
 	private String replyContent;
-	private Date createDate;
+	private String createDate;
 	private String status;
 	private String replySecret;
-	private String userId;
+	
 	public Reply() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Reply(int replyNo, int refBno, int replyWriter, String replyContent, Date createDate, String status,
+	public Reply(int replyNo, int refBno, String replyWriter, String replyContent, String createDate, String status,
+
 			String replySecret) {
 		super();
 		this.replyNo = replyNo;
@@ -28,15 +39,6 @@ public class Reply {
 		this.replySecret = replySecret;
 	}
 
-	
-	
-	public Reply(int replyNo, String userId, Date createDate, String replyContent) {
-		super();
-		this.replyNo = replyNo;
-		this.userId = userId;
-		this.createDate = createDate;
-		this.replyContent = replyContent;
-	}
 
 	public int getReplyNo() {
 		return replyNo;
@@ -54,11 +56,14 @@ public class Reply {
 		this.refBno = refBno;
 	}
 
-	public int getReplyWriter() {
+
+
+	public String getReplyWriter() {
 		return replyWriter;
 	}
 
-	public void setReplyWriter(int replyWriter) {
+	public void setReplyWriter(String replyWriter) {
+
 		this.replyWriter = replyWriter;
 	}
 
@@ -70,11 +75,13 @@ public class Reply {
 		this.replyContent = replyContent;
 	}
 
-	public Date getCreateDate() {
+
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
+
 		this.createDate = createDate;
 	}
 
@@ -94,13 +101,6 @@ public class Reply {
 		this.replySecret = replySecret;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 
 	@Override
 	public String toString() {
@@ -108,6 +108,7 @@ public class Reply {
 				+ replyContent + ", createDate=" + createDate + ", status=" + status + ", replySecret=" + replySecret
 				+ "]";
 	}
+
 	
 
 }

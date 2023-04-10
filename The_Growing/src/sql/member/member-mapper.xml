@@ -87,4 +87,15 @@
 		  AND USER_LEVEL = ?
 		  AND STATUS = 'Y'
 	</entry>
+	
+		<entry key="deleteMember">
+		UPDATE MEMBER SET
+		STATUS = 'N', 
+		MODIFY_DATE = SYSDATE
+		WHERE USER_ID = ? 
+		  AND USER_PWD = ? 
+	
+	</entry>
+	
+
 </properties>
