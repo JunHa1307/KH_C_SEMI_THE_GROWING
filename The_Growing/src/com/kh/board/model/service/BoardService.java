@@ -195,4 +195,21 @@ public class BoardService {
 		
 		return updateNotice;
 	}
+	
+	public int deleteNotice(int[] arr) {
+		
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteNotice(conn, arr);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }

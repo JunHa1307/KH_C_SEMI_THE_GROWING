@@ -121,4 +121,9 @@
 		WHERE BOARD_NO = ? 
 	</entry>
 	
+	<entry key="deleteNotice">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+	</entry>
 </properties>
