@@ -81,7 +81,6 @@
         </div>
         <hr>
      </div>
-
      <script>
      	function folderDeleteClick(){
      	  
@@ -159,8 +158,7 @@
 			              </div>
 						</th>
 					</tr>
-				</table>
-				
+				</table>	
 				<div id="print<%= b.getBoardNo() %>">
 					<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
 					<div class="notice_con_title marginSt">

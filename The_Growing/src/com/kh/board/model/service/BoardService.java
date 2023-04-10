@@ -263,10 +263,14 @@ public class BoardService {
 		
 		if(result > 0) {
 			commit(conn);
+		}else {
+			rollback(conn);
 		}
-
-			return result;
-		}
+		close(conn);
+		
+		return result;
+		
+	}
 	public int insertNotice(Board b) {
 		
 		Connection conn = getConnection();
@@ -327,8 +331,6 @@ public class BoardService {
 		close(conn);
     		return updateNotice;
 	}
-
-	
 	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();
 		
