@@ -7,6 +7,8 @@
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	int cno = (int)request.getSession().getAttribute("cno");
+	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
+	int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 	//ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
 
 %>
@@ -26,11 +28,12 @@
 	width: 100px;
 	height: 100px;
 	transform: translate(-50%, -50%);
-	background: url("views/resources/image/heart.png") no-repeat;
+	background: url("resources/image/heart.png") no-repeat;
 	background-position: 0 0;
 	cursor: pointer;
 	animation: fave-heart 1s steps(28);
-	margin: 25px;
+	top:82%;
+	left:63%;
 	position: absolute;
 }
 
@@ -164,14 +167,16 @@ div {
 
 #slider-div>div {
 	width: 100%;
-	height: 100%;
+	height: 90%;
+	padding-top:10%;
+
 
 	/* background-color: rgb(164, 123, 123); */
 }
 
 .img_1 {
 	width: 100%;
-	
+	height:100%;
 	object-fit: cover;
 }
 
@@ -322,7 +327,9 @@ div {
 
 .mo_reply_id {
 	width: 30%;
-	padding-left: 8.5%;
+	padding-left: 3%;
+	padding-right: 8.5%;
+	text-align:center;
 	font-size: smaller;
 	font-weight: 600;
 }
@@ -346,12 +353,13 @@ div {
 
 #mo_reply_write {
 	width: 100%;
-	height: 130px;
+	height: 140px;
 }
 
 #mo_reply_list {
 	width: 100%;
-	height: 35px;
+	height: 45px;
+	margin-bottom: 5px;
 	/* background-color: antiquewhite; */
 }
 
@@ -368,12 +376,13 @@ div {
 /* 좋아요 / 댓글 / 스크랩 */
 #mo_reply_list>ul {
 	padding: 0;
+	margin:0;
 }
 
 #mo_reply_list>ul>li {
 	list-style-type: none;
 	float: left;
-	width: 110px;
+	width: 115px;
 	font-weight: 600;
 	text-align: right;
 	cursor: pointer;
@@ -406,13 +415,20 @@ div {
 	font-size: 30px;
 	cursor: pointer;
 	outline: none;
-	padding-left: 20px;
 }
 
 .bi-chat-quote {
 	color: rgb(165, 227, 206);
 	padding-right: 10px;
 }
+/* .like{
+	position:relative;
+}
+#likeCount{
+	position:absolute;
+	top : 10px;
+	left:-70px;
+} */
 </style>
 </head>
 <body>
@@ -441,11 +457,11 @@ div {
 			<div class="album_con1">
 				<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
 				<div class="album_con_title"
-					onclick="albumClick('<%=b.getBoardNo() %>');">
+					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>', '<%=uno%>');">
 					<p><%=b.getBoardTitle() %></p>
 				</div>
 				<div class="album_con_file"
-					onclick="albumClick('<%=b.getBoardNo() %>');">
+					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>','<%=uno%>');">
 					<img src="<%=contextPath %><%=b.getTitleImg() %> ">
 				</div>
 				<div class="album_con_date"><%=b.getCreateDate() %></div>
@@ -566,10 +582,10 @@ div {
 				</div>
 				<div id="mo_reply_list">
 					<ul id="mo_icon">
-						<li><div class="heart like"></div></li>
-						<li class="like"><i class="bi"></i>좋아요 3</li>
-						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 4</li>
-						<li class="scrap"><i class="bi bi-star"
+						<li><div class="heart" onclick="likeClick('<%=uno %>');"></div></li>
+						<li class="like" onclick="likeClick('<%=uno %>');"><i class="bi"></i></li>
+						<li class="chat"><i class="bi bi-chat-quote"></i></li>
+						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
 							style="padding-right: 10px;"></i>스크랩</li>
 					</ul>
 
@@ -582,7 +598,7 @@ div {
 					</div>
 					<div id="mo_reply_bt" class="box">
 						<button class="button_UI button--winona insert_bt"
-							data-text="click" id="insertReply">
+							data-text="click" id="insertReply" style="margin-top:15px">
 							<span>등록</span>
 						</button>
 					</div>
@@ -626,7 +642,7 @@ div {
     	  
 
    
-   
+   		// 목록 클릭 시 css 
           $("#board_album").css("fontWeight", "700");
           $("#board_album").children().css("background", "rgb(239, 243, 239)");
        
@@ -634,56 +650,49 @@ div {
 
 
 
-        function albumClick(bno){
-          
+        function albumClick(bno, level,uno){
         	
+          //댓글
         	$("#modal").attr("class",bno);
         	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno : bno},
+   				type : "get",
+				dataType : "html", 
    				success : function(list){
-   					 console.log(list);
-   					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
-   				 	 let result = "";
-   					for(let i = 0; i<list.length; i++){
-   						
-   					result  += 
-   						
-   					  '<div class="mo_reply_content">'+
-   					 	'<div class="mo_reply_profile">'+
-   	                  '<div class="mo_reply_profileImg"><img src="'+list[i].filePath+list[i].changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'"></div></div>'+
-   	                '<div class="mo_reply_text">'+list[i].replyContent+'</div></div>'+
-   	             
-   	              '<div class="mo_reply_content2">'+
-   	                '<div class="mo_reply_id">'+list[i].replyWriter+'</div>'+
-   	                '<div class="mo_reply_date" >'+list[i].createDate +'</div></div>'; 
-   						 
-   					}
-   					 $(".mo_reply").html(result); 
-   					 
-   					 
-   					 
+   					 $(".mo_reply").html(list); 
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
         	});
         	
+         	$.ajax({
+   				url : "<%=contextPath%>/rCount.bo",
+   				data : { bno : bno},
+   				success : function(list){
+   					 $(".chat").html('<i class="bi bi-chat-quote"></i>댓글 '+list+'개</li>');
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+        	}); 
         	
+        	
+        	
+        	// 게시물 
         	  $.ajax({
   				url : "<%=contextPath%>/boardSelect.bo",
   				data : { bno},
   				success : function(b){
-  			
-  					 console.log(b);
-  					 console.log(bno);
   				 	 let result = ""; 
-  					 
+  				 	if(level==1){
   						  result  += 
-  		   						
+  		   						 
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
   							'<div id="mo_date">'+b.createDate+
+  							
   							'<div id="menu" class="dropdown"'+
                                 'style="float: right; margin: -7% 0% 0% 10%;">'+
                                 '<button class="btn btn-secondary" type="button"'+
@@ -691,15 +700,33 @@ div {
                                    'aria-haspopup="true" aria-expanded="false" style="margin-top:7px; padding:0;"><img id="alarmIcon"'+
                                       'src="/growing/resources/image/icons8-메뉴-2-48.png" /></button><div id="menu" class="dropdown-menu"'+
                                    'aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="/growing/update.al?bno='+b.boardNo+'">수정</a>'+ 
-                                   '<a class="dropdown-item" href="#">삭제</a></div></div></div></div>'+
+                                   '<a class="dropdown-item" href="/growing/delete.al?bno='+b.boardNo+'">삭제</a></div></div>'+
+                                   '</div></div>'+
   						'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
   									'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
   								'<div id="mo_writer_id">'+b.userId+'</div>'+
-  								'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
-  							
+  								'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
+  				 	}else{
+  				 	  result  += 
+	   						
+							'<div id="mo_write_wrap">'+
+						'<div id="mo_title">'+b.boardTitle+'</div>'+
+						'<div id="mo_date">'+b.createDate+
+						
+
+                             '</div></div>'+
+					'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
+								'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+								'</div></div>'+
+							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
+						'<div id="mo_writer_content2">'+
+							'<div id="mo_writer_id">'+b.userId+'</div>'+
+							'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
+  				 		
+  				 	}
   		   						 
   		   					
   		   					 $("#mo_write_inner").html(result); 
@@ -712,7 +739,7 @@ div {
        	});   
         	  
         	  
-        	
+        	//사진
          $.ajax({
    				url : "<%=contextPath%>/innerlist.al",
    				data : { bno},
@@ -721,9 +748,6 @@ div {
    					 for(let i = 0; i<slength; i++){ 
    						$("#slider-div").slick('slickRemove',false);
    					 }
-   					
-   					 console.log(list);
-   					 console.log(bno);
    				 	 let result = ""; 
    					  for(let i = 0; i<list.length; i++){ 
    						$("#slider-div").slick('slickAdd','<div><img class="img_1" src="resources/album_upfiles/'+list[i].changeName+'"></div>'); 
@@ -735,10 +759,6 @@ div {
    				}
         	});        
          
-       
-        	
-        	
-      
         	
                 if($("#modal").css("visibility")=="hidden"){
                    $("#modal").css("visibility","visible");
@@ -746,8 +766,6 @@ div {
                     $("#veil").css("display","block");
                    
                 }
-                
-
 
 
             $("#veil").click(function(){
@@ -759,6 +777,29 @@ div {
 
                 }
             });
+            
+           
+            $.ajax({
+				url : "<%=contextPath%>/likeSelect.bo",
+				data : { bno ,
+						 uno 
+				},
+				success : function(list){
+					 let ls = list.split(",");
+					if(ls[0]==0){
+						  $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
+							$(".like").html('<i class="bi"></i>좋아요  '+ls[1]+"개");
+							
+					}else{
+						 $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 0s steps(28)'})
+						 $(".like").html('<i class="bi"></i>좋아요  '+ls[1]+"개");
+					}
+					 
+				},
+				error: function(){
+					console.log("게시글 목록조회 실패")
+				}
+    	});
             
         };
 
@@ -778,17 +819,46 @@ div {
               $('#mo_reply_textarea').focus();
         });
 
-        let i = 0;
-        $('.like').on('click',function(){
-          if(i==0){
-          $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 1s steps(28)'})
-          i++;
-        }else if(i==1){
-          $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
-          i--;
-          }
-        });
+        
+     	//좋아요 클릭 시 
+        function likeClick(uno){
+        	
+        let bno = $("#modal").attr("class");
+  
+          
+        	$.ajax({
+				url : "<%=contextPath%>/like.bo",
+				data : { bno ,
+						 uno 
+						
+				},
+				
+				success : function(list){
+					 let ls = list.split(",");
+					if(ls[0]==0){
+						  $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
+							$(".like").html('<i class="bi"></i> 좋아요  '+ls[1]+"개");
+							
+					}else{
+						 $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 1s steps(28)'})
+						 $(".like").html('<i class="bi"></i> 좋아요  '+ls[1]+"개");
+					}
+				
+					 
+					 
+					 
+				},
+				error: function(){
+					console.log("게시글 목록조회 실패")
+				}
+    	});
+  
+          
+          
+        };
 
+        
+        
         $('.button_UI').on('click',function(){
           if($(this).css('color')=='rgb(137, 180, 166)'){
             $(this).css('color', "black" );
@@ -812,7 +882,6 @@ div {
     	
         $("#insertReply").click(function(){
           	let bno = $("#modal").attr("class"); 
-        	console.log(bno);
    			$.ajax({
    				url : "<%=contextPath%>/rinsert.bo",
    				data : {
@@ -820,16 +889,9 @@ div {
    					bno
    				},
    				success : function(result){
-   					console.log(result);
-   					
-   					
-   					// 댓글등록 성공시 result = 1
-   					
-   					// 댓글등록 실패시 result = 0 
+   				 
    					if(result > 0){
-   						// 새 댓글목록 불러오는 함수 호출
    						albumClick(bno);
-   						// 댓글내용 비워두기 
    						$("#mo_reply_textarea").val("");
    						
    					}else{
@@ -842,46 +904,6 @@ div {
    				} 
    			});
    		}); 
-/*    		
-        $(function(){
-			setInterval(selectReplyList, 1000); 
-		}); */
-        
-        
-    	<%-- 	function selectReplyList(){
-   			$.ajax({
-   				url : "<%=contextPath%>/rlist.bo",
-   				data : { bno : $("#modal").attr("class")},
-   				success : function(rlist){
-   					 console.log(rlist);
-   					// 서버로부터 전달받은 리스트를 반복문을 통해 댓글목록으로 변환 
-   				 	 let result = "";
-   					for(let i of rlist){
-   					result  += 
-   						
-   					 '<div class="mo_reply_content">'+
-   					 	'<div class="mo_reply_profile">'+
-   	                  '<div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div></div>'+
-   	                '<div class="mo_reply_text">'+i.getReplyContent+'</div></div>'
-   	             
-   	              '<div class="mo_reply_content2">'+
-   	                '<div class="mo_reply_id">'+i.getReplyWriter+'</div>'
-   	                '<div class="mo_reply_date" >'+i.getCreateDate +'</div></div>';
-   						 
-   					}
-   					 $("#slider-div").html(result);  
-   				},
-   				error: function(){
-   					console.log("게시글 목록조회 실패")
-   				}
-   			});  --%>
-           
-
-     
- 
- 
-     
-     
     </script>
 </body>
 </html>

@@ -5,6 +5,7 @@
   <%
 	Board b = (Board)request.getAttribute("b");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
+	
   %>
 <!DOCTYPE html>
 <html>
