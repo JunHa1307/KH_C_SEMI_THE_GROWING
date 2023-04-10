@@ -596,7 +596,7 @@ public ArrayList<Board> selectList(Connection conn, PageInfo pi, int cno){
 	return list;
 }
 
-public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi){
+public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi, int boardType, int cno){
 	
 ArrayList<Board> list = new ArrayList<>();
 
@@ -611,8 +611,10 @@ try {
 	int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
 	int endRow = startRow + pi.getBoardLimit() - 1;
 	
-	pstmt.setInt(1, startRow);
-	pstmt.setInt(2, endRow);
+	pstmt.setInt(1, boardType);
+	pstmt.setInt(2, cno);
+	pstmt.setInt(3, startRow);
+	pstmt.setInt(4, endRow);
 	
 
 
@@ -673,6 +675,44 @@ public int selectListCount(Connection conn, int cno) {
 	
 	return listCount;
 }
+
+public int selectBoardListCount(Connection conn, int cno, int boardType) {
+	int listCount = 0; 
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectBoardListCount");
+	/*
+	 * SELECT COUNT(*) AS COUNT
+	 * FROM BOARD
+	 * WHERE STATUS = 'Y'
+	 *   AND BOARD_TYPE = 1
+	 * 
+	 */
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, cno);
+		pstmt.setInt(2, boardType);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("COUNT");
+			
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return listCount;
+}
+
 
 public int insertBoard(Connection conn, Board b) {
 	

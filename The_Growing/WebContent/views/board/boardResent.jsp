@@ -150,7 +150,7 @@
 				}else if(type==3){
 					location.href = "<%=contextPath %>/list.al?bno="+bno;
 				}else{
-					location.href = "<%=contextPath %>/board.fr?bno="+bno;
+					location.href = "<%=contextPath %>/detail.fr?bno="+bno;
 				}
 				
 				
@@ -170,12 +170,12 @@
 			<div align="center" class="paging-area">
 			
 				<% if(currentPage != 1) { %>
-					<button onclick="location.href='<%=contextPath %>/list.bo?currentPage=<%=currentPage -1 %>'">&lt;</button>
+					<button onclick="location.href='<%=contextPath %>/resent.bo?currentPage=<%=currentPage -1 %>'">&lt;</button>
 				<%} %>
 				
 				<%for(int i = startPage; i<=endPage; i++){ %>
 					<% if(i != currentPage) { %>
-						<button onclick="location.href='<%=contextPath %>/list.bo?currentPage=<%=i %>';"><%=i %></button>
+						<button onclick="location.href='<%=contextPath %>/resent.bo?currentPage=<%=i %>';"><%=i %></button>
 					<%} else { %>
 						<button disabled><%=i %></button>
 					<%} %>
@@ -183,7 +183,7 @@
 			
 				
 				<% if(currentPage != maxPage) { %>
-					<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage +1 %>'">&gt;</button>
+					<button onclick="location.href='<%=contextPath%>/resent.bo?currentPage=<%=currentPage +1 %>'">&gt;</button>
 				<%} %>
 			
 			</div>

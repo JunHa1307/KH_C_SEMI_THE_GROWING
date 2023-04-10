@@ -230,13 +230,24 @@ public class BoardService {
 		return listCount;
 		
 	}
+	public int selectBoardListCount(int cno, int boardType) {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().selectBoardListCount(conn, cno, boardType);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+
 
 
 	
-	public ArrayList<Board> selectBoardList(PageInfo pi){
+	public ArrayList<Board> selectBoardList(PageInfo pi, int boardType, int cno){
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new BoardDao().selectBoardList(conn, pi);
+		ArrayList<Board> list = new BoardDao().selectBoardList(conn, pi, boardType, cno);
 		
 		close(conn);
 		

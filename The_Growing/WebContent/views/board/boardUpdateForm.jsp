@@ -5,6 +5,7 @@
 <%
 	Board b = (Board) request.getAttribute("b");
 	Attachment at = (Attachment) request.getAttribute("at"); 
+	int boardType =(int) request.getAttribute("boardType");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +56,7 @@
                 <div id="board_area">
                     <h1 align="center">자유게시판</h1>
                 
-                <form action="<%= contextPath %>/update.fr" id="update-form" method="post" >
+                <form action="<%= contextPath %>/update.fr?boardType=<%=boardType %>" id="update-form" method="post" >
                 <input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
                     <table class="list-table"  border="5">
                         <tr >
