@@ -33,7 +33,9 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardType = Integer.parseInt(request.getParameter("boardType"));
-		System.out.println(boardType);
+		System.out.println("list"+boardType);
+	
+	
 		int listCount; 
 		int currentPage; 
 		int pageLimit; 
@@ -44,7 +46,7 @@ public class BoardListController extends HttpServlet {
 		int endPage;
 		int cno = (int)request.getSession().getAttribute("cno");
 		
-		listCount = new BoardService().selectListCount(cno); 
+		listCount = new BoardService().selectBoardListCount(cno, boardType); 
 		
 		currentPage = Integer.parseInt(  request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage")  );
 		
@@ -63,7 +65,7 @@ public class BoardListController extends HttpServlet {
 		 }
 		 
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 ArrayList<Board> list = new BoardService().selectBoardList(pi);
+		 ArrayList<Board> list = new BoardService().selectBoardList(pi, boardType, cno);
 		
 		 request.setAttribute("pi", pi);
 		 request.setAttribute("boardType", boardType);
@@ -71,7 +73,7 @@ public class BoardListController extends HttpServlet {
 		 
 //		 System.out.println(pi);
 //		 System.out.println(list);
-		 
+		
 		
 			 request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
 		
