@@ -19,7 +19,7 @@ import com.kh.board.model.vo.PageInfo;
 
 import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.Attachment;
-import com.kh.common.model.vo.PageInfo;
+
 
 public class BoardDao {
 private Properties prop = new Properties();
@@ -596,6 +596,48 @@ public ArrayList<Board> selectList(Connection conn, PageInfo pi, int cno){
 	return list;
 }
 
+public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi){
+	
+ArrayList<Board> list = new ArrayList<>();
+
+PreparedStatement pstmt = null;
+
+ResultSet rset = null;
+
+String sql = prop.getProperty("selectBoardList");
+
+try {
+	pstmt = conn.prepareStatement(sql);
+	int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+	int endRow = startRow + pi.getBoardLimit() - 1;
+	
+	pstmt.setInt(1, startRow);
+	pstmt.setInt(2, endRow);
+	
+
+
+	rset = pstmt.executeQuery();
+	while(rset.next()) {
+		Board b = new Board();
+		b.setBoardNo(rset.getInt("BOARD_NO"));
+		b.setUserId(rset.getString("USER_ID"));
+		b.setBoardTitle(rset.getString("BOARD_TITLE"));
+		b.setCreateDate(rset.getDate("CREATE_DATE"));
+		b.setRefCno(rset.getInt("REF_CNO"));			
+				           
+		list.add(b);
+	}
+} catch (SQLException e) {
+	e.printStackTrace();
+} finally {
+	close(rset);
+	close(pstmt);
+}
+return list;
+
+}
+
+
 public int selectListCount(Connection conn, int cno) {
 	int listCount = 0; 
 	
@@ -632,6 +674,141 @@ public int selectListCount(Connection conn, int cno) {
 	return listCount;
 }
 
+public int insertBoard(Connection conn, Board b) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("insertBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, b.getBoardType());
+		pstmt.setString(2, b.getBoardTitle());
+		pstmt.setString(3, b.getBoardContent());
+		pstmt.setInt(4, b.getRefUno());
+		pstmt.setInt(5, b.getRefCno());
+
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int deleteBoard(Connection conn, int boardNo, int userNo) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		pstmt.setInt(2, userNo);
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public int deleteReply(Connection conn, int replyNo, int userNo) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteReply");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, replyNo);
+		pstmt.setInt(2, userNo);
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public int increaseCount(Connection conn , int boardNo) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("increaseCount");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		
+		result = pstmt.executeUpdate();
+		
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public Board selectBoard(Connection conn, int boardNo) {
+	
+	Board b = null;
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO")); 
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+					   
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return b;
+}
 
 }
 

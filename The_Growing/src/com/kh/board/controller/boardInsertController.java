@@ -42,7 +42,9 @@ public class boardInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		int boardType = Integer.parseInt(request.getParameter("boardType"));
+		System.out.println("get boardType:"+boardType);
+		 request.setAttribute("boardType", boardType);
 		request.getRequestDispatcher("views/board/boardEnrollForm.jsp").forward(request, response);
 	}
 
@@ -59,15 +61,64 @@ public class boardInsertController extends HttpServlet {
 			
 			int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 			int cno = (int) request.getSession().getAttribute("cno");
+			int boardType = Integer.parseInt(request.getParameter("boardType"));
+			System.out.println("boardType:"+boardType);
+			
+			Board b = new Board();
+			if(boardType==4) {
+				
+				b.setBoardType(4);
+				b.setBoardTitle(request.getParameter("title"));
+				b.setBoardContent(request.getParameter("content"));
+				b.setRefUno(uno);
+				b.setRefCno(cno);
+				
+				 int result = new BoardService().insertBoard(b);
+					
+				 if(result > 0 ) { 
+					 
+					 request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
+					 response.sendRedirect(request.getContextPath()+"/list.fr?currentPage=1&boardType=4");
+				 	}else { 
+		
+					
+					  request.setAttribute("errorMsg", "게시글 작성 실패");
+					 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response); 
+					 }
+				 
+				 
+				 
+				}else {
+				  
+				  b.setBoardType(5); 
+				  b.setBoardTitle(request.getParameter("title"));
+				  b.setBoardContent(request.getParameter("content")); 
+				  b.setRefUno(uno);
+				  b.setRefCno(cno);
+					  
+					  
+				  
+				  int result = new BoardService().insertBoard(b);
+				  
+				  if(result > 0 ) {
+				  
+				  request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
+				  response.sendRedirect(request.getContextPath()+"/list.fr?currentPage=1&boardType=5");
+				  }else {
+				  
+				  
+				  
+				  request.setAttribute("errorMsg", "게시글 작성 실패");
+				  request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response); 
+				  }
+					 
+				
+				
+			}
+				
 			// 3. db에 저장
 			// Board에 들어갈 값들 뽑아오기
-			Board b = new Board();
-			b.setBoardType(4);
-			b.setBoardTitle(request.getParameter("title"));
-			b.setBoardContent(request.getParameter("content"));
-			b.setRefUno(uno);
-			b.setRefCno(cno);
-
+		
 //			 Attachment at = null;
 //			 if(multi.getOriginalFileName("upfile") != null) {
 //				 at = new Attachment();
@@ -81,21 +132,9 @@ public class boardInsertController extends HttpServlet {
 	/*		 Class cInfo = new ClassService().selectClass(cno, uno);
 			 request.setAttribute("cInfo", cInfo);
 			 */
-			 int result = new BoardService().insertBoard(b);
 			
-			 if(result > 0 ) { 
-				 
-				 request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-				 response.sendRedirect(request.getContextPath()+"/list.fr?currentPage=1");
-			 }else { 
-				 
-	
-				 
-				 request.setAttribute("errorMsg", "게시글 작성 실패");
-				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);				 
-			 }
-		
 		
 	}
+	
 }
 

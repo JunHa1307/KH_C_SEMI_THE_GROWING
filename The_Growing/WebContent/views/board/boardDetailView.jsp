@@ -134,7 +134,7 @@
 
 					 <div id="reply-area">
 							<table class="list-table" border="5">
-								<thead>
+							<%-- 	<thead>
 									 <% for(Reply re : list) { %> 
 									<tr>
 										<th height="50">
@@ -179,7 +179,7 @@
 										</th>
 									</tr>
 									<% } %>
-								</thead>
+								</thead> --%>
 									<tbody>
 										<tr>
 											<th><input style="width: 530px; height: 50px;"

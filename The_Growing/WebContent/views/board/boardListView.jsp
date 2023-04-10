@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.board.model.vo.Board"%>
-<%@page import="com.kh.common.model.vo.PageInfo"%>
+<%@page import="com.kh.board.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -9,8 +9,7 @@
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	Board bt = new Board();
 	
-	
-	int boardType = bt.getBoardType();
+	int boardType =(int) request.getAttribute("boardType");
 	int currentPage = pi.getCurrentPage(); 
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -127,7 +126,7 @@
 <body>
               <%@ include file="/views/board/boardFrame.jsp" %>
                 <!-- 자유게시판-->
-                <%if(bt.getBoardType() == 4) {%>
+                <%if(boardType == 4) {%>
                 <div id="board_area">
                     <h1 align="center">자유 게시판</h1>
 
@@ -138,8 +137,8 @@
                             </button>           
                        <% if(loginUser != null) { %>    
                         <div id="box">
-                            <a href="<%=contextPath%>/insert.fr" style="color:black;">
-                            	<button class="button_UI button--winona" data-text="글 등록""><span>글 등록</span></button>
+                            <a style="color:black;" href="<%=contextPath%>/insert.fr?boardType=4" >
+                            	<button class="button_UI button--winona" data-text="글 등록"><span>글 등록</span></button>
                             </a>
                         </div> 
                         <% } %>

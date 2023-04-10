@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+int boardType =(int) request.getAttribute("boardType");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,8 +51,8 @@
                 
                 <div id="board_area">
                     <h1 align="center">자유게시판</h1>
-                
-                <form action="<%= contextPath %>/insert.fr" id="enroll-form" method="post">
+                 
+                <form action="<%= contextPath %>/insert.fr?boardType=4" id="enroll-form" method="post">
                     <table class="list-table"  border="5">
                         <tr >
                             <th>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
-import com.kh.common.model.vo.PageInfo;
+import com.kh.board.model.vo.PageInfo;
 
 /**
  * Servlet implementation class BoardListController
@@ -33,7 +33,7 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardType = Integer.parseInt(request.getParameter("boardType"));
-
+		System.out.println(boardType);
 		int listCount; 
 		int currentPage; 
 		int pageLimit; 
@@ -42,9 +42,9 @@ public class BoardListController extends HttpServlet {
 		int maxPage; 
 		int startPage; 
 		int endPage;
+		int cno = (int)request.getSession().getAttribute("cno");
 		
-		
-		listCount = new BoardService().selectListCount(); 
+		listCount = new BoardService().selectListCount(cno); 
 		
 		currentPage = Integer.parseInt(  request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage")  );
 		
@@ -63,19 +63,18 @@ public class BoardListController extends HttpServlet {
 		 }
 		 
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 ArrayList<Board> list = new BoardService().selectList(pi);
+		 ArrayList<Board> list = new BoardService().selectBoardList(pi);
 		
 		 request.setAttribute("pi", pi);
+		 request.setAttribute("boardType", boardType);
 		 request.setAttribute("list", list);
 		 
 //		 System.out.println(pi);
 //		 System.out.println(list);
 		 
-		 if(boardType == 4) {
+		
 			 request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
-		 } else {
-			 request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
-		 }
+		
 	}
 
 	/**
