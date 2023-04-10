@@ -1,19 +1,33 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+
+import java.util.ArrayList;
+
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import com.google.gson.Gson;
 import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Reply;
+import com.kh.board.model.vo.ReplyBuilder;
+
+import com.kh.board.model.service.BoardService;
+
 import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class AjaxReplyInsertController
  */
+
 @WebServlet("/rinsert.bo")
+
 public class ReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,6 +43,7 @@ public class ReplyInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	
 		String content = request.getParameter("content");
 		int bno = Integer.parseInt(request.getParameter("bno"));
@@ -40,6 +55,7 @@ public class ReplyInsertController extends HttpServlet {
 		
 		response.getWriter().print(result);
 		
+
 	}
 
 	/**

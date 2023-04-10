@@ -39,12 +39,16 @@ public class Board {
 	private String status;
 	private String secretStatus;
 	private int refCno;
-	
+
 	private String userId; 
 	private String filePath;
 	private String changeName;
-	
+
 	private String titleImg; 
+	
+	//게시판검색
+	private String type;
+	private String keyword;
 	
 	public Board() {
 		super();
@@ -57,8 +61,10 @@ public class Board {
 
 
 	public Board(int boardNo, int boardType, int refUno, String boardTitle, String boardContent, int count, int likes,
+
 			Date createDate, String status, String secretStatus, int refCno, String userId, String filePath,
 			String changeName, String titleImg) {
+
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -129,6 +135,7 @@ public class Board {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+
 	}
 
 
@@ -138,6 +145,17 @@ public class Board {
 
 	public int getBoardNo() {
 		return boardNo;
+	}
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 
@@ -272,13 +290,25 @@ public class Board {
 		return titleImg;
 	}
 
-
-
 	public void setTitleImg(String titleImg) {
 		this.titleImg = titleImg;
 	}
 
+	public String getType() {
+		return type;
+	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 
 
 

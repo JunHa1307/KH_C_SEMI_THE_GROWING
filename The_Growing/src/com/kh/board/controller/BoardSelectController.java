@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
 import com.kh.common.model.vo.Attachment;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardSelectController
@@ -38,11 +39,13 @@ public class BoardSelectController extends HttpServlet {
 		
 		Board b = new BoardService().selectAlbumBoard(bno);
 		
+		
 		//Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기 
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new Gson().toJson(b, response.getWriter());
+		
 	}
 
 	/**

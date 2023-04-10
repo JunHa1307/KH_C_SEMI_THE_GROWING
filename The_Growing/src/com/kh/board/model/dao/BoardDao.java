@@ -14,8 +14,12 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
+
+import com.kh.board.model.vo.PageInfo;
+
 import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.Attachment;
+
 
 public class BoardDao {
 private Properties prop = new Properties();
@@ -158,6 +162,8 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		
 		return list;
 	}
+
+
 
 public int insertReply(Connection conn, String content, int bno, int writer) {
 	int result = 0;
@@ -402,6 +408,409 @@ public int deleteAttachment(Connection conn, int bno, int filelevel) {
 	
 }
 
+
+public int deleteBoard(Connection conn, int bno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+	
+}
+
+
+public int selectLike(Connection conn, int bno, int uno){
+	int like = 0;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			like = 1;
+		
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return like;
+	
+	
+}
+
+public int deleteLike(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+public int insertLike(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("insertLike");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+
+public int selectLikeCount(Connection conn, int bno){
+	int like = 0;
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectLikeCount");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			like =rset.getInt("LIKES");
+		
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return like;
+	
+	
+}
+
+public ArrayList<Board> selectList(Connection conn, PageInfo pi, int cno){
+	
+	ArrayList<Board> list = new ArrayList<>();
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		/*
+		 * boardLimit가 10이라고 가정
+		 * currentPage 1을 요청시 -> 1 ~ 10 
+		 * currentPage 2을 요청시 -> 11 ~ 20
+		 * currentPage n을 요청시 -> 시작값 : (currentPage -1) * boardLimit + 1 ~ 시작값 + boardLimit -1 
+		 */
+		int startRow = ( pi.getCurrentPage() -1 ) * pi.getBoardLimit() + 1 ;
+		int endRow = startRow + pi.getBoardLimit() -1; 
+		
+		pstmt.setInt(1, cno);
+		pstmt.setInt(2, startRow);
+		pstmt.setInt(3, endRow);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			Board b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO"));
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+								
+			list.add(b);
+					
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return list;
+}
+
+public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi){
+	
+ArrayList<Board> list = new ArrayList<>();
+
+PreparedStatement pstmt = null;
+
+ResultSet rset = null;
+
+String sql = prop.getProperty("selectBoardList");
+
+try {
+	pstmt = conn.prepareStatement(sql);
+	int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+	int endRow = startRow + pi.getBoardLimit() - 1;
+	
+	pstmt.setInt(1, startRow);
+	pstmt.setInt(2, endRow);
+	
+
+
+	rset = pstmt.executeQuery();
+	while(rset.next()) {
+		Board b = new Board();
+		b.setBoardNo(rset.getInt("BOARD_NO"));
+		b.setUserId(rset.getString("USER_ID"));
+		b.setBoardTitle(rset.getString("BOARD_TITLE"));
+		b.setCreateDate(rset.getDate("CREATE_DATE"));
+		b.setRefCno(rset.getInt("REF_CNO"));			
+				           
+		list.add(b);
+	}
+} catch (SQLException e) {
+	e.printStackTrace();
+} finally {
+	close(rset);
+	close(pstmt);
+}
+return list;
+
+}
+
+
+public int selectListCount(Connection conn, int cno) {
+	int listCount = 0; 
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectListCount");
+	/*
+	 * SELECT COUNT(*) AS COUNT
+	 * FROM BOARD
+	 * WHERE STATUS = 'Y'
+	 *   AND BOARD_TYPE = 1
+	 * 
+	 */
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, cno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			listCount = rset.getInt("COUNT");
+			
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return listCount;
+}
+
+public int insertBoard(Connection conn, Board b) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("insertBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, b.getBoardType());
+		pstmt.setString(2, b.getBoardTitle());
+		pstmt.setString(3, b.getBoardContent());
+		pstmt.setInt(4, b.getRefUno());
+		pstmt.setInt(5, b.getRefCno());
+
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int deleteBoard(Connection conn, int boardNo, int userNo) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		pstmt.setInt(2, userNo);
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public int deleteReply(Connection conn, int replyNo, int userNo) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteReply");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, replyNo);
+		pstmt.setInt(2, userNo);
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public int increaseCount(Connection conn , int boardNo) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("increaseCount");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		
+		result = pstmt.executeUpdate();
+		
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public Board selectBoard(Connection conn, int boardNo) {
+	
+	Board b = null;
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectBoard");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO")); 
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+					   
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return b;
+}
+
 	public int insertNotice(Connection conn, Board b) {
 		//Insert문 => 처리된 행의 갯수
 		int result = 0;
@@ -549,6 +958,7 @@ public int deleteAttachment(Connection conn, int bno, int filelevel) {
 		
 		return result;
 	}
+
 
 }
 
