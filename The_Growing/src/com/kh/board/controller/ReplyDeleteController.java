@@ -1,31 +1,27 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Reply;
-import com.google.gson.Gson;
+import com.kh.board.model.vo.Board;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxReplySelectController
+ * Servlet implementation class ReplyDeleteController
  */
-@WebServlet("/rlist.bo")
-
-public class ReplyListController extends HttpServlet {
+@WebServlet("/rdelete.fr")
+public class ReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyListController() {
+    public ReplyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,25 +30,27 @@ public class ReplyListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int replyNo = Integer.parseInt(request.getParameter("rno"));
 		
-
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+	
+//		int refBno = ((Board) request.getSession().getAttribute("bno")).getBoardNo();
 		
 		
-		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
+		int result = new BoardService().deleteReply(replyNo, userNo);
 		
-		/*
-		 * //Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기
-		 * 
-		 * response.setContentType("application/json; charset=UTF-8");
-		 * 
-		 * new Gson().toJson(list, response.getWriter());
-		 * 
-		 */
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/board/ajaxAlbumboardReply.jsp").forward(request, response);
-
+		if(result > 0) {
+			//삭제처리
+		
+			request.getSession().setAttribute("alertMsg", "성공적으로 댓글을 삭제했습니다.");
+			response.sendRedirect(request.getContextPath()+"/rinsert.fr");
+		}else {
+			request.setAttribute("errorMsg", "댓글삭제에 실패했습니다..");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+	
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

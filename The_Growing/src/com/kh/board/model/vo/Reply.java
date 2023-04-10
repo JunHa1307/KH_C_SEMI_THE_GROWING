@@ -3,6 +3,8 @@ package com.kh.board.model.vo;
 import java.sql.Date;
 
 public class Reply {
+
+
 //	REPLY_NO	NUMBER
 //	REF_BNO	NUMBER
 //	REPLY_WRITER	NUMBER
@@ -25,6 +27,7 @@ public class Reply {
 	}
 
 	public Reply(int replyNo, int refBno, String replyWriter, String replyContent, String createDate, String status,
+
 			String replySecret) {
 		super();
 		this.replyNo = replyNo;
@@ -35,6 +38,7 @@ public class Reply {
 		this.status = status;
 		this.replySecret = replySecret;
 	}
+
 
 	public int getReplyNo() {
 		return replyNo;
@@ -52,11 +56,14 @@ public class Reply {
 		this.refBno = refBno;
 	}
 
+
+
 	public String getReplyWriter() {
 		return replyWriter;
 	}
 
 	public void setReplyWriter(String replyWriter) {
+
 		this.replyWriter = replyWriter;
 	}
 
@@ -68,11 +75,13 @@ public class Reply {
 		this.replyContent = replyContent;
 	}
 
+
 	public String getCreateDate() {
 		return createDate;
 	}
 
 	public void setCreateDate(String createDate) {
+
 		this.createDate = createDate;
 	}
 
@@ -92,15 +101,14 @@ public class Reply {
 		this.replySecret = replySecret;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter + ", replyContent="
 				+ replyContent + ", createDate=" + createDate + ", status=" + status + ", replySecret=" + replySecret
 				+ "]";
 	}
+
 	
-	
-	
-	
-	
+
 }

@@ -14,9 +14,12 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
+
 import com.kh.board.model.vo.PageInfo;
+
 import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.Attachment;
+import com.kh.common.model.vo.PageInfo;
 
 public class BoardDao {
 private Properties prop = new Properties();
@@ -159,6 +162,8 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		
 		return list;
 	}
+
+
 
 public int insertReply(Connection conn, String content, int bno, int writer) {
 	int result = 0;
@@ -626,6 +631,7 @@ public int selectListCount(Connection conn, int cno) {
 	
 	return listCount;
 }
+
 
 }
 
