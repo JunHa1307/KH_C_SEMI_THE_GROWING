@@ -281,6 +281,7 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+
 	
 	public Board selectNotice (int bno){
 		Connection conn = getConnection();
@@ -397,7 +398,5 @@ public class BoardService {
 		
 		return result;
 	}
-	
 
-		
 }
