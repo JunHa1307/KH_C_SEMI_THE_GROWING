@@ -126,10 +126,13 @@
 <body>
               <%@ include file="/views/board/boardFrame.jsp" %>
                 <!-- 자유게시판-->
-                <%if(boardType == 4) {%>
                 <div id="board_area">
+                <%if(boardType == 4) {%>
                     <h1 align="center">자유 게시판</h1>
-
+				<%}else{ %>
+					 <h1 align="center">상담 게시판</h1>
+				<%} %>
+				
                     <div id="list_search">                     
                             <button id="searchBtn_1" type="button">
                                 <input id="searchBoard" type="text" placeholder="게시판 검색">
@@ -137,7 +140,7 @@
                             </button>           
                        <% if(loginUser != null) { %>    
                         <div id="box">
-                            <a style="color:black;" href="<%=contextPath%>/insert.fr?boardType=4" >
+                            <a style="color:black;" href="<%=contextPath%>/insert.fr?boardType=<%=boardType %>" >
                             	<button class="button_UI button--winona" data-text="글 등록"><span>글 등록</span></button>
                             </a>
                         </div> 
@@ -180,13 +183,13 @@
             <div align="center" class="paging-area">
                 <div class="pagination">
 				<% if(currentPage != 1) { %>
-					<button onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= currentPage -1 %>'">&lt;</button>
+					<button onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= currentPage -1 %>&boardType=<%=boardType%>'">&lt;</button>
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
 					
 					<% if(i != currentPage) { %>
-						<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= i %>'; "><%= i %></button>
+						<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= i %>&boardType=<%=boardType%>' "><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -194,14 +197,12 @@
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
-					<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%=currentPage + 1 %>' ">&gt;</button>
+					<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%=currentPage + 1 %>&boardType=<%=boardType%>' ">&gt;</button>
 				<% } %>
                 
               </div> 
             
             </div>
-            <% } else { %>
-            상담페이지
-                <% } %>
+          
 </body>
 </html>

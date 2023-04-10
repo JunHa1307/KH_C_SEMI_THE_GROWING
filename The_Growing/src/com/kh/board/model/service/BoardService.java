@@ -231,13 +231,24 @@ public class BoardService {
 		return listCount;
 		
 	}
+	public int selectBoardListCount(int cno, int boardType) {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().selectBoardListCount(conn, cno, boardType);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+
 
 
 	
-	public ArrayList<Board> selectBoardList(PageInfo pi){
+	public ArrayList<Board> selectBoardList(PageInfo pi, int boardType, int cno){
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new BoardDao().selectBoardList(conn, pi);
+		ArrayList<Board> list = new BoardDao().selectBoardList(conn, pi, boardType, cno);
 		
 		close(conn);
 		
@@ -387,6 +398,23 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int result = new BoardDao().deleteReply(conn, replyNo, boardNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteNotice(int[] arr) {
+		
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteNotice(conn, arr);
 		
 		if(result > 0) {
 			commit(conn);

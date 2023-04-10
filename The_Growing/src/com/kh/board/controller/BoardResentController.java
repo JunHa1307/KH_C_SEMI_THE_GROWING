@@ -33,6 +33,7 @@ public class BoardResentController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int listCount;	 	// 현재 게시판의 총 게시글 갯수 
 		int currentPage; 	// 현재 페이지(사용자가 요청한 페이지) 
 		int pageLimit; 		// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수 

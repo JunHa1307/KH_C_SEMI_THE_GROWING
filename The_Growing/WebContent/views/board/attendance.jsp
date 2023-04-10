@@ -20,6 +20,7 @@
 				<caption>출석표</caption>
 					<tr>
 						<% for(int i =0; i < lastDay + 1; i++){ %>
+						
 							<th><%= i == 0 ? "이름" : i %></th>	
 						<% } %>
 					</tr>
