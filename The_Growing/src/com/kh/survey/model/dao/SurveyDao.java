@@ -263,7 +263,6 @@ public class SurveyDao {
 	        		arr = rset.getString("QUES_TYPE").split(",");
 	        		question.setQuesType(arr);
 	        	}else {
-	        		str = new String[1];
 	        		str[0] =  rset.getString("QUES_TYPE");
 	        		question.setQuesType(str);
 	        	}
@@ -272,7 +271,6 @@ public class SurveyDao {
 	        		arr = rset.getString("S_TITLE").split(",");
 	        		question.setsTitle(arr);
 	        	}else {
-	        		str = new String[1];
 	        		str[0] =  rset.getString("S_TITLE");
 	        		question.setsTitle(str);
 	        	}
@@ -281,7 +279,6 @@ public class SurveyDao {
 	        		arr = rset.getString("M_TITLE").split(",");
 	        		question.setmTitle(arr);
 	        	}else {
-	        		str = new String[1];
 	        		str[0] =  rset.getString("M_TITLE");
 	        		question.setmTitle(str);
 	        	}
@@ -290,7 +287,6 @@ public class SurveyDao {
 	        		arr = rset.getString("M_CONTENT").split(",");
 	        		question.setmContent(arr);
 	        	}else {
-	        		str = new String[1];
 	        		str[0] =  rset.getString("M_CONTENT");
 	        		question.setmContent(str);
 	        	}
@@ -299,7 +295,6 @@ public class SurveyDao {
 	        		arr = rset.getString("ITEM_NO").split(",");
 	        		question.setItemNo(arr);
 	        	}else {
-	        		str = new String[1];
 	        		str[0] =  rset.getString("ITEM_NO");
 	        		question.setItemNo(str);
 	        	}
@@ -308,7 +303,6 @@ public class SurveyDao {
 	        		arr = rset.getString("ITEM_CONTENT").split(",");
 	        		question.setItemContent(arr);
 	        	}else {
-	        		str = new String[1];
 	        		str[0] =  rset.getString("ITEM_CONTENT");
 	        		question.setItemContent(str);
 	        	}
@@ -410,8 +404,7 @@ public class SurveyDao {
 	        		arr = rset.getString("WRITE_ANS").split(",");
 	        		ans.setWriteAns(arr);
 	        	}else {
-	        		str = new String[1];
-	        		str[0] =  rset.getString("WRITE_ANS");
+	        		str[0] =  rset.getString("QUES_TYPE");
 	        		ans.setWriteAns(str);
 	        	}
 	        	
@@ -419,7 +412,6 @@ public class SurveyDao {
 	        		arr = rset.getString("ITEM_ANS").split(",");
 	        		ans.setItemAns(arr);
 	        	}else {
-	        		str = new String[1];
 	        		str[0] =  rset.getString("ITEM_ANS");
 	        		ans.setItemAns(str);
 	        	}

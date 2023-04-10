@@ -24,6 +24,7 @@
                 <% } %>
                 <div style="margin: 1em 0 1em 0;font-size: 1.5em;"><a href='javascript:void(0);' id="canSurvey" style="text-decoration: none;color: #000000;font-weight: 700;">진행 중</a> | <a href='javascript:void(0);' id="cantSurvey" style="text-decoration: none;color: #000000;">종료</a></div>
                 <div id="surveying">
+                	<form action="answer.su" method="get">
 	                <% for(int i = 0; i < surveyList.size(); i++) {%>
 	                <% Survey s = surveyList.get(i); %>
 		                <% if(s.getStatus().equals("Y")){ %>
@@ -31,7 +32,7 @@
 			                	<input type="hidden" name="sno" value="<%= s.getSurveyNo() %>" readonly>
 			                    <div style="padding: 1em;box-sizing: border-box;display: flex;justify-content: space-between;">
 			                        <span><h4><b><%= s.getTitle() %></b></h4> <%= s.getFirstDate() %> ~ <%= s.getLastDate() %></span>
-			                        <button type="button" class="doSurvey" style="margin: 1em 0 1em 0;width: 15em;height: 3em;border: 0;border-radius: 1em;background-color: #209dce;color: #ffffff;">설문하기</button></div>
+			                        <button type="submit" style="margin: 1em 0 1em 0;width: 15em;height: 3em;border: 0;border-radius: 1em;background-color: #209dce;color: #ffffff;">설문하기</button></div>
 			                    <% if(loginUser.getUserLevel() == 1) { %>    
 				                    <hr style="background-color: #000000;margin: 0;">
 				                    <div style="display: flex;justify-content: space-between; padding: 1em 1em 0 1em;">
@@ -45,6 +46,7 @@
 			                </div>
 		                <% } %>
 	                <% } %>
+	                </form>
                 </div>
                 <div id="surveyEnd" style="display:none;">
                 	<% for(int i = 0; i < surveyList.size(); i++) {%>
@@ -116,9 +118,7 @@
                  });
     		});
     	});
-    	$(".doSurvey").click(function(){
-    		location.href ="answer.su?sno="+$(this).closest(".surveys").children("input[name='sno']").val();
-    	});
+    	
     </script>
 </body>
 </html>
