@@ -1,8 +1,6 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,21 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
-import com.kh.board.model.vo.Reply;
-import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class BoardDetailController
+ * Servlet implementation class ReplyDeleteController
  */
-@WebServlet("/detail.fr")
-public class BoardDetailController extends HttpServlet {
+@WebServlet("/rdelete.fr")
+public class ReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailController() {
+    public ReplyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,28 +29,28 @@ public class BoardDetailController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int replyNo = Integer.parseInt(request.getParameter("rno"));
+		
+		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	int boardNo = Integer.parseInt(request.getParameter("bno"));
-		BoardService bService = new BoardService();
+//		int refBno = ((Board) request.getSession().getAttribute("bno")).getBoardNo();
 		
 		
-		int result = bService.increaseCount(boardNo);
+		int result = new BoardService().deleteReply(replyNo, userNo);
 		
-		if(result > 0 ) { 
-			Board b = bService.selectBoard(boardNo);
-			ArrayList<Reply> list = bService.selectReplyList(boardNo);
-			
-			request.setAttribute("b", b);
-			request.setAttribute("list", list);
-			
-			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
-			
-		}else { 
-			request.setAttribute("errorMsg", "게시글 상세조회 실패");
+		if(result > 0) {
+			//삭제처리
+		
+			request.getSession().setAttribute("alertMsg", "성공적으로 댓글을 삭제했습니다.");
+			response.sendRedirect(request.getContextPath()+"/rinsert.fr");
+		}else {
+			request.setAttribute("errorMsg", "댓글삭제에 실패했습니다..");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+	
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

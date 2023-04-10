@@ -11,7 +11,7 @@ public class Reply {
 	private Date createDate;
 	private String status;
 	private String replySecret;
-	
+	private String userId;
 	public Reply() {
 		super();
 	}
@@ -30,12 +30,12 @@ public class Reply {
 
 	
 	
-	public Reply(int replyNo, int replyWriter, String replyContent, Date createDate) {
+	public Reply(int replyNo, String userId, Date createDate, String replyContent) {
 		super();
 		this.replyNo = replyNo;
-		this.replyWriter = replyWriter;
-		this.replyContent = replyContent;
+		this.userId = userId;
 		this.createDate = createDate;
+		this.replyContent = replyContent;
 	}
 
 	public int getReplyNo() {
@@ -92,6 +92,14 @@ public class Reply {
 
 	public void setReplySecret(String replySecret) {
 		this.replySecret = replySecret;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	@Override

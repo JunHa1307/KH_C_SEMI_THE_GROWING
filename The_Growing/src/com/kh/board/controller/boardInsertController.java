@@ -51,43 +51,37 @@ public class boardInsertController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		if(ServletFileUpload.isMultipartContent(request) ) {
-		
-			int maxSize = 1024 * 1024 * 10;
+			// 1_1. 전송용량제한
+						
+			// 1_2. 저장할 폴더의 물리적 경로
+						
+			// 2. 전달된 파일명 수정작업후 서버에 업로드
 			
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/board_upfiles/");
-			
-			MultipartRequest multi = new MultipartRequest(request , savePath, maxSize ,"UTF-8", 
-					 new MyFileRenamePolicy());
+			int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+			int cno = (int) request.getSession().getAttribute("cno");
+			// 3. db에 저장
+			// Board에 들어갈 값들 뽑아오기
+			Board b = new Board();
+			b.setBoardType(4);
+			b.setBoardTitle(request.getParameter("title"));
+			b.setBoardContent(request.getParameter("content"));
+			b.setRefUno(uno);
+			b.setRefCno(cno);
 
-			 String title = multi.getParameter("title");
-			 String content = multi.getParameter("content");
-			 String createDate = multi.getParameter("createDate");
-			 int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-			 int cno = (int) request.getSession().getAttribute("cno");
-			 
-			 
-			 Board b = new Board();
-			 b.setBoardType(4);
-			 b.setBoardTitle(multi.getParameter("title"));
-			 b.setBoardContent(multi.getParameter("content"));
-			 b.setRefUno(uno);
-			 b.setRefCno(cno);
-			 
-			 Attachment at = null;
-			 if(multi.getOriginalFileName("upfile") != null) {
-				 at = new Attachment();
-				 at.setOriginName( multi.getOriginalFileName("upfile")  );
-				 at.setChangeName( multi.getFilesystemName("upfile") );
-				 at.setFilePath("resources/board_upfiles/");
-				 at.setFileLevel(1);
-			 }
-			 
-			 Class cInfo = new ClassService().selectClass(cno, uno);
+//			 Attachment at = null;
+//			 if(multi.getOriginalFileName("upfile") != null) {
+//				 at = new Attachment();
+//				 at.setOriginName( multi.getOriginalFileName("upfile")  );
+//				 at.setChangeName( multi.getFilesystemName("upfile") );
+//				 at.setFilePath("resources/board_upfiles/");
+//				 at.setFileLevel(1);
+//			 }
+			
+			
+	/*		 Class cInfo = new ClassService().selectClass(cno, uno);
 			 request.setAttribute("cInfo", cInfo);
-			 
-			 int result = new BoardService().insertBoard(b, at);
+			 */
+			 int result = new BoardService().insertBoard(b);
 			
 			 if(result > 0 ) { 
 				 
@@ -95,18 +89,13 @@ public class boardInsertController extends HttpServlet {
 				 response.sendRedirect(request.getContextPath()+"/list.fr?currentPage=1");
 			 }else { 
 				 
-				 if(at != null) {
-					 new File(savePath+at.getChangeName()).delete();
-				 }
+	
 				 
 				 request.setAttribute("errorMsg", "게시글 작성 실패");
 				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);				 
-				 
 			 }
-		} else {
-			request.setAttribute("errorMsg", "전송방법이 잘못되었습니다");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		
+		
 	}
-
 }
+

@@ -50,23 +50,24 @@
 <body>
     <div class="wrap">
    	 <%@ include file="/views/board/boardFrame.jsp" %>
-                <!-- 자유게시판 상세보기-->
+                <!-- 자유게시판 수정하기-->
                 
                 <div id="board_area">
                     <h1 align="center">자유게시판</h1>
                 
-                <form action="<%= contextPath %>/update.bo" id="update-form" method="post" enctype="multipart/form-data"">
+                <form action="<%= contextPath %>/update.fr" id="update-form" method="post" >
                 <input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
                     <table class="list-table"  border="5">
                         <tr >
                             <th>
-                                  <input id="title_area" type="text" placeholder="제목을 입력하세요." autofocus style="width: 100%; font-size: 2em;">
+                                  <input id="title_area" type="text" name="title" value="<%=b.getBoardTitle() %>" placeholder="제목을 입력하세요." autofocus style="width: 100%; font-size: 2em; required">
                             </th>					        
                         </tr>
                        
                         <tr>
                             <th >
-                                <textarea cols="100" rows="15" placeholder="내용을 입력하세요." style="font-size: 1.2em;"></textarea>
+                                 <textarea id="summernote" name="content"><%=b.getBoardContent() %></textarea>
+                         
                             </th>
                         </tr>
                         
@@ -76,8 +77,17 @@
                                     <button id="upload_file"><img src="<%=contextPath %>/resources/image/icons8-붙이다-64.png" style="width: 50px; height:50px;"></button>
                                 </div>
                                 <div id="box" style="float: right;">
-                                    <button class="button_UI button--winona" data-text="삭제" style="width: 100px;"><span>삭제</span></button>
+                                    <button  onclick="deleteBoard();" class="button_UI button--winona" data-text="삭제" style="width: 100px;" ><span>삭제</span></button>
                                 </div>
+                                <script>
+											function deleteBoard(){
+												if(!confirm("정말 삭제하시겠습니까?")){
+													return;
+												}
+												
+												location.href = "<%= contextPath %>/delete.fr?bno=<%= b.getBoardNo() %>";
+											}
+										</script>	
                                 <div id="box" style="float: right;">
                                     <button type="submit" class="button_UI button--winona" data-text="수정" style="width: 100px;"><span>수정</span></button>
                                 </div>
@@ -86,6 +96,21 @@
                     </table>
                 </form>
             </div>   
+            <script>
+            $(document).ready(function() {
+				//여기 아래 부분
+				$('#summernote').summernote({
+					  height: 300,                 // 에디터 높이
+					  minHeight: null,             // 최소 높이
+					  maxHeight: null,             // 최대 높이
+					  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+					  lang: "ko-KR",					// 한글 설정
+					  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+			          
+				});
+				
+            });
+            </script>  
     </div>
 </body>
 </html>

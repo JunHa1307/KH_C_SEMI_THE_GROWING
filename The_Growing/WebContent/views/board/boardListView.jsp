@@ -7,7 +7,10 @@
 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-
+	Board bt = new Board();
+	
+	
+	int boardType = bt.getBoardType();
 	int currentPage = pi.getCurrentPage(); 
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -124,6 +127,7 @@
 <body>
               <%@ include file="/views/board/boardFrame.jsp" %>
                 <!-- 자유게시판-->
+                <%if(bt.getBoardType() == 4) {%>
                 <div id="board_area">
                     <h1 align="center">자유 게시판</h1>
 
@@ -149,10 +153,10 @@
 					</tr>
 						<% } else { %>
 								<tr>
-									<th>글번호</td>
-									<th>제목</td>
-									<th>작성자</td>
-									<th>작성 일자</td>
+									<th>글번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성 일자</th>
 								</tr>
 							<% for(Board b  :  list) { %>
 								<tr>
@@ -173,7 +177,6 @@
 						});
 					</script>
                     </div>
-            </div>
             
             <div align="center" class="paging-area">
                 <div class="pagination">
@@ -198,8 +201,8 @@
               </div> 
             
             </div>
-            
-            
-    </div>
+            <% } else { %>
+            상담페이지
+                <% } %>
 </body>
 </html>

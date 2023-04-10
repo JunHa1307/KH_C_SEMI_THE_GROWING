@@ -9,23 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Reply;
-import com.kh.common.model.vo.Attachment;
+import com.kh.board.model.vo.ReplyBuilder;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class BoardDetailController
+ * Servlet implementation class AjaxReplyInsertController
  */
-@WebServlet("/detail.fr")
-public class BoardDetailController extends HttpServlet {
+@WebServlet("/rinsert.fr")
+public class ReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailController() {
+    public ReplyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,27 +33,26 @@ public class BoardDetailController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String replyContent = request.getParameter("content");
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	int boardNo = Integer.parseInt(request.getParameter("bno"));
-		BoardService bService = new BoardService();
+		Reply r = new Reply();
+		r.setReplyContent(replyContent);
+		r.setRefBno(boardNo);
+		r.setReplyWriter(userNo);
 		
+		ReplyBuilder rb =	 new ReplyBuilder.
+									Builder(1).
+									setReplyContent("댓글내용").
+									setRefBno(1).
+									build();
 		
-		int result = bService.increaseCount(boardNo);
-		
-		if(result > 0 ) { 
-			Board b = bService.selectBoard(boardNo);
-			ArrayList<Reply> list = bService.selectReplyList(boardNo);
-			
-			request.setAttribute("b", b);
-			request.setAttribute("list", list);
-			
-			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
-			
-		}else { 
-			request.setAttribute("errorMsg", "게시글 상세조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		int result = new BoardService().insertReply(r);
+
+		response.getWriter().print(result);
 	}
 
 	/**

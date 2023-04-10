@@ -19,7 +19,7 @@
             width: 80%;
         }
        	
-       	#reply_area {
+       	#reply-area {
        		width: 70%;
        		margin: 0% 0% 0% 12%;
        	}
@@ -74,7 +74,7 @@
 	                        <tr >
 	                            <th>
 	                            	<h1><%=b.getBoardTitle() %></h1>
-	                                  
+	                                  <% if(loginUser != null && loginUser.getUserId().equals( b.getUserId())) {%>
 	                                  <div class="dropdown" style="float: right; margin-top: -11%;">
 	                                    <button 
 	                                        class="btn btn-secondary" 
@@ -87,10 +87,20 @@
 	                                        <img id="alarmIcon" src="<%=contextPath %>/resources/image/icons8-메뉴-2-48.png">
 	                                    </button>
 	                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	                                      <a class="dropdown-item" href="<%=contextPath %>/update.fr">수정</a>
-	                                      <a class="dropdown-item" href="#">삭제</a>
+	                                      <a class="dropdown-item" href="<%=contextPath %>/update.fr?bno=<%=b.getBoardNo() %>">수정</a>
+	                                      <a class="dropdown-item" onclick="deleteBoard();">삭제</a>
 	                                    </div>
 	                                  </div>
+	                                  <%}%>
+	                                  <script>
+											function deleteBoard(){
+												if(!confirm("정말 삭제하시겠습니까?")){
+													return;
+												}
+												
+												location.href = "<%= contextPath %>/delete.fr?bno=<%= b.getBoardNo() %>";
+											}
+										</script>	
 	                           
 	                            </th>					        
 	                        </tr>
@@ -102,9 +112,9 @@
 	                        </tr>
 	                        <tr>
 	                            <th height="200">
-	                                <p style="height: 250px;">
+	                               
 	                                	 <%=b.getBoardContent() %>
-	                                </p>
+	                                
 	                                <hr style="height: 10px;">
 	                                    <button id="down_btn">
 	                                        <img id="down_img" src="<%=contextPath %>/resources/image/다운로드.png">
@@ -122,22 +132,22 @@
                        
 	                    </table>
 
-						<div id="reply_area">
+					 <div id="reply-area">
 							<table class="list-table" border="5">
 								<thead>
-									<%--  <% for(Reply r : list) { %> --%>
+									 <% for(Reply re : list) { %> 
 									<tr>
 										<th height="50">
 											<div id="reply_info"
 												style="width: 150px; height: 50px; border-style: none;">
 												<img id="profile_img"
 													src="<%=contextPath %>/resources/image/bono.jpg">
-												<%-- <%=r.getReplyWriter() %> --%>
-												댓글작성자 <br>
-												<%-- <%=r.getCreateDate() %> --%>
-												작성일
+												<%=re.getUserId() %> 
+												 <br>
+												
+												 <%=re.getCreateDate() %> 
 											</div>
-					
+											<% if(loginUser != null && loginUser.getUserId().equals( re.getUserId())) {%>
 											<div id="menu" class="dropdown"
 												style="float: right; margin: -7% 0% 0% 10%;">
 												<button class="btn btn-secondary" type="button"
@@ -149,23 +159,27 @@
 												</button>
 												<div id="menu" class="dropdown-menu"
 													aria-labelledby="dropdownMenuButton">
-													<a class="dropdown-item" href="#">수정</a> <a
-														class="dropdown-item" href="#">삭제</a>
+													<a class="dropdown-item" href="#">수정</a> 
+												    <a class="dropdown-item" onclick="deleteReply();">삭제</a>
 												</div>
 											</div>
-					
-											<div id="reply_content" style="width: 80%;">
-												<%-- <%=r.getReplyContent() %> --%>
-												댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글
-												내용댓글 내용
+											<% } %>
+											<script>
+											function deleteReply(){
+												if(!confirm("정말 삭제하시겠습니까?")){
+													return;
+												}
+												
+												location.href = "<%= contextPath %>/rdelete.fr?rno=<%= re.getReplyNo() %>";
+											}
+										</script>	
+											<div id="reply_Content" style="width: 80%;">
+												 <%=re.getReplyContent() %> 
 											</div>
 										</th>
 									</tr>
-									
-									<%-- <% } %> --%>
+									<% } %>
 								</thead>
-								
-								<form action="">
 									<tbody>
 										<tr>
 											<th><input style="width: 530px; height: 50px;"
@@ -177,18 +191,70 @@
 												</button>
 						
 												<div id="box">
-													<button class="button_UI button--winona" data-text="등록"
-														style="width: 80px; margin: -7% 0% 0% 88%;"
-														onclick="insertReply();">
+													<button onclick="insertReply();" class="button_UI button--winona" data-text="등록"
+														style="width: 80px; margin: -7% 0% 0% 88%;">
 														<span>등록</span>
 													</button>
 												</div>
 											</th>
 										</tr>
-									</tbody>
-								</form>
-							</table>
-				
-						</div>
+									</tbody>														
+							</table>					
+						</div>   
+						
+	</div>
+	<script>
+		$(function(){
+			setInterval(selectReplyList, 1000);
+		});
+		function insertReply(){
+			$.ajax({
+				url : "<%= contextPath%>/rinsert.fr",
+				data :{
+					content : $("#replyContent").val() , 
+					bno     : "<%= b.getBoardNo() %>"
+				}, 
+				success : function(result){
+					//댓글등록성공시  result = 1
+					
+					// 댓글등록 실패시 result = 0
+					if(result > 0){
+						//새 댓글목록 불러오는 함수호출
+						selectReplyList();
+						// 댓글내용 비워주기
+						$("#replyContent").val("");
+					}else{
+						alert("댓글작성에 실패했습니다.");	
+					}
+				}, error : function(){
+					console.log("댓글작성실패")
+				}
+			})
+		}
+		
+		<%-- function selectReplyList(){
+			$.ajax({
+				url : "<%= contextPath %>/rlist.fr",
+				data : {bno : "<%= b.getBoardNo() %>"},
+				success : function(list){
+					// 서버로부터 전달받은 리스트를 반복문을통해 댓글목록으로 변환
+					let result  = "";
+					for(let i of list){ 
+						result += "<tr>"
+									+"<th>"+ i.userId +
+									i.replyContent +
+									 i.createDate +"</th>"
+							   +  "</tr>"
+						
+					}
+					
+					$("#reply-area thead").html(result);
+				},
+				error : function(){
+					console.log("게시글 목록조회 실패")
+				}
+			});
+		} --%>
+	</script> 
 	</body>
 </html>

@@ -42,6 +42,10 @@ public class Board {
 	private String userId;
 	private String titleImg; 
 	
+	//게시판검색
+	private String type;
+	private String keyword;
+	
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -239,13 +243,25 @@ public class Board {
 		return titleImg;
 	}
 
-
-
 	public void setTitleImg(String titleImg) {
 		this.titleImg = titleImg;
 	}
 
+	public String getType() {
+		return type;
+	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 
 	@Override
 	public String toString() {

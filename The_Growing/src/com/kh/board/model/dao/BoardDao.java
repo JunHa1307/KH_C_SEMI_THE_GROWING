@@ -188,7 +188,7 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		return listCount;
 	}
 	
-	public ArrayList<Board> selectList(Connection conn, PageInfo pi){
+		public ArrayList<Board> selectList(Connection conn, PageInfo pi){
 		
 		ArrayList<Board> list = new ArrayList<>();
 		
@@ -286,40 +286,6 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		return b;
 	}
 	
-	public Attachment selectAttachment(Connection conn, int boardNo) {
-		
-		Attachment at = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectAttachment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				at = new Attachment();
-				
-				at.setFileNo(rset.getInt("FILE_NO"));
-				at.setOriginName(rset.getString("ORIGIN_NAME"));
-				at.setChangeName(rset.getString("CHANGE_NAME"));
-				at.setFilePath(rset.getString("FILE_PATH"));
-				
-				at.setFileLevel(rset.getInt("FILE_LEVEL"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return at;
-	}
-	
 	public int updateBoard(Connection conn, Board b) {
 		
 		int result = 0;
@@ -346,58 +312,6 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		return result;
 	}
 	
-	public int updateAttachment(Connection conn, Attachment at) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("updateAttachment");
-		
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			pstmt.setInt(4, at.getFileNo());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-	
-	public int insertNewAttachment(Connection conn , Attachment at) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt =null;
-		
-		String sql = prop.getProperty("insertNewAttachment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, at.getRefBno());
-			pstmt.setString(2, at.getOriginName());
-			pstmt.setString(3, at.getChangeName());
-			pstmt.setString(4, at.getFilePath());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-		
-	}
 	
 	public int insertReply(Connection conn, Reply r) {
 		
@@ -444,9 +358,9 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 			while(rset.next()) {
 				list.add(new Reply(
 						rset.getInt("REPLY_NO"),
-						rset.getInt("REPLY_CONTENT"),
 						rset.getString("USER_ID"),
-						rset.getDate("CREATE_DATE")
+						rset.getDate("CREATE_DATE"),
+						rset.getString("REPLY_CONTENT")
 						));				
 			}
 			
@@ -470,12 +384,37 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, b.getBoardType());
-			pstmt.setInt(2, b.getRefUno());
-			pstmt.setString(3, b.getBoardTitle());
-			pstmt.setString(4, b.getBoardContent());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
+			pstmt.setInt(4, b.getRefUno());
 			pstmt.setInt(5, b.getRefCno());
+	
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteBoard(Connection conn, int boardNo, int userNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -486,33 +425,28 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 		return result;
 	}
 	
-	
-	public int insertAttachment(Connection conn, Attachment at) {
+	public int deleteReply(Connection conn, int replyNo, int userNo) {
 		
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("insertAttachment");
+		String sql = prop.getProperty("deleteReply");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			pstmt.setInt(4, at.getFileLevel());
+			pstmt.setInt(1, replyNo);
+			pstmt.setInt(2, userNo);
 			
 			result = pstmt.executeUpdate();
 			
-		} catch (SQLException e) { 
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
 		
 		return result;
-		
 	}
 }
 

@@ -49,7 +49,7 @@
                 <div id="board_area">
                     <h1 align="center">자유게시판</h1>
                 
-                <form action="<%= contextPath %>/insert.fr" id="enroll-form" method="post" enctype="multipart/form-data">
+                <form action="<%= contextPath %>/insert.fr" id="enroll-form" method="post">
                     <table class="list-table"  border="5">
                         <tr >
                             <th>
@@ -59,18 +59,18 @@
                        
                         <tr>
                             <th >
-                                <textarea cols="100" rows="15" name="content" placeholder="내용을 입력하세요." style="font-size: 1.2em;" required></textarea>
+                                <textarea id="summernote" name ="content"></textarea>
                             </th>
                         </tr>
                        
                         <tr>
                             <th height="60px">
-                                <div  style="float: left;">
+                                <%-- <div  style="float: left;">
                                     <label id="upload_file" for="input_file">
                                     	<img src="<%=contextPath %>/resources/image/icons8-붙이다-64.png" style="width: 50px; height:50px;">
                                     </label>
-                                    <input type="file" id="input_file" name="upfile" style="display:none"/>
-                                </div>
+                                    <input type="file" id="input_file" name="board_upfiles" style="display:none"/>
+                                </div> --%>
                                 <div id="box" style="float: right;">
                                     <button type="submit" class="button_UI button--winona" data-text="등록" style="width: 100px;"><span>등록</span></button>
                                 </div>
@@ -81,7 +81,23 @@
                         </tr>
                     </table>
                 </form>
-            </div>   
+            </div> 
+            <script>
+            
+            $(document).ready(function() {
+				//여기 아래 부분
+				$('#summernote').summernote({
+					  height: 300,                 // 에디터 높이
+					  minHeight: null,             // 최소 높이
+					  maxHeight: null,             // 최대 높이
+					  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+					  lang: "ko-KR",					// 한글 설정
+					  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+			          
+				});
+				
+            });
+            </script>  
     </div>
 </body>
 </html>

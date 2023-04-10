@@ -80,38 +80,12 @@
 		  AND B.STATUS = 'Y'
 	</entry>
 	
-	<entry key="selectAttachment">
-		SELECT 
-			FILE_NO ,
-			ORIGIN_NAME,
-			CHANGE_NAME,
-			FILE_PATH,
-			NVL(FILE_LEVEL , 0) AS FILE_LEVEL
-		FROM ATTACHMENT
-		WHERE REF_BNO = ?
-		ORDER BY FILE_LEVEL
-	</entry>
-	
 	<entry key="updateBoard">
 		UPDATE BOARD
 		SET 
 			BOARD_TITLE = ?,
 			BOARD_CONTENT =?
 		WHERE BOARD_NO = ?
-	</entry>
-	
-	<entry key="updateAttachment">
-		UPDATE ATTACHMENT
-		SET ORIGIN_NAME = ? ,
-		    CHANGE_NAME = ? ,
-		    FILE_PATH   = ? ,
-			UPLOAD_DATE = SYSDATE
-		WHERE FILE_NO = ?
-	</entry>
-	
-	<entry key="insertNewAttachment">
-		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME,FILE_PATH)
-		VALUES(SEQ_FNO.NEXTVAL , ? , ? , ?, ? )
 	</entry>
 	
 	<entry key="insertReply">
@@ -122,9 +96,9 @@
 	<entry key="selectReplyList">
 		SELECT 
 			REPLY_NO, 
-			REPLY_CONTENT, 
 			USER_ID,
-			 TO_CHAR(CREATE_DATE, 'YY/MM/DD HH:MI:SS' ) AS CREATE_DATE
+			CREATE_DATE,
+			REPLY_CONTENT 
 		FROM REPLY R
 		JOIN MEMBER ON (USER_NO = REPLY_WRITER)
 		WHERE R.STATUS = 'Y' AND REF_BNO = ?
@@ -132,12 +106,22 @@
 	</entry>
 	
 	<entry key="insertBoard">
-		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, REF_UNO, BOARD_TITLE, BOARD_CONTENT, REF_CNO)
-		VALUES (SEQ_BNO.NEXTVAL, ?, ? ,? ,?)
+		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, REF_UNO, REF_CNO )
+		VALUES (SEQ_BNO.NEXTVAL, ?, ? ,? ,?,?)
 	</entry>
 	
-	<entry key="insertAttachment">
-		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
-		VALUES(SEQ_ANO.NEXTVAL , SEQ_BNO.CURRVAL, ? , ?, ?, ?)
+	<entry key="deleteBoard">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+		AND REF_UNO = ?
 	</entry>
+	
+	<entry key="deleteReply">
+		UPDATE Reply
+		SET STATUS = 'N'
+		WHERE REPLY_NO = ?
+		AND REF_BNO = ?
+	</entry>
+	
 </properties>

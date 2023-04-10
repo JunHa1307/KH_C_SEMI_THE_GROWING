@@ -78,6 +78,7 @@ public class BoardService {
 		return list;
 	}
 	
+	
 	public int increaseCount(int boardNo) {
 		Connection conn = getConnection();
 		
@@ -104,33 +105,13 @@ public class BoardService {
 		return b;
 	}
 	
-	public Attachment selectAttachment(int boardNo) {
-		Connection conn = getConnection();
-		
-		Attachment at = new BoardDao().selectAttachment(conn, boardNo);
-		
-		close(conn);
-		
-		return at;
-	}
-	
-	public int updateBoard(Board b, Attachment at) {
+	public int updateBoard(Board b) {
 		
 		Connection conn = getConnection();
 		
-		int result1 = new BoardDao().updateBoard(conn, b);
-		
-		int result2 = 1; 
-		
-		if( at != null ) {
-			if(at.getFileNo() != 0) {
-				result2 = new BoardDao().updateAttachment(conn, at);
-			} else {
-				result2 = new BoardDao().insertNewAttachment(conn, at);
-			}
-		}
-		
-		if(result1 > 0 && result2 > 0) {
+		int result = new BoardDao().updateBoard(conn, b);
+
+		if(result > 0 ) {
 			commit(conn);
 		}else{
 			rollback(conn);
@@ -138,7 +119,7 @@ public class BoardService {
 		
 		close(conn);
 		
-		return result1 * result2;
+		return result;
 	}
 	
 	public int insertReply(Reply r) {
@@ -169,19 +150,33 @@ public class BoardService {
 		return list;
 	}
 	
-	public int insertBoard(Board b , Attachment at) {
+	public int insertBoard(Board b ) {
 		
 		Connection conn = getConnection();
 		
-		int result1 = new BoardDao().insertBoard(conn, b);
+		int result = new BoardDao().insertBoard(conn, b);
 		
-		int result2 = 1; 
 		
-		if (at != null) {
-			result2 = new BoardDao().insertAttachment(conn, at);
+	
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
 		}
+
+		close(conn);
+
+		return result;
 		
-		if(result1 > 0 && result2 > 0) {
+	}
+	
+	public int deleteBoard(int boardNo, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteBoard(conn, boardNo, userNo);
+		
+		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -189,7 +184,23 @@ public class BoardService {
 		
 		close(conn);
 		
-		return result1 * result2;
-		
+		return result;
 	}
+	
+	public int deleteReply(int replyNo, int boardNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteReply(conn, replyNo, boardNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
 }
