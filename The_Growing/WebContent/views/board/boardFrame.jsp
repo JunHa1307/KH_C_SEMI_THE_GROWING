@@ -692,6 +692,9 @@ vertical-align: middle;
              		$("#board_option").on("click", function(){
              			location.href="<%= request.getContextPath() %>/moveManagement.bo";
              		});
+             		$("#board_manage").on("click", function(){
+             			location.href="<%= request.getContextPath() %>/classmembermanagement.c";
+             		});
              	});
              </script>
              

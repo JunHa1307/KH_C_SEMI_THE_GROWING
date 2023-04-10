@@ -2,8 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
-
+	ArrayList<Board> list2 = (ArrayList<Board>) request.getAttribute("list2");
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
 <!DOCTYPE html>
@@ -25,10 +24,6 @@
 	.notice_content div{
 		font-weight: 900;
 	}
-/* 	.notice_content{
-		display: flex;
-    	align-items: center;
-	} */
 	.notice_confirm{
 		width:100%;
 		border-bottom: 1px solid gray;
@@ -76,22 +71,16 @@
 <body>
 <%@include file="boardFrame.jsp" %>
 <div id="board_area">
-	<form action="<%= contextPath %>/enroll.no" method="post">
-
+	<form action="<%= contextPath %>/views/board/noticeEnrollForm.jsp" method="post">
 	<div id="album_header">
     	<div id="album_area">
        		<div id="album_title">알림장</div>
         	<div id="album_button" align="right" class="box">
-        		<% if(loginUser.getUserLevel() == 1){ %>
                   <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
-            	  <button type="button" class="ctBtn button_UI button--winona" onclick="folderDeleteClick();">삭제</button>
-            	<% } %>
-
             </div>
         </div>
         <hr>
      </div>
-
      <script>
      	function folderDeleteClick(){
      	  
@@ -169,8 +158,7 @@
 			              </div>
 						</th>
 					</tr>
-				</table>
-				
+				</table>	
 				<div id="print<%= b.getBoardNo() %>">
 					<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
 					<div class="notice_con_title marginSt">
