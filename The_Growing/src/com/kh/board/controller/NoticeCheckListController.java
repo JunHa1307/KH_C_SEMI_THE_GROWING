@@ -8,23 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Board;
+import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class NoticeMoveController
+ * Servlet implementation class NoticeCheckController
  */
-@WebServlet("/movenotice.bo")
-public class NoticeMoveController extends HttpServlet {
+@WebServlet("/checklist.no")
+public class NoticeCheckListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeMoveController() {
+    public NoticeCheckListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +31,12 @@ public class NoticeMoveController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-		int refUno = loginUser.getUserNo();
-		int refCno = (int) request.getSession().getAttribute("cno");
+		int uno = (int) request.getSession().getAttribute("refUno");
 		
-		HttpSession session = request.getSession();
+		ArrayList<Member> noticeCheckList = new MemberService().selectUserName(uno);
 		
-		session.setAttribute("refUno", refUno);
-		session.setAttribute("refCno", refCno);
-		
-		ArrayList<Board> list2 = new BoardService().selectNoticeList(refCno);
-
-		request.getSession().setAttribute("list2", list2);
-		
+		request.getSession().setAttribute("noticeCheckList", noticeCheckList);
 		request.getRequestDispatcher("views/board/noticeListView.jsp").forward(request, response);
-
-		
 	}
 
 	/**

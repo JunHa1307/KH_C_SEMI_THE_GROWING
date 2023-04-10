@@ -136,7 +136,7 @@
                     <div id="list_search">                     
                             <button id="searchBtn_1" type="button">
                                 <input id="searchBoard" type="text" placeholder="게시판 검색">
-                                <img src="<%=contextPath %>/resources/searchIcon.png">
+                                <img src="resources/searchIcon.png">
                             </button>           
                        <% if(loginUser != null) { %>    
                         <div id="box">
@@ -178,7 +178,7 @@
 							});
 						});
 					</script>
-                    </div>
+                 
             
             <div align="center" class="paging-area">
                 <div class="pagination">
@@ -203,6 +203,6 @@
               </div> 
             
             </div>
-          
+             </div>
 </body>
 </html>

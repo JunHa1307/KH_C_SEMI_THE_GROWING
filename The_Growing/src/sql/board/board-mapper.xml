@@ -233,7 +233,6 @@
 				VALUES (SEQ_BNO.NEXTVAL, ?, ?, ?, ?, ?)
 	</entry>
 	
-
 	<entry key="selectNoticeList">
 		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE
 		FROM BOARD 
@@ -244,8 +243,9 @@
 	</entry>
 	
 	<entry key="selectNotice">
-	  SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE
-        FROM BOARD
+	  SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE
+        FROM BOARD B
+        JOIN MEMBER M ON (M.USER_NO = B.REF_UNO)
         WHERE BOARD_NO = ? 
         AND BOARD_TYPE = 2
 	</entry>
