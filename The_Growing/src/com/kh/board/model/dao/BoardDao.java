@@ -933,7 +933,6 @@ public Board selectBoard(Connection conn, int boardNo) {
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContent(rset.getString("BOARD_CONTENT"));
-				b.setUserId(rset.getString("USER_ID"));
 				b.setCreateDate(rset.getDate("CREATE_DATE"));
 			}
 		} catch (SQLException e) {

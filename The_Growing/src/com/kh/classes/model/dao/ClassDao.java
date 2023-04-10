@@ -365,8 +365,7 @@ public class ClassDao {
 	}
 	
 	public int updateCalendar(Connection conn, int classNo, String arr) {
-		
-		// UPDATE臾� => 諛섑솚媛� 泥섎━�맂 �뻾�쓽 媛��닔媛� 諛섑솚�맖
+
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
