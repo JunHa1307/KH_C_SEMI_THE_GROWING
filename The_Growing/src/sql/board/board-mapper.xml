@@ -43,7 +43,8 @@
 					       USER_ID,
 					       BOARD_TITLE,
 					       CREATE_DATE,
-					       REF_CNO
+					       REF_CNO,
+					       BOARD_COUNT
 					FROM BOARD B
 					JOIN MEMBER ON (REF_UNO = USER_NO)
 					WHERE BOARD_TYPE = ?

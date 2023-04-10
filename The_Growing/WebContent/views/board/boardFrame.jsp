@@ -598,9 +598,15 @@ vertical-align: middle;
         				location.href="<%=contextPath%>/infor.bo";
         			});
         			
+        			$("#board_notice").click(function(){
+        				location.href="<%=contextPath%>/movenotice.bo";
+        			});
         			
-              });
+        			$("#board_option").click(function(){
+        				location.href="<%=contextPath%>/moveManagement.bo";
+        			});
 
+              });
             </script>
 </head>
 <body>
@@ -680,20 +686,7 @@ vertical-align: middle;
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>
              </div>
-             <script>
-             	$(function(){
-             		$("#board_notice").on("click", function(){
-             			location.href="<%= request.getContextPath() %>/movenotice.bo";
-             		});
-             		
-             	});
-             
-             	$(function(){
-             		$("#board_option").on("click", function(){
-             			location.href="<%= request.getContextPath() %>/moveManagement.bo";
-             		});
-             	});
-             </script>
+          
              
            <%}else{ %>
            <div id="board_wrap">

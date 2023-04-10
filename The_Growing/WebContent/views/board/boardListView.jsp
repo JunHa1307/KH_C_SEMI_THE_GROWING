@@ -25,51 +25,52 @@
     <title>자유게시판 리스트</title>
     <style>
         /* 자유게시판 테이블 css */
-        #board_area {
-            width: 80%;
-        }
+      
         #list_search {
-            width: 190px;
-            height: 15%;
-            margin: -1% 0% 0% 72%;
-            
+            width: 97%;
+            height: 25%;
+           
         }        
 		
         #searchBoard {           
-            width: 150px;
+            width: 250px;
             border: none;
             outline: none;
             background: none;
+            
+            
         }
 
         #searchBtn_1 {
-            border: 1px solid black;
+            border : 1px solid rgb(224, 224, 224);
             height: 40px;
             border-radius: 10px;
-           
         }
-		
-		#box {
-			margin: 3% 0% 0% 30%;
-		}
+		#searchBtn_1 >img{
+	        width:20px;
+	        height:20px;
+        }
+	
         .list-table {
             margin: auto;
-            min-width: 800px;
+            margin-top:20px;
+           
             max-width: 100%;
             border-collapse: collapse;
+            text-align : center;
         }
 
         
         .list-table tr:first-child {
             border-top: none;
-            background: #cff0cc;
+            background: rgb(228, 234, 235);
             color: black;
         }
 
         .list-table tr {
             border-top: 1px solid #ddd;
             border-bottom: 1px solid #ddd;
-            background-color: #f5f9fc;
+            background-color: rgb(244, 248, 248);
         }
 
         .list-table th {
@@ -78,7 +79,7 @@
 
         @media screen and (min-width: 600px) {
             .list-table tr:hover:not(:first-child) {
-                background-color: #d8e7f3;
+                background-color: white;
         }
       
         .list-table th,.list-table td {
@@ -95,11 +96,13 @@
     	}
     	
     	.paging-area{
-			margin-left:50%;
+    			
+			
+			margin-top:20px;
     	}
 
 		.pagination {
-            display: inline-block;
+          justify-content: center;
         }
                     
         .pagination button {
@@ -109,6 +112,7 @@
             text-decoration: none;
             border-radius:50%;
             margin-right: 4px;
+            color : grey;
         }
                     
         .pagination button.active {
@@ -126,51 +130,67 @@
 <body>
               <%@ include file="/views/board/boardFrame.jsp" %>
                 <!-- 자유게시판-->
-                <div id="board_area">
-                <%if(boardType == 4) {%>
-                    <h1 align="center">자유 게시판</h1>
-				<%}else{ %>
-					 <h1 align="center">상담 게시판</h1>
-				<%} %>
-				
-                    <div id="list_search">                     
-                            <button id="searchBtn_1" type="button">
-                                <input id="searchBoard" type="text" placeholder="게시판 검색">
-                                <img src="<%=contextPath %>/resources/searchIcon.png">
-                            </button>           
-                       <% if(loginUser != null) { %>    
-                        <div id="box">
-                            <a style="color:black;" href="<%=contextPath%>/insert.fr?boardType=<%=boardType %>" >
-                            	<button class="button_UI button--winona" data-text="글 등록"><span>글 등록</span></button>
-                            </a>
-                        </div> 
-                        <% } %>
-                    </div>
-                    
-                    <table class="list-table">
-                        <tbody>
-                          <% if(list.isEmpty()) {%>
-					<tr>
-						<td colspan="6">조회된 리스트가 없습니다.</td>
-					</tr>
-						<% } else { %>
-								<tr>
-									<th>글번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성 일자</th>
-								</tr>
-							<% for(Board b  :  list) { %>
-								<tr>
-									<td><%= b.getBoardNo() %></td>
-									<td><%= b.getBoardTitle() %></td>
-									<td><%= b.getUserId() %></td>
-									<td><%= b.getCreateDate() %></td>
-								</tr>
-							<% } %>
-						<% } %>
-                      </table>
-                      <script>
+	<div id="board_area">
+
+		<div id="album_header">
+			<div id="album_area">
+				<%if (boardType == 4) {%>
+				<div id="album_title" style="width:82%" >자유게시판</div>
+				<%} else {%>
+				<div id="album_title" style="width:82%">상담게시판</div>
+				<%}%>
+				<% if(loginUser != null) { %>
+				<div id="album_button" style="width:18%" class="box" >
+					<a style="color: black;"
+					href="<%=contextPath%>/insert.fr?boardType=<%=boardType %>">
+					<button class="button_UI button--winona" data-text="글 등록">
+						<span>글 등록</span>
+					</button>
+				</a>
+				</div>
+				<% } %>
+			</div>
+			<div id="album_hr">
+				<hr />
+			</div>
+		</div>
+
+
+		<div id="list_search" align="right">
+			<button id="searchBtn_1" type="button" >
+				<input id="searchBoard" type="text" placeholder="게시판 검색" > 
+				<img src="resources/image/search.svg">
+			</button>
+		</div>
+
+		<table class="list-table">
+			
+				<% if(list.isEmpty()) {%>
+				<tr>
+					<td colspan="6">조회된 리스트가 없습니다.</td>
+				</tr>
+				<tbody>
+				<% } else { %>
+				<tr>
+					<th width="130">글번호</th>
+					<th width="350">제목</th>
+					<th width="130">작성자</th>
+					<th width="130">작성일</th>
+					<th width="120">조회수</th>
+				</tr>
+				<% for(Board b  :  list) { %>
+				<tr id="table_tr">
+					<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
+					<td><%= b.getBoardTitle() %></td>
+					<td><%= b.getUserId() %></td>
+					<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
+					<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+				</tr>
+				<% } %>
+				<% } %>
+			
+		</table>
+		<script>
 						$(function(){
 							$(".list-table>tbody>tr").click(function(){
 								let bno = $(this).children().eq(0).text();
@@ -178,31 +198,34 @@
 							});
 						});
 					</script>
-                    </div>
-            
-            <div align="center" class="paging-area">
-                <div class="pagination">
+
+
+		<div align="center" class="paging-area">
+			<div class="pagination">
 				<% if(currentPage != 1) { %>
-					<button onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= currentPage -1 %>&boardType=<%=boardType%>'">&lt;</button>
+				<button
+					onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= currentPage -1 %>&boardType=<%=boardType%>'">&lt;</button>
 				<% } %>
-				
+
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
-					
-					<% if(i != currentPage) { %>
-						<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= i %>&boardType=<%=boardType%>' "><%= i %></button>
-					<% } else { %>
-						<button disabled><%=i %></button>
-					<% } %>
-					
+
+				<% if(i != currentPage) { %>
+				<button class=""
+					onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= i %>&boardType=<%=boardType%>' "><%= i %></button>
+				<% } else { %>
+				<button disabled><%=i %></button>
 				<% } %>
-				
+
+				<% } %>
+
 				<% if(currentPage != maxPage) { %>
-					<button class="" onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%=currentPage + 1 %>&boardType=<%=boardType%>' ">&gt;</button>
+				<button class=""
+					onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%=currentPage + 1 %>&boardType=<%=boardType%>' ">&gt;</button>
 				<% } %>
-                
-              </div> 
-            
-            </div>
-          
+
+			</div>
+
+		</div>
+	</div>
 </body>
 </html>

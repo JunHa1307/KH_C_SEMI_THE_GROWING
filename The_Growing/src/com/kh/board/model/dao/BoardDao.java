@@ -626,7 +626,8 @@ try {
 		b.setUserId(rset.getString("USER_ID"));
 		b.setBoardTitle(rset.getString("BOARD_TITLE"));
 		b.setCreateDate(rset.getDate("CREATE_DATE"));
-		b.setRefCno(rset.getInt("REF_CNO"));			
+		b.setRefCno(rset.getInt("REF_CNO"));		
+		b.setCount(rset.getInt("BOARD_COUNT"));
 				           
 		list.add(b);
 	}

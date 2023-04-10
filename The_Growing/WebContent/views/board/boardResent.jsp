@@ -82,6 +82,27 @@
 	#album {background-color:   rgb(245, 240, 237);}
 	#free {background-color:   rgb(242, 243, 235);}
 
+
+	.pagination {
+         justify-content: center;
+       }
+                   
+       .pagination button {
+           border-style : none;
+           float: left;
+           padding: 8px 16px;
+           text-decoration: none;
+           border-radius:50%;
+           margin-right: 4px;
+           color : grey;
+       }
+                   
+       .pagination button.active {
+           background-color: #cff0cc;
+            color: black;
+       }
+                   
+      .pagination button:hover:not(.active) {background-color: silver;}
 </style>
 </head>
 <body>
@@ -168,7 +189,7 @@
 			<!-- 페이징바 영역 -->
 			
 			<div align="center" class="paging-area">
-			
+			<div class="pagination">
 				<% if(currentPage != 1) { %>
 					<button onclick="location.href='<%=contextPath %>/resent.bo?currentPage=<%=currentPage -1 %>'">&lt;</button>
 				<%} %>
@@ -187,7 +208,7 @@
 				<%} %>
 			
 			</div>
-	
+	</div>
 
 	</div>
 
