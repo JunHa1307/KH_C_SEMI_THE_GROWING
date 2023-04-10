@@ -46,8 +46,9 @@
 					       REF_CNO
 					FROM BOARD B
 					JOIN MEMBER ON (REF_UNO = USER_NO)
-					WHERE BOARD_TYPE = 4
+					WHERE BOARD_TYPE = ?
 					  AND B.STATUS = 'Y'
+					  AND B.REF_CNO = ?
 					ORDER BY BOARD_NO DESC
 				) A
 			)
@@ -182,6 +183,12 @@
 		WHERE STATUS = 'Y' AND REF_CNO =?
 			
 	</entry>
+		<entry key="selectBoardListCount">
+		SELECT COUNT(*) AS COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y' AND REF_CNO =?   AND BOARD_TYPE = ?
+			
+	</entry>
 	<entry key="selectList">
 	SELECT * 	
 	FROM(
@@ -226,6 +233,7 @@
 				VALUES (SEQ_BNO.NEXTVAL, ?, ?, ?, ?, ?)
 	</entry>
 	
+
 	<entry key="selectNoticeList">
 		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE
 		FROM BOARD 

@@ -48,6 +48,7 @@ public class NoticeMoveController extends HttpServlet {
 		
 		request.getRequestDispatcher("views/board/noticeListView.jsp").forward(request, response);
 
+		request.getRequestDispatcher("views/board/noticeFirstPage.jsp").forward(request, response);
 		
 	}
 
