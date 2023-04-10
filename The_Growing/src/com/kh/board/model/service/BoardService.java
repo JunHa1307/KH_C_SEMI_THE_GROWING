@@ -252,7 +252,10 @@ public class BoardService {
 		
 		if(result > 0) {
 			commit(conn);
+		}
 
+			return result;
+		}
 	public int insertNotice(Board b) {
 		
 		Connection conn = getConnection();
@@ -313,10 +316,7 @@ public class BoardService {
 		close(conn);
     		return updateNotice;
 	}
-		
 
-		return result;
-	}
 	
 	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();

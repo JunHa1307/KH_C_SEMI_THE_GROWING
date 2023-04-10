@@ -107,11 +107,16 @@
 					type : 'bar', // 차트의 형태
 					data : { // 차트에 들어갈 데이터
 						labels : //x 축 정보
-							<%= Arrays.toString(arr)%>,
+							[<% for(int y = 0; y < data.length; y++){%>
+										"<%= arr[y]%>",
+									<% }%>],
 						datasets : [ { //데이터
-							label : <%= ques.getmTitle()[m] %>, //차트 제목
+							label : "<%= ques.getmTitle()[m] %>", //차트 제목
 							fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-							data : <%= Arrays.toString(data)%>, // 그래프 값
+							data : [<% for(int y = 0; y < data.length; y++){%>
+										"<%= data[y]%>",
+									<% }%>]
+							, // 그래프 값
 							backgroundColor : <%= Arrays.toString(backgroundColor)%>,
 							borderColor : <%= Arrays.toString(borderColor)%>,
 							borderWidth : 1
