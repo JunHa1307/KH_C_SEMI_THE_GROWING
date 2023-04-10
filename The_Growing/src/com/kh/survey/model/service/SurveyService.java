@@ -54,6 +54,25 @@ public class SurveyService {
 	      return survey;
 	}
 	
+	public int updateSurveyStatus(int sno) {
+		
+		Connection conn = getConnection();
+		
+		int result = new SurveyDao().updateSurveyStatus(conn, sno);
+		
+		if(result > 0) { // 성공
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+	
 	public int insertQuestion(Question ques) {
 		Connection conn = getConnection();
 		

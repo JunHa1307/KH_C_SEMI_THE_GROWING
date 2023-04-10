@@ -34,17 +34,17 @@ public class ClassService {
 		int result4 = new ClassDao().insertTable(conn, c.getClassCode(), "[{\"name\":\"\",\"mon\":\"\",\"tue\":\"\",\"wed\":\"\",\"thur\":\"\",\"fri\":\"\",\"sat\":\"\"}]");
 		int result5 = new ClassDao().insertCalendar(conn, c.getClassCode(), "[]");
 		
-		// attachment테이블 등록여부 판단할 변수
-		int result3 = 1;// 1로 미리 선언과 동시에 초기화 시키는 이유는 attachment테이블에 insert문이 실행되지 않을 수 있으므로
+		// attachment�뀒�씠釉� �벑濡앹뿬遺� �뙋�떒�븷 蹂��닔
+		int result3 = 1;// 1濡� 誘몃━ �꽑�뼵怨� �룞�떆�뿉 珥덇린�솕 �떆�궎�뒗 �씠�쑀�뒗 attachment�뀒�씠釉붿뿉 insert臾몄씠 �떎�뻾�릺吏� �븡�쓣 �닔 �엳�쑝誘�濡�
 
 		if (at != null) {
 			result3 = new ClassDao().insertClassAttachment(conn, at, c.getClassCode());
 		}
 
-		// 트랜잭션 처리
+		// �듃�옖�옲�뀡 泥섎━
 		if (result1 > 0 && result2 > 0 && result3 > 0) {
-			// 첨부파일이 없는 경우 insert가 성공했을 때도 result2는 여전히 0이기 때문에 rollback처리가 될 수 있음
-			// 따라서 애초에 result2의 값을 1로 초기화시켜줘야한다
+			// 泥⑤��뙆�씪�씠 �뾾�뒗 寃쎌슦 insert媛� �꽦怨듯뻽�쓣 �븣�룄 result2�뒗 �뿬�쟾�엳 0�씠湲� �븣臾몄뿉 rollback泥섎━媛� �맆 �닔 �엳�쓬
+			// �뵲�씪�꽌 �븷珥덉뿉 result2�쓽 媛믪쓣 1濡� 珥덇린�솕�떆耳쒖쨾�빞�븳�떎
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -52,7 +52,7 @@ public class ClassService {
 
 		close(conn);
 
-		return result1 * result2 * result3 * result4 * result5; // 혹시 하나라도 실패해서 0이 반환될경우 실패값을 반환하기위해 곱셈결과를 리턴
+		return result1 * result2 * result3 * result4 * result5; // �샊�떆 �븯�굹�씪�룄 �떎�뙣�빐�꽌 0�씠 諛섑솚�맆寃쎌슦 �떎�뙣媛믪쓣 諛섑솚�븯湲곗쐞�빐 怨깆뀍寃곌낵瑜� 由ы꽩
 	}
 	
 	public int insertClassMember(int code, int userNo) {
@@ -88,7 +88,7 @@ public class ClassService {
 		
 		int result = new ClassDao().updateTable(conn, classNo, arr);
 		
-		if(result > 0) { // 성공
+		if(result > 0) { // �꽦怨�
 			commit(conn);
 			
 		}else {
@@ -141,7 +141,7 @@ public class ClassService {
 		
 		int result = new ClassDao().updateCalendar(conn, classNo, arr);
 		
-		if(result > 0) { // 성공
+		if(result > 0) { 
 			commit(conn);
 			
 		}else {
@@ -194,7 +194,7 @@ public class ClassService {
 		
 		int result = new ClassDao().updateAttendTable(conn, arr, classNo, month);
 		
-		if(result > 0) { // 성공
+		if(result > 0) {
 			commit(conn);
 			
 		}else {
@@ -207,6 +207,62 @@ public class ClassService {
 		return result;
 	}
 	
+	public int updateClass(Class c, Attachment at, int uno) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new ClassDao().updateClass(conn, c, uno);
+		
+		int result2 = 1;
+		
+		/* Class updateClass = null; */
+ 		
+		if(at != null) {
+			if(at.getFileNo() != 0) {
+				result2 = new ClassDao().updateAttachment(conn,at);
+			}else {
+				result2 = new ClassDao().insertNewAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+			
+			/* updateClass = new ClassDao().selectClass(conn, c.getClassNo(), uno); */
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result1*result2;
+	}
+	
+	public Attachment selectAttachment(int cno) {
+		Connection conn = getConnection();
+		
+		Attachment at = new ClassDao().selectAttachment(conn, cno);
+		
+		close(conn);
+		
+		return at;
+	}
+	
+	/*
+	 * public int deleteClass(int cno, Attachment at) {
+	 * 
+	 * Connection conn = getConnection();
+	 * 
+	 * int result = new ClassDao().deleteClass(conn, cno); int result2 = 1;
+	 * 
+	 * if( at != null) { result2 = new ClassDao().deleteAttachment(conn, cno); }
+	 * 
+	 * if(result > 0 && result2 > 0 ) { commit(conn); }else { rollback(conn); }
+	 * close(conn);
+	 * 
+	 * return result*result2; }
+	 */
 	public ArrayList<Class> selectClassListAll() {
 		Connection conn = getConnection();
 
