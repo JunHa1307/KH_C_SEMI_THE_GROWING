@@ -974,6 +974,31 @@ public Board selectBoard(Connection conn, int boardNo) {
 		
 		return result;
 	}
+	
+	public int deleteNotice(Connection conn, int[] arr) {
+		
+		int result = 1;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i = 0; i<arr.length; i++) {
+				pstmt.setInt(1, arr[i]);
+				result *= pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 
 }
