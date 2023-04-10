@@ -675,11 +675,26 @@ vertical-align: middle;
                     <li class="board_li" id="board_check"><div>출석체크</div></li>
                     <li class="board_hr"><hr></li>
                     <li class="board_title">클래스 관리</li>
-                    <li class="board_li" id="board_option" onclick="<%= request.getContextPath() %>/moveManagement.bo"><div>클래스 설정</div></li>
+                    <li class="board_li" id="board_option"><div>클래스 설정</div></li>
                     <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>
              </div>
+             <script>
+             	$(function(){
+             		$("#board_notice").on("click", function(){
+             			location.href="<%= request.getContextPath() %>/movenotice.bo";
+             		});
+             		
+             	});
+             
+             	$(function(){
+             		$("#board_option").on("click", function(){
+             			location.href="<%= request.getContextPath() %>/moveManagement.bo";
+             		});
+             	});
+             </script>
+             
            <%}else{ %>
            <div id="board_wrap">
             <div id="inner_wrap">

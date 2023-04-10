@@ -92,8 +92,8 @@
 }
 
 .title {
-	height: 150px;
-	width: 700px;
+	height: 100%;
+	width: 100%;
 	background-color: rgb(241, 253, 247);
 	border-radius: 10px;
 	border: 1px solid black;
@@ -104,7 +104,7 @@
 
 .multiple {
 	min-height: 380px;
-	width: 700px;
+	width: 100%;
 	background-color: rgb(241, 253, 247);
 	border-radius: 10px;
 	border: 1px solid black;
@@ -115,8 +115,8 @@
 }
 
 .short {
-	height: 230px;
-	width: 700px;
+	height: 100%;
+	width: 100%;
 	background-color: rgb(241, 253, 247);
 	border-radius: 10px;
 	border: 1px solid black;
@@ -131,6 +131,7 @@
 
 #title_table input, #multiple_table input, #short_table input,
 	#short_table textarea {
+	width:100%;
 	padding: 8px;
 }
 
@@ -140,13 +141,11 @@
 }
 
 #button_align {
-	border: 1px red solid;
 	width: 330px;
 	margin: auto;
 }
 
 #bu_align {
-	border: 1px red solid;
 	width: 490px;
 	margin: auto;
 }

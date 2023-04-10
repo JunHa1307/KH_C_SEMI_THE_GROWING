@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -181,13 +182,13 @@ public class SurveyDao {
 	public ArrayList<Survey> selectSurveyList(Connection conn, int cno){
 		
 		ArrayList<Survey> surveyList = new ArrayList<>();
-
+		
 		PreparedStatement pstmt = null;
 
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectSurveyList");
-
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -195,6 +196,7 @@ public class SurveyDao {
 			
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
+				
 				Survey s = new Survey(rset.getInt("SURVEY_NO"),rset.getString("TITLE"),rset.getInt("SURVEY_COUNT")
 	        			,rset.getDate("FIRST_DATE"),rset.getDate("LAST_DATE"),rset.getString("STATUS"),rset.getInt("REF_CNO"));
 				
@@ -208,6 +210,32 @@ public class SurveyDao {
 			close(pstmt);
 		}
 		return surveyList;
+	}
+	
+	public int updateSurveyStatus(Connection conn, int sno) {
+		
+		// UPDATE문 => 반환값 처리된 행의 갯수가 반환됨
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateSurveyStatus");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, sno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	public Question selectQuestion(Connection conn, int sno) {
