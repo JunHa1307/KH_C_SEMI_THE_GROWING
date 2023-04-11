@@ -50,7 +50,7 @@ public class MemberUpdateController extends HttpServlet {
 		String address = request.getParameter("address");
 		
 		Member m = new Member();
-		if(url.contains("http://localhost:8085/growing/myPage.me")) {
+		if(url.contains("growing/myPage.me")) {
 			m.setUserNo(loginUser.getUserNo());
 		}else {
 			int userNo = Integer.parseInt(request.getParameter("uno"));
@@ -63,12 +63,12 @@ public class MemberUpdateController extends HttpServlet {
 		
 		int result = new MemberService().updateMember(m);
 		
-		if(result>0 && url.contains("http://localhost:8085/growing/myPage.me")) {
+		if(result>0 && url.contains("growing/myPage.me")) {
 			request.getSession().setAttribute("alertMsg", "성공적으로 회원정보를 수정했습니다");
 			loginUser = new MemberService().loginMember(userId, loginUser.getUserPwd(), loginUser.getUserLevel());
 			request.getSession().setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getContextPath()+"/myPage.me");
-		}else if(result>0 && url.contains("http://localhost:8085/growing/classmembermanagement.c")){
+		}else if(result>0 && url.contains("growing/classmembermanagement.c")){
 			request.getSession().setAttribute("alertMsg", "성공적으로 회원정보를 수정했습니다");
 			response.sendRedirect(request.getContextPath()+"/classmembermanagement.c");
 		}else {
