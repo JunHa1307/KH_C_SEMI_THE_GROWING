@@ -78,9 +78,13 @@
 		padding-top:3px;
 		background-color:  rgb(239, 239, 216);
 	}
-	#notice {background-color:  rgb(243, 235, 235);}
-	#album {background-color:   rgb(245, 240, 237);}
-	#free {background-color:   rgb(242, 243, 235);}
+	#notice {background-color:   #D7COAE;}
+	#album {background-color:    #EEE3CB;}
+	#free {
+		background-color:  #B7C4CF;
+		font-size: 0.8vw;	
+	}
+
 
 
 	.pagination {
@@ -141,7 +145,7 @@
 							<td>	<div class="type" id="notice">알림장</div></td>
 						<% }else if (b.getBoardType()==3) {%>
 							<td>	<div class="type" id="album">앨범</div></td>
-						<%}else { %>
+						<%}else if (b.getBoardType()==4){ %>
 							<td>	<div class="type" id="free">자유게시판</div></td>
 						<%} %>
 					
@@ -170,7 +174,7 @@
 					location.href = "<%=contextPath %>/notice.bo?bno="+bno;
 				}else if(type==3){
 					location.href = "<%=contextPath %>/list.al?bno="+bno;
-				}else{
+				}else  if(type==4){
 					location.href = "<%=contextPath %>/detail.fr?bno="+bno;
 				}
 				

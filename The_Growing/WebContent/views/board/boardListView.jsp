@@ -8,8 +8,10 @@
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	Board bt = new Board();
+	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
+	String user =((Member)request.getSession().getAttribute("loginUser")).getUserId();
 	
-	int boardType =(int) request.getAttribute("boardType");
+	int boardType =(int) request.getSession().getAttribute("boardType");
 	int currentPage = pi.getCurrentPage(); 
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -125,6 +127,7 @@
     
     }
     
+ 
     </style>
 </head>
 <body>
@@ -135,17 +138,18 @@
 		<div id="album_header">
 			<div id="album_area">
 				<%if (boardType == 4) {%>
-				<div id="album_title" style="width:82%" >자유게시판</div>
+				<div id="album_title">자유게시판</div>
 				<%} else {%>
-				<div id="album_title" style="width:82%">상담게시판</div>
+				<div id="album_title" >상담게시판</div>
 				<%}%>
 				<% if(loginUser != null) { %>
-				<div id="album_button" style="width:18%" class="box" >
+				<div id="album_button" >
 					<a style="color: black;"
 					href="<%=contextPath%>/insert.fr?boardType=<%=boardType %>">
 					<button class="button_UI button--winona" data-text="글 등록">
 						<span>글 등록</span>
 					</button>
+					
 				</a>
 				</div>
 				<% } %>
@@ -179,29 +183,75 @@
 					<th width="120">조회수</th>
 				</tr>
 				<% for(Board b  :  list) { %>
-				<tr id="table_tr">
+				<%if (boardType == 4) {%>
+				<tr id="table_tr" onclick="level1();">
 					<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
 					<td><%= b.getBoardTitle() %></td>
 					<td><%= b.getUserId() %></td>
 					<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
 					<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
 				</tr>
+				<%}else if(boardType==5){ %>
+						<%if (level == 1) {%>
+					<tr id="table_tr" onclick="level1();">
+						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
+						<td><%= b.getBoardTitle() %></td>
+						<td><%= b.getUserId() %></td>
+						<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
+						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+					</tr>
+					<%}else if(loginUser.getUserId().equals(b.getUserId())){ %>
+					<tr id="table_tr"  onclick="level2(<%= b.getUserId() %>);">
+						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
+						<td><%= b.getBoardTitle() %></td>
+						<td><%= b.getUserId() %></td>
+						<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
+						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+					</tr>
+					
+					<%} else{%>
+					<tr id="table_tr"  onclick="level2(<%= b.getUserId() %>);">
+						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
+						<td>비밀글 입니다</td>
+						<td>비밀 작성자</td>
+						<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
+						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+					</tr>
+						<%} %>
+					<%} %>
 				<% } %>
-				<% } %>
+		<% } %>
 			
 		</table>
 		<script>
 						$(function(){
-							$(".list-table>tbody>tr").click(function(){
+							function level1(){
 								let bno = $(this).children().eq(0).text();
 								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
-							});
+							};
+							function level2(id){
+								if(user.equals(id)){
+									let bno = $(this).children().eq(0).text();
+								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
+								}
+							};
+						
+							
+							
+							
+						/* 	$(".list-table>tbody>tr").click(function(){
+								
+								
+								
+							
+							}); */
 						});
 					</script>
 
 
 		<div align="center" class="paging-area">
 			<div class="pagination">
+		
 				<% if(currentPage != 1) { %>
 				<button
 					onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= currentPage -1 %>&boardType=<%=boardType%>'">&lt;</button>
@@ -222,7 +272,7 @@
 				<button class=""
 					onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%=currentPage + 1 %>&boardType=<%=boardType%>' ">&gt;</button>
 				<% } %>
-
+		
 			</div>
 
 		</div>

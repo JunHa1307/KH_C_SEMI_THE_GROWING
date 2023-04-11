@@ -38,12 +38,11 @@ public class BoardUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService bService = new BoardService();
-		int boardType = Integer.parseInt(request.getParameter("boardType"));
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
 		Board b = bService.selectBoard(boardNo);
 		
-		request.setAttribute("boardType", boardType);
+		
 		request.setAttribute("b", b);
 		
 		request.getRequestDispatcher("views/board/boardUpdateForm.jsp").forward(request, response);

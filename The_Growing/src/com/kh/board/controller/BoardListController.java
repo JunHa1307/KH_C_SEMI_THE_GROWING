@@ -33,7 +33,7 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardType = Integer.parseInt(request.getParameter("boardType"));
-		System.out.println("list"+boardType);
+		request.getSession().setAttribute("boardType", boardType);
 	
 	
 		int listCount; 
@@ -68,7 +68,6 @@ public class BoardListController extends HttpServlet {
 		 ArrayList<Board> list = new BoardService().selectBoardList(pi, boardType, cno);
 		
 		 request.setAttribute("pi", pi);
-		 request.setAttribute("boardType", boardType);
 		 request.setAttribute("list", list);
 		 
 //		 System.out.println(pi);
