@@ -14,11 +14,12 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
-
+import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
 
 import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.Attachment;
+import com.kh.member.model.vo.Member;
 
 
 public class BoardDao {
@@ -912,6 +913,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 		}
 		return list;
 	}
+
 	public Board selectNotice(Connection conn, int bno){
 		Board b = null;
 		PreparedStatement pstmt = null;
@@ -933,6 +935,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setUserId(rset.getString("USER_ID"));
 				b.setCreateDate(rset.getDate("CREATE_DATE"));
 			}
 		} catch (SQLException e) {
@@ -998,6 +1001,67 @@ public Board selectBoard(Connection conn, int boardNo) {
 		return result;
 	}
 
+	public int insertNoticeCheck(Connection conn, int uno, int cno, int bno, String checkUserName, int userLevel) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertNoticeCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, cno);
+			pstmt.setInt(3, bno);
+			pstmt.setString(4, checkUserName);
+			pstmt.setInt(5, userLevel);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public ArrayList<NoticeCheck> selectUserName(Connection conn, int cno, int bno) {
+		 
+		ArrayList<NoticeCheck> noticeCheckList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectUserName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
 
+				NoticeCheck c = new NoticeCheck();
+				c.setUserName(rset.getString("USER_NAME"));
+				c.setRefUno(rset.getInt("REF_UNO"));
+				c.setRefCno(cno);
+				c.setRefBno(bno);
+				
+				noticeCheckList.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return noticeCheckList;
+	}
 }
 

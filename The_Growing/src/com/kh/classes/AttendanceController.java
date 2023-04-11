@@ -111,7 +111,7 @@ public class AttendanceController extends HttpServlet {
 				for(int i = 0; i < tableCheck.size(); i++) {
 					String memberstr = memberName.get(i);
 					
-					if(!tableCheck.get(i).equals(memberstr) && i != 0) {
+					if(!tableCheck.get(i).equals(memberstr)) {
 						isUpdated = false;
 						if(tableCheck.get(i-1).equals(memberstr)) {							
 							attendTable.add(addAttendMember(memberstr,lastDay));

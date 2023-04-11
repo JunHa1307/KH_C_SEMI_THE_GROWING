@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.kh.board.model.vo.Board;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.dao.MemberDao;
@@ -236,24 +237,5 @@ public class MemberService {
 		return result;
 	}
 	
-	public ArrayList<Member> selectMemberList(int classNo) {
-		Connection conn = getConnection();
-
-		ArrayList<Member> list = new MemberDao().selectMemberList(conn, classNo);
-
-		close(conn);
-
-		return list;
-
-	}
 	
-	public Member selectMember(int userNo) {
-		Connection conn = getConnection();
-		
-		Member m = new MemberDao().selectMember(conn, userNo);
-		
-		close(conn);
-		
-		return m;
-	}
 }
