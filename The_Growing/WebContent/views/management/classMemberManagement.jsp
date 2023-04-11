@@ -22,7 +22,7 @@
 					<div style="text-align:center;">
 						<h3><span style="font-weight:700;">클래스 회원 목록</span></h3>
 						<div style="float:right;">
-							<button>학생 임시 계정 생성</button>
+							<button  data-toggle="modal" data-target="#insertMember">학생 임시 계정 생성</button>
 						</div>
 						<% for(int i = 0; i < memberList.size(); i++){ %>
 							<div class="<%= i %>" style="background-color:lightgray;width:100%;display:flex;align-items:center;border-radius:3em;">
@@ -76,6 +76,40 @@
 		                      <div>이름 : <input type="text" name="userName"></div>
 		                      <br>
 		                      <div>자녀이름 : <input type="text" name="childName"></div>
+		                      <br>
+		                      <div>번호 : <input type="text" name="phone"></div>
+		                      <br>
+		                      <div>주소 : <input type="text" name="address"></div>
+							
+		                  </div>
+		                  <div class="modal-footer">
+		                     <button type="button" class="btn btn-secondary"
+	                           data-dismiss="modal">취소</button>
+	                        <button type="submit" id="btn_register" class="btn btn-primary">확인</button>
+		                  </div>
+	                  </form>
+	               </div>
+	            </div>
+	         </div>
+	         <div id="insertMember" class="modal fade"
+            tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+	            <div class="modal-dialog modal-dialog-centered modal-xl">
+	               <div class="modal-content">
+	                  <div class="modal-header">
+	                     <h5 class="modal-title" id="modalLabel">임시 학생 계정 생성</h5>
+	                     <button type="button" class="close" data-dismiss="modal"
+	                        aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                     </button>
+	                  </div>
+	                  	<form id="insertDetail" action="insert.me" method="POST">
+		                  <div class="modal-body">
+		                      <input class="detailUno" type="hidden" name="classCode" value="<%= c.getClassCode()%>">
+		                      <div>아이디 : <input type="text" name="userId"></div>
+		                      <br>
+		                      <div>비밀번호 : <input type="text" name="userPwd"></div>
+		                      <br>
+		                      <div>이름 : <input type="text" name="userName"></div>
 		                      <br>
 		                      <div>번호 : <input type="text" name="phone"></div>
 		                      <br>

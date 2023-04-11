@@ -605,6 +605,10 @@ vertical-align: middle;
                  $("#board_option").click(function(){
                     location.href="<%=contextPath%>/moveManagement.bo";
                  });
+                 
+                 $("#board_manage").click(function(){
+                     location.href="<%=contextPath%>/classmembermanagement.c";
+                  });
 
               });
             </script>
