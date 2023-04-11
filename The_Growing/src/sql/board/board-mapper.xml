@@ -233,7 +233,6 @@
 				VALUES (SEQ_BNO.NEXTVAL, ?, ?, ?, ?, ?)
 	</entry>
 	
-
 	<entry key="selectNoticeList">
 		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE
 		FROM BOARD 

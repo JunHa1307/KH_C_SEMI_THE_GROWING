@@ -912,6 +912,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 		}
 		return list;
 	}
+
 	public Board selectNotice(Connection conn, int bno){
 		Board b = null;
 		PreparedStatement pstmt = null;
