@@ -42,9 +42,11 @@ public class ClassMemberManagementController extends HttpServlet {
 		
 		if(m.getUserLevel() == 1) {
 			ArrayList<Member> memberList = new MemberService().selectMemberList(cno);
+			ArrayList<Member> applyList = new ClassService().selectApplyList(cno);
 			
 			request.setAttribute("Class", c );
 			request.setAttribute("memberList", memberList);
+			request.setAttribute("applyList", applyList);
 			request.getRequestDispatcher("views/management/classMemberManagement.jsp").forward(request, response);
 		}else {
 			request.setAttribute("errorMsg", "선생님만 관리페이지를 사용할 수 있습니다.");

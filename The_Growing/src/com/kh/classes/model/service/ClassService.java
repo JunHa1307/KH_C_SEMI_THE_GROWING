@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.kh.classes.model.dao.ClassDao;
 import com.kh.classes.model.vo.Class;
 import com.kh.common.model.vo.Attachment;
+import com.kh.member.model.vo.Member;
 
 public class ClassService {
 	
@@ -18,6 +19,17 @@ public class ClassService {
 		Connection conn = getConnection();
 
 		ArrayList<Class> list = new ClassDao().selectClassList(conn, userNo);
+
+		close(conn);
+
+		return list;
+
+	}
+	
+	public ArrayList<Class> searchClassList(String searchClassName) {
+		Connection conn = getConnection();
+
+		ArrayList<Class> list = new ClassDao().searchClassList(conn, searchClassName);
 
 		close(conn);
 
@@ -296,6 +308,59 @@ public class ClassService {
 		Connection conn = getConnection() ;
 		
 		int result= new ClassDao().deleteClassMember(conn, uno, cno);
+	
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int insertApply(int uno, int cno) {
+		Connection conn = getConnection();
+		
+		int result = new ClassDao().insertApply(conn, uno,cno);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int selectApply(int uno, int cno) {
+	      Connection conn = getConnection();
+
+	      int result = new ClassDao().selectApply(conn, uno, cno);
+
+	      close(conn);
+
+	      return result;
+
+	}
+	
+	public ArrayList<Member> selectApplyList(int cno) {
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new ClassDao().selectApplyList(conn, cno);
+
+		close(conn);
+
+		return list;
+
+	}
+	
+	public int deleteApplyMember(int uno, int cno) {
+		Connection conn = getConnection() ;
+		
+		int result= new ClassDao().deleteApplyMember(conn, uno, cno);
 	
 		
 		if(result>0) {
