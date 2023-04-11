@@ -126,7 +126,7 @@
        
     
     }
-    
+  
  
     </style>
 </head>
@@ -171,7 +171,7 @@
 			
 				<% if(list.isEmpty()) {%>
 				<tr>
-					<td colspan="6">조회된 리스트가 없습니다.</td>
+					<td width="800">조회된 리스트가 없습니다.</td>
 				</tr>
 				<tbody>
 				<% } else { %>
@@ -184,7 +184,7 @@
 				</tr>
 				<% for(Board b  :  list) { %>
 				<%if (boardType == 4) {%>
-				<tr id="table_tr" onclick="level1();">
+				<tr  onclick="level1(<%= b.getBoardNo() %>);">
 					<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
 					<td><%= b.getBoardTitle() %></td>
 					<td><%= b.getUserId() %></td>
@@ -193,7 +193,7 @@
 				</tr>
 				<%}else if(boardType==5){ %>
 						<%if (level == 1) {%>
-					<tr id="table_tr" onclick="level1();">
+					<tr onclick="level1(<%= b.getBoardNo() %>);">
 						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
 						<td><%= b.getBoardTitle() %></td>
 						<td><%= b.getUserId() %></td>
@@ -201,7 +201,7 @@
 						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
 					</tr>
 					<%}else if(loginUser.getUserId().equals(b.getUserId())){ %>
-					<tr id="table_tr"  onclick="level2(<%= b.getUserId() %>);">
+					<tr id="level2" onclick="level2(<%= b.getBoardNo() %>);">
 						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
 						<td><%= b.getBoardTitle() %></td>
 						<td><%= b.getUserId() %></td>
@@ -210,7 +210,7 @@
 					</tr>
 					
 					<%} else{%>
-					<tr id="table_tr"  onclick="level2(<%= b.getUserId() %>);">
+					<tr onclick="level3();">
 						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
 						<td>비밀글 입니다</td>
 						<td>비밀 작성자</td>
@@ -224,19 +224,19 @@
 			
 		</table>
 		<script>
-						$(function(){
-							function level1(){
-								let bno = $(this).children().eq(0).text();
-								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
-							};
-							function level2(id){
-								if(user.equals(id)){
-									let bno = $(this).children().eq(0).text();
-								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
-								}
-							};
 						
-							
+							function level1(bno){
+								
+								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
+							};
+							function level2(bno){
+								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
+						
+							};
+							function level3(){
+								alert("해당 작성자만 확인할 수 있습니다.");
+						
+							};
 							
 							
 						/* 	$(".list-table>tbody>tr").click(function(){
@@ -245,7 +245,7 @@
 								
 							
 							}); */
-						});
+						/* }); */
 					</script>
 
 

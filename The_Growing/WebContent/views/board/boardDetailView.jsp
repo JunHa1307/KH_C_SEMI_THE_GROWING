@@ -21,46 +21,30 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 }
 
 #reply-area {
+	width: 90%;
+	margin: auto;
+	height: 90%;
+	display: flex;
+	align-items: center;
+}
+
+/* #reply-area>*{
 	width: 80%;
 	margin: auto;
 	height: 100%;
-}
+} */
 
-#reply-area>di {
-	width: 80%;
-	margin: auto;
-	height: 100%;
-}
-
-#list_search {
-	width: 190px;
-	height: 15%;
-	margin: -1% 0% 0% 64%;
-}
-
-.list-table {
-	margin: auto;
-	min-width: 700px;
-	max-width: 100%;
-	border-collapse: separate;
-	border-spacing: 15px 5px;
-	border: 5px solid #cff0cc;
-	border-radius: 5%;
-}
-
-#down_img, #thumb_img, #start_img {
-	width: 40px;
-	height: 40px;
-}
-
-#down_btn, #thumb_btn, #star_btn, #lock_btn {
-	background-color: white;
+#lock_btn {
+	 background-color: rgb(244, 247, 247);
 	border-style: none;
+	margin-left:10px;
+	width:50px;
+	height:50px;
 }
 
-#down_btn:hover, #thumb_btn:hover, #star_btn:hover, #lock_btn:hover {
+#lock_btn:hover {
 	border-radius: 50%;
-	background-color: #cff0cc;
+	background-color: grey;
 }
 
 #profile_img {
@@ -73,7 +57,6 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 #lock_img {
 	width: 40px;
 	height: 40px;
-	margin-bottom : 10px;
 	border-radius: 50%;
 }
 
@@ -81,13 +64,14 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	width: 100%;
 	height: 45px;
 	margin-bottom: 5px;
+	margin-left: 10px;
 	position: relative;
 	/* background-color: antiquewhite; */
 }
 
 .mo_reply_wrap {
 	width: 100%;
-	height: 200px;
+	max-height: 300px;
 	/* background-color: antiquewhite; */
 	-ms-overflow-style: none;
 }
@@ -102,9 +86,6 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	/* background-color: aqua; */
 }
 
-hr {
-	margin: 0;
-}
 /* 좋아요 / 댓글 / 스크랩 */
 #mo_reply_list>ul {
 	padding: 0;
@@ -160,15 +141,17 @@ hr {
 }
 
 .mo_reply_profile {
-	width: 20%;
+	width: 15%;
 	padding-left: 2%;
+	
 }
 
 .mo_reply_profileImg {
-	width: 60%;
-	height: 100%;
+	width: 65px;
+	height: 65px;
 	border-radius: 100%;
 	overflow: hidden;
+	object-fit :cover;
 }
 
 .mo_reply_profileImg>img {
@@ -178,8 +161,13 @@ hr {
 }
 
 .mo_reply_text {
-	width: 70%;
+	width: 80%;
+	word-break:break-all;
+	overflow-y: scroll;
 	/* background-color: aqua; */
+}
+.mo_reply_text::-webkit-scrollbar {
+	display: none;
 }
 
 .mo_reply_content2>div {
@@ -188,52 +176,51 @@ hr {
 }
 
 .mo_reply_id {
-	width: 20%;
-	padding-left: 3%;
-	padding-right: 8.5%;
+	width: 65px;
 	text-align: center;
-	font-size: smaller;
+	font-size: 15px;
 	font-weight: 600;
+	height:30px;
 }
 
 .mo_reply_date {
-	width: 77%;
+	width: 97%;
 	text-align: right;
 	font-size: smaller;
+	color:grey;
 }
 
 .mo_reply {
 	width: 100%;
-	min-height: 100px;
+	height:100px;
 	padding-top: 5px;
 }
 
 #mo_writer_profile {
 	width: 60px;
-	height:60px;
-	border-radius: 50%;
+	height: 100%;
+	border-radius: 100%;
+	object-fit :cover;
 }
 
 #mo_writer_profile>img {
 	width: 100%;
 	height: 100%;
+	border-radius: 100%;
 }
 
-#b>* {
-	float: left;
-	height: 100%;
-}
 
 div {
 	/*  border: 1px solid red; */
 } 
 
 #board_content {
-	width: 100%;
-	min-height: 600px;
-	border:1px solid black;
+	width: 80%;
+	min-width:360px;
+	min-height: 580px;
+	border:1px solid rgb(224, 224, 224);
 	border-radius: 10px;
-	padding : 10px;
+	margin:auto;
 
 }
 
@@ -241,41 +228,60 @@ div {
 	width: 100%;
 }
 
-#a {
-	height: 10%;
-	
+#boardTitle {
+	height: 50px;
+	padding : 0 10px 0 10px;
+	margin-top:10px;
 }
 
-#b {
+#boardProfile {
 	height: 60px;
+	display: flex;
+	align-items: center;
+	padding : 0 10px 0 10px;
+}
+#boardProfile>div {
+	float: left;
+	
 	
 }
-
-#c {
-	height: 30%;
+#boardProfile p {
+ 	padding:0;
+ 	margin: 0;
+}
+#boardContent {
+	min-height: 200px;
+	padding : 0 10px 0 10px;
 	
 }
-#c img{
+#boardContent img{
 	display:block;
 	margin: auto;
-	cursor: pointer;
+
+}
+#boardReplyIcon {
+	height:60px;
+	border-bottom: 1px solid rgb(224, 224, 224);
+	border-top:1px solid rgb(224, 224, 224);
+	display: flex;
+	align-items: center;
+	background-color: rgb(244, 247, 247);
 }
 
-
-#d {
-	height: 10%;
-}
-
-#e {
-	height: 200px;
+#boardReplyList {
+	max-height: 300px;
+	min-height:10px;
 	
 }
 
-#f {
+#boardReplyWrite {
 	height:80px;
+	background-color: rgb(244, 247, 247);
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 #mo_reply_textarea{
-	margin-top:10px;
+	border:1px solid rgb(224, 224, 224);
 }
 
 
@@ -305,15 +311,15 @@ div {
 				<%}%>
 			</div>
 			<div id="album_hr">
-				<hr />
+				<hr>
 			</div>
 		</div>
 
 		<div id="board_content">
-			<div id="a">
+			<div id="boardTitle">
 				<h1><%=b.getBoardTitle()%></h1>
 				<%if (loginUser != null && loginUser.getUserId().equals(b.getUserId())) {%>
-				<div class="dropdown" style="float: right; margin-top: -7%;">
+				<div class="dropdown" style="float: right; margin-top: -9%;">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
@@ -330,7 +336,7 @@ div {
 				<%
 					}
 				%>
-				<hr>
+				
 				<script>
 					$("#deleteBoard").click(function(){
 						if(!confirm("정말 삭제하시겠습니까?")){
@@ -343,22 +349,19 @@ div {
 				</script>
 			</div>
 
-			<div id="b">
-				<hr>
+			<div id="boardProfile">
 				<div id="mo_writer_profile">
-					<img src="<%=b.getFilePath() + b.getChangeName()%>" alt=""
-						onerror="this.src='resources/image/noImage.png'">
+					<img src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 				</div>
-				<div style="padding-left:10px; text-align:center;">
-				<%=b.getUserId()%>
-				<br>
-				<%=b.getCreateDate()%>
+				<div style="padding-left:10px; height: 50px; ">
+					<p style="font-size:17px;"><%=b.getUserId()%></p>
+					<p style="font-size:13px; color:grey;"><%=b.getcDate()%></p>
+				
 				</div>
 				
 			</div>
-			<div id="c"><hr><%=b.getBoardContent()%><hr></div>
-			<div id="d">
-
+			<div id="boardContent"><hr><%=b.getBoardContent()%></div>
+			<div id="boardReplyIcon">
 				<div id="mo_reply_list">
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno%>');"></div></li>
@@ -371,27 +374,30 @@ div {
 				</div>
 				
 			</div>
-			<hr>
-			<div id="e">
+			
+			<div id="boardReplyList">
 			
 				<div class="mo_reply_wrap" style="overflow-y: scroll;">
 					<div class="mo_reply"></div>
 				</div>
 		
 			</div>
-			<div id="f">
-						<hr style="margin : 0">
+			<div id="boardReplyWrite">
+				<hr style="margin:5px;">
 				<div id="reply-area">
+					<div style="width:70%; height:85%">
 					<textarea id="mo_reply_textarea" 
-							placeholder="댓글을 입력하여 주세요." style="resize: none; width:70%;"></textarea>
+							placeholder="댓글을 입력하여 주세요." style="resize: none; width:100%; height:100%;"></textarea>
+					</div>	
+					<div style="width:12%">
 					<button id="lock_btn">
 						<img id="lock_img"
 							src="<%=contextPath%>/resources/image/icons8-잠금-해제-66.png">
-					</button>
+					</button></div>	
 
-					<div id="box">
+					<div style="width:18%">
 						<button id="insertReply" class="button_UI button--winona"
-							data-text="등록" style="width: 80px; margin: -7% 0% 0% 88%;">
+							data-text="등록" style="width: 80px; ">
 							<span>등록</span>
 						</button>
 					</div>
@@ -404,9 +410,7 @@ div {
 	</div>
 	<script>
 		$(function(){
-		
-			
-			
+					
 			$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno :<%=b.getBoardNo()%>},
@@ -466,7 +470,7 @@ div {
               $('.chat').on('click',function(){
                     $('#mo_reply_textarea').focus();
               });
-
+			
 		});
            	//좋아요 클릭 시 
               function likeClick(uno){
@@ -523,6 +527,9 @@ div {
 				}
 			});
 		});
+		
+	
+       
 	</script>
 </body>
 </html>

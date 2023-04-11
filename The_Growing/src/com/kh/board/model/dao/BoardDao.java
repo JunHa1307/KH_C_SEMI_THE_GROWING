@@ -837,7 +837,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 			b.setBoardType(rset.getInt("BOARD_TYPE"));
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setUserId(rset.getString("USER_ID"));
-			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setcDate(rset.getString("C_DATE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
 					   
 		}

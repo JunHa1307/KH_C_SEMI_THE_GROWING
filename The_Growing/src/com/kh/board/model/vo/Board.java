@@ -49,6 +49,7 @@ public class Board {
 	//게시판검색
 	private String type;
 	private String keyword;
+	private String cDate;
 	
 	public Board() {
 		super();
@@ -63,7 +64,7 @@ public class Board {
 	public Board(int boardNo, int boardType, int refUno, String boardTitle, String boardContent, int count, int likes,
 
 			Date createDate, String status, String secretStatus, int refCno, String userId, String filePath,
-			String changeName, String titleImg) {
+			String changeName, String titleImg, String cDate) {
 
 		super();
 		this.boardNo = boardNo;
@@ -81,6 +82,25 @@ public class Board {
 		this.filePath = filePath;
 		this.changeName = changeName;
 		this.titleImg = titleImg;
+		this.cDate=cDate;
+	}
+
+
+
+
+
+
+	public String getcDate() {
+		return cDate;
+	}
+
+
+
+
+
+
+	public void setcDate(String cDate) {
+		this.cDate = cDate;
 	}
 
 
@@ -92,7 +112,7 @@ public class Board {
 		return filePath;
 	}
 
-
+	
 
 
 
@@ -118,28 +138,6 @@ public class Board {
 	public void setChangeName(String changeName) {
 		this.changeName = changeName;
 	}
-
-
-
-
-
-
-	public String getUserId() {
-		return userId;
-	}
-
-
-
-
-
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-
-	}
-
-
-
 
 
 
@@ -313,14 +311,19 @@ public class Board {
 
 
 
+
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardType=" + boardType + ", refUno=" + refUno + ", boardTitle="
 				+ boardTitle + ", boardContent=" + boardContent + ", count=" + count + ", likes=" + likes
 				+ ", createDate=" + createDate + ", status=" + status + ", secretStatus=" + secretStatus + ", refCno="
 				+ refCno + ", userId=" + userId + ", filePath=" + filePath + ", changeName=" + changeName
-				+ ", titleImg=" + titleImg + "]";
+				+ ", titleImg=" + titleImg + ", type=" + type + ", keyword=" + keyword + ", cDate=" + cDate + "]";
 	}
+
+
+
 
 
 
