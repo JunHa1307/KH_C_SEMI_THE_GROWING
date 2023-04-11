@@ -15,6 +15,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.classes.model.vo.Class;
+import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 
 public class ClassDao {
@@ -698,4 +699,29 @@ public class ClassDao {
 			}
 			return result;
 		}
+	 
+	 public int deleteClassMember(Connection conn, int uno, int cno) {
+		 	
+		 	int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("deleteClassMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, uno);
+				pstmt.setInt(2, cno);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(pstmt);
+				
+			}
+			return result;
+	 }
 }
