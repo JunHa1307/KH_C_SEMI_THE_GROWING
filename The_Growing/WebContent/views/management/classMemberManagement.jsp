@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<Member> memberList = (ArrayList<Member>) request.getAttribute("memberList");
+	ArrayList<Member> applyList = (ArrayList<Member>) request.getAttribute("applyList");
 	Class c = (Class) request.getAttribute("Class");
 %>
 <!DOCTYPE html>
@@ -17,7 +18,7 @@
 <%@include file="../board/boardFrame.jsp" %>
 			<div id="board_area">
 				<div>
-					<h2><b>구성원 관리<b></b></h4>
+					<h2><b>구성원 관리</b></h4>
 					<hr>
 					<div style="text-align:center;">
 						<h3><span style="font-weight:700;">클래스 회원 목록</span></h3>
@@ -41,16 +42,18 @@
 					<div style="text-align:center;">
 						<h3>가입신청</h3>
 						<div style="text-align:center;">
+						<% for(int i = 0; i < applyList.size(); i++){ %>
 							<div style="background-color:lightgray;width:100%;display:flex;align-items:center;border-radius:3em;">
 								<div style="width:30%">
-									<img src="<%= contextPath%>/resources/image/bono.jpg">
+									<img src="<%= contextPath + applyList.get(i).getFilePath() + applyList.get(i).getChangeName()%>" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 								</div>
 								<div style="width:30%">
-									학생이름
+									<%= applyList.get(i).getUserName() %>
 								</div>
-								<button>수정</button>
-								<button>탈퇴</button>
+								<button onclick="location.href='<%= contextPath%>/applyResult.c?uno=<%= applyList.get(i).getUserNo() %>&type=1'">가입</button>
+								<button onclick="location.href='<%= contextPath%>/applyResult.c?uno=<%= applyList.get(i).getUserNo() %>&type=2'">거절</button>
 							</div>
+						<% } %>
 						</div>
 					</div>
 				</div>
@@ -175,6 +178,7 @@
 			});
 		});
 	});
+	
 </script>
 </body>
 </html>
