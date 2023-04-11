@@ -157,5 +157,10 @@
 	<entry key="updateClassCode">
 	 UPDATE CLASS SET CLASS_CODE = ?
         WHERE CLASS_NO = ? 
-        </entry>
+    </entry>
+    <entry key="deleteClassMember">
+    DELETE FROM CLASS_MEMBER 
+   	WHERE REF_UNO = ?
+    	AND REF_CNO = ?
+    </entry>
 </properties>

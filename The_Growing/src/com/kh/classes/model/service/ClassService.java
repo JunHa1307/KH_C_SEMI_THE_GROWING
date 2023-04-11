@@ -292,4 +292,20 @@ public class ClassService {
 		return result;
 	}
 	
+	public int deleteClassMember(int uno, int cno) {
+		Connection conn = getConnection() ;
+		
+		int result= new ClassDao().deleteClassMember(conn, uno, cno);
+	
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 }
