@@ -47,6 +47,8 @@ public class SurveyAnswerFormController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		int uno = loginUser.getUserNo();
 		int qno = Integer.parseInt(request.getParameter("qNo"));

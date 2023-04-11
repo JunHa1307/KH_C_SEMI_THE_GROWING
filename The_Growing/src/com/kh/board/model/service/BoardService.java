@@ -245,13 +245,13 @@ public class BoardService {
 	}
 	
 	
-	public int increaseCount(int boardNo) {
-		Connection conn = getConnection();
-		
-		int result = new BoardDao().increaseCount(conn, boardNo);
-		
-		if(result > 0) {
-			commit(conn);
+//	public int increaseCount(int boardNo) {
+//		Connection conn = getConnection();
+//		
+//		int result = new BoardDao().increaseCount(conn, boardNo);
+//		
+//		if(result > 0) {
+//			commit(conn);
 
 	public int insertNotice(Board b) {
 		
@@ -315,8 +315,7 @@ public class BoardService {
 	}
 		
 
-		return result;
-	}
+		
 	
 	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();
