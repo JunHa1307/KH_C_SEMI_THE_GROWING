@@ -11,31 +11,84 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#main-title{
+		   width: 70%;
+		   font-size: 25px;
+		   font-weight: 700;
+		   padding-left: 14px;
+
+	}
+	
+	#board_area{
+		width: 80%;
+		height: 60%;
+    	padding: 0px 20px 20px 20px;
+	}
+	
+	#board_hr{
+		width: 100%;
+    	height: 30%;
+		}
+		
+	
+	#id{
+		width:4%
+	}
+	 
+	 #id2{
+	 	width:3%;
+	 	height:2%;
+	 	
+	 
+	 }
+	 .okc{
+	 	width:100%;
+	 	height:80%;
+	 }
+	 tr{
+	 	text-align:center;
+	 }
+</style>
 </head>
 <body>
 <%@include file="boardFrame.jsp" %>
-<!--<div id="board_wrap"> -->
-			<div>
+	<div id="board_area">
+	 <div id="album_header">
+	 	<div id="album_area">
+		<div id="main-title">출석표</div>
+			<div id="album_button" align="right" class="box">
+				<button id="album_Enoroll" class="button_UI button--winona" data-text="업데이트" style="margin-right: 10px;"  onclick="update();">
+					<span>업데이트</span>
+					</button>
+				</div>
+				</div>
+				<div id="board_hr">
+					<hr>
+				</div>
+			
+		</div>  
+			<div class="okc">
 				<table id="attendTable" border=2>
-				<caption>출석표</caption>
+				
 					<tr>
 						<% for(int i =0; i < lastDay + 1; i++){ %>
 						
-							<th><%= i == 0 ? "이름" : i %></th>	
+							<th id="id1" ><%= i == 0 ? "이름" : i %></th>	
 						<% } %>
 					</tr>
 					<% for(int i = 0; i < arr.length; i++){ %>
 						<tr>
 							<th><%= arr[i].split("/")[0].toString() %></th>
 							<% for(int j = 0; j < lastDay; j++){ %>
-								<td><%= arr[i].split("/")[1].toString().charAt(j) %></td>					
+								<td id="id2"><%= arr[i].split("/")[1].toString().charAt(j) %></td>					
 							<% } %>
 						</tr>
 					<% } %>
 				</table>
-				<button onclick="update();">업데이트</button>
+				<!-- <button onclick="update();">업데이트</button> -->
 			</div>
-		</div><!-- boardFrame -->
+		</div>
  	</div>
 </div>
 <script>
