@@ -588,5 +588,63 @@ public Member loginMemberInfo(Connection conn, int uno) {
 		return noticeCheckList;
 	}
 	
-	
+	public ArrayList<Member> selectMemberList(Connection conn, int classNo) {
+
+		ArrayList<Member> memberList = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectMemberList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, classNo);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				memberList.add(new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("USER_PWD"),
+						rset.getString("USER_NAME"), rset.getString("PHONE"), rset.getString("ADDRESS"),
+						rset.getDate("ENROLL_DATE"), rset.getDate("MODIFY_DATE"), rset.getString("STATUS"),
+						rset.getString("CHILDREN_NAME"), rset.getInt("USER_LEVEL"), rset.getString("CHANGE_NAME"),
+						rset.getString("FILE_PATH")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return memberList;
+	}
+
+	public Member selectMember(Connection conn, int userNo) {
+		Member m = null;
+
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				m = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("USER_PWD"),
+						rset.getString("USER_NAME"), rset.getString("PHONE"), rset.getString("ADDRESS"),
+						rset.getDate("ENROLL_DATE"), rset.getDate("MODIFY_DATE"), rset.getString("STATUS"),
+						rset.getString("CHILDREN_NAME"), rset.getInt("USER_LEVEL"), rset.getString("CHANGE_NAME"),
+						rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return m;
+	}
+
 }

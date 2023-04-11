@@ -7,7 +7,7 @@
    String contextPath = request.getContextPath();
     Member loginUser = (Member) session.getAttribute("loginUser");
     Class cInfo = (Class)session.getAttribute("cInfo");
-
+	String alertMsg = (String) session.getAttribute("alertMsg");
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -605,19 +605,35 @@ vertical-align: middle;
                  $("#board_option").click(function(){
                     location.href="<%=contextPath%>/moveManagement.bo";
                  });
+                 
+                 $("#board_manage").click(function(){
+                     location.href="<%=contextPath%>/classmembermanagement.c";
+                  });
 
               });
             </script>
 </head>
 <body>
+<script>
+	const msg = "<%= alertMsg  %>";
+	
+	if(msg != "null"){
+		alert(msg);
+		<% session.removeAttribute("alertMsg"); %>
+	}
+
+</script>
     <div class="wrap">
         <div id="header">
             <button id="logoBtn" class="btnStyle" type="button">
-                 <img id="logo" src="resources/image/logo.png" >
+                 <img id="logo" src="resources/image/logo.png" onclick="location.href='<%= request.getContextPath()%>/mainpage.me'">
             </button>
             <div id="search">
                 <button id="searchBtn" type="button">
-                    <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요."><img src="resources/image/search.svg">
+                    <form id="classSearchForm" action="searchClass.c" method="get">
+		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+		               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
+	       	   		</form>
                 </button>
             </div>
             <div class="dropdown">
@@ -641,7 +657,7 @@ vertical-align: middle;
         <div id="info">
               <div class="info_space">
             <div id="pSchool" class="profile_area">
-                 <img class="profile" src="<%= contextPath+cInfo.getFilePath()+cInfo.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">   
+                 <img class="profile"  onclick="location.href='<%= request.getContextPath()%>/mainpage.me'" src="<%= contextPath+cInfo.getFilePath()+cInfo.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">   
             </div>
             <div id="classInfo">
      

@@ -15,7 +15,9 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.classes.model.vo.Class;
+import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
+import com.kh.member.model.vo.Member;
 
 public class ClassDao {
 	private Properties prop = new Properties();
@@ -46,6 +48,40 @@ public class ClassDao {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				Class c = new Class(rset.getInt("REF_CNO"), rset.getInt("CLASS_GRADE"),
+						rset.getInt("CLASS_CODE"), rset.getString("CLASS_NAME"), rset.getString("CLASS_TYPE_NAME"),
+						rset.getString("CHANGE_NAME"),rset.getString("FILE_PATH"),rset.getString("TEACHER_NAME"),
+						rset.getString("ATPT_OFCDC_SC_CODE"),rset.getInt("SD_SCHUL_CODE"),rset.getInt("USER_COUNT"));
+				list.add(c);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Class> searchClassList(Connection conn, String searchClassName) {
+
+		ArrayList<Class> list = new ArrayList<>();
+
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("searchClassList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1,"%"+ searchClassName +"%");
+			pstmt.setString(2,"%"+ searchClassName +"%");
 			
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
@@ -698,4 +734,140 @@ public class ClassDao {
 			}
 			return result;
 		}
+	 
+	 public int deleteClassMember(Connection conn, int uno, int cno) {
+		 	
+		 	int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("deleteClassMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, uno);
+				pstmt.setInt(2, cno);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(pstmt);
+				
+			}
+			return result;
+	 }
+	 
+	 public int insertApply(Connection conn, int uno, int cno) {
+
+			int result = 0;
+
+			PreparedStatement pstmt = null;
+
+			String sql = prop.getProperty("insertApply");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, uno);
+				pstmt.setInt(2, cno);
+
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+	}
+	 
+	 public int selectApply(Connection conn, int uno, int cno) {
+
+	      int result = 0;
+
+	      PreparedStatement pstmt = null;
+
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectApply");
+
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setInt(1, uno);
+	         pstmt.setInt(2, cno);
+	         
+	         rset = pstmt.executeQuery();
+	         if (rset.next()) {
+	           result = 1;
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      return result;
+	  }
+	 
+	 public ArrayList<Member> selectApplyList(Connection conn, int cno) {
+
+			ArrayList<Member> memberList = new ArrayList<Member>();
+			PreparedStatement pstmt = null;
+
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("selectApplyList");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, cno);
+
+				rset = pstmt.executeQuery();
+
+				while (rset.next()) {
+					memberList.add(new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("USER_PWD"),
+							rset.getString("USER_NAME"), rset.getString("PHONE"), rset.getString("ADDRESS"),
+							rset.getDate("ENROLL_DATE"), rset.getDate("MODIFY_DATE"), rset.getString("STATUS"),
+							rset.getString("CHILDREN_NAME"), rset.getInt("USER_LEVEL"), rset.getString("CHANGE_NAME"),
+							rset.getString("FILE_PATH")));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return memberList;
+	 }
+	 
+	 public int deleteApplyMember(Connection conn, int uno, int cno) {
+		 	
+		 	int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("deleteApplyMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, uno);
+				pstmt.setInt(2, cno);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(pstmt);
+				
+			}
+			return result;
+	 }
 }

@@ -3,6 +3,7 @@ package com.kh.classes;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,15 +35,24 @@ public class ClassMemberManagementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+		Member m = (Member) request.getSession().getAttribute("loginUser");
+		int uno = m.getUserNo();
 		int cno = (int)request.getSession().getAttribute("cno");
 		Class c = new ClassService().selectClass(cno,uno);
 		
-		ArrayList<Member> memberList = new MemberService().selectMemberList(cno);
-		
-		request.setAttribute("Class", c );
-		request.setAttribute("memberList", memberList);
-		request.getRequestDispatcher("views/management/classMemberManagement.jsp").forward(request, response);
+		if(m.getUserLevel() == 1) {
+			ArrayList<Member> memberList = new MemberService().selectMemberList(cno);
+			ArrayList<Member> applyList = new ClassService().selectApplyList(cno);
+			
+			request.setAttribute("Class", c );
+			request.setAttribute("memberList", memberList);
+			request.setAttribute("applyList", applyList);
+			request.getRequestDispatcher("views/management/classMemberManagement.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errorMsg", "선생님만 관리페이지를 사용할 수 있습니다.");
+			 
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
+		}
 	}
 
 	/**
