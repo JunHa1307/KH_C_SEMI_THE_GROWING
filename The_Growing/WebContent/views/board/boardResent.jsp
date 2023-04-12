@@ -78,10 +78,35 @@
 		padding-top:3px;
 		background-color:  rgb(239, 239, 216);
 	}
-	#notice {background-color:  rgb(243, 235, 235);}
-	#album {background-color:   rgb(245, 240, 237);}
-	#free {background-color:   rgb(242, 243, 235);}
+	#notice {background-color:   #D7COAE;}
+	#album {background-color:    #EEE3CB;}
+	#free {
+		background-color:  #B7C4CF;
+		font-size: 0.8vw;	
+	}
 
+
+
+	.pagination {
+         justify-content: center;
+       }
+                   
+       .pagination button {
+           border-style : none;
+           float: left;
+           padding: 8px 16px;
+           text-decoration: none;
+           border-radius:50%;
+           margin-right: 4px;
+           color : grey;
+       }
+                   
+       .pagination button.active {
+           background-color: #cff0cc;
+            color: black;
+       }
+                   
+      .pagination button:hover:not(.active) {background-color: silver;}
 </style>
 </head>
 <body>
@@ -120,7 +145,7 @@
 							<td>	<div class="type" id="notice">알림장</div></td>
 						<% }else if (b.getBoardType()==3) {%>
 							<td>	<div class="type" id="album">앨범</div></td>
-						<%}else { %>
+						<%}else if (b.getBoardType()==4){ %>
 							<td>	<div class="type" id="free">자유게시판</div></td>
 						<%} %>
 					
@@ -146,10 +171,11 @@
 				console.log(type);
 				
 				if(type==2){
-					location.href = "<%=contextPath %>/notice.bo?bno="+bno;
+					location.href = "<%=contextPath %>/movenotice.bo"
+					
 				}else if(type==3){
 					location.href = "<%=contextPath %>/list.al?bno="+bno;
-				}else{
+				}else  if(type==4){
 					location.href = "<%=contextPath %>/detail.fr?bno="+bno;
 				}
 				
@@ -168,7 +194,7 @@
 			<!-- 페이징바 영역 -->
 			
 			<div align="center" class="paging-area">
-			
+			<div class="pagination">
 				<% if(currentPage != 1) { %>
 					<button onclick="location.href='<%=contextPath %>/resent.bo?currentPage=<%=currentPage -1 %>'">&lt;</button>
 				<%} %>
@@ -187,7 +213,7 @@
 				<%} %>
 			
 			</div>
-	
+	</div>
 
 	</div>
 

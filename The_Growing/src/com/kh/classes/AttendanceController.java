@@ -63,30 +63,31 @@ public class AttendanceController extends HttpServlet {
 		ArrayList<String> memberInfo = service.selectClassMemberName(cno);
 		ArrayList<String> memberName = new ArrayList<String>();
 		ArrayList<String> memberUno = new ArrayList<String>();
+		
 		if(memberInfo.size() == 0) {
 			request.setAttribute("errorMsg", "이 클래스에는 출석부에 등록할 학생이 없습니다.");
 			 
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
 		}else {
 			
-			for(int i = 0; i < memberInfo.size(); i++) {
+			for(int i = 0; i < memberInfo.size(); i++) {// 멤버 이름 추출
 				if(i%2 == 0) {
 					memberName.add(memberInfo.get(i));
 				}else {
 					memberUno.add(memberInfo.get(i));
 				}
 			}
-			Collections.sort(memberName);
-			if(attendTable.size() == 0) { 
+			Collections.sort(memberName);// 정렬
+			if(attendTable.size() == 0) {// 클래스에 출석체크 표가 없을 때 새로 생성
 				 
 				ArrayList<String> arr = new ArrayList<String>();
 				
-				for(int i = 0; i < memberName.size(); i++) {
+				for(int i = 0; i < memberName.size(); i++) {//필요없는 문자 제거
 					
 					arr.add(addAttendMember(memberName.get(i),lastDay).replace("[", "").replace("]", ""));
 				}
 				
-				int result = service.insertAttendTable(cno,arr.toString(),month);
+				int result = service.insertAttendTable(cno,arr.toString(),month);// 출석체크 표 추가
 				
 				if(result > 0) {
 					attendTable = service.selectAttendTable(cno, month);
@@ -99,31 +100,74 @@ public class AttendanceController extends HttpServlet {
 					 
 					RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
 				} 
-			}else {
+			}else {// 클래스에 출석체크 표가 없다면 표 업데이트 || 기존 표 표시
 				
 				ArrayList<String> tableCheck = new ArrayList<String>();
-				for(int i = 0; i < attendTable.size(); i++) {
-					tableCheck.add(attendTable.toString().replace("[","").split(",")[i].split("/")[0].trim());
+				for(int i = 0; i < attendTable.size(); i++) { // 불필요 문자 제거
+					tableCheck.add(attendTable.toString().replace("[","").replace("]","").split(",")[i].split("/")[0].trim());
 				}
-				Collections.sort(tableCheck);
+				Collections.sort(tableCheck); // 정렬
 				boolean isUpdated = true;
-	
-				for(int i = 0; i < tableCheck.size(); i++) {
-					String memberstr = memberName.get(i);
-					
-					if(!tableCheck.get(i).equals(memberstr)) {
-						isUpdated = false;
-						if(tableCheck.get(i-1).equals(memberstr)) {							
-							attendTable.add(addAttendMember(memberstr,lastDay));
-							tableCheck.add(memberstr);
-							Collections.sort(tableCheck);
-						}else if(tableCheck.get(i+1).equals(memberstr)){
-							attendTable.remove(i);
-							tableCheck.remove(i);
-						}else {
-							attendTable.add(addAttendMember(memberstr,lastDay));
-							tableCheck.add(memberstr);
-							Collections.sort(tableCheck);
+				
+				// 정렬을 한 후에 글자가 다른 인덱스 찾기
+				// 둘 중 하나에 있다면 넘어가고 없다면 없는 곳에 추가
+				// 다시 정렬
+				if(tableCheck.size() > memberName.size()) { // 출석체크표가 더 많을 때(회원이 탈퇴했을 때)
+					for(int i = 0; i < tableCheck.size(); i++) {
+							for(int j = memberName.size(); j < tableCheck.size(); j++) { // 더미(회원이 빈 곳) 넣어서 사이즈 통일
+								memberName.add(j," ");
+							}
+							String memberstr = memberName.get(i);
+							if(!tableCheck.get(i).equals(memberstr)) { // 다르면 update 필요
+								isUpdated = false;
+								if(tableCheck.contains(memberstr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {
+									continue; // 동일한 문자가 같은 수로 존재한다면 다음으로 넘어감
+								}else if(!memberstr.equals(" ")){ // 더미값이 아니라면 추가
+									attendTable.add(addAttendMember(memberstr,lastDay));
+									tableCheck.add(memberstr);
+									Collections.sort(tableCheck);
+								}else { // 더미라면 삭제
+									attendTable.remove(i);
+									tableCheck.remove(i);
+								}
+							}
+					}
+				}else if (tableCheck.size() < memberName.size()) { // 출석체크표가 더 적을 때 (회원이 등록되었을 때)
+					for(int i = 0; i < memberName.size(); i++) {
+						for(int j = tableCheck.size(); j < memberName.size(); j++) {
+							tableCheck.add(j," ");
+						}
+						String memberstr = memberName.get(i);
+						if(!tableCheck.get(i).equals(memberstr)) {
+							isUpdated = false;
+							if(tableCheck.contains(memberstr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {
+								continue;
+							}else if(tableCheck.get(i).equals(" ")){ // 더미(출석체크에 없다) 라면 추가
+								attendTable.add(addAttendMember(memberstr,lastDay));
+								tableCheck.add(memberstr);
+								Collections.sort(tableCheck);
+							}else {
+								attendTable.remove(i);
+								memberName.remove(i);
+							}
+						}
+					}
+				}else { // 회원 수 는 같지만 클래스 멤버가 다를 때 (등록 탈퇴 수가 다를 때)
+					for(int i = 0; i < tableCheck.size(); i++) {
+						String memberstr = memberName.get(i);
+						if(!tableCheck.get(i).equals(memberstr)) {
+							isUpdated = false;
+							if(tableCheck.contains(memberstr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {
+								continue;
+							}else if(memberName.contains(tableCheck.get(i))){ // 출석표 i번째 학생은 있고 멤버 i 학생은 없다면
+								attendTable.add(addAttendMember(memberstr,lastDay));
+								tableCheck.add(memberstr);
+								Collections.sort(tableCheck);
+							}else { // 출석표에 클래스 멤버에 없는 학생이 등록되어있다면
+								attendTable.remove(i);
+								tableCheck.remove(i);
+								Collections.sort(tableCheck);
+							}
 						}
 					}
 				}
@@ -166,7 +210,7 @@ public class AttendanceController extends HttpServlet {
 		int result = 0;
 
 		if(loginUser.getUserLevel() == 1) {
-			result = new ClassService().updateAttendTable(arr.toString().replace("\"", ""), cno, month);
+			result = new ClassService().updateAttendTable(arr.toString().replace("[", "").replace("]", "").replace("\"", ""), cno, month);
 		}
 		
 		if(result > 0) {

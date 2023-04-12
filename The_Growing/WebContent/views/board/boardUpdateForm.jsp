@@ -5,7 +5,7 @@
 <%
 	Board b = (Board) request.getAttribute("b");
 	Attachment at = (Attachment) request.getAttribute("at"); 
-	int boardType =(int) request.getAttribute("boardType");
+	int boardType =(int)request.getSession().getAttribute("boardType");
 %>
 <!DOCTYPE html>
 <html lang="en">

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.classes.model.service.ClassService;
+import com.kh.classes.model.vo.Class;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class ClassMemberDelete
@@ -38,15 +40,23 @@ public class ClassMemberDelete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		int cno = (int)request.getSession().getAttribute("cno");
 		int uno = Integer.parseInt(request.getParameter("uno"));
-		
-		int result = new ClassService().deleteClassMember(uno);
-		
-		if(result > 0) {
-			response.getWriter().print("Success");
-		}else {
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		if(uno == m.getUserNo() && m.getUserLevel() == 1) {
 			response.getWriter().print("Fail");
+		}else {
+		
+			int result = new ClassService().deleteClassMember(uno, cno);
+			
+			if(result > 0) {
+				int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+				Class cInfo = new ClassService().selectClass(cno, userNo);
+				request.getSession().setAttribute("cInfo", cInfo);
+				response.getWriter().print("Success");
+			}else {
+				response.getWriter().print("Fail");
+			}
 		}
 	}
 

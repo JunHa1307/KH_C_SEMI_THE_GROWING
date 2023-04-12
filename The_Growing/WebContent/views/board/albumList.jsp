@@ -760,12 +760,6 @@ div {
         	});        
          
         	
-                if($("#modal").css("visibility")=="hidden"){
-                   $("#modal").css("visibility","visible");
-                    $('body').css({overflow :"hidden",scroll:"no"});
-                    $("#veil").css("display","block");
-                   
-                }
 
 
             $("#veil").click(function(){
@@ -794,13 +788,19 @@ div {
 						 $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 0s steps(28)'})
 						 $(".like").html('<i class="bi"></i>좋아요  '+ls[1]+"개");
 					}
-					 
+					 if($("#modal").css("visibility")=="hidden"){
+			               $("#modal").css("visibility","visible");
+			                $('body').css({overflow :"hidden",scroll:"no"});
+			                $("#veil").css("display","block");
+			               
+			            }
 				},
 				error: function(){
 					console.log("게시글 목록조회 실패")
 				}
     	});
-            
+		
+           
         };
 
             let j = 0;
