@@ -16,6 +16,7 @@ import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
 
 import com.kh.board.model.vo.Reply;
+import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
@@ -456,6 +457,28 @@ public class BoardService {
 		close(conn);
 		
 		return noticeCheckList;
+	}
+	
+	public int twoNoCheck(int uno, int cno) {
+		
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().twoNoCheck(conn, uno, cno);
+
+		close(conn);
+		
+		return result;
+	}
+	
+	public int threeNoCheck(int uno, int cno, int bno) {
+		
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().threeNoCheck(conn, uno, cno, bno);
+
+		close(conn);
+		
+		return result;
 	}
 
 }

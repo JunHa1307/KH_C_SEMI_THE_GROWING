@@ -237,5 +237,15 @@ public class MemberService {
 		return result;
 	}
 	
+
+	public ArrayList<Member> selectUserName(int uno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> noticeCheckList  = new MemberDao().selectUserName(conn, uno);
+		close(conn);
+		
+		return noticeCheckList;
+	}
 	
+
 }

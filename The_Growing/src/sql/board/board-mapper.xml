@@ -275,4 +275,19 @@
 		AND REF_BNO = ?
 	</entry>
 
+	<entry key="twoNoCheck">
+		SELECT COUNT(*)
+		FROM NOTICE_CHECK
+		WHERE REF_UNO = ?
+		AND REF_CNO = ?
+	</entry>
+
+	<entry key="threeNoCheck">
+		SELECT *
+		FROM NOTICE_CHECK
+		WHERE REF_UNO = ?
+		AND REF_CNO = ?
+		AND REF_BNO = ?
+	</entry>
+
 </properties>

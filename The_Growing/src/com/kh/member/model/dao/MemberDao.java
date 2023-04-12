@@ -554,6 +554,38 @@ public Member loginMemberInfo(Connection conn, int uno) {
 		}
 		return result;
 	}
-	
-	
+
+	public ArrayList<Member> selectUserName(Connection conn, int uno) {
+		 
+		ArrayList<Member> noticeCheckList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectUserName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+
+				Member m = new Member();
+				m.setUserNo(uno);
+				m.setUserName(rset.getString("USER_NAME"));
+				
+				noticeCheckList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return noticeCheckList;
+	}
+
 }

@@ -29,6 +29,7 @@
                 </div>
               </div>
                   <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" value="<%= b.getBoardTitle() %>" required size="99"></div>
+                <br>
                 <textarea id="summernote" name="content"><%= b.getBoardContent() %></textarea>
     
       </form>
