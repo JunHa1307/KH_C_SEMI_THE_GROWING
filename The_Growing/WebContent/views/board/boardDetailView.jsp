@@ -128,6 +128,7 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 .mo_reply_content {
 	width: 100%;
 	height: 69%;
+	position: relative;
 }
 
 .mo_reply_content>div {
@@ -164,6 +165,9 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	width: 80%;
 	word-break:break-all;
 	overflow-y: scroll;
+	position: absolute;
+	top:0;
+	left:100px;
 	/* background-color: aqua; */
 }
 .mo_reply_text::-webkit-scrollbar {
@@ -369,8 +373,9 @@ div {
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno%>');"></div></li>
 						<li class="like" onclick="likeClick('<%=uno%>');"><i
-							class="bi"></i></li>
-						<li class="chat"><i class="bi bi-chat-quote"></i></li>
+							class="bi"></i>좋아요 <span id="like_count">0</span>개</li>
+							
+						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span id="chat_count">0</span>개</li>
 						<li class="scrap" style="padding-right: 15px;"><i
 							class="bi bi-star" style="padding-right: 10px;"></i>스크랩</li>
 					</ul>
@@ -413,7 +418,7 @@ div {
 	</div>
 	<script>
 		$(function(){
-					
+			
 			$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno :<%=b.getBoardNo()%>},
@@ -431,7 +436,7 @@ div {
    				url : "<%=contextPath%>/rCount.bo",
    				data : { bno : <%=b.getBoardNo()%>},
    				success : function(list){
-   					 $(".chat").html('<i class="bi bi-chat-quote"></i>댓글 '+list+'개</li>');
+   					 $("#chat_count").html(list);
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
@@ -446,11 +451,11 @@ div {
  					 let ls = list.split(",");
  					if(ls[0]==0){
  						  $('.heart').css({  backgroundPosition: '0', transition:' background 0s steps(28)'})
- 							$(".like").html('<i class="bi"></i>좋아요  '+ls[1]+"개");
+ 							$("#like_count").html(ls[1]);
  							
  					}else{
  						 $('.heart').css({  backgroundPosition: '-2800px 0', transition:' background 0s steps(28)'})
- 						 $(".like").html('<i class="bi"></i>좋아요  '+ls[1]+"개");
+ 						 $("#like_count").html(ls[1]);
  					}
  					 
  				},
@@ -518,7 +523,29 @@ div {
 					if (result > 0) {
 
 						$("#mo_reply_textarea").val("");
-						$(".mo_reply").html(list); 
+						$.ajax({
+			   				url : "<%=contextPath%>/rlist.bo",
+			   				data : { bno :<%=b.getBoardNo()%>},
+			   				type : "get",
+							dataType : "html", 
+			   				success : function(list){
+			   					 $(".mo_reply").html(list); 
+			   					
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	});
+						$.ajax({
+			   				url : "<%=contextPath%>/rCount.bo",
+			   				data : { bno : <%=b.getBoardNo()%>},
+			   				success : function(list){
+			   					 $("#chat_count").html(list);
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	}); 
 
 					} else {
 						alert("댓글작성에 실패했습니다");

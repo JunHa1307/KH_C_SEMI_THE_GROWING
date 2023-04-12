@@ -429,5 +429,33 @@ public class BoardService {
 		
 		return result;
 	}
+	
+public int updateReply(String content, int rno) {
+
+		
+		Connection conn = getConnection() ;
+		
+		int result = new BoardDao().updateReply(conn, content,rno);
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+public Reply selectReply(int rno ) {
+	Connection conn = getConnection();
+	
+	Reply r = new BoardDao().selectReply(conn, rno);
+	
+	close(conn);
+	
+	return r;
+}
 
 }

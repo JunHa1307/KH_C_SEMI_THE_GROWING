@@ -891,8 +891,20 @@ div {
    				success : function(result){
    				 
    					if(result > 0){
-   						albumClick(bno);
+   						
    						$("#mo_reply_textarea").val("");
+   						$.ajax({
+   			   				url : "<%=contextPath%>/rlist.bo",
+   			   				data : { bno : bno},
+   			   				type : "get",
+   							dataType : "html", 
+   			   				success : function(list){
+   			   					 $(".mo_reply").html(list); 
+   			   				},
+   			   				error: function(){
+   			   					console.log("게시글 목록조회 실패")
+   			   				}
+   			        	});
    						
    					}else{
    						alert("댓글작성에 실패했습니다");

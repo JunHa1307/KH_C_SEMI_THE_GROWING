@@ -230,6 +230,7 @@
 							function level1(bno){
 								
 								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
+									
 							};
 							function level2(bno){
 								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
