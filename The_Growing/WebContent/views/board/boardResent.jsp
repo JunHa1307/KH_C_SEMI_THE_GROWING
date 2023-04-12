@@ -171,7 +171,8 @@
 				console.log(type);
 				
 				if(type==2){
-					location.href = "<%=contextPath %>/notice.bo?bno="+bno;
+					location.href = "<%=contextPath %>/movenotice.bo"
+					
 				}else if(type==3){
 					location.href = "<%=contextPath %>/list.al?bno="+bno;
 				}else  if(type==4){

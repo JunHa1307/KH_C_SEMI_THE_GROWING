@@ -151,13 +151,13 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	height: 65px;
 	border-radius: 100%;
 	overflow: hidden;
-	object-fit :cover;
 }
 
 .mo_reply_profileImg>img {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit :cover;
 }
 
 .mo_reply_text {
@@ -200,13 +200,14 @@ int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	width: 60px;
 	height: 100%;
 	border-radius: 100%;
-	object-fit :cover;
+	
 }
 
 #mo_writer_profile>img {
 	width: 100%;
 	height: 100%;
 	border-radius: 100%;
+	object-fit :cover;
 }
 
 
@@ -257,6 +258,8 @@ div {
 #boardContent img{
 	display:block;
 	margin: auto;
+	max-width:700px;
+	object-fit : cover;
 
 }
 #boardReplyIcon {
