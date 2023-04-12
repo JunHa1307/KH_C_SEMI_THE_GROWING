@@ -16,6 +16,7 @@ import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
 
 import com.kh.board.model.vo.Reply;
+import com.kh.board.model.vo.Scrap;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.dao.MemberDao;
@@ -481,4 +482,59 @@ public class BoardService {
 		return result;
 	}
 
+	public int selectScrap(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().selectScrap(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public int insertScrap(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertScrap(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public int deleteScrap(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteScrap(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public ArrayList<Scrap> selectScrapList(int uno) {
+		Connection conn = getConnection();
+		ArrayList<Scrap> list = new BoardDao().selectScrapList(conn, uno);
+		close(conn);
+		return list;
+	}
+	
 }

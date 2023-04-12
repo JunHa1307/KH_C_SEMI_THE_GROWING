@@ -106,7 +106,7 @@
 	}
 	#mo_reply_list>ul>li {
 		list-style-type: none;
-		float: left;
+		float: right;
 		width: 115px;
 		font-weight: 600;
 		text-align: right;
@@ -255,8 +255,9 @@
 				</div>
 				<div id="mo_reply_list">
 					<ul class="scrapIc">
-						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
-							style="padding-right: 10px;"></i></li>
+						<li id="scrap_<%=b.getBoardNo() %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick('<%= loginUser.getUserNo() %>');">
+							<i class="bi bi-star" style="padding-right: 10px;"></i>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -345,7 +346,7 @@
 			              		} */
 			              </script>
      <script>
-     	
+     	// 인쇄
      	function divPrint(boardNo){
      		var printId = "print"+boardNo;
      		var initBody = document.body.innerHTML;
@@ -359,25 +360,50 @@
      		}
      		window.print();
      	}
+
+     	//스크랩
+     	function scrapClick(uno){
+     		//let bno = $(".scrap").attr("class"); ex) scrap_1
+     		let scrapBno = $(".scrap").attr("class");
+     		let bno = scrapBno.substring(scrapBno.indexOf('_')+1, scrapBno.indexOf('_', scrapBno.indexOf('_')+1)); // ex) 1
+     		
+     		$.ajax({
+     			url: "<%= contextPath %>/scrap.bo",
+     			data: {bno, uno},
+     			success: function(list){
+     				let scrapList = list.split(",");
+     				if(scrapList[0] == 0){
+     					
+     				}else{
+     					
+     				}
+     			},
+     			error: function(){
+     				console.log("게시글 스크랩 실패");
+     			}
+     			
+     		});
+     	
+     	
+     	
+     	}
+     	
      	
      	
      	let j = 0;
+        $('.scrap').on('click',function(){
+            if(j==0){
+                $('.bi-star').css({color : "orange", fontSize : "30px"});
+                j++;
+            }else if(j==1){
+                $('.bi-star').css('color','black');
+                j--;
+            }
+
+        });
+        
+        
      	
-     	// ex) 3
-     	for( let i=0 ; i<list2.length ; i++){
-     		
-     	
-	        $('.scrap').on('click',function(){
-	            if(j==0){
-	                $('.bi-star').css({color : "orange", fontSize : "30px"});
-	                j++;
-	            }else if(j==1){
-	                $('.bi-star').css('color','black');
-	                j--;
-	            }
-	
-	        });
-     	}
      </script>
 </div>
 </div>

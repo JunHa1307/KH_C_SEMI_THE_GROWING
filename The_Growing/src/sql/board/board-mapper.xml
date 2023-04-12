@@ -291,4 +291,29 @@
 		AND REF_BNO = ?
 	</entry>
 
+	<entry key="selectScrap">
+		SELECT REF_BNO, REF_UNO
+		FROM SCRAP 
+		WHERE REF_BNO= ? 
+		AND REF_UNO =?
+	</entry>
+
+	<entry key="insertScrap">
+		INSERT INTO SCRAP(REF_BNO, REF_UNO) 
+		VALUES(?, ?)
+	</entry>
+
+	<entry key="deleteScrap">
+		DELETE FROM SCRAP 
+		WHERE REF_BNO= ? 
+		AND REF_UNO =?
+	</entry>
+
+	<entry key="selectScrapList">
+		SELECT REF_BNO, REF_UNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+	</entry>
+
 </properties>

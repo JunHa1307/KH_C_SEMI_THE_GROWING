@@ -18,6 +18,7 @@ import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
 
 import com.kh.board.model.vo.Reply;
+import com.kh.board.model.vo.Scrap;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
@@ -1142,6 +1143,120 @@ public int threeNoCheck(Connection conn, int uno, int cno, int bno) {
 		return result;
 				
 	}
+
+public int selectScrap(Connection conn, int bno, int uno){
+	int like = 0;
+	PreparedStatement pstmt = null;
 	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectScrap");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+
+			like = 1;
+		
+		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return like;
+	
+	
+}
+
+public int insertScrap(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("insertScrap");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+public int deleteScrap(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteScrap");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+public ArrayList<Scrap> selectScrapList(Connection conn, int uno) {
+	 
+	ArrayList<Scrap> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectScrapList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, uno);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+
+			Scrap s = new Scrap();
+			
+			s.setRefBno(rset.getInt("REF_BNO"));
+			s.setRefUno(rset.getInt("REF_UNO"));
+			
+			list.add(s);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+}
 }
 
