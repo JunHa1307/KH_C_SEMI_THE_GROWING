@@ -135,13 +135,15 @@
 		 WHERE USER_NO = ?
 		 	AND USER_PWD = ?
 	</entry>
+<!-- 
 	<entry key="selectUserName">
 		SELECT USER_NAME
 		FROM MEMBER
 		WHERE USER_NO = ?
 		AND STATUS = 'Y'
 		AND NOTICE_CHECK = 'Y'
-	</entry>
+	</entry> -->
+	
 	<entry key="updateNoticeCheck">
 		UPDATE MEMBER
 		SET NOTICE_CHECK = 'Y',

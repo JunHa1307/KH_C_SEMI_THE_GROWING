@@ -24,8 +24,9 @@
                   <hr />
                 </div>
               </div>
-                  <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99"></div>
-                <textarea id="summernote" name="content"></textarea>
+               <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99"></div>
+               <br>
+               <textarea id="summernote" name="content"></textarea>
     
       </form>
    

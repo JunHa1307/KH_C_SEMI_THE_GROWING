@@ -14,11 +14,13 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
-
+import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
 
 import com.kh.board.model.vo.Reply;
+import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
+import com.kh.member.model.vo.Member;
 
 
 public class BoardDao {
@@ -1001,6 +1003,145 @@ public Board selectBoard(Connection conn, int boardNo) {
 		return result;
 	}
 
+	public int insertNoticeCheck(Connection conn, int uno, int cno, int bno, String checkUserName, int userLevel) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertNoticeCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, cno);
+			pstmt.setInt(3, bno);
+			pstmt.setString(4, checkUserName);
+			pstmt.setInt(5, userLevel);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public ArrayList<NoticeCheck> selectUserName(Connection conn, int cno, int bno) {
+		 
+		ArrayList<NoticeCheck> noticeCheckList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectUserName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
 
+				NoticeCheck c = new NoticeCheck();
+				c.setUserName(rset.getString("USER_NAME"));
+				c.setRefUno(rset.getInt("REF_UNO"));
+				c.setRefCno(cno);
+				c.setRefBno(bno);
+				
+				noticeCheckList.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return noticeCheckList;
+	}
+	
+	public int twoNoCheck(Connection conn, int uno, int cno) {
+		
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+		// ResultSet은 db에서 질의결과 창에 나오는  
+		// 그에해당하는 
+ 		ResultSet rset = null;
+		
+		String sql = prop.getProperty("twoNoCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			// 다음행이 존재한다면 값을 result에 넣기
+			// select문일때만 rset.next()사용해서 다음행이 있는지없는지 검사
+			// 다음행이 있다면 result변수에 컬럼의 값 얻어오기
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			
+		}
+		return result;
+				
+	}
+	
+public int threeNoCheck(Connection conn, int uno, int cno, int bno) {
+		
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+		// ResultSet은 db에서 질의결과 창에 나오는  
+		// 그에해당하는 
+ 		ResultSet rset = null;
+		
+		String sql = prop.getProperty("threeNoCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, cno);
+			pstmt.setInt(3, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			// 다음행이 존재한다면 값을 result에 넣기
+			// select문일때만 rset.next()사용해서 다음행이 있는지없는지 검사
+			// 다음행이 있다면 result변수에 컬럼의 값 얻어오기
+			if(rset.next()) {
+				result = 1;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			
+		}
+		return result;
+				
+	}
+	
 }
 
