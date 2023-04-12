@@ -135,4 +135,30 @@
 		 WHERE USER_NO = ?
 		 	AND USER_PWD = ?
 	</entry>
+	<entry key="selectUserName">
+		SELECT USER_NAME
+		FROM MEMBER
+		WHERE USER_NO = ?
+		AND STATUS = 'Y'
+		AND NOTICE_CHECK = 'Y'
+	</entry>
+	<entry key="updateNoticeCheck">
+		UPDATE MEMBER
+		SET NOTICE_CHECK = 'Y',
+			MODIFY_DATE = SYSDATE
+		WHERE USER_NO = ?
+	</entry>
+	<entry key="selectMemberList">
+		SELECT M.*, A.CHANGE_NAME, A.FILE_PATH
+		FROM MEMBER M
+		LEFT JOIN ATTACHMENT A ON (A.REF_UNO = M.USER_NO)
+		LEFT JOIN CLASS_MEMBER C ON (M.USER_NO = C.REF_UNO)
+		WHERE C.REF_CNO = ?
+	</entry>
+	<entry key="selectMember">
+		SELECT M.*, A.CHANGE_NAME, A.FILE_PATH
+		FROM MEMBER M
+		LEFT JOIN ATTACHMENT A ON (A.REF_UNO = M.USER_NO)
+		WHERE M.USER_NO = ?
+	</entry>
 </properties>

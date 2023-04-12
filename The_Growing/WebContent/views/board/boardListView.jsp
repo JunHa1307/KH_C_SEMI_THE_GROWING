@@ -133,6 +133,7 @@
 <body>
               <%@ include file="/views/board/boardFrame.jsp" %>
                 <!-- 자유게시판-->
+
 	<div id="board_area">
 
 		<div id="album_header">
@@ -199,6 +200,7 @@
 						<td><%= b.getUserId() %></td>
 						<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
 						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+
 					</tr>
 					<%}else if(loginUser.getUserId().equals(b.getUserId())){ %>
 					<tr id="level2" onclick="level2(<%= b.getBoardNo() %>);">
@@ -249,9 +251,11 @@
 					</script>
 
 
+
 		<div align="center" class="paging-area">
 			<div class="pagination">
 		
+
 				<% if(currentPage != 1) { %>
 				<button
 					onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%= currentPage -1 %>&boardType=<%=boardType%>'">&lt;</button>
@@ -272,10 +276,12 @@
 				<button class=""
 					onclick="location.href = '<%=contextPath %>/list.fr?currentPage=<%=currentPage + 1 %>&boardType=<%=boardType%>' ">&gt;</button>
 				<% } %>
+
 		
 			</div>
 
 		</div>
 	</div>
+
 </body>
 </html>

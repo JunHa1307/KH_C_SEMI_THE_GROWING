@@ -3,6 +3,9 @@
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
+
+	ArrayList<Member> noticeCheckList = (ArrayList<Member>) session.getAttribute("noticeCheckList");
+
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
 <!DOCTYPE html>
@@ -70,7 +73,11 @@
 	#checkIcon{
 		width: 70px;
 	}
+	#checkList{
+		
+	}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 <%@include file="boardFrame.jsp" %>
@@ -84,8 +91,10 @@
         		<% if(loginUser.getUserLevel() == 1){ %>
                   <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
             	  <button type="button" class="ctBtn button_UI button--winona" onclick="folderDeleteClick();">삭제</button>
-            	<% } %>
-
+            	<% } else{ %>
+				  <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px; display:none;"><span>글 등록</span></button>
+            	  <button type="button" class="ctBtn button_UI button--winona" onclick="folderDeleteClick();" style="display:none;">삭제</button>					
+				<% } %>
             </div>
         </div>
         <hr>
@@ -105,7 +114,7 @@
     	      type  : "POST",
     	      url    : "<%= contextPath %>/boardDelete.no",
     	      data: {
-    	          checkBoxArr : JSON.stringify(checkBoxArr)        // folder seq 값을 가지고 있음.
+    	          checkBoxArr : JSON.stringify(checkBoxArr)      
     	      },
     	      success: function(result){
     	      	console.log(result);
@@ -115,8 +124,8 @@
     	      }  
     	   });
     	  
-    	  
-    	  $("#notice_content").load(window.location.href + " #notice_content"); 
+    	  location.reload();
+    	  /* $("#board_area").load(window.location.href + " #board_area");  */
     	};
     	  
      </script>
@@ -152,6 +161,7 @@
 						<th class="divSt"><pre>학부모<label>(/본인)</label><br>확  인</pre>
 							<div class="dropdown">
 			                <button 
+			                	id="checkList"
 			                    class="btn btn-secondary" 
 			                    type="button" 
 			                    id="dropdownMenuButton" 
@@ -162,10 +172,49 @@
 			                    <img id="checkIcon" src="resources/image/checkIcon.png"/>
 			                </button>
 			                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			                  <a class="dropdown-item" href="#">오현지 학생</a>
-			                  
+			                	<% try{ %>
+			                		<% for( Member m : noticeCheckList){ %>
+			                		<div class="dropdown-item"><%= m.getUserName() %></div>
+				                	<% } %>
+				                  <!-- <a class="dropdown-item" href="#">오현지 학생</a> -->
+			                	<%} catch(NullPointerException e){%>
+			                		<div class="dropdown-item"></div>
+			                	<%} %>
 			                </div>
 			              </div>
+			              
+			              <script>
+			              	if(<%= loginUser.getUserLevel() != 1 %>){
+			              		$().ready(function(){
+			              			$("#checkList").click(function(){
+			              				Swal.fire({
+			              					icon: 'question',
+			              					title: '알림장을 확인하시겠습니까?',
+			              					text: '꼼꼼히 확인해주세요~',
+			              				  	showCancelButton: true,
+				              	            confirmButtonColor: '#3085d6',
+				              	            cancelButtonColor: '#d33',
+				              	            confirmButtonText: '<a href="<%=contextPath%>/checkupdate.no">확인</a>',
+				              	            cancelButtonText: '취소'
+			              						
+			              				})
+			              				
+			              				/* .then((result) => {
+			              		            if (result.isConfirmed) {
+			             
+			              		                Swal.fire({
+			              		                	icon: 'success',
+					              					title: '확인되었습니다!'
+			              		                });
+			              		            }
+			              		        }) */
+			              		        
+			              		    });
+			              		});
+			              		
+			              	}
+			              </script>
+			              
 						</th>
 					</tr>
 				</table>
@@ -205,6 +254,7 @@
      	}
      </script>
 </div>
+
 
 </body>
 </html>
