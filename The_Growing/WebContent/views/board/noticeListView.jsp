@@ -185,7 +185,7 @@
 			</div>
 			<br>
 			<% } %>
-			<div>No. <%= b.getBoardNo() %></div>
+			<div id="noDiV<%=b.getBoardNo() %>">No. <%= b.getBoardNo() %></div>
 			<% if(loginUser.getUserLevel() == 1) { %>
 				<input id="<%=b.getBoardNo() %>" type="checkbox" name="folderCheckname"> <label>삭제할 게시글을 선택하세요</label>
 			<% }else{ %>
@@ -254,7 +254,7 @@
 					</div>
 				</div>
 				<div id="mo_reply_list">
-					<ul id="mo_icon">
+					<ul class="scrapIc">
 						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
 							style="padding-right: 10px;"></i></li>
 					</ul>
@@ -360,17 +360,24 @@
      		window.print();
      	}
      	
+     	
      	let j = 0;
-        $('.scrap').on('click',function(){
-            if(j==0){
-                $('.bi-star').css({color : "orange", fontSize : "30px"});
-                j++;
-            }else if(j==1){
-                $('.bi-star').css('color','black');
-                j--;
-            }
-
-        });
+     	
+     	// ex) 3
+     	for( let i=0 ; i<list2.length ; i++){
+     		
+     	
+	        $('.scrap').on('click',function(){
+	            if(j==0){
+	                $('.bi-star').css({color : "orange", fontSize : "30px"});
+	                j++;
+	            }else if(j==1){
+	                $('.bi-star').css('color','black');
+	                j--;
+	            }
+	
+	        });
+     	}
      </script>
 </div>
 </div>
