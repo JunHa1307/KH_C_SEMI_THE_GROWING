@@ -110,6 +110,7 @@
 		text-align: right;
 		cursor: pointer;
 	}
+	
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
@@ -373,6 +374,7 @@
 </div>
 </div>
 </div>
+
 
 
 </body>

@@ -555,6 +555,7 @@ public Member loginMemberInfo(Connection conn, int uno) {
 		return result;
 	}
 
+	
 	public ArrayList<Member> selectUserName(Connection conn, int uno) {
 		 
 		ArrayList<Member> noticeCheckList = new ArrayList<>();
@@ -588,4 +589,6 @@ public Member loginMemberInfo(Connection conn, int uno) {
 		return noticeCheckList;
 	}
 
+	
+	
 }

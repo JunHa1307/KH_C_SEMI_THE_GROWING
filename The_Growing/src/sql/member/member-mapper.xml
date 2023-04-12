@@ -135,26 +135,19 @@
 		 WHERE USER_NO = ?
 		 	AND USER_PWD = ?
 	</entry>
-<<<<<<< HEAD
-<!-- 	<entry key="selectUserName">
-=======
+<!-- 
 	<entry key="selectUserName">
->>>>>>> b4eebc6c5890e61874bd456f0096bf52835f92cf
 		SELECT USER_NAME
 		FROM MEMBER
 		WHERE USER_NO = ?
 		AND STATUS = 'Y'
 		AND NOTICE_CHECK = 'Y'
-<<<<<<< HEAD
 	</entry> -->
 	
-=======
-	</entry>
 	<entry key="updateNoticeCheck">
 		UPDATE MEMBER
 		SET NOTICE_CHECK = 'Y',
 			MODIFY_DATE = SYSDATE
 		WHERE USER_NO = ?
 	</entry>
->>>>>>> b4eebc6c5890e61874bd456f0096bf52835f92cf
 </properties>
