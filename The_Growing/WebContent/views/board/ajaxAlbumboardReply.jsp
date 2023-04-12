@@ -30,7 +30,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 							src="<%=contextPath%>/resources/image/icons8-메뉴-2-48.png">
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" onclick="update(<%=list.get(i).getReplyContent()%>,<%=list.get(i).getReplyNo()%>)">수정</a>
+						<a class="dropdown-item" onclick="update('<%=list.get(i).getReplyContent()%>',<%=list.get(i).getReplyNo()%>)">수정</a>
 						<a class="dropdown-item" id="deleteBoard">삭제</a>
 					</div>
 				</div>
@@ -67,7 +67,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		
 		
 				<script>
-				function update(content, rno){
+				function update( rno){
 					$.ajax({
 		   				url : "<%=contextPath%>/rSelect.bo",
 		   				data : { rno},
@@ -80,7 +80,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		   				}
 		        	});
 				};
-					$.ajax({
+					<%-- $.ajax({
 		   				url : "<%=contextPath%>/rUpdate.bo",
 		   				data : { content, rno},
 		   				success : function(list){
@@ -89,7 +89,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		   				error: function(){
 		   					console.log("게시글 목록조회 실패")
 		   				}
-		        	});
+		        	}); --%>
 					
 					
 					
