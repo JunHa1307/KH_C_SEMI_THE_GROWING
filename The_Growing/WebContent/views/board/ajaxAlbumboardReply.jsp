@@ -1,9 +1,12 @@
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@page import="com.kh.board.model.vo.Reply"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <%
+Board b = (Board) request.getAttribute("b");
 	ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 String contextPath = request.getContextPath();
 Member loginUser = (Member) request.getSession().getAttribute("loginUser");
@@ -11,6 +14,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -30,8 +34,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 							src="<%=contextPath%>/resources/image/icons8-메뉴-2-48.png">
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" onclick="update('<%=list.get(i).getReplyContent()%>',<%=list.get(i).getReplyNo()%>)">수정</a>
-						<a class="dropdown-item" id="deleteBoard">삭제</a>
+						<a class="dropdown-item deleteReply" data-rno='<%= list.get(i).getReplyNo()%>'>삭제</a>
 					</div>
 				</div>
 				
@@ -64,41 +67,51 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		
 		<%} %>
 		
-		
-		
-				<script>
-				function update( rno){
-					$.ajax({
-		   				url : "<%=contextPath%>/rSelect.bo",
-		   				data : { rno},
-		   				success : function(list){
-		   					console.log(list);
-		   					$("#mo_reply_textarea").html(list);  
-		   				},
-		   				error: function(){
-		   					console.log("게시글 목록조회 실패")
-		   				}
-		        	});
-				};
-					<%-- $.ajax({
-		   				url : "<%=contextPath%>/rUpdate.bo",
-		   				data : { content, rno},
-		   				success : function(list){
-		   					 $(".mo_reply_text").html(list); 
-		   				},
-		   				error: function(){
-		   					console.log("게시글 목록조회 실패")
-		   				}
-		        	}); --%>
-					
-					
-					
-			
-						
-						
-				
-											
-				</script>
+		<script>
+		 $(".deleteReply").click(function(){
+				let rno = $(this).data('rno'); 
+				$.ajax({
+	   				url : "<%=contextPath%>/rDelete.bo",
+	   				data : { rno},
+	   				type : "get",
+	   				success : function(result){
+	   					if(result>0){
+	   					$.ajax({
+			   				url : "<%=contextPath%>/rlist.bo",
+			   				data : { bno :<%=b.getBoardNo()%>},
+			   				type : "get",
+							dataType : "html", 
+			   				success : function(list){
+			   					 $(".mo_reply").html(list); 
+			   					
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	});
+						$.ajax({
+			   				url : "<%=contextPath%>/rCount.bo",
+			   				data : { bno : <%=b.getBoardNo()%>},
+			   				success : function(list){
+			   					 $("#chat_count").html(list);
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	}); 
+	   					}else {
+							alert("댓글삭제에 실패했습니다");
+
+						}
+	   					
+	   				},
+	   				error: function(){
+	   					console.log("게시글 목록조회 실패")
+	   				}
+	        		});
+			});
+	
+		</script>
 	
 </body>
 </html>

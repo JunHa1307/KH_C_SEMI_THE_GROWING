@@ -30,11 +30,13 @@ public class ReplySelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int rno = Integer.parseInt(request.getParameter("rno"));
 		
+		response.setContentType("application/x-json; charset=UTF-8");
+
+		int rno = Integer.parseInt(request.getParameter("rno"));
 		Reply r = new BoardService().selectReply(rno);
 		
-		response.getWriter().print(r);
+		response.getWriter().print(r.getReplyContent()+","+r.getReplyNo());
 	}
 
 	/**

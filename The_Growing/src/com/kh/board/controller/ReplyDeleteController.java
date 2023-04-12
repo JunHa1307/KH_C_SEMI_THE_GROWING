@@ -14,7 +14,7 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class ReplyDeleteController
  */
-@WebServlet("/rdelete.fr")
+@WebServlet("/rDelete.bo")
 public class ReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,18 +32,10 @@ public class ReplyDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int replyNo = Integer.parseInt(request.getParameter("rno"));
 		
-		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-	
-//		int refBno = ((Board) request.getSession().getAttribute("bno")).getBoardNo();
-		
-		
-		int result = new BoardService().deleteReply(replyNo, userNo);
+		int result = new BoardService().deleteReply(replyNo);
 		
 		if(result > 0) {
-			//삭제처리
-		
-			request.getSession().setAttribute("alertMsg", "성공적으로 댓글을 삭제했습니다.");
-			response.sendRedirect(request.getContextPath()+"/rinsert.fr");
+			 response.getWriter().print(result); 
 		}else {
 			request.setAttribute("errorMsg", "댓글삭제에 실패했습니다..");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

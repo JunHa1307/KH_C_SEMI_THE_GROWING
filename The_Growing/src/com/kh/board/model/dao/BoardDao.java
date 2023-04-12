@@ -767,7 +767,7 @@ public int deleteBoard(Connection conn, int boardNo, int userNo) {
 	return result;
 }
 
-public int deleteReply(Connection conn, int replyNo, int userNo) {
+public int deleteReply(Connection conn, int replyNo) {
 	
 	int result = 0;
 	
@@ -778,7 +778,6 @@ public int deleteReply(Connection conn, int replyNo, int userNo) {
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, replyNo);
-		pstmt.setInt(2, userNo);
 		
 		result = pstmt.executeUpdate();
 		
@@ -1043,7 +1042,38 @@ public Board selectBoard(Connection conn, int boardNo) {
 			if(rset.next()) {
 				r = new Reply();
 				r.setReplyContent(rset.getString("REPLY_CONTENT"));
-						   
+				r.setReplyNo(rset.getInt("REPLY_NO"));	   
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
+	}
+	public int selectCountReply(Connection conn, int bno) {
+		
+		int r =0;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCountReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				r = rset.getInt("R_COUNT");
+				  
 			}
 			
 		} catch (SQLException e) {

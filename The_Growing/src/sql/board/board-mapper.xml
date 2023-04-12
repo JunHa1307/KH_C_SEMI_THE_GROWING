@@ -181,7 +181,7 @@
 	<entry key="selectListCount">
 		SELECT COUNT(*) AS COUNT
 		FROM BOARD
-		WHERE STATUS = 'Y' AND REF_CNO =?
+		WHERE STATUS = 'Y' AND REF_CNO =? AND BOARD_TYPE IN (2,3,4)
 			
 	</entry>
 		<entry key="selectBoardListCount">
@@ -226,7 +226,7 @@
 		UPDATE Reply
 		SET STATUS = 'N'
 		WHERE REPLY_NO = ?
-		AND REF_BNO = ?
+		
 		</entry>
 
 	<entry key="insertNotice">
@@ -272,9 +272,16 @@
 	</entry>
 	
 		<entry key="selectReply">
-	 SELECT REPLY_CONTENT 
+	 SELECT REPLY_CONTENT, REPLY_NO 
 	 FROM REPLY 
 	   WHERE REPLY_NO = ?
+	</entry>
+	
+		<entry key="selectCountReply">
+	SELECT COUNT(*) AS R_COUNT
+        FROM REPLY
+    WHERE REF_BNO=? AND
+         STATUS = 'Y' 
 	</entry>
 
 </properties>

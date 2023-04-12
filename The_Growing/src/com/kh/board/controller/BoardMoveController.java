@@ -70,7 +70,7 @@ public class BoardMoveController extends HttpServlet {
 		
 		pageLimit = 10; 
 		
-		boardLimit = 10; 
+		boardLimit = 8; 
 
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -87,7 +87,12 @@ public class BoardMoveController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage); 
 		
 		ArrayList<Board> list = new BoardService().selectList(pi, cno);
-		
+		 ArrayList<Integer> r = new ArrayList<Integer>();
+		 for(int i =0; i<list.size(); i++) {
+			int rCount = new BoardService().selectCountReply(list.get(i).getBoardNo());
+			 r.add(rCount);
+		 }
+		 request.setAttribute("r", r);
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		

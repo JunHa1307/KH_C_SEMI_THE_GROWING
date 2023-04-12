@@ -397,10 +397,10 @@ public class BoardService {
 		return result;
 	}
 	
-	public int deleteReply(int replyNo, int boardNo) {
+	public int deleteReply(int replyNo) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().deleteReply(conn, replyNo, boardNo);
+		int result = new BoardDao().deleteReply(conn, replyNo);
 		
 		if(result > 0) {
 			commit(conn);
@@ -452,6 +452,16 @@ public Reply selectReply(int rno ) {
 	Connection conn = getConnection();
 	
 	Reply r = new BoardDao().selectReply(conn, rno);
+	
+	close(conn);
+	
+	return r;
+}
+
+public int selectCountReply(int bno ) {
+	Connection conn = getConnection();
+	
+	int r = new BoardDao().selectCountReply(conn, bno);
 	
 	close(conn);
 	

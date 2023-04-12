@@ -20,6 +20,8 @@ public class Reply {
 	private String createDate;
 	private String status;
 	private String replySecret;
+	private int rCount;
+	
 	
 	public Reply() {
 		super();
@@ -39,6 +41,30 @@ public class Reply {
 		this.replySecret = replySecret;
 	}
 
+
+	
+	
+	
+	public Reply(int replyNo, int refBno, String replyWriter, String replyContent, String createDate, String status,
+			String replySecret, int rCount) {
+		super();
+		this.replyNo = replyNo;
+		this.refBno = refBno;
+		this.replyWriter = replyWriter;
+		this.replyContent = replyContent;
+		this.createDate = createDate;
+		this.status = status;
+		this.replySecret = replySecret;
+		this.rCount = rCount;
+	}
+
+	public int getrCount() {
+		return rCount;
+	}
+
+	public void setrCount(int rCount) {
+		this.rCount = rCount;
+	}
 
 	public int getReplyNo() {
 		return replyNo;
@@ -101,13 +127,15 @@ public class Reply {
 		this.replySecret = replySecret;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter + ", replyContent="
 				+ replyContent + ", createDate=" + createDate + ", status=" + status + ", replySecret=" + replySecret
-				+ "]";
+				+ ", rCount=" + rCount + "]";
 	}
+
+
+
 
 	
 
