@@ -3,7 +3,9 @@
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
+
 	ArrayList<Member> noticeCheckList = (ArrayList<Member>) session.getAttribute("noticeCheckList");
+
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
 <!DOCTYPE html>
