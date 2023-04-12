@@ -371,6 +371,19 @@
      			url: "<%= contextPath %>/scrap.bo",
      			data: {bno, uno},
      			success: function(list){
+     				
+     				
+     				if(let i = 1 ; i<list.length ; i++){
+     					let j = 0;
+     					if(j==0){
+     		                $('.bi-star').css({color : "orange", fontSize : "30px"});
+     		                j++;
+     		            }else if(j==1){
+     		                $('.bi-star').css('color','black');
+     		                j--;
+     		            }
+     				}
+     				
      				let scrapList = list.split(",");
      				if(scrapList[0] == 0){
      					
@@ -390,7 +403,7 @@
      	
      	
      	
-     	let j = 0;
+     	/* let j = 0;
         $('.scrap').on('click',function(){
             if(j==0){
                 $('.bi-star').css({color : "orange", fontSize : "30px"});
@@ -400,7 +413,7 @@
                 j--;
             }
 
-        });
+        }); */
         
         
      	
