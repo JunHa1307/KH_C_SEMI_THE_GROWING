@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-int boardType =(int) request.getAttribute("boardType");
+int boardType =(int) request.getSession().getAttribute("boardType");
 %>
 <!DOCTYPE html>
 <html lang="en">

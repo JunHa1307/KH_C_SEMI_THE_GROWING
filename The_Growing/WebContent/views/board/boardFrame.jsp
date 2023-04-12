@@ -551,6 +551,7 @@ vertical-align: middle;
                   });
                   
                   $("#board_recent").click(function(){
+
                   location.href="<%=contextPath%>/resent.bo";
                });
              
@@ -602,13 +603,14 @@ vertical-align: middle;
                     location.href="<%=contextPath%>/movenotice.bo";
                  });
                  
-                 $("#board_option").click(function(){
+                 $("#class_option").click(function(){
                     location.href="<%=contextPath%>/moveManagement.bo";
                  });
                  
                  $("#board_manage").click(function(){
                      location.href="<%=contextPath%>/classmembermanagement.c";
                   });
+
 
               });
             </script>
@@ -697,7 +699,7 @@ vertical-align: middle;
                     <li class="board_li" id="board_check"><div>출석체크</div></li>
                     <li class="board_hr"><hr></li>
                     <li class="board_title">클래스 관리</li>
-                    <li class="board_li" id="board_option"><div>클래스 설정</div></li>
+                    <li class="board_li" id="_option"><div>클래스 설정</div></li>
                     <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>
