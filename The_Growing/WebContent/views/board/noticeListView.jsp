@@ -1,4 +1,4 @@
-<%@page import="com.kh.board.model.vo.Board, com.kh.board.model.vo.NoticeCheck"%>
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
@@ -111,6 +111,12 @@
 		font-weight: 600;
 		text-align: right;
 		cursor: pointer;
+	}
+	.clicked{
+		color:orange;
+	}
+	.unclicked{
+		color:black;
 	}
 	
 </style>
@@ -255,7 +261,7 @@
 				</div>
 				<div id="mo_reply_list">
 					<ul class="scrapIc">
-						<li id="scrap_<%=b.getBoardNo() %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick('<%= loginUser.getUserNo() %>');">
+						<li id="<%= loginUser.getUserNo() %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick('<%= b.getBoardNo() %>');">
 							<i class="bi bi-star" style="padding-right: 10px;"></i>
 						</li>
 					</ul>
@@ -359,37 +365,37 @@
      			document.body.innerHTML = initBody;
      		}
      		window.print();
-     	}
+     	};
 
      	//스크랩
-     	function scrapClick(uno){
+     	function scrapClick(bno){
      		//let bno = $(".scrap").attr("class"); ex) scrap_1
-     		let scrapBno = $(".scrap").attr("class");
-     		let bno = scrapBno.substring(scrapBno.indexOf('_')+1, scrapBno.indexOf('_', scrapBno.indexOf('_')+1)); // ex) 1
+     		/* let scrapBno = $(".scrap").attr("class");
+     		let bno = scrapBno.substring(scrapBno.indexOf('_')+1, scrapBno.indexOf('_', scrapBno.indexOf('_')+1)); // ex) 1 */
+     		let uno =  $(".scrap").attr("id");
+     		
+     		/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함 */
+    		
      		
      		$.ajax({
      			url: "<%= contextPath %>/scrap.bo",
+     			type: "post",
      			data: {bno, uno},
-     			success: function(list){
-     				
-     				
-     				if(let i = 1 ; i<list.length ; i++){
-     					let j = 0;
-     					if(j==0){
-     		                $('.bi-star').css({color : "orange", fontSize : "30px"});
-     		                j++;
-     		            }else if(j==1){
-     		                $('.bi-star').css('color','black');
-     		                j--;
-     		            }
-     				}
-     				
-     				let scrapList = list.split(",");
-     				if(scrapList[0] == 0){
-     					
-     				}else{
-     					
-     				}
+     			/* 성공시 데이터 받아서 색변하게 */
+     			success: function(){
+     					console.log("스크랩 잘됨");
+     					$.ajax({
+     						url: "<%= contextPath %>/selecScrapList.s",
+     						type: "post",
+     						data: {scrapList : JSON.stringify(scrapList)},
+     						success: function(){
+     							console.log("스크랩리스트 데이터 보내기 성공");
+     						},
+     						error: function(){
+     							console.log("스크랩리스트 데이터 보내기 실패");
+     						}
+     						
+     					});
      			},
      			error: function(){
      				console.log("게시글 스크랩 실패");
@@ -399,21 +405,43 @@
      	
      	
      	
-     	}
+     	};
      	
      	
-     	
+     	/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함  */
      	/* let j = 0;
-        $('.scrap').on('click',function(){
-            if(j==0){
-                $('.bi-star').css({color : "orange", fontSize : "30px"});
-                j++;
+          $('.scrap').on('click',function(){
+   			if(j==0){
+                   $(this).children($(".bi-star")).css({color : "orange", fontSize : "30px"});
+                   console.log("1j"+j);
+                   j++;
+                   console.log("2j"+j);
             }else if(j==1){
-                $('.bi-star').css('color','black');
-                j--;
+            	console.log("3j"+j);
+               	$(this).children($(".bi-star")).css('color','black');
+                   j--;
+                console.log("4j"+j);
             }
-
-        }); */
+   			console.log("5j"+j);
+           });	
+          console.log("6j"+j);	 */
+          
+      $(function(){
+          $('.scrap').on('click',function(){
+        	  
+        	  if($(this).children($(".bi-star")).hasClass('unclicked')){
+        		  $(this).children($(".bi-star")).removeClass('unclicked');
+        		  $(this).children($(".bi-star")).addClass('clicked');
+        	  }else if($(this).children($(".bi-star")).hasClass('clicked')){
+        		  $(this).children($(".bi-star")).removeClass('clicked');
+        		  $(this).children($(".bi-star")).addClass('unclicked');
+        	  }else{
+        		  $(this).children($(".bi-star")).addClass('unclicked');
+        	  }
+	     		
+             });	
+          
+     });
         
         
      	

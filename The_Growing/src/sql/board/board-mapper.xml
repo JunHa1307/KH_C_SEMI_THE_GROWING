@@ -310,7 +310,7 @@
 	</entry>
 
 	<entry key="selectScrapList">
-		SELECT REF_BNO, REF_UNO
+		SELECT S.REF_BNO, S.REF_UNO
 		FROM SCRAP S
 		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
 		WHERE S.REF_UNO = ?
