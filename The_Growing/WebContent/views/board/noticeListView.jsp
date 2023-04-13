@@ -381,21 +381,34 @@
      			url: "<%= contextPath %>/scrap.bo",
      			type: "post",
      			data: {bno, uno},
-     			/* 성공시 데이터 받아서 색변하게 */
+     			/* 성공시 데이터 스크랩리스트 받아서 for문 돌리면서 하나하ㅏ 색변하게 */
      			success: function(){
+     				/* let sUno = 0;
+     				let sBno = 0;
+     				
+     				for(let i=0 ; i<scrapList.length; i++){
+     					if(scrapList==null){
+         					console.log("값이없슴");
+     					}else{
+     						sUno = scrapList[i].refUno;
+     						sBno = scrapList[i].refBno;
+     						
+     					}
+     				
+     				
+     				} */	
      					console.log("스크랩 잘됨");
-     					$.ajax({
-     						url: "<%= contextPath %>/selecScrapList.s",
-     						type: "post",
+     					<%-- $.ajax({
+     						url: "<%= contextPath %>/goMyScrap.s",
      						data: {scrapList : JSON.stringify(scrapList)},
-     						success: function(){
+     						success: function(result){
      							console.log("스크랩리스트 데이터 보내기 성공");
      						},
      						error: function(){
      							console.log("스크랩리스트 데이터 보내기 실패");
      						}
      						
-     					});
+     					}); --%>
      			},
      			error: function(){
      				console.log("게시글 스크랩 실패");
@@ -409,10 +422,10 @@
      	
      	
      	/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함  */
-     	/* let j = 0;
+     	 /* let j = 0;
           $('.scrap').on('click',function(){
    			if(j==0){
-                   $(this).children($(".bi-star")).css({color : "orange", fontSize : "30px"});
+                   $(this).children($(".bi-star")).css({color : "orange"});
                    console.log("1j"+j);
                    j++;
                    console.log("2j"+j);
@@ -424,9 +437,9 @@
             }
    			console.log("5j"+j);
            });	
-          console.log("6j"+j);	 */
+          console.log("6j"+j);	  */
           
-      $(function(){
+      /* $(function(){
           $('.scrap').on('click',function(){
         	  
         	  if($(this).children($(".bi-star")).hasClass('unclicked')){
@@ -441,7 +454,7 @@
 	     		
              });	
           
-     });
+     }); */
         
         
      	

@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	ArrayList<Scrap> slist = (ArrayList<Scrap>) request.getSession().getAttribute("slist");
+	ArrayList<Scrap> scrapList = (ArrayList<Scrap>) request.getSession().getAttribute("scrapList");
 %>
 <!DOCTYPE html>
 <html>
@@ -38,19 +38,19 @@
 		</div>
 		</div>
 		<div class="wrap" style="width: 100%; height: 100%;">
-		<%-- <% try{ %>
-		<% for(Scrap s : slist){ %>
-			
-		<div id = "myscrap_content">
+		<% try{ %>
+			<% for(Scrap s : scrapList){ %>
 				
-		</div>
-		
-		
-		<% } %>
+			<div id = "myscrap_content">
+				<%= s.getRefBno() %>
+			</div>
+			
+			
+			<% } %>
 		<% } catch(NullPointerException e) {%>
 			<div>스크랩한 게시물이 없습니다.</div>
 		<% } %>
-		</div> --%>
+		</div>
 			
 			<div id = "myscrap_content">
 				

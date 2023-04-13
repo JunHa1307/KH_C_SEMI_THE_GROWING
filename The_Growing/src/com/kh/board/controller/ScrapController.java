@@ -49,11 +49,14 @@ public class ScrapController extends HttpServlet {
 		if(result1 > 0) {
 			scrapList = new BoardService().selectScrapList(uno); 
 			System.out.println("scrapList:"+scrapList);
+			System.out.println("scrapList[0]"+scrapList.get(0).getRefUno());
 		}else {
-			System.out.println("에러남");
+			System.out.println("scrapList:"+scrapList);
 		}
 		
-		response.getWriter().print(scrapList);
+		/* response.getWriter().print(scrapList); */
+		request.getSession().setAttribute("scrapList", scrapList);
+		request.getRequestDispatcher("views/my/myScrap.jsp").forward(request, response);
 		
 	}
 
