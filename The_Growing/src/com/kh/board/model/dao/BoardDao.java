@@ -1002,28 +1002,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 		return result;
 	}
 
-	public int updateReply(Connection conn, String content, int rno) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("updateReply");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, content );
-			pstmt.setInt(2, rno);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
+	
 	
 	public Reply selectReply(Connection conn, int rno) {
 		
