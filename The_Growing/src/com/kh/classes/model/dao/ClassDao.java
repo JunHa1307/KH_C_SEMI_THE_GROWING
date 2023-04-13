@@ -870,4 +870,57 @@ public class ClassDao {
 			}
 			return result;
 	 }
+	 
+	 public int selectClassMemberCount(Connection conn, int code) {
+		 int result = 0;
+
+	      PreparedStatement pstmt = null;
+
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectClassMemberCount");
+
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setInt(1, code);
+	         
+	         rset = pstmt.executeQuery();
+	         if (rset.next()) {
+	           result = rset.getInt("COUNT");
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      return result;
+	 }
+	 
+	 public int insertMemberNotice(Connection conn, int code, int rowNum, int userNo) {
+
+			int result = 0;
+
+			PreparedStatement pstmt = null;
+
+			String sql = prop.getProperty("insertMemberNotice");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, code);
+				pstmt.setInt(2, rowNum);
+				pstmt.setInt(3, code);
+				pstmt.setInt(4, userNo);
+
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+	}
 }

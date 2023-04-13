@@ -38,9 +38,10 @@
     <script src="resources/summernote/summernote-lite.js"></script>
    <script src="resources/summernote/summernote-ko-KR.js"></script>
    <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
-   
-       
-<link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+	   
+	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
+	       
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
     
     <style>
   /* 버튼 css */

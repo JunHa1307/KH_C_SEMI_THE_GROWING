@@ -16,11 +16,9 @@ import java.util.Properties;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
-
 import com.kh.board.model.vo.Reply;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
-import com.kh.member.model.vo.Member;
 
 
 public class BoardDao {
@@ -840,6 +838,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 			b.setBoardType(rset.getInt("BOARD_TYPE"));
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setUserId(rset.getString("USER_ID"));
+			b.setRefUno(rset.getInt("USER_NO"));
 			b.setcDate(rset.getString("C_DATE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
 					   
@@ -1215,6 +1214,56 @@ public int threeNoCheck(Connection conn, int uno, int cno, int bno) {
 		return result;
 				
 	}
+
+	public int insertReplyNotice(Connection conn, int uno, int writer, int bno) {
 	
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertReplyNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, writer);
+			pstmt.setInt(3, bno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertBoardNotice(Connection conn, int code, int rowNum, int uno) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertBoardNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, code);
+			pstmt.setInt(2, rowNum);
+			pstmt.setInt(3, code);
+			pstmt.setInt(4, uno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
 
