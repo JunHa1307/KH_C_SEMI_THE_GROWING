@@ -33,7 +33,7 @@ public class BoardDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
-		int boardType = (int)(request.getSession().getAttribute("boardType"));
+	  	int boardType = Integer.parseInt(request.getParameter("boardType"));
 		
 		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	

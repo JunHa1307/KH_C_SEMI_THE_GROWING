@@ -51,6 +51,8 @@ public class ReplyInsertController extends HttpServlet {
 		
 		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
+		
+		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
 		int result = new BoardService().insertReply(content, bno, writer);
 		
 		response.getWriter().print(result);

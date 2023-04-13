@@ -213,6 +213,8 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setReplyContent(rset.getString("REPLY_CONTENT"));
 			r.setCreateDate(rset.getString("CREATE_DATE"));
 			r.setReplyWriter(rset.getString("USER_ID"));
+			r.setFilePath(rset.getString("FILE_PATH"));
+			r.setChangeName(rset.getString("CHANGE_NAME"));
 			list.add(r);
 		}
 	} catch (SQLException e) {
@@ -769,7 +771,7 @@ public int deleteBoard(Connection conn, int boardNo, int userNo) {
 	return result;
 }
 
-public int deleteReply(Connection conn, int replyNo, int userNo) {
+public int deleteReply(Connection conn, int replyNo) {
 	
 	int result = 0;
 	
@@ -780,7 +782,6 @@ public int deleteReply(Connection conn, int replyNo, int userNo) {
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, replyNo);
-		pstmt.setInt(2, userNo);
 		
 		result = pstmt.executeUpdate();
 		
@@ -1003,6 +1004,68 @@ public Board selectBoard(Connection conn, int boardNo) {
 		return result;
 	}
 
+
+	
+	
+	public Reply selectReply(Connection conn, int rno) {
+		
+		Reply r = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Reply();
+				r.setReplyContent(rset.getString("REPLY_CONTENT"));
+				r.setReplyNo(rset.getInt("REPLY_NO"));	   
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
+	}
+	public int selectCountReply(Connection conn, int bno) {
+		
+		int r =0;
+    		String sql = prop.getProperty("selectCountReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				r = rset.getInt("R_COUNT");
+				  
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
+	}
+		
+
 	public int insertNoticeCheck(Connection conn, int uno, int cno, int bno, String checkUserName, int userLevel) {
 		
 		int result = 0;
@@ -1033,10 +1096,12 @@ public Board selectBoard(Connection conn, int boardNo) {
 	public ArrayList<NoticeCheck> selectUserName(Connection conn, int cno, int bno) {
 		 
 		ArrayList<NoticeCheck> noticeCheckList = new ArrayList<>();
+
 		PreparedStatement pstmt = null;
 		
 		ResultSet rset = null;
 		
+
 		String sql = prop.getProperty("selectUserName");
 		
 		try {
@@ -1048,6 +1113,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
+
 
 				NoticeCheck c = new NoticeCheck();
 				c.setUserName(rset.getString("USER_NAME"));
@@ -1066,6 +1132,9 @@ public Board selectBoard(Connection conn, int boardNo) {
 		return noticeCheckList;
 	}
 	
+  
+  
+  
 	public int twoNoCheck(Connection conn, int uno, int cno) {
 		
 		int result = 0;

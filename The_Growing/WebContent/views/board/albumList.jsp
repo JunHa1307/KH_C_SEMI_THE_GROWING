@@ -703,7 +703,7 @@ div {
                                    '<a class="dropdown-item" href="/growing/delete.al?bno='+b.boardNo+'">삭제</a></div></div>'+
                                    '</div></div>'+
   						'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
-  									'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+  									'<div id="mo_writer_profileImg"><img src="/growing/'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
@@ -719,7 +719,7 @@ div {
 
                              '</div></div>'+
 					'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
-								'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+								'<div id="mo_writer_profileImg"><img src="/growing/'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
 								'</div></div>'+
 							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
 						'<div id="mo_writer_content2">'+
@@ -891,8 +891,20 @@ div {
    				success : function(result){
    				 
    					if(result > 0){
-   						albumClick(bno);
+   						
    						$("#mo_reply_textarea").val("");
+   						$.ajax({
+   			   				url : "<%=contextPath%>/rlist.bo",
+   			   				data : { bno : bno},
+   			   				type : "get",
+   							dataType : "html", 
+   			   				success : function(list){
+   			   					 $(".mo_reply").html(list); 
+   			   				},
+   			   				error: function(){
+   			   					console.log("게시글 목록조회 실패")
+   			   				}
+   			        	});
    						
    					}else{
    						alert("댓글작성에 실패했습니다");

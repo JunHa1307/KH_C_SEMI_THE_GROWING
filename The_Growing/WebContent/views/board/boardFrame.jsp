@@ -380,6 +380,7 @@ vertical-align: middle;
 
    #hamburgur {
       display: none;
+      
    }
    
    
@@ -391,6 +392,7 @@ vertical-align: middle;
       display: block;
       padding-left: 30px;
       cursor: pointer;
+      z-index: 9;
    }
    #hamburgur>img {
       width: 30px;
