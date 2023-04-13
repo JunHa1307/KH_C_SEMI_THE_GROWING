@@ -1,4 +1,4 @@
-<%@page import="com.kh.board.model.vo.Board, com.kh.board.model.vo.NoticeCheck"%>
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
