@@ -237,6 +237,7 @@ public class MemberService {
 		return result;
 	}
 	
+
 	public ArrayList<Member> selectUserName(int uno) {
 		Connection conn = getConnection();
 		
@@ -246,24 +247,5 @@ public class MemberService {
 		return noticeCheckList;
 	}
 	
-	public ArrayList<Member> selectMemberList(int classNo) {
-		Connection conn = getConnection();
-		
-		ArrayList<Member> list = new MemberDao().selectMemberList(conn, classNo);
 
-		close(conn);
-
-		return list;
-
-	}
-
-	public Member selectMember(int userNo) {
-		Connection conn = getConnection();
-
-		Member m = new MemberDao().selectMember(conn, userNo);
-		
-		close(conn);
-		
-		return m;
-	}
 }

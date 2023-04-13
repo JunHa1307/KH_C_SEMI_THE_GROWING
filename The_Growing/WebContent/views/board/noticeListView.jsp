@@ -1,10 +1,11 @@
-<%@page import="com.kh.board.model.vo.Board"%>
+<%@page import="com.kh.board.model.vo.Board, com.kh.board.model.vo.NoticeCheck"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
 
-	ArrayList<Member> noticeCheckList = (ArrayList<Member>) session.getAttribute("noticeCheckList");
+	/* ArrayList<NoticeCheck> noticeCheckList = (ArrayList<NoticeCheck>) session.getAttribute("noticeCheckList"); */
+
 
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
@@ -21,29 +22,33 @@
 	.notice_con1{
 		height: 400px;
 		border-radius: 20px;
-		border: 5px solid gray;
+		border: 2px solid #D3D3D3;
 		background-color: rgb(235, 236, 240);
 	}
 	.notice_content div{
 		font-weight: 900;
 	}
-/* 	.notice_content{
-		display: flex;
-    	align-items: center;
-	} */
+ 	.notice_content{
+		margin-right: 10px;
+	} 
 	.notice_confirm{
+		
 		width:100%;
 		border-bottom: 1px solid gray;
 	}
 	.notice_confirm>th{
+		margin: 10px;
 		border-left: 1px solid gray;
 	}
 	.notice_date{
-		margin: auto;
-		width: 70%;
+		
+		width: 60%;
+	}
+	.notice_date>div{
+		text-align:center;
 	}
 	.notice_con_title, .notice_con_content{
-		width: 15%;
+		width: 20%;
 	}
 	
 	.notice_con_title{
@@ -53,29 +58,61 @@
 	.notice_con_content{
 		width:850px;
 		background-color: white;
+		border-radius: 15px;
+		margin: auto;
+		
 	}
 	.notice_con_content>pre{
-		text-decoration: underline black;
+		text-decoration: underline;
+		text-decoration-color: #D3D3D3;
 	}
-/* 	.marginSt{
-		margin-left: 20px;
-		margin-right: 20px;
-	} */
 	
 	.controllBtn{
-	border: 1px solid red;
 		float: right;
 	}
 	
 	.ctBtn{
+		border: lightgray;
+		border-radius: 30px;
 		cursor: pointer;
 	}
 	#checkIcon{
-		width: 70px;
+		width: 45px;
 	}
-	#checkList{
-		
+	.ctBtn:hover{
+		background-color: #D3D3D3;
 	}
+	
+	.scrollBox{
+	   -ms-overflow-style: none;
+	}
+	.scrollBox::-webkit-scrollbar{
+	  display:none;
+	}
+	
+	#mo_reply_bt {
+	width: 20%;
+	height: 80%;
+	}
+	
+	#mo_reply_bt>div>button {
+		width: 100%;
+		align-items: center;
+	}
+	.bi {
+		font-size: 30px;
+		cursor: pointer;
+		outline: none;
+	}
+	#mo_reply_list>ul>li {
+		list-style-type: none;
+		float: left;
+		width: 115px;
+		font-weight: 600;
+		text-align: right;
+		cursor: pointer;
+	}
+	
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
@@ -92,8 +129,7 @@
                   <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
             	  <button type="button" class="ctBtn button_UI button--winona" onclick="folderDeleteClick();">삭제</button>
             	<% } else{ %>
-				  <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px; display:none;"><span>글 등록</span></button>
-            	  <button type="button" class="ctBtn button_UI button--winona" onclick="folderDeleteClick();" style="display:none;">삭제</button>					
+				  <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px; display:none;"><span>글 등록</span></button>				
 				<% } %>
             </div>
         </div>
@@ -125,6 +161,7 @@
     	   });
     	  
     	  location.reload();
+    	  
     	  /* $("#board_area").load(window.location.href + " #board_area");  */
     	};
     	  
@@ -132,18 +169,21 @@
      
      </form>
      <br>
+     <div class="scrollBox" style="overflow-y:scroll; width:100%; height: 500px;">
      <div id="notice_content" class="notice_content">
-     	<%-- <% if(list2 != null){ %> --%>
+     
      		<% for( Board b : list2) {%>
      		<% if(loginUser.getUserLevel() == 1){ %>
      		<div class="controllBtn">
-					<button type="button" class="ctBtn" onclick="location.href='<%= contextPath %>/update.no?bno=<%= b.getBoardNo() %>'">수정</button>
-					<button type="button" class="ctBtn" onclick="divPrint('<%= b.getBoardNo() %>');">인쇄</button>
+					<button type="button" class="ctBtn" onclick="location.href='<%= contextPath %>/update.no?bno=<%= b.getBoardNo() %>'"><img src="resources/image/editIcon.png" style="width:45px;"></button>
+					<button type="button" class="ctBtn" onclick="divPrint('<%= b.getBoardNo() %>');"><img src="resources/image/printIcon.png" style="width:45px;"></button>
 			</div>
 			<% } else{%>
 			<div class="controllBtn">
-				<button type="button" class="ctBtn" onclick="divPrint('<%= b.getBoardNo() %>');">인쇄</button>
+				<button type="button" class="ctBtn" onclick="divPrint('<%= b.getBoardNo() %>');"><img src="resources/image/printIcon.png" style="width:45px;"></button>
+				
 			</div>
+			<br>
 			<% } %>
 			<div>No. <%= b.getBoardNo() %></div>
 			<% if(loginUser.getUserLevel() == 1) { %>
@@ -155,65 +195,50 @@
 				<table class="notice_confirm marginSt">
 					<tr>
 						<th class="notice_date divSt"><%=b.getCreateDate() %></th>
-						<th class="divSt"><pre>선생님<br>확  인</pre>
-							<img class="divSt" id="teacherProfile" src="<%= contextPath %>/resources/image/teacherNoticeCheckIcon.png" style="width: 50px; height: 50px;">
+						<th class="divSt"><div>선생님<br>확&nbsp;&nbsp; 인</div>
+							<img class="divSt" id="teacherProfile" src="<%= contextPath %>/resources/image/teacherStemp.png" style="width: 50px; height: 50px;">
 						</th>
-						<th class="divSt"><pre>학부모<label>(/본인)</label><br>확  인</pre>
+						<th class="divSt"><div>학부모<label style="font-weight: lighter;">(/본인)</label><br>확&nbsp;&nbsp; 인</div>
 							<div class="dropdown">
-			                <button 
+
+			                <%if(loginUser.getUserLevel() == 1){ %>
+			                	<button 
+
 			                	id="checkList"
-			                    class="btn btn-secondary" 
+			                    class="btn btn-secondary checkList" 
 			                    type="button" 
 			                    id="dropdownMenuButton" 
 			                    data-toggle="dropdown" 
 			                    aria-haspopup="true" 
-			                    aria-expanded="false">
-			                    
+			                    aria-expanded="false"
+			                    onclick="check('<%=b.getBoardNo() %>')"
+			                    >
+			                <%}else{ %>
+			                	<button 
+			                	id="checkList"
+			                    class="btn btn-secondary checkList" 
+			                    type="button" 
+			                    id="dropdownMenuButton"
+			                    data-bno="<%=b.getBoardNo() %>" 
+			                    data-toggle="dropdown" 
+			                    aria-haspopup="true" 
+			                    aria-expanded="false"
+			                    >
+			                <% } %>
 			                    <img id="checkIcon" src="resources/image/checkIcon.png"/>
 			                </button>
-			                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			                	<% try{ %>
-			                		<% for( Member m : noticeCheckList){ %>
-			                		<div class="dropdown-item"><%= m.getUserName() %></div>
-				                	<% } %>
-				                  <!-- <a class="dropdown-item" href="#">오현지 학생</a> -->
-			                	<%} catch(NullPointerException e){%>
-			                		<div class="dropdown-item"></div>
-			                	<%} %>
-			                </div>
+			                <% if(loginUser.getUserLevel() == 1){ %>
+				                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow-y:scroll; height: 150px;">
+				                	
+				                </div>
+			                <%}else{ %>
+			                	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow-y:scroll; height: 150px; display:none;">
+				                	
+				                </div>
+			                <% } %>
 			              </div>
 			              
-			              <script>
-			              	if(<%= loginUser.getUserLevel() != 1 %>){
-			              		$().ready(function(){
-			              			$("#checkList").click(function(){
-			              				Swal.fire({
-			              					icon: 'question',
-			              					title: '알림장을 확인하시겠습니까?',
-			              					text: '꼼꼼히 확인해주세요~',
-			              				  	showCancelButton: true,
-				              	            confirmButtonColor: '#3085d6',
-				              	            cancelButtonColor: '#d33',
-				              	            confirmButtonText: '<a href="<%=contextPath%>/checkupdate.no">확인</a>',
-				              	            cancelButtonText: '취소'
-			              						
-			              				})
-			              				
-			              				/* .then((result) => {
-			              		            if (result.isConfirmed) {
-			             
-			              		                Swal.fire({
-			              		                	icon: 'success',
-					              					title: '확인되었습니다!'
-			              		                });
-			              		            }
-			              		        }) */
-			              		        
-			              		    });
-			              		});
-			              		
-			              	}
-			              </script>
+			              
 			              
 						</th>
 					</tr>
@@ -222,21 +247,103 @@
 				<div id="print<%= b.getBoardNo() %>">
 					<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
 					<div class="notice_con_title marginSt">
-						<p style="width: 42px; display:inline-block;">(공지) <p style="display:inline-block;">&nbsp;&nbsp;<%= b.getBoardTitle() %></p></p>
+						<p style="width: 42px; display:inline-block; margin: 8px 5px 20px 16px;">(공지) <p style="display:inline-block; margin: 8px;"><%= b.getBoardTitle() %></p></p>
 					</div>
-					<div class="notice_con_content marginSt">
+					<div class="notice_con_content">
 						<pre><%=b.getBoardContent() %></pre>
 					</div>
 				</div>
-				<div class="bookmark marginSt" style="float:right;"><button type="button">스크랩</button></div>
+				<div id="mo_reply_list">
+					<ul id="mo_icon">
+						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
+							style="padding-right: 10px;"></i></li>
+					</ul>
+				</div>
 			</div>
 			<br>
 		<%} %>
-		<%-- <% }else{ %>
-			<span>알림장 게시글이 없습니다.</span>
-		<%} %> --%>
+		
      </div>
-     
+     </div>
+     <script>
+				              $(function(){
+				              	if(<%= loginUser.getUserLevel() != 1 %>){
+				              		$().ready(function(){
+				              			$(".checkList").click(function(){
+				              				let bno = this.dataset.bno;
+				              				Swal.fire({
+				              					icon: 'question',
+				              					title: '알림장을 확인하시겠습니까?',
+				              					text: '꼼꼼히 확인해주세요~',
+				              				  	showCancelButton: true,
+					              	            confirmButtonColor: '#3085d6',
+					              	            cancelButtonColor: '#d33',
+					              	            confirmButtonText: '<button type="button" onclick="noticeCheck('+bno+');">확인</button>',
+					              	            cancelButtonText: '취소'
+				              						
+				              				}).then((result) => {
+				              		            if (result.isConfirmed) {
+				             
+				              		                Swal.fire({
+				              		                	icon: 'success',
+						              					title: '확인되었습니다!'
+						              					/* ,confirmButtonText: '<button type="button" onclick="checkFin();">확인</button>' */
+				              		                });
+				              		              
+				              		            }
+				              		        })
+				              		         
+				              		    });
+				              		});
+				              	}
+				              	});
+			              			
+				              	function noticeCheck(bno){
+				              		$.ajax({
+				              			type: 'post',
+				              			url: "<%=contextPath%>/checkinsert.no",
+				              			data: {bno},
+				              			success: function(result){
+				              				console.log(result);
+				              			},
+				              			error: function(){
+				              				console.log("실패");			              			
+				              			}
+				              		});
+				              	};
+				              	
+				              	function check(result){
+				              		$.ajax({
+				              			type: 'post',
+				              			url: "<%=contextPath%>/checklist.no",
+				              			data: {bno : result},
+				              			dataType: "json",
+				              			success: function(list){
+				              				let result = "";
+				              				console.log(list);
+				              				for(let i = 0 ; i< list.length ; i++){
+				              					result += '<div class="dropdown-item">'+list[i].userName
+						              					/* if(list[i].userLevel == 2){
+						              						+" 부모님"
+						              					}else if(list[i].userLevel == 3){
+						              						+" 학생"
+						              					} */
+						              					+'</div>'
+				              				}
+				              				console.log(result);
+				              			/* 	$("#name").html(result);*/
+				              			$('.dropdown-menu').html(result);
+				              			},
+				              			error: function(){
+				              				console.log("실패");			              			
+				              			}
+				              		});
+			              		};
+			              		
+			              		/* function checkFin(){
+			              			$("#checkList").attr("disabled", "true");
+			              		} */
+			              </script>
      <script>
      	
      	function divPrint(boardNo){
@@ -252,8 +359,24 @@
      		}
      		window.print();
      	}
+     	
+     	let j = 0;
+        $('.scrap').on('click',function(){
+            if(j==0){
+                $('.bi-star').css({color : "orange", fontSize : "30px"});
+                j++;
+            }else if(j==1){
+                $('.bi-star').css('color','black');
+                j--;
+            }
+
+        });
      </script>
 </div>
+</div>
+</div>
+</div>
+
 
 
 </body>
