@@ -11,26 +11,153 @@
 <meta charset="UTF-8">
 <title>구성원 관리</title>
 <style>
+#class_wrap{
+	width:60%;
+	min-height:250px;
+	margin: auto;
+	border:  1px solid rgb(224, 224, 224);
+	border-radius:10px;
+	padding:50px 0px 50px 0px;
+	background: rgb(249, 250, 252);
+}
+#searchWord{
+	height:40px;
+	width:30%;
+	border: 2px solid rgb(57, 70, 146);
+	border-radius:10px;
+	margin: auto;
+	margin-bottom:30px;
+	padding:7px 0px 0px 10px;
+	font-size:15px;
+	font-weight:700;
+	background: white;
+	
+	
+}
+#class_inner{
+	height:130px;
+	width:80%;
+	border-radius:100px;
+display:flex;
+align-items:center;
+background-color: /* rgb(240, 246, 248); */ white;
+box-shadow: -5px -5px 10px 0px rgba(255, 255, 255, 0.5), 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+margin: auto;
+margin-bottom:20px;
+
+}
+#class_inner>*{
+	margin: auto;
+}
+#class_img{
+	width:104px;
+	height: 80%;
+	
+}
+#class_img>img{
+	width:100%;
+	height: 100%;
+	border-radius:50%;
+	object-fit:cover;
+}
+
+.update, .delete{
+	background-color: rgb(57, 70, 146);
+	border-radius: 10px;
+	color:white;
+	border: none;
+	width:80px;
+	height:40px;
+	font-weight:550;
+	margin:0;
+	
+}
+#searchSize{
+	width:70%;
+	margin:auto;
+	height:40px;
+	font-weight:600;
+}
+#noSearch{
+ margin:auto; 
+ margin-top:40px; 
+ text-align: center; 
+ font-weight:600; 
+}
+#class_text{
+		width:40%;
+		font-size:20px;
+		font-weight:600;
+		
+	}
+
+
+@media only screen and (max-width: 1020px) {
+#class_wrap{
+	width:90%;
+	min-height:250px;
+	margin: auto;
+	border:  1px solid rgb(224, 224, 224);
+	border-radius:10px;
+	padding:50px 0px 50px 0px;
+}
+#class_inner{
+	height:130px;
+	width:95%;
+	border-radius:100px;
+display:flex;
+align-items:center;
+background-color: /* rgb(240, 246, 248); */ white;
+box-shadow: -5px -5px 10px 0px rgba(255, 255, 255, 0.5), 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+margin: auto;
+margin-bottom:20px;
+
+	}
+	#searchWord{
+	height:40px;
+	width:60%;
+	border: 2px solid rgb(57, 70, 146);
+	border-radius:10px;
+	margin: auto;
+	margin-bottom:30px;
+	padding:7px 0px 0px 10px;
+	font-size:15px;
+	font-weight:700;
+	background: white;
+	
+	
+}
+	
+	
+}
 
 </style>
 </head>
 <body>
 <%@include file="../board/boardFrame.jsp" %>
-			<div id="board_area">
-				<div>
-					<h2><b>구성원 관리</b></h4>
-					<hr>
+			
+	<div id="board_area">
+		<div id="album_header">
+			<div id="album_area">
+				<div id="album_title">구성원 관리</div>
+			</div>
+			<div id="album_hr">
+				<hr />
+			</div>
+		</div>
+				
 					<div style="text-align:center;">
-						<h3><span style="font-weight:700;">클래스 회원 목록</span></h3>
-						<div style="float:right;">
-							<button  data-toggle="modal" data-target="#insertMember">학생 임시 계정 생성</button>
+						<div style="font-weight:700; font-size:25px; padding-bottom:30px;" align= "center">클래스 회원 목록
+						
+							<button align="right" data-toggle="modal" data-target="#insertMember">학생 임시 계정 생성</button>
+						
 						</div>
 						<% for(int i = 0; i < memberList.size(); i++){ %>
-							<div class="<%= i %>" style="background-color:lightgray;width:100%;display:flex;align-items:center;border-radius:3em;">
-								<div style="width:30%">
+							<div id="class_inner"  class="<%= i %>">
+								<div  id="class_img">
 									<img src="<%= contextPath + memberList.get(i).getFilePath()+ memberList.get(i).getChangeName()%>" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 								</div>
-								<div style="width:30%">
+								<div id="class_text">
 									<%= memberList.get(i).getUserName() %>
 								</div>
 								<button class="update <%= memberList.get(i).getUserNo() %>" data-toggle="modal" data-target="#updateMember">수정</button>

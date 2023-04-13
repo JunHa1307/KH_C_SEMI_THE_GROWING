@@ -133,7 +133,9 @@
 				<% } %>
             </div>
         </div>
-        <hr>
+        <div id="album_hr">
+				<hr />
+			</div>
      </div>
 
      <script>

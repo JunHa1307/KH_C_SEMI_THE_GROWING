@@ -32,8 +32,8 @@
 	background-position: 0 0;
 	cursor: pointer;
 	animation: fave-heart 1s steps(28);
-	top:82%;
-	left:63%;
+	top:55%;
+	left:5%;
 	position: absolute;
 }
 
@@ -139,11 +139,14 @@ div {
 	margin: auto;
 	visibility: hidden;
 	z-index: 5;
+	border-radius:10px; 
+	
 }
 
 #modal>div {
 	float: left;
 	height: 100%;
+	border-radius:10px; 
 }
 
 #mo_picture {
@@ -183,7 +186,7 @@ div {
 #mo_write {
 	width: 40%;
 	background-color: white;
-	padding: 15px;
+	
 }
 #a {
 	width: 100%;
@@ -205,6 +208,7 @@ div {
 #mo_title {
 	width: 80%;
 	font-weight: 700;
+	font-size: 20px;
 }
 
 #mo_date {
@@ -264,14 +268,14 @@ div {
 }
 
 #mo_writer_id {
-	width: 30%;
-	
+	width: 100px;
+	text-align:center;
 	font-weight: 600;
-	padding-left:8.5%;
+	padding-left:20px;
 }
 
 #mo_writer_date {
-	width: 70%;
+	width:340px;
 	text-align: right;
 	font-size: smaller;
 }
@@ -285,6 +289,7 @@ div {
 .mo_reply_content {
 	width: 100%;
 	height: 69%;
+	position: relative;
 }
 
 .mo_reply_content>div {
@@ -303,8 +308,8 @@ div {
 }
 
 .mo_reply_profileImg {
-	width: 60%;
-	height: 100%;
+	width: 65px;
+	height: 65px;
 	border-radius: 100%;
 	overflow: hidden;
 }
@@ -316,8 +321,16 @@ div {
 }
 
 .mo_reply_text {
-	width: 70%;
+	width: 73%;
+	word-break: break-all;
+	overflow-y: scroll;
+	position: absolute;
+	top: 0;
+	left: 100px;
 	/* background-color: aqua; */
+}
+.mo_reply_text::-webkit-scrollbar {
+	display: none;
 }
 
 .mo_reply_content2>div {
@@ -326,16 +339,15 @@ div {
 }
 
 .mo_reply_id {
-	width: 30%;
-	padding-left: 3%;
-	padding-right: 8.5%;
+	width: 70px;
+	
 	text-align:center;
 	font-size: smaller;
 	font-weight: 600;
 }
 
 .mo_reply_date {
-	width: 70%;
+	width: 95%;
 	text-align: right;
 	font-size: smaller;
 }
@@ -360,6 +372,7 @@ div {
 	width: 100%;
 	height: 45px;
 	margin-bottom: 5px;
+	position:relative;
 	/* background-color: antiquewhite; */
 }
 
@@ -394,16 +407,18 @@ div {
 
 #mo_reply_write_text {
 	height: 90px;
+	padding:10px;
 	/* background-color: antiquewhite; */
 }
 
 #mo_reply_write_text_content {
-	width: 80%;
+	width: 75%;
+	height:100%;
 }
 
 #mo_reply_bt {
-	width: 20%;
-	height: 80%;
+	width: 25%;
+	height: 90%;
 }
 
 #mo_reply_bt>div>button {
@@ -429,6 +444,26 @@ div {
 	top : 10px;
 	left:-70px;
 } */
+#boardReplyIcon {
+	height: 50px;
+	border-bottom: 1px solid rgb(224, 224, 224);
+	border-top: 1px solid rgb(224, 224, 224);
+	display: flex;
+	align-items: center;
+	background-color: rgb(244, 247, 247);
+}
+#mo_write_inner{
+	padding:15px;
+}
+#mo_reply_textarea {
+	border: 1px solid rgb(224, 224, 224);
+	width:95%; 
+	height:100%;
+	 resize:none;
+}
+.grey{
+	color:grey;
+}
 </style>
 </head>
 <body>
@@ -464,7 +499,7 @@ div {
 					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>','<%=uno%>');">
 					<img src="<%=contextPath %><%=b.getTitleImg() %> ">
 				</div>
-				<div class="album_con_date"><%=b.getCreateDate() %></div>
+				<div class="album_con_date"><%=b.getcDate()%></div>
 
 			</div>
 			<%} %>
@@ -577,9 +612,8 @@ div {
 
 
 			<div id="mo_reply_write">
-				<div class="mo_reply_hr">
-					<hr>
-				</div>
+			
+				<div id="boardReplyIcon">
 				<div id="mo_reply_list">
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno %>');"></div></li>
@@ -590,10 +624,10 @@ div {
 					</ul>
 
 				</div>
-
+			</div>
 				<div id="mo_reply_write_text">
 					<div id="mo_reply_write_text_content">
-						<textarea id="mo_reply_textarea" cols="45" rows="3"
+						<textarea id="mo_reply_textarea" 
 							placeholder="댓글을 입력하여 주세요." style="resize: none;"></textarea>
 					</div>
 					<div id="mo_reply_bt" class="box">
@@ -691,7 +725,7 @@ div {
   		   						 
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
-  							'<div id="mo_date">'+b.createDate+
+  							'<div id="mo_date" class="grey">'+b.cDate+
   							
   							'<div id="menu" class="dropdown"'+
                                 'style="float: right; margin: -7% 0% 0% 10%;">'+
@@ -708,13 +742,13 @@ div {
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
   								'<div id="mo_writer_id">'+b.userId+'</div>'+
-  								'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
+  								'<div id="mo_writer_date" class="grey">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
   				 	}else{
   				 	  result  += 
 	   						
 							'<div id="mo_write_wrap">'+
 						'<div id="mo_title">'+b.boardTitle+'</div>'+
-						'<div id="mo_date">'+b.createDate+
+						'<div id="mo_date">'+b.cDate+
 						
 
                              '</div></div>'+
@@ -724,7 +758,7 @@ div {
 							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
 						'<div id="mo_writer_content2">'+
 							'<div id="mo_writer_id">'+b.userId+'</div>'+
-							'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
+							'<div id="mo_writer_date">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
   				 		
   				 	}
   		   						 

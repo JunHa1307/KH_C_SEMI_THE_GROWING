@@ -55,7 +55,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		
 			<div class="mo_reply_content2">
 				
-				<div class="mo_reply_date"><%=list.get(i).getCreateDate()%></div>
+				<div class="mo_reply_date grey"><%=list.get(i).getCreateDate()%></div>
 			</div>
 
 	
