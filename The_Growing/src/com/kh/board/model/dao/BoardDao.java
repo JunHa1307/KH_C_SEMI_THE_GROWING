@@ -1041,6 +1041,10 @@ public Board selectBoard(Connection conn, int boardNo) {
 	public int selectCountReply(Connection conn, int bno) {
 		
 		int r =0;
+	PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
     		String sql = prop.getProperty("selectCountReply");
 		
 		try {
