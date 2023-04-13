@@ -6,20 +6,16 @@ import static com.kh.common.JDBCTemplate.getConnection;
 import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
-
 import com.kh.board.model.vo.Reply;
-import com.kh.common.JDBCTemplate;
+import com.kh.classes.model.dao.ClassDao;
+import com.kh.classes.model.vo.Class;
 import com.kh.common.model.vo.Attachment;
-import com.kh.member.model.dao.MemberDao;
-import com.kh.member.model.vo.Member;
 
 public class BoardService {
 
@@ -67,6 +63,11 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int result = new BoardDao().insertReply(conn, content, bno, writer);
+		Board b = new BoardDao().selectBoard(conn, bno);
+		
+		if(writer != b.getRefUno()) {
+			int insertNotice = new BoardDao().insertReplyNotice(conn, b.getRefUno(), writer, bno);
+		}
 		
 		if(result > 0) {
 			commit(conn);
@@ -77,7 +78,6 @@ public class BoardService {
 		close(conn);
 		
 		return result;
-		
 		
 	}
 	
@@ -278,6 +278,11 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int result = new BoardDao().insertNotice(conn, b);
+		Class c = new ClassDao().selectClass(conn, b.getRefCno(), b.getRefUno());
+		int count = new ClassDao().selectClassMemberCount(conn, c.getClassCode());
+		for(int i = 1; i <= (count==0?1:count); i ++) {
+			int result1 = new BoardDao().insertBoardNotice(conn,c.getClassCode(), i, b.getRefUno());
+		}
 		
 		// 트랜잭션처리
 		if(result > 0) { // 성공

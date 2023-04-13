@@ -46,20 +46,10 @@
 		<section class="myInfo">
 			<div class="myProfile">
 				<div class="myProfile-img">
-				<% try{
-				    if(loginUser.getFilePath() == null){
-				    	String filePath = snsLoginUser.getFilePath();
-						loginUser.setFilePath(filePath);
-				    } %>
 				    <img
-						src="<%= loginUser.getFilePath() %>"
+						src="<%= contextPath + loginUser.getFilePath() + loginUser.getChangeName() %>"
 						alt=""
-						onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">  
-				<% }catch(NullPointerException e){ %>
-				    <img src="<%= contextPath%>/resources/image/noImage.png">
-				    
-				<% } %>
-				
+						onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 				</div>
 				<span class="myProfile-name"> <%= loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %>
 				</span>

@@ -48,7 +48,7 @@ public class MainPageController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("tableList", tableList);
 		request.setAttribute("calendarList", calendarList);
-		
+		request.getSession().setAttribute("loginUser",loginUser);
 		request.getRequestDispatcher("views/member/mainPage.jsp").forward(request, response);
 	}
 
