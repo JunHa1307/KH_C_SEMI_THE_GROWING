@@ -434,7 +434,7 @@ div {
 							<div class="mo_reply_profile">
 								<div class="mo_reply_profileImg">
 									<img
-										src="<%=contextPath + loginUser.getFilePath() + loginUser.getChangeName()%>"
+										src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
 										alt=""
 										onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 								</div>

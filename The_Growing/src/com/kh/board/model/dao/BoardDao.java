@@ -211,6 +211,8 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setReplyContent(rset.getString("REPLY_CONTENT"));
 			r.setCreateDate(rset.getString("CREATE_DATE"));
 			r.setReplyWriter(rset.getString("USER_ID"));
+			r.setFilePath(rset.getString("FILE_PATH"));
+			r.setChangeName(rset.getString("CHANGE_NAME"));
 			list.add(r);
 		}
 	} catch (SQLException e) {

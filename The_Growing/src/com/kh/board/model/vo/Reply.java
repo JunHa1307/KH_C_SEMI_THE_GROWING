@@ -21,6 +21,8 @@ public class Reply {
 	private String status;
 	private String replySecret;
 	private int rCount;
+	private String filePath;
+	private String changeName;
 	
 	
 	public Reply() {
@@ -56,6 +58,24 @@ public class Reply {
 		this.status = status;
 		this.replySecret = replySecret;
 		this.rCount = rCount;
+	}
+
+	
+	
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
 
 	public int getrCount() {
@@ -131,7 +151,7 @@ public class Reply {
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter + ", replyContent="
 				+ replyContent + ", createDate=" + createDate + ", status=" + status + ", replySecret=" + replySecret
-				+ ", rCount=" + rCount + "]";
+				+ ", rCount=" + rCount + ", filePath=" + filePath + ", changeName=" + changeName + "]";
 	}
 
 
