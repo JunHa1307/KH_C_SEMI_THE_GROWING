@@ -1,7 +1,6 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Reply;
 
 /**
- * Servlet implementation class ReplyCountController
+ * Servlet implementation class ReplySelectController
  */
-@WebServlet("/rCount.bo")
-public class ReplyCountController extends HttpServlet {
+@WebServlet("/rSelect.bo")
+public class ReplySelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyCountController() {
+    public ReplySelectController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +30,13 @@ public class ReplyCountController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
 		
+		response.setContentType("application/x-json; charset=UTF-8");
+
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		Reply r = new BoardService().selectReply(rno);
 		
-		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
-		int count =0;
-		
-		for(int i = 0; i<list.size(); i++) {
-			count = i+1;
-			
-		}
-		
-			 response.getWriter().print(count); 
+		response.getWriter().print(r.getReplyContent()+","+r.getReplyNo());
 	}
 
 	/**

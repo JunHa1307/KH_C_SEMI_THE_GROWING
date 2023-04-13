@@ -36,7 +36,8 @@ public class BoardDetailController extends HttpServlet {
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	int boardNo = Integer.parseInt(request.getParameter("bno"));
-    	
+    	int boardType = Integer.parseInt(request.getParameter("boardType"));
+  
 		BoardService bService = new BoardService();
 		
 		
@@ -44,9 +45,9 @@ public class BoardDetailController extends HttpServlet {
 		
 		if(result > 0 ) { 
 			Board b = bService.selectBoard(boardNo);
-			ArrayList<Reply> list = bService.selectReplyList(boardNo);
+			ArrayList<Reply> list = new BoardService().selectReplyList(boardNo);
 			
-			
+			request.setAttribute("boardType", boardType);
 			request.setAttribute("b", b);
 			request.setAttribute("list", list);
 			
