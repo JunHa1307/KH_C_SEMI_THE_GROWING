@@ -35,14 +35,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> 
     
     <!-- summernote -->
-    <script src="resources/summernote/summernote-lite.js"></script>
+   <!--   <script src="resources/summernote/summernote-lite.js"></script>
    <script src="resources/summernote/summernote-ko-KR.js"></script>
-   <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
+   <link rel="stylesheet" href="resources/summernote/summernote-lite.css"> --> 
+     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
    
        
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
     
     <style>
+    .dropdown-toggle::after {
+    display:none;
+}
+    
   /* 버튼 css */
  .box {
    display: flex;

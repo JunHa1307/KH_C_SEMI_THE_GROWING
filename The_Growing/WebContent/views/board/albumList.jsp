@@ -259,9 +259,12 @@ div {
 
 #mo_writer_text {
 	width: 70%;
+	overflow-y: scroll;
 	/* background-color: aqua; */
 }
-
+#mo_writer_text::-webkit-scrollbar {
+	display: none;
+}
 #mo_writer_content2>div {
 	float: left;
 	height: 100%;
@@ -687,10 +690,10 @@ div {
         function albumClick(bno, level,uno){
         	
           //댓글
-        	$("#modal").attr("class",bno);
-        	$.ajax({
+        /* 	$("#modal").attr("class",bno); */
+      	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
-   				data : { bno : bno},
+   				data : { bno },
    				type : "get",
 				dataType : "html", 
    				success : function(list){
@@ -699,7 +702,7 @@ div {
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
-        	});
+        	}); 
         	
          	$.ajax({
    				url : "<%=contextPath%>/rCount.bo",
@@ -778,6 +781,7 @@ div {
    				url : "<%=contextPath%>/innerlist.al",
    				data : { bno},
    				success : function(list){
+   					console.log(list);
    				let slength = $("#slider-div .slick-slide").length;
    					 for(let i = 0; i<slength; i++){ 
    						$("#slider-div").slick('slickRemove',false);
@@ -796,15 +800,7 @@ div {
         	
 
 
-            $("#veil").click(function(){
-                if($("#modal").css("visibility")=="visible"){
-                    $("#modal").css("visibility","hidden"); 
-                    $('body').css({overflow :"scroll",scroll:"yes"});
-                    $("#veil").css("display","none");
-               
-
-                }
-            });
+            
             
            
             $.ajax({
@@ -828,6 +824,7 @@ div {
 			                $("#veil").css("display","block");
 			               
 			            }
+					 
 				},
 				error: function(){
 					console.log("게시글 목록조회 실패")
@@ -837,6 +834,16 @@ div {
            
         };
 
+        $("#veil").click(function(){
+            if($("#modal").css("visibility")=="visible"){
+                $("#modal").css("visibility","hidden"); 
+                $('body').css({overflow :"scroll",scroll:"yes"});
+                $("#veil").css("display","none");
+           
+
+            }
+        });
+        
             let j = 0;
         $('.scrap').on('click',function(){
             if(j==0){

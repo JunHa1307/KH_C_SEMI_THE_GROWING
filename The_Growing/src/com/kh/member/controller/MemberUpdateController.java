@@ -46,6 +46,7 @@ public class MemberUpdateController extends HttpServlet {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");		
 		String userId = request.getParameter("id");
 		String userName = request.getParameter("userName");
+		String childName = request.getParameter("childName");
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
 		
@@ -58,6 +59,7 @@ public class MemberUpdateController extends HttpServlet {
 		}
 		m.setUserId(userId);
 		m.setUserName(userName);
+		m.setChildrenName(childName);
 		m.setPhone(phone);
 		m.setAddress(address);
 		

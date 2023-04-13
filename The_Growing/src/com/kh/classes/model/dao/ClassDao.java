@@ -82,6 +82,7 @@ public class ClassDao {
 
 			pstmt.setString(1,"%"+ searchClassName +"%");
 			pstmt.setString(2,"%"+ searchClassName +"%");
+			pstmt.setString(3,"%"+ searchClassName +"%");
 			
 			rset = pstmt.executeQuery();
 			while (rset.next()) {

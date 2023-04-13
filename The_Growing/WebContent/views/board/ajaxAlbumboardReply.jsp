@@ -68,7 +68,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		<%} %>
 		
 		<script>
-		 $(".deleteReply").click(function(){
+		<%--  $(".deleteReply").click(function(){
 				let rno = $(this).data('rno'); 
 				$.ajax({
 	   				url : "<%=contextPath%>/rDelete.bo",
@@ -110,7 +110,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 	   				}
 	        		});
 			});
-	
+	 --%>
 		</script>
 	
 </body>

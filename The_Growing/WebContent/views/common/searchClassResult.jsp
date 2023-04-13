@@ -46,13 +46,13 @@ margin: auto;
 margin-bottom:20px;
 
 }
-#class_inner>*{
-	margin: 5%;
-}
+
 #class_img{
-	width:104px;
-	height: 80%;
-	
+	width: 6.5vw;
+	height: 6.5vw;
+	min-width:70px;
+	min-height:70px;
+	margin: auto;
 }
 #class_img>img{
 	width:100%;
@@ -66,9 +66,10 @@ margin-bottom:20px;
 	border-radius: 10px;
 	color:white;
 	border: none;
-	width:100px;
+	width:80%;
 	height:40px;
 	font-weight:550;
+	font-size:1.1vw;
 	
 	
 }
@@ -134,7 +135,7 @@ margin-bottom:20px;
 <%@include file="/views/common/header.jsp"%>
 <div id="class_wrap">
 <div id="searchWord">
-	검색 내용 : <%=searchClassName%> 
+	검색 내용 : <span style="color:rgb(75, 93, 193);"><%=searchClassName == "" ? " " :'"'+searchClassName+'"'%></span>
 </div>
 <div id="searchSize">
 	검색 결과 : <%=list.size()==0?"없음":list.size()+"개"%>
@@ -146,14 +147,13 @@ margin-bottom:20px;
 		<div id="class_img" >
 			<img src="<%= request.getContextPath() + list.get(i).getFilePath()+ list.get(i).getChangeName()%>" onerror="this.src='<%= request.getContextPath() %>/resources/image/noImage.png'">
 		</div>
-		<div id="class_text"  style="width:50%">
+		<div id="class_text"  style="width:45%">
 			
-			<span style="font-size:20px; font-weight:600;"><%= list.get(i).getClassTypeName() + " " +(list.get(i).getClassGrade()+"").substring(5)+"학년 " + list.get(i).getClassName()+"반" %></span>
+			<span style="font-size:1.4vw; font-weight:600;"><%= list.get(i).getClassTypeName() + " " +(list.get(i).getClassGrade()+"").substring(5)+"학년 " + list.get(i).getClassName()+"반" %></span>
 			<br><br>
-			<span style="font-size:0.8vw; font-weight:600; color:grey;">구성원 <%= list.get(i).getUserCount() %>명 | 담임 : <%= list.get(i).getTeacherName() %> 선생님 | <%=(list.get(i).getClassGrade()+"").substring(0,4)+"년 " %></span>
+			<span style="font-size:0.9vw; font-weight:600; color:grey; word-break:break-all;">구성원 <%= list.get(i).getUserCount() %>명 | 담임 : <%= list.get(i).getTeacherName() %> 선생님 | <%=(list.get(i).getClassGrade()+"").substring(0,4)+"년 " %></span>
 		</div>
-	
-		<button class="apply <%= list.get(i).getClassNo() %>">가입 신청</button>
+		<div style="width:23%"><button class="apply <%= list.get(i).getClassNo() %>">가입 신청</button></div>
 	</div>
 	
 		<% } %>

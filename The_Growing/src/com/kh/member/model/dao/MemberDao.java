@@ -437,9 +437,10 @@ public Member loginMemberInfo(Connection conn, int uno) {
 			
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserName());
-			pstmt.setString(3, m.getPhone());
-			pstmt.setString(4, m.getAddress());
-			pstmt.setInt(5, m.getUserNo());
+			pstmt.setString(3, m.getChildrenName());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getAddress());
+			pstmt.setInt(6, m.getUserNo());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

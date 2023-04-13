@@ -10,11 +10,26 @@
 
 	object-fit: cover;
 }
+
+#enrollWrap{
+	width:100%;
+	height:100%;
+	border : 1px solid rgb(224, 224, 224);
+	border-radius: 10px;
+	padding:20px;
+}
+.note-toolbar{
+	background: rgb(242, 242, 250);
+}
+#textInput{
+	border : 1px solid rgb(224, 224, 224);
+}
 </style>
 </head>
 <body>
 <%@include file="boardFrame.jsp" %>
 		<div id="board_area">
+		
 			<form action="<%= contextPath %>/insert.al" id="enroll-form" method="post" enctype="multipart/form-data">
             <div id="album_header">
                 <div id="album_area">
@@ -27,7 +42,8 @@
                   <hr />
                 </div>
               </div>
-           		 <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99"></div>
+              <div id="enrollWrap">
+           		 <div style="font-size:larger; font-weight:600">제목 : <input id="textInput" type="text" name="title" required style="width:100%;"></div>
                 <textarea id="summernote" name="content"></textarea>
           
         		<div style="padding: 10px">
@@ -45,6 +61,7 @@
 				<input type="file" id ="file3" name="file3" onchange="loadImg(this, 3);" >
 				<input type="file" id ="file4" name="file4" onchange="loadImg(this, 4);" >
 				<input type="file" id ="file5" name="file5" onchange="loadImg(this, 5);" >
+			</div>
 			</div>
 		</form>
 	
@@ -121,12 +138,28 @@
 						  maxHeight: null,             // 최대 높이
 						  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 						  lang: "ko-KR",					// 한글 설정
-						  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+						  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+						  toolbar: [
+				                ['fontname', ['fontname']],     // 글꼴 설정
+				                ['fontsize', ['fontsize']],    // 글자 크기 설정
+				                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']], // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+				                ['color', ['forecolor','color']],    // 글자색
+				                ['table', ['table']],    // 표만들기
+				                ['para', ['ul', 'ol', 'paragraph']],    // 글머리 기호, 번호매기기, 문단정렬
+				                ['height', ['height']],    // 줄간격
+				                ['view', ['fullscreen', 'codeview', 'help']]    // 코드보기, 확대해서보기, 도움말
+				    ],
+				      // 추가한 글꼴
+				    fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+				     // 추가한 폰트사이즈
+				    fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 				          
 					});
 					
 				      $("#board_album").css("fontWeight", "700");
 			          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+			          
+			      
 				});
 			
 			</script>
