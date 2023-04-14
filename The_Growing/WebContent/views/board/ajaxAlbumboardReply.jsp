@@ -13,11 +13,11 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<!-- <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+</head> -->
 <body>
 
 	<%if(list.size()!=0){ %>
@@ -34,7 +34,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 							src="<%=contextPath%>/resources/image/icons8-메뉴-2-48.png">
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item deleteReply" data-rno='<%= list.get(i).getReplyNo()%>'>삭제</a>
+						<a class="dropdown-item deleteReply" data-rno='<%= list.get(i).getReplyNo()%>' data-bno='<%= b.getBoardNo()%>'>삭제</a>
 					</div>
 				</div>
 				
@@ -68,17 +68,18 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		<%} %>
 		
 		<script>
-		<%--  $(".deleteReply").click(function(){
+		   $(".deleteReply").click(function(){
 				let rno = $(this).data('rno'); 
+				let bno = $(this).data('bno'); 
 				$.ajax({
 	   				url : "<%=contextPath%>/rDelete.bo",
 	   				data : { rno},
 	   				type : "get",
 	   				success : function(result){
 	   					if(result>0){
-	   					$.ajax({
+	   		<%-- 			$.ajax({
 			   				url : "<%=contextPath%>/rlist.bo",
-			   				data : { bno :<%=b.getBoardNo()%>},
+			   				data : { bno :bno},
 			   				type : "get",
 							dataType : "html", 
 			   				success : function(list){
@@ -91,14 +92,14 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 			        	});
 						$.ajax({
 			   				url : "<%=contextPath%>/rCount.bo",
-			   				data : { bno : <%=b.getBoardNo()%>},
+			   				data : { bno : bno},
 			   				success : function(list){
 			   					 $("#chat_count").html(list);
 			   				},
 			   				error: function(){
 			   					console.log("게시글 목록조회 실패")
 			   				}
-			        	}); 
+			        	});  --%>
 	   					}else {
 							alert("댓글삭제에 실패했습니다");
 
@@ -110,7 +111,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 	   				}
 	        		});
 			});
-	 --%>
+	 
 		</script>
 	
 </body>

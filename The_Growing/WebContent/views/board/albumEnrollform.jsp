@@ -56,7 +56,7 @@
 				</div>
 			
 			<div id="file-area" style="display:none;">
-				<input type="file" id ="file1" name="file1" onchange="loadImg(this, 1);" required>
+				<input type="file" id ="file1" name="file1" onchange="loadImg(this, 1);">
 				<input type="file" id ="file2" name="file2" onchange="loadImg(this, 2);" >
 				<input type="file" id ="file3" name="file3" onchange="loadImg(this, 3);" >
 				<input type="file" id ="file4" name="file4" onchange="loadImg(this, 4);" >

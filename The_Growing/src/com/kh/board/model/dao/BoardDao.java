@@ -413,31 +413,6 @@ public int deleteAttachment(Connection conn, int bno, int filelevel) {
 }
 
 
-public int deleteBoard(Connection conn, int bno) {
-	
-	int result = 0;
-	
-	PreparedStatement pstmt = null;
-	
-	String sql = prop.getProperty("deleteBoard");
-	
-	try {
-		pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setInt(1, bno);
-		
-		
-		result = pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	}
-	return result;
-	
-	
-}
-
 
 public int selectLike(Connection conn, int bno, int uno){
 	int like = 0;

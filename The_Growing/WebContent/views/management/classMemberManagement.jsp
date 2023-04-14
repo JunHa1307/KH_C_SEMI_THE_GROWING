@@ -56,10 +56,10 @@ Class c = (Class) request.getAttribute("Class");
 }
 
 .class_img {
-	width: 4.5vw;
+	width: 4vw;
 	min-width: 60px;
 	min-height: 60px;
-	height: 4.5vw;
+	height: 4vw;
 	margin: auto;
 }
 

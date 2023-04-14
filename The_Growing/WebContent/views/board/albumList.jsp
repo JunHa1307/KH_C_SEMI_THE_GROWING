@@ -690,7 +690,7 @@ div {
         function albumClick(bno, level,uno){
         	
           //댓글
-        /* 	$("#modal").attr("class",bno); */
+ 	$("#modal").attr("class",bno); 
       	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno },
@@ -702,7 +702,7 @@ div {
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
-        	}); 
+        	});  
         	
          	$.ajax({
    				url : "<%=contextPath%>/rCount.bo",
@@ -957,6 +957,9 @@ div {
    				} 
    			});
    		}); 
+        
+     
+
     </script>
 </body>
 </html>

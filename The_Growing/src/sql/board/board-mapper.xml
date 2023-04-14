@@ -146,15 +146,7 @@
 		WHERE REF_BNO = ? AND FILE_LEVEL =?
 		
 	</entry>
-	
 
-		<entry key="deleteBoard">
-		UPDATE BOARD
-		SET STATUS = 'N'
-		WHERE BOARD_NO = ? 
-		
-	</entry>
-	
 	<entry key="selectLike">
 		SELECT REF_BNO, REF_UNO
 		FROM LIKESS 
