@@ -36,6 +36,7 @@ public class ClassSearchController extends HttpServlet {
 		ArrayList<Class> list = new ClassService().searchClassList(searchClassName);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("searchClassName", searchClassName);
 		
 		request.getRequestDispatcher("views/common/searchClassResult.jsp").forward(request, response);
 	}

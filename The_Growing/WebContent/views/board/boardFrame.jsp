@@ -35,14 +35,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> 
     
     <!-- summernote -->
-    <script src="resources/summernote/summernote-lite.js"></script>
+   <!--   <script src="resources/summernote/summernote-lite.js"></script>
    <script src="resources/summernote/summernote-ko-KR.js"></script>
-   <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
+   <link rel="stylesheet" href="resources/summernote/summernote-lite.css"> --> 
    
+     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    
+   	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
        
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+
     
     <style>
+    .dropdown-toggle::after {
+    display:none;
+}
+    
   /* 버튼 css */
  .box {
    display: flex;
@@ -118,6 +127,7 @@
    -webkit-transform: translate3d(0, -25%, 0);
    transform: translate3d(0, -25%, 0);
 }
+
 /* 화면 너비 780 이상일 떄 */
 
    .box {
@@ -380,6 +390,7 @@ vertical-align: middle;
 
    #hamburgur {
       display: none;
+      
    }
    
    
@@ -391,6 +402,7 @@ vertical-align: middle;
       display: block;
       padding-left: 30px;
       cursor: pointer;
+      z-index: 9;
    }
    #hamburgur>img {
       width: 30px;
@@ -623,7 +635,9 @@ vertical-align: middle;
 		alert(msg);
 		<% session.removeAttribute("alertMsg"); %>
 	}
-
+	
+	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);
+	setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>)},3000);
 </script>
     <div class="wrap">
         <div id="header">
@@ -647,9 +661,10 @@ vertical-align: middle;
                     aria-haspopup="true" 
                     aria-expanded="false">
                     
+                    <div class="isAlarmNew"></div>
                     <img id="alarmIcon" src="resources/image/bell.svg"/>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">알림3</a>
                   <a class="dropdown-item" href="#">알림2</a>
                   <a class="dropdown-item" href="#">알림1</a>

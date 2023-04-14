@@ -147,4 +147,42 @@ public class SurveyService {
 		
 		return isAnswered;
 	}
+	
+	public int updateSurvey(Survey s) {
+		
+		Connection conn = getConnection();
+		
+		int result = new SurveyDao().updateSurvey(conn, s);
+		
+		if(result > 0) { // 성공
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+	
+	public int updateQuestion(Question q) {
+		
+		Connection conn = getConnection();
+		
+		int result = new SurveyDao().updateQuestion(conn, q);
+		
+		if(result > 0) { // 성공
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
 }

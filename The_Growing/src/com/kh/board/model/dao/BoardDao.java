@@ -16,12 +16,10 @@ import java.util.Properties;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
-
 import com.kh.board.model.vo.Reply;
 import com.kh.board.model.vo.Scrap;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
-import com.kh.member.model.vo.Member;
 
 
 public class BoardDao {
@@ -60,7 +58,7 @@ private Properties prop = new Properties();
 				Board b = new Board();
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setCreateDate(rset.getDate("CREATE_DATE"));
+				b.setcDate(rset.getString("C_DATE"));
 				b.setTitleImg(rset.getString("TITLEIMG"));
 				
 				list.add(b);
@@ -214,6 +212,8 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setReplyContent(rset.getString("REPLY_CONTENT"));
 			r.setCreateDate(rset.getString("CREATE_DATE"));
 			r.setReplyWriter(rset.getString("USER_ID"));
+			r.setFilePath(rset.getString("FILE_PATH"));
+			r.setChangeName(rset.getString("CHANGE_NAME"));
 			list.add(r);
 		}
 	} catch (SQLException e) {
@@ -286,7 +286,7 @@ public Board selectAlbumBoard(Connection conn, int bno){
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
 			b.setUserId(rset.getString("USER_ID"));
-			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setcDate(rset.getString("C_DATE"));
 			b.setFilePath(rset.getString("FILE_PATH"));
 			b.setChangeName(rset.getString("CHANGE_NAME"));
 		
@@ -411,31 +411,6 @@ public int deleteAttachment(Connection conn, int bno, int filelevel) {
 	
 }
 
-
-public int deleteBoard(Connection conn, int bno) {
-	
-	int result = 0;
-	
-	PreparedStatement pstmt = null;
-	
-	String sql = prop.getProperty("deleteBoard");
-	
-	try {
-		pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setInt(1, bno);
-		
-		
-		result = pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	}
-	return result;
-	
-	
-}
 
 
 public int selectLike(Connection conn, int bno, int uno){
@@ -770,7 +745,7 @@ public int deleteBoard(Connection conn, int boardNo, int userNo) {
 	return result;
 }
 
-public int deleteReply(Connection conn, int replyNo, int userNo) {
+public int deleteReply(Connection conn, int replyNo) {
 	
 	int result = 0;
 	
@@ -781,7 +756,6 @@ public int deleteReply(Connection conn, int replyNo, int userNo) {
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, replyNo);
-		pstmt.setInt(2, userNo);
 		
 		result = pstmt.executeUpdate();
 		
@@ -840,8 +814,10 @@ public Board selectBoard(Connection conn, int boardNo) {
 			b.setBoardType(rset.getInt("BOARD_TYPE"));
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setUserId(rset.getString("USER_ID"));
+			b.setRefUno(rset.getInt("USER_NO"));
 			b.setcDate(rset.getString("C_DATE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+			b.setRefCno(rset.getInt("REF_CNO"));
 					   
 		}
 		
@@ -1004,6 +980,72 @@ public Board selectBoard(Connection conn, int boardNo) {
 		return result;
 	}
 
+
+	
+	
+	public Reply selectReply(Connection conn, int rno) {
+		
+		Reply r = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new Reply();
+				r.setReplyContent(rset.getString("REPLY_CONTENT"));
+				r.setReplyNo(rset.getInt("REPLY_NO"));	   
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
+	}
+	public int selectCountReply(Connection conn, int bno) {
+		
+		int r =0;
+	PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+    		String sql = prop.getProperty("selectCountReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				r = rset.getInt("R_COUNT");
+				  
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
+	}
+		
+
 	public int insertNoticeCheck(Connection conn, int uno, int cno, int bno, String checkUserName, int userLevel) {
 		
 		int result = 0;
@@ -1034,10 +1076,12 @@ public Board selectBoard(Connection conn, int boardNo) {
 	public ArrayList<NoticeCheck> selectUserName(Connection conn, int cno, int bno) {
 		 
 		ArrayList<NoticeCheck> noticeCheckList = new ArrayList<>();
+
 		PreparedStatement pstmt = null;
 		
 		ResultSet rset = null;
 		
+
 		String sql = prop.getProperty("selectUserName");
 		
 		try {
@@ -1049,6 +1093,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
+
 
 				NoticeCheck c = new NoticeCheck();
 				c.setUserName(rset.getString("USER_NAME"));
@@ -1067,6 +1112,9 @@ public Board selectBoard(Connection conn, int boardNo) {
 		return noticeCheckList;
 	}
 	
+  
+  
+  
 	public int twoNoCheck(Connection conn, int uno, int cno) {
 		
 		int result = 0;
@@ -1324,34 +1372,5 @@ public ArrayList<Integer> selectMyScrapList(Connection conn, int uno) {
 	return list;
 }
 
-/*
- * public ArrayList<Scrap> selectScrapListForMy(Connection conn, int uno, int[]
- * bnoArr) {
- * 
- * ArrayList<Scrap> slist = new ArrayList<>(); PreparedStatement pstmt = null;
- * 
- * ResultSet rset = null;
- * 
- * String sql = prop.getProperty("selectScrapListForMy");
- * 
- * 
- * 
- * try { pstmt = conn.prepareStatement(sql);
- * 
- * pstmt.setInt(1, uno);
- * 
- * for(int bno : bnoArr) { pstmt.setInt(2, bno); rset = pstmt.executeQuery();
- * 
- * if(rset.next()) {
- * 
- * Scrap s = new Scrap();
- * 
- * s.setRefBno(rset.getInt("REF_BNO")); s.setRefUno(rset.getInt("REF_UNO"));
- * 
- * slist.add(s); } }
- * 
- * } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
- * close(pstmt); } return slist; }
- */
 }
 

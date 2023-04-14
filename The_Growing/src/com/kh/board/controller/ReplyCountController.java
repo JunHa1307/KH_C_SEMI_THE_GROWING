@@ -32,9 +32,7 @@ public class ReplyCountController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("되나");
 		int bno = Integer.parseInt(request.getParameter("bno"));
-		System.out.println(bno);
 		
 		
 		ArrayList<Reply> list = new BoardService().selectReplyList(bno);

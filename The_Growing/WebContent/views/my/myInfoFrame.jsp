@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser1 = (Member) session.getAttribute("loginUser");
 	String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
@@ -45,7 +46,7 @@
 <script src="resources/summernote/summernote-lite.js"></script>
 <script src="resources/summernote/summernote-ko-KR.js"></script>
 
-<script src="<%= contextPath %>/resources/js/headerSearch.js"></script>
+<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>
 
 <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
 
@@ -240,7 +241,9 @@
 			alert(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
-	
+		
+		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
+		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
 <script>
 	$(function(){
@@ -294,11 +297,12 @@
 				<button class="btn btn-secondary" type="button"
 					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">
-
+					
+					<div class="isAlarmNew"></div>
 					<img id="alarmIcon" src="resources/image/bell.svg" />
 
 				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" href="#">알림3</a> <a class="dropdown-item"
 						href="#">알림2</a> <a class="dropdown-item" href="#">알림1</a>
 				</div>

@@ -468,4 +468,91 @@ public class SurveyDao {
 		return isAnswered;
 		
 	}
+	
+	public int updateSurvey(Connection conn, Survey s) {
+		
+		// UPDATE문 => 반환값 처리된 행의 갯수가 반환됨
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateSurvey");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, s.getTitle());
+			pstmt.setDate(2, s.getFirstDate());
+			pstmt.setDate(3, s.getLastDate());
+			pstmt.setInt(4, s.getSurveyNo()); 
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateQuestion(Connection conn, Question q) {
+		
+		// UPDATE문 => 반환값 처리된 행의 갯수가 반환됨
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateQuestion");
+		
+		ArrayList<String> getQuesType = new ArrayList<String>();
+		ArrayList<String> getmTitle = new ArrayList<String>();
+		ArrayList<String> getmContent = new ArrayList<String>();
+		ArrayList<String> getItemNo = new ArrayList<String>();
+		ArrayList<String> getItemContent = new ArrayList<String>();
+		ArrayList<String> getsTitle = new ArrayList<String>();
+		
+		for(String s : q.getQuesType()) {
+			getQuesType.add(s);
+		}
+		for(String s : q.getmTitle()) {
+			getmTitle.add(s);
+		}
+		for(String s : q.getmContent()) {
+			getmContent.add(s);
+		}
+		for(String s : q.getItemNo()) {
+			getItemNo.add(s);
+		}
+		for(String s : q.getItemContent()) {
+			getItemContent.add(s);
+		}
+		for(String s : q.getsTitle()) {
+			getsTitle.add(s);
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, getQuesType.toString().substring(1).substring(0,  getQuesType.toString().length() - 2));
+			pstmt.setString(2, getmTitle.toString().substring(1).substring(0,  getmTitle.toString().length() - 2));
+			pstmt.setString(3, getmContent.toString().substring(1).substring(0,  getmContent.toString().length() - 2));
+			pstmt.setString(4, getItemNo.toString().substring(1).substring(0,  getItemNo.toString().length() - 2));
+			pstmt.setString(5, getItemContent.toString().substring(1).substring(0,  getItemContent.toString().length() - 2));
+			pstmt.setString(6, getsTitle.toString().substring(1).substring(0,  getsTitle.toString().length() - 2));
+			pstmt.setInt(7, q.getRefSno());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

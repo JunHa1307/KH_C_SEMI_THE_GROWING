@@ -6,17 +6,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.kh.board.model.vo.Board;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.MemberNotice;
 import com.kh.member.model.vo.SnsLogin;
 
 
@@ -437,9 +439,10 @@ public Member loginMemberInfo(Connection conn, int uno) {
 			
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserName());
-			pstmt.setString(3, m.getPhone());
-			pstmt.setString(4, m.getAddress());
-			pstmt.setInt(5, m.getUserNo());
+			pstmt.setString(3, m.getChildrenName());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getAddress());
+			pstmt.setInt(6, m.getUserNo());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -648,5 +651,35 @@ public Member loginMemberInfo(Connection conn, int uno) {
 
 		return m;
 	}
-
+	
+	public ArrayList<MemberNotice> selectMemberNoticeList(Connection conn, int uno){
+		ArrayList<MemberNotice> list = new ArrayList<MemberNotice>();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMemberNoticeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				list.add(new MemberNotice(
+						rset.getInt("REF_UNO"), rset.getInt("REF_CNO"), rset.getInt("INTERACTION_NO"), rset.getInt("REF_BNO"), rset.getString("NOTICE_DATE"),
+						rset.getInt("NOTICE_TYPE"), rset.getString("USER_NAME"), rset.getString("INTERACTION_NAME"), rset.getString("CLASS_NAME"), rset.getString("BOARD_TITLE")
+				));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 }

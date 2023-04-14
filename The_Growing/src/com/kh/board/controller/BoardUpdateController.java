@@ -39,10 +39,11 @@ public class BoardUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService bService = new BoardService();
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		int boardType = Integer.parseInt(request.getParameter("boardType"));
 		
 		Board b = bService.selectBoard(boardNo);
 		
-		
+		request.setAttribute("boardType", boardType);
 		request.setAttribute("b", b);
 		
 		request.getRequestDispatcher("views/board/boardUpdateForm.jsp").forward(request, response);
@@ -70,6 +71,7 @@ public class BoardUpdateController extends HttpServlet {
 			int result = new BoardService().updateBoard(b);
 			
 			if(result > 0) {
+				request.setAttribute("boardType", boardType);
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
 				response.sendRedirect(request.getContextPath()+"/list.fr?boardType="+boardType);
 			}else { 
