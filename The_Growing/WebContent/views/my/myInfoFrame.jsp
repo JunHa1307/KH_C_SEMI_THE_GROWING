@@ -241,7 +241,9 @@
 			alert(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
-	
+		
+		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
+		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
 <script>
 	$(function(){
@@ -291,7 +293,8 @@
 				<button class="btn btn-secondary" type="button"
 					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">
-
+					
+					<div class="isAlarmNew"></div>
 					<img id="alarmIcon" src="resources/image/bell.svg" />
 
 				</button>

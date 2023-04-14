@@ -668,7 +668,7 @@ public Member loginMemberInfo(Connection conn, int uno) {
 			while(rset.next()) {
 				
 				list.add(new MemberNotice(
-						rset.getInt("REF_UNO"), rset.getInt("REF_CNO"), rset.getInt("INTERACTION_NO"), rset.getInt("REF_BNO"), rset.getTimestamp("NOTICE_DATE"),
+						rset.getInt("REF_UNO"), rset.getInt("REF_CNO"), rset.getInt("INTERACTION_NO"), rset.getInt("REF_BNO"), rset.getString("NOTICE_DATE"),
 						rset.getInt("NOTICE_TYPE"), rset.getString("USER_NAME"), rset.getString("INTERACTION_NAME"), rset.getString("CLASS_NAME"), rset.getString("BOARD_TITLE")
 				));
 			}

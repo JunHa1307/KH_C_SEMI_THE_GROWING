@@ -66,7 +66,7 @@ public class BoardService {
 		Board b = new BoardDao().selectBoard(conn, bno);
 		
 		if(writer != b.getRefUno()) {
-			int insertNotice = new BoardDao().insertReplyNotice(conn, b.getRefUno(), writer, bno);
+			int insertNotice = new BoardDao().insertReplyNotice(conn, b.getRefUno(), writer, bno, b.getRefCno());
 		}
 		
 		if(result > 0) {

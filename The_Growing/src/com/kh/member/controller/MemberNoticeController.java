@@ -45,7 +45,7 @@ public class MemberNoticeController extends HttpServlet {
 		int uno = Integer.parseInt(request.getParameter("uno"));
 		
 		ArrayList<MemberNotice> list = new MemberService().selectMemberNoticeList(uno);
-		
+	
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new Gson().toJson(list, response.getWriter());
