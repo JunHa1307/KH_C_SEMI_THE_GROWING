@@ -52,7 +52,6 @@ public class FirstLoginController extends HttpServlet {
 			if(userLevel == 0) {
 				request.getRequestDispatcher("views/member/firstPage.jsp").forward(request, response);
 			}else {
-				System.out.println(userPwd);
 				Member loginUser = new MemberService().loginMember(userId, userPwd, userLevel);
 				HttpSession session = request.getSession();
 				
