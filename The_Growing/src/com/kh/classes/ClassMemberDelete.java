@@ -31,8 +31,19 @@ public class ClassMemberDelete extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int cno = (int)request.getSession().getAttribute("cno");
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		int uno = m.getUserNo();
+		
+		int result = new ClassService().deleteClassMember(uno, cno);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "성공적으로 탈퇴되었습니다");
+			response.sendRedirect(request.getContextPath()+"/mainpage.me");
+		}else {
+			request.getSession().setAttribute("alertMsg", "탈퇴 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

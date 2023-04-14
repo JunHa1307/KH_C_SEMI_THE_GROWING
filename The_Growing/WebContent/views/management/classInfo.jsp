@@ -159,7 +159,7 @@ border: 1px solid rgb(224, 224, 224);
 		       	   if (!confirm("탈퇴하시겠습니까?")) {
         			   location.reload();
         	        } else {
-        	        	location.href="<%=contextPath%>/delete.me";
+        	        	location.href="<%=contextPath%>/classmemberdelete.c";
         	        	 
         	        }
 		          });
