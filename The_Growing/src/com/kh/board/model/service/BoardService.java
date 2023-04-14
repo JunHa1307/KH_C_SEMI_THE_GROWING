@@ -257,7 +257,6 @@ public class BoardService {
 		return list;
 	}
 	
-	
 	public int increaseCount(int boardNo) {
 		Connection conn = getConnection();
 		
@@ -273,6 +272,7 @@ public class BoardService {
 		return result;
 		
 	}
+  
 	public int insertNotice(Board b) {
 		
 		Connection conn = getConnection();
