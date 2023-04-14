@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<% String contextPath = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,38 +30,57 @@
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
 </head>
 <body>
-
+	<div id="s3">
+		<button type="button" class="m_plus button_UI button--winona"
+					data-text="객관식 질문 추가">객관식 질문 추가</button>
+			<div>
+				<button style="margin-top: 10px;"type="button" class="s_plus button_UI button--winona"
+					data-text="주관식 질문 추가">주관식 질문 추가</button>
+			</div>
+			<div>
+				<button style="margin-top: 10px;" type="button" class="m_minus button_UI button--winona"
+					data-text="질문 삭제">질문 삭제</button>
+			</div>
+			
+	</div>
 	<div id="survey_wrap">
-		<h1>설문조사</h1>
-		<h2 style="text-align: center;">작성하기</h2>
+		 <div id="s1" ></div>
+		<h1 style="font-weight:bold; margin: 0% 0% 0% ; font-weight:bold;">설문조사</h1>
+		<button class="close" onclick="javascript:history.back();"></button> 
+		<br>
+		<h2 style=" margin:0% 5%; font-weight:bold;">작성하기</h2>
 		<form action="<%=request.getContextPath()%>/insert.su" method="post">
 			<div id="insert-su">
 				<div class="title">
-					<table border-collapse:collapse; id="title_table">
+					<div id="s2"></div>
+					<table style="display:flex;" border-collapse:collapse; id="title_table">
+					<br>
 						<tr>
-							<td width="50">기간</td>
-							<td width="130"><input type="date" name="fDate" required></td>
+							<td width="50"><h4>기간</h4></td>
+							<td width="330"><input type="date" name="fDate" required></td>
 							<td width="140" style="text-align: center;">~</td>
-							<td width="130"><input type="date" name="lDate" required></td>
+							<td width="330"><input type="date" name="lDate" required></td>
 						</tr>
 						<tr>
-							<td>제목</td>
+							<td><h4>제목</h4></td>
 							<td colspan="3"><input type="text" name="survey_title" size="55"
 								placeholder="설문 제목을 입력해주세요" required></td>
 						</tr>
 					</table>
 				</div>
 				<div class="multiple">
+				<div id="s2"></div>
 					<table border-collapse:collapse; id="multiple_table">
-						<h3>객관식 질문</h3>
+					<br>
+						<h3 style="font-weight: bold;">객관식 질문</h3>
 						<tr>
-							<td>제목</td>
-							<td colspan="3"><input type="text" name="mTitle" size="55"
+							<td><h4 style="font-weight:bold;">Q.</h4></td>
+							<td colspan="3"><input type="text" name="mTitle" size="155"
 								placeholder="질문 제목을 입력해주세요" required></td>
 						</tr>
 						<tr>
-							<td>내용</td>
-							<td colspan="3"><input type="text" name="mContent" size="55"
+							<td><h4 style="font-weight:bold;">A.</h4></td>
+							<td colspan="3"><input type="text" name="mContent" size="155"
 								placeholder="질문 내용을 입력해주세요"></td>
 						</tr>
 						<tr>
@@ -82,7 +101,7 @@
 						<input type="hidden" name="type" value=1 readonly>
 						<input type="hidden" name="itemCheck" value="3">
 					</table>
-					<div id="button_align">
+					<div id="button_align" >
 						<button type="button" class="item_plus button_UI button--winona"
 							data-text="항목 추가">항목 추가</button>
 						<button type="button" class="item_minus button_UI button--winona"
@@ -117,17 +136,19 @@
 
 
 				<div class="short">
+				<div id="s2"></div>
 					<table border-collapse:collapse; id="short_table">
-						<h3>주관식 질문</h3>
+					<br>
+						<h3 style="font-weight:bold;">주관식 질문</h3>
 						<tr>
-							<td>제목</td>
-							<td colspan="3"><input type="text" name="sTitle" size="55"
+							<td><h4 style="font-weight:bold;">Q.</h4></td>
+							<td colspan="3"><input type="text" name="sTitle" size="155"
 								placeholder="질문 제목을 입력해주세요" required></td>
 						</tr>
 						<tr>
-							<td>내용</td>
+							<td><h4 style="font-weight:bold;">A.</h4></td>
 							<td colspan="3"><textarea type="text" name="sContent"
-									style="resize: none;" rows="3" cols="56.5"
+									style="resize: none; border-radius:15px;"  rows="3" cols="56.5"
 									placeholder="설문자가 대답하는 공간입니다." readonly></textarea></td>
 						</tr>
 						<input type="hidden" name="type" value=2 readonly>
@@ -135,16 +156,10 @@
 				</div>
 
 			</div>
-			<div id="bu_align">
-				<button type="button" class="m_plus button_UI button--winona"
-					data-text="객관식 질문 추가">객관식 질문 추가</button>
-				<button type="button" class="s_plus button_UI button--winona"
-					data-text="주관식 질문 추가">주관식 질문 추가</button>
-				<button type="button" class="m_minus button_UI button--winona"
-					data-text="질문 삭제">질문 삭제</button>
+			  <div id="bu_align">
 				<button type="submit" class=" button_UI button--winona"
 					data-text="등록">등록</button>
-			</div>
+			</div>  
 		<script>
 			$(function() {
 				$(".m_plus").click(function() {

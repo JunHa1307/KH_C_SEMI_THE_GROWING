@@ -144,10 +144,10 @@ public class BoardService {
 	}
 	
 
-	public int deleteBoard(int bno,  ArrayList<Attachment> list) {
+	public int deleteBoard(int bno, int uno, ArrayList<Attachment> list) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().deleteBoard(conn, bno);
+		int result = new BoardDao().deleteBoard(conn, bno, uno);
 		
 		int result2 = 1;
 		
@@ -257,7 +257,6 @@ public class BoardService {
 		return list;
 	}
 	
-	
 	public int increaseCount(int boardNo) {
 		Connection conn = getConnection();
 		
@@ -273,6 +272,7 @@ public class BoardService {
 		return result;
 		
 	}
+  
 	public int insertNotice(Board b) {
 		
 		Connection conn = getConnection();

@@ -8,10 +8,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
+	* {
+	font-family: 'Gowun Dodum', sans-serif;
+	}
+	
 	html{
 		width:100%;
 		background-color: rgba(242,245,247,.7);
@@ -23,9 +31,9 @@
 		margin: auto;
 	}
 	
-	.close {display:inline-block;*display:inline;float:right;} 
-	.close:after {content: "\00d7"; font-size:5vw;}
-	
+	.close {display:inline-block;*display:inline;float:right; border-style:none; background-color:rgba(242,245,247,.7);} 
+	.close:after {content: "\00d7"; font-size:4vw; cursur:pointer;}
+	.close:hover{background-color: rgba(242,545,547,.7); cursor: pointer;}
 	.question1, .question2{
 		background-color: #ffffff;
 		border: 1px solid #ffffff;
@@ -37,6 +45,7 @@
 	.title{
 		font-size: 1.5em;
 		padding: 0.7vw 0 0.7vw 0;
+		
 	}
 	
 	.mContent{
@@ -46,18 +55,37 @@
 		margin-bottom: 1vw;
 	}
 	
-	table{
-		border-collapse: collapse;
-		margin: 0 auto 0 auto;
-	}
-	
-	th, td{
-		border: 1px solid  rgb(224, 224, 224);
-	}
-	
-	tr:nth-child(2n) {
-  		background-color: rgb(240, 240, 240);
-	}
+	 .list-table {
+            margin: auto;
+            min-width: 55vw;
+            min-height: 10vw;
+            border-collapse: collapse;
+        }
+
+        
+        .list-table tr:first-child {
+            border-top: none;
+            background: #cff0cc;
+            color: black;
+        }
+
+        .list-table tr {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            background-color: #f5f9fc;
+            text-align: center;
+        }
+
+
+        @media screen and (min-width: 60vw) {
+            .list-table tr:hover:not(:first-child) {
+                background-color: #d8e7f3;
+        }
+      
+        .list-table th, .list-table td {
+            padding: 1em !important;
+        }
+    	}
 	
 </style>
 </head>
@@ -66,7 +94,7 @@
 	<% int s = 0; %>
 	<% int item = 0; %>
 	<div id="contentArea">
-	<h1 style="display:inline-block;font-size:2vw;">설문  <%= survey.getTitle() %>  의 응답결과 :</h1>
+	<h1 style="display:inline-block;font-size:2vw;">설문  "<%= survey.getTitle() %>"  의 응답결과 </h1>
 	<button class="close" onclick="javascript:history.back();"></button> 
 	<% for(int i = 0; i < ques.getQuesType().length; i++){ %>
 		<% if(ques.getQuesType()[i].contains("1") ){ %>
@@ -136,16 +164,14 @@
 			<div class="question2">
 				<span>질문<%= i+1 %>(주관식)</span>
 				<div class="title"><b><%= ques.getsTitle()[s] %></b></div>
-				<table>
-					<thead>
+				<table class="list-table">
+					<tbody>
 						<tr>
 							<th>제출일시</th>
 							<th>응답자명</th>
 							<th>자녀명</th>
 							<th>응답내용</th>
 						</tr>
-					</thead>
-					<tbody>
 						<% for(int j = 0; j < ans.size(); j++){ %>
 						<tr>
 							<td><%= ans.get(j).getSubmitDate() %></td>

@@ -62,4 +62,22 @@
 		WHERE REF_QNO = ?
 			AND REF_UNO = ?
 	</entry>
+	<entry key="updateSurvey">
+		UPDATE SURVEY  
+		SET TITLE = ?,
+		FIRST_DATE = ?,
+		LAST_DATE = ?
+	    WHERE SURVEY_NO = ?
+	    AND STATUS = 'Y'
+	</entry>
+	<entry key="updateQuestion">
+		UPDATE Question 
+		SET QUES_TYPE = ?,
+		M_TITLE = ?,
+		M_CONTENT = ?,
+		ITEM_NO = ?,
+		ITEM_CONTENT = ?,
+		S_TITLE = ?
+	    WHERE REF_SNO =? 
+	</entry>
 </properties>
