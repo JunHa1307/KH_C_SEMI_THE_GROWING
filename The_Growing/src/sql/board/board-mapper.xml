@@ -323,6 +323,51 @@
 		AND REF_BNO = ?
 	</entry>
 
+
+	<entry key="selectScrap">
+		SELECT REF_BNO, REF_UNO
+		FROM SCRAP 
+		WHERE REF_BNO= ? 
+		AND REF_UNO =?
+	</entry>
+
+	<entry key="insertScrap">
+		INSERT INTO SCRAP(REF_BNO, REF_UNO) 
+		VALUES(?, ?)
+	</entry>
+
+	<entry key="deleteScrap">
+		DELETE FROM SCRAP 
+		WHERE REF_BNO= ? 
+		AND REF_UNO =?
+	</entry>
+
+	<entry key="selectScrapList">
+		SELECT S.REF_BNO, S.REF_UNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		
+	</entry>
+
+	<entry key="selectScrapForMy">
+		SELECT S.REF_BNO, S.REF_UNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		AND S.REF_BNO = ?
+	</entry>
+	
+	<entry key="selectMyScrapList">
+		SELECT S.REF_BNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		ORDER BY S.REF_BNO DESC
+		
+	</entry>
+
+
 	<entry key="insertReplyNotice">
 		INSERT INTO MEMBER_NOTICE
 		(REF_UNO, REF_CNO, INTERACTION_NO, REF_BNO, NOTICE_DATE, NOTICE_TYPE)
@@ -336,4 +381,5 @@
 					(SELECT DISTINCT CLASS_NO FROM CLASS JOIN CLASS_MEMBER ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ?),
 					?, SEQ_BNO.CURRVAL, SYSDATE, 3)
 	</entry>
+
 </properties>

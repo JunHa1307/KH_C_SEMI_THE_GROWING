@@ -13,8 +13,13 @@ import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
 import com.kh.board.model.vo.Reply;
+
+import com.kh.board.model.vo.Scrap;
+import com.kh.common.JDBCTemplate;
+
 import com.kh.classes.model.dao.ClassDao;
 import com.kh.classes.model.vo.Class;
+
 import com.kh.common.model.vo.Attachment;
 
 public class BoardService {
@@ -520,4 +525,85 @@ public int selectCountReply(int bno ) {
 	}
 
 
+	public int selectScrap(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().selectScrap(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public int insertScrap(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertScrap(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public int deleteScrap(int bno,  int uno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteScrap(conn, bno, uno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public ArrayList<Scrap> selectScrapList(int uno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Scrap> list = new BoardDao().selectScrapList(conn, uno);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+	
+	public Scrap selectScrapForMy(int bno, int uno) {
+		Connection conn = getConnection();
+		
+		Scrap s = new BoardDao().selectScrapForMy(conn, bno, uno);
+		
+		close(conn);
+		
+		return s;
+		
+	}
+	
+	public ArrayList<Integer> selectMyScrapList(int uno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Integer> list = new BoardDao().selectMyScrapList(conn, uno);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+	
 }
