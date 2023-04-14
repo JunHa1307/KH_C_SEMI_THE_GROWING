@@ -165,7 +165,7 @@ int boardType = (int) request.getAttribute("boardType");
 		<div id="list_search" align="right">
 			<button id="searchBtn_1" type="button" >
 				<input id="searchBoard" type="text" placeholder="게시판 검색" > 
-				<img src="resources/image/search.svg">
+				<img src="resources/image/search.svg" onclick="location.href='<%=contextPath%>/list.fr?boardType=<%= boardType%>&search='+$('#searchBoard').val();">
 			</button>
 		</div>
 

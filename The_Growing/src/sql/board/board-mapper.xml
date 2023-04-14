@@ -56,6 +56,30 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectBoardList2">
+		SELECT * 	
+		FROM(
+				SELECT ROWNUM RNUM , A.*
+				FROM (
+					SELECT
+					       BOARD_NO,
+					       USER_ID,
+					       BOARD_TITLE,
+					       CREATE_DATE,
+					       REF_CNO,
+					       BOARD_COUNT
+					FROM BOARD B
+					JOIN MEMBER ON (REF_UNO = USER_NO)
+					WHERE BOARD_TYPE = ?
+					  AND B.STATUS = 'Y'
+					  AND B.REF_CNO = ?
+					  AND B.BOARD_TITLE LIKE ?
+					ORDER BY BOARD_NO DESC
+				) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<entry key="increaseCount">
 		UPDATE BOARD
 		SET BOARD_COUNT = BOARD_COUNT +1
