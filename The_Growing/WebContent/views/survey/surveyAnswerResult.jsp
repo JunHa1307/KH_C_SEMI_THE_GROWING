@@ -45,6 +45,7 @@
 	.title{
 		font-size: 1.5em;
 		padding: 0.7vw 0 0.7vw 0;
+		
 	}
 	
 	.mContent{
@@ -93,7 +94,7 @@
 	<% int s = 0; %>
 	<% int item = 0; %>
 	<div id="contentArea">
-	<h1 style="display:inline-block;font-size:2vw;">설문  <%= survey.getTitle() %>  의 응답결과 </h1>
+	<h1 style="display:inline-block;font-size:2vw;">설문  "<%= survey.getTitle() %>"  의 응답결과 </h1>
 	<button class="close" onclick="javascript:history.back();"></button> 
 	<% for(int i = 0; i < ques.getQuesType().length; i++){ %>
 		<% if(ques.getQuesType()[i].contains("1") ){ %>

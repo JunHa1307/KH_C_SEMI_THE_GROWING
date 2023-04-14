@@ -30,25 +30,30 @@
 	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet"
-   href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
+   href="<%= request.getContextPath() %>/resources/css/surveyForm.css"> 
 </head>
 <body>
 	<div id="survey_wrap">
-		<h1>설문</h1>
-		<h2 style="text-align: center;">설문하기</h2>
+		<div id="s1" style="width:4vw;" ></div>
+		<h1 style="font-weight:bold; margin: 0% 0% 0% ; font-weight:bold;">설문</h1>
+		<button class="close" onclick="javascript:history.back();"></button> 
+		<br><br>
+		<h2 style=" margin:0% 5%; font-weight:bold;">설문하기</h2>
 		<form action="<%=request.getContextPath()%>/answer.su" method="post">
 			<input type="hidden" name="qNo" value="<%= ques.getQuesNo() %>">
 			<div id="insert-su">
 				<div class="title">
+				<div id="s2"></div>
 					<table border-collapse:collapse; id="title_table">
+					<br>
 						<tr>
-							<td width="50">기간</td>
-							<td width="130"><input type="text" name="fDate" value="<%= survey.getFirstDate() %>" readonly></td>
+							<td width="50"><h4>기간</h4></td>
+							<td width="330"><input type="text" name="fDate" value="<%= survey.getFirstDate() %>" readonly></td>
 							<td width="140" style="text-align: center;">~</td>
-							<td width="130"><input type="text" name="lDate" value="<%= survey.getLastDate() %>" readonly></td>
+							<td width="330"><input type="text" name="lDate" value="<%= survey.getLastDate() %>" readonly></td>
 						</tr>
 						<tr>
-							<td>제목</td>
+							<td><h4>제목</h4></td>
 							<td colspan="3"><input type="text" name="survey_title" value="<%= survey.getTitle() %>" readonly></td>
 						</tr>
 					</table>
@@ -59,14 +64,16 @@
 				<% for(int i = 0; i < ques.getQuesType().length ; i++){ %>
 					<% if(ques.getQuesType()[i].contains("1") ){ %>
 						<div class="multiple">
+						<div id="s2"></div>
 							<table border-collapse:collapse; id="multiple_table">
-								<h3>질문<%= i+1 %></h3>
+							<br>
+								<h3 style="font-weight:bold;">질문<%= i+1 %></h3>
 								<tr>
-									<td>제목</td>
-									<td colspan="3"><input type="text" name="mTitle" value="<%= ques.getmTitle()[m] %>" readonly></td>
+									<td><h4 style="font-weight:bold;">Q.</h4></td>
+									<td colspan="3"><input type="text" name="mTitle" size="155" value="<%= ques.getmTitle()[m] %>" readonly></td>
 								</tr>
 								<tr>
-									<td>내용</td>
+									<td><h4 style="font-weight:bold;">A.</h4></td>
 									<td colspan="3"><input type="text" name="mContent" value="<%= ques.getmContent()[m] %>" readonly></td>
 								</tr>
 								<% for(int j = 0; j < Integer.parseInt(ques.getItemNo()[m].replace(" ","")); j++){ %>
@@ -82,17 +89,19 @@
 						<% m++; %>
 					<% }else{ %>
 						<div class="short">
+						<div id="s2"></div>
 							<table border-collapse:collapse; id="short_table">
-								<h3>질문<%= i+1 %></h3>
+							<br>
+								<h3 style="font-weight:bold;">질문<%= i+1 %></h3>
 								<tr>
-									<td>제목</td>
-									<td colspan="3"><input type="text" name="sTitle" value="<%= ques.getsTitle()[s] %>" readonly></td>
+									<td><h4 style="font-weight:bold;">Q.</h4></td>
+									<td colspan="3"><input type="text" name="sTitle" size="155" value="<%= ques.getsTitle()[s] %>" readonly></td>
 								</tr>
 								<tr>
-									<td>내용</td>
+									<td><h4 style="font-weight:bold;">A.</h4></td>
 									<td colspan="3">
 										<textarea type="text" name="sContent"
-											style="resize: none;" rows="3" cols="56.5"
+											style="resize: none; border-radius:15px;" rows="3" cols="56.5"
 											placeholder="질문 내용을 입력해주세요"></textarea>
 									</td>
 								</tr>
@@ -103,7 +112,7 @@
 				<% } %>
 				<div id="bu_align">
 					<button type="submit" class=" button_UI button--winona"
-						data-text="등록">등록</button>
+						data-text="등록" >등록</button>
 				</div>
 			</div>
 		</form>

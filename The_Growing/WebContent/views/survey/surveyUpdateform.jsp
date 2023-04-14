@@ -1,6 +1,11 @@
+<%@page import="com.kh.survey.model.vo.Question"%>
+<%@page import="com.kh.survey.model.vo.Survey"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<% String contextPath = request.getContextPath(); %>
+<% 
+	Survey survey = (Survey) request.getAttribute("s");
+	Question ques=  (Question) request.getAttribute("q");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,66 +53,94 @@
 		<h1 style="font-weight:bold; margin: 0% 0% 0% ; font-weight:bold;">설문조사</h1>
 		<button class="close" onclick="javascript:history.back();"></button> 
 		<br>
-		<h2 style=" margin:0% 5%; font-weight:bold;">작성하기</h2>
-		<form action="<%=request.getContextPath()%>/insert.su" method="post">
+		<h2 style=" margin:0% 5%; font-weight:bold;">수정하기</h2>
+		<form action="<%=request.getContextPath()%>/update.su" method="post">
+		<input type="hidden" name="sno" value="<%= survey.getSurveyNo() %>">
+		 <input type="hidden" name="qNo" value="<%= ques.getQuesNo() %>">
 			<div id="insert-su">
 				<div class="title">
-					<div id="s2"></div>
-					<table style="display:flex;" border-collapse:collapse; id="title_table">
+				<div id="s2"></div>
+					<table border-collapse:collapse; id="title_table">
 					<br>
 						<tr>
 							<td width="50"><h4>기간</h4></td>
-							<td width="330"><input type="date" name="fDate" required></td>
+							<td width="330"><input type="text" name="fDate" value="<%= survey.getFirstDate() %>" ></td>
 							<td width="140" style="text-align: center;">~</td>
-							<td width="330"><input type="date" name="lDate" required></td>
+							<td width="330"><input type="text" name="lDate" value="<%= survey.getLastDate() %>" ></td>
 						</tr>
 						<tr>
 							<td><h4>제목</h4></td>
-							<td colspan="3"><input type="text" name="survey_title" size="55"
-								placeholder="설문 제목을 입력해주세요" required></td>
+							<td colspan="3"><input type="text" name="survey_title" value="<%= survey.getTitle() %>" ></td>
 						</tr>
 					</table>
 				</div>
-				<div class="multiple">
-				<div id="s2"></div>
-					<table border-collapse:collapse; id="multiple_table">
-					<br>
-						<h3 style="font-weight: bold;">객관식 질문</h3>
-						<tr>
-							<td><h4 style="font-weight:bold;">Q.</h4></td>
-							<td colspan="3"><input type="text" name="mTitle" size="155"
-								placeholder="질문 제목을 입력해주세요" required></td>
-						</tr>
-						<tr>
-							<td><h4 style="font-weight:bold;">A.</h4></td>
-							<td colspan="3"><input type="text" name="mContent" size="155"
-								placeholder="질문 내용을 입력해주세요"></td>
-						</tr>
-						<tr>
-							<td align="center"><input type="radio" name="mCheck"></td>
-							<td colspan="3"><input type="text" name="itemContent"
-								size="55" placeholder="항목 내용을 입력해주세요" required><br></td>
-						</tr>
-						<tr>
-							<td align="center"><input type="radio" name="mCheck"></td>
-							<td colspan="3"><input type="text" name="itemContent"
-								size="55" placeholder="항목 내용을 입력해주세요" required><br></td>
-						</tr>
-						<tr id="a">
-							<td align="center"><input type="radio" name="mCheck"></td>
-							<td colspan="3"><input type="text" name="itemContent"
-								size="55" placeholder="항목 내용을 입력해주세요" required><br></td>
-						</tr>
-						<input type="hidden" name="type" value=1 readonly>
-						<input type="hidden" name="itemCheck" value="3">
-					</table>
-					<div id="button_align" >
+				<% int m = 0; %>
+				<% int s = 0; %>
+				<% int item = 0; %>
+				<% for(int i = 0; i < ques.getQuesType().length ; i++){ %>
+					<% if(ques.getQuesType()[i].contains("1") ){ %>
+						<div class="multiple">
+						<div id="s2"></div>
+							<table border-collapse:collapse; id="multiple_table">
+							<br>
+								<h3 style="font-weight:bold;">질문<%= i+1 %></h3>
+								<tr>
+									<td><h4 style="font-weight:bold;">Q.</h4></td>
+									<td colspan="3"><input type="text" name="mTitle" size="155" value="<%= ques.getmTitle()[m] %>" ></td>
+								</tr>
+								<tr>
+									<td><h4 style="font-weight:bold;">A.</h4></td>
+									<td colspan="3"><input type="text" name="mContent" value="<%= ques.getmContent()[m] %>" ></td>
+								</tr>
+								<% for(int j = 0; j < Integer.parseInt(ques.getItemNo()[m].replace(" ","")); j++){ %>
+								<tr>
+									<td align="center"><input type="radio" name="mCheck<%= m %>" value="<%= j %>"></td>
+									<td colspan="3"><input type="text" name="itemContent" value="<%= ques.getItemContent()[item] %>" ><br></td>
+								</tr>
+								<% item++; %>
+								<% } %>
+								<input type="hidden" name="type" value=1 readonly>
+								<input type="hidden" name="itemCheck" value="3">
+							</table>
+							<div id="button_align" >
 						<button type="button" class="item_plus button_UI button--winona"
 							data-text="항목 추가">항목 추가</button>
 						<button type="button" class="item_minus button_UI button--winona"
 							data-text="항목 삭제">항목 삭제</button>
 					</div>
-					<script>
+						</div>
+						<% m++; %>
+					<% }else{ %>
+						<div class="short">
+						<div id="s2"></div>
+							<table border-collapse:collapse; id="short_table">
+							<br>
+								<h3 style="font-weight:bold;">질문<%= i+1 %></h3>
+								<tr>
+									<td><h4 style="font-weight:bold;">Q.</h4></td>
+									<td colspan="3"><input type="text" name="sTitle" size="155" value="<%= ques.getsTitle()[s] %>" ></td>
+								</tr>
+								<tr>
+									<td><h4 style="font-weight:bold;">A.</h4></td>
+									<td colspan="3">
+										<textarea type="text" name="sContent"
+											style="resize: none; border-radius:15px;" rows="3" cols="56.5"
+											placeholder="설문자가 대답하는 공간입니다." readonly></textarea>
+									</td>
+								</tr>
+								<input type="hidden" name="type" value=2 readonly>
+							</table>
+						</div>
+						<% s++; %>
+					<% } %>
+				<% } %>
+
+			</div>
+			  <div id="bu_align">
+				<button type="submit" class=" button_UI button--winona"
+					data-text="수정">수정</button>
+			</div>  
+			<script>
 						$(function() {
 							$(".item_plus").click(function() {
 								let item = "<tr >"
@@ -130,36 +163,6 @@
 							})
 						});
 					</script>
-
-				</div>
-
-
-
-				<div class="short">
-				<div id="s2"></div>
-					<table border-collapse:collapse; id="short_table">
-					<br>
-						<h3 style="font-weight:bold;">주관식 질문</h3>
-						<tr>
-							<td><h4 style="font-weight:bold;">Q.</h4></td>
-							<td colspan="3"><input type="text" name="sTitle" size="155"
-								placeholder="질문 제목을 입력해주세요" required></td>
-						</tr>
-						<tr>
-							<td><h4 style="font-weight:bold;">A.</h4></td>
-							<td colspan="3"><textarea type="text" name="sContent"
-									style="resize: none; border-radius:15px;"  rows="3" cols="56.5"
-									placeholder="설문자가 대답하는 공간입니다." readonly></textarea></td>
-						</tr>
-						<input type="hidden" name="type" value=2 readonly>
-					</table>
-				</div>
-
-			</div>
-			  <div id="bu_align">
-				<button type="submit" class=" button_UI button--winona"
-					data-text="등록">등록</button>
-			</div>  
 		<script>
 			$(function() {
 				$(".m_plus").click(function() {
