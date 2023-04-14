@@ -7,6 +7,6 @@
 <title></title>
 </head>
 <body>
-	<%@include file="views/member/firstPage.jsp" %>
+	<% response.sendRedirect(request.getContextPath()+"/firstLogin.me"); %>
 </body>
 </html>
