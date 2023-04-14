@@ -50,9 +50,13 @@ int boardType =(int) request.getAttribute("boardType");
                 <!-- 자유게시판 작성하기-->
                 
                 <div id="board_area">
-                    <h1 align="center">자유게시판</h1>
-                 
-                <form action="<%= contextPath %>/insert.fr?boardType=4" id="enroll-form" method="post">
+                <%if(boardType == 4) {%>
+                    <h1 align="center">자유 게시판</h1>
+				<%}else{ %>
+					 <h1 align="center">상담 게시판</h1>
+				<%} %>
+               
+                <form action="<%= contextPath %>/insert.fr?boardType=<%=boardType %>" id="enroll-form" method="post">
                     <table class="list-table"  border="5">
                         <tr >
                             <th>
@@ -84,6 +88,8 @@ int boardType =(int) request.getAttribute("boardType");
                         </tr>
                     </table>
                 </form>
+               
+              
             </div> 
             <script>
             

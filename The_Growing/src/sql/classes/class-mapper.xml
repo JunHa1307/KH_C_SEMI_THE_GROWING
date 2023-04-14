@@ -13,6 +13,18 @@
 		WHERE CM.REF_UNO = ?
 		ORDER BY REF_CNO
 	</entry>
+	<entry key="searchClassList">
+		SELECT DISTINCT
+			CM.REF_CNO, CLASS_GRADE, CLASS_CODE, CLASS_NAME,
+			CLASS_TYPE_NAME, CHANGE_NAME, FILE_PATH, TEACHER_NAME,
+			ATPT_OFCDC_SC_CODE, SD_SCHUL_CODE,
+			(SELECT COUNT(*) FROM CLASS_MEMBER WHERE REF_CNO = CM.REF_CNO) AS USER_COUNT
+		FROM CLASS_MEMBER CM
+		LEFT JOIN CLASS C ON (CM.REF_CNO = C.CLASS_NO)
+		LEFT JOIN ATTACHMENT A ON (A.REF_CNO = C.CLASS_NO)
+		WHERE C.CLASS_NAME LIKE ? OR C.TEACHER_NAME LIKE ? OR C.CLASS_TYPE_NAME LIKE ? 
+		ORDER BY REF_CNO
+	</entry>
 	<entry key="insertClass">
 		INSERT INTO CLASS
 			VALUES (SEQ_CNO.NEXTVAL,?,?,?,?,?,?,?)
@@ -157,5 +169,44 @@
 	<entry key="updateClassCode">
 	 UPDATE CLASS SET CLASS_CODE = ?
         WHERE CLASS_NO = ? 
-        </entry>
+    </entry>
+    <entry key="deleteClassMember">
+    DELETE FROM CLASS_MEMBER 
+   	WHERE REF_UNO = ?
+    	AND REF_CNO = ?
+    </entry>
+    <entry key="insertApply">
+    INSERT INTO CLASS_APPLY
+    VALUES(?,?,SYSDATE)
+    </entry>
+    <entry key="selectApply">
+    SELECT * 
+    FROM CLASS_APPLY 
+    WHERE REF_UNO = ? AND REF_CNO = ?
+    </entry>
+    <entry key="selectApplyList">
+    SELECT M.*, A.CHANGE_NAME, A.FILE_PATH
+		FROM MEMBER M
+		LEFT JOIN ATTACHMENT A ON (A.REF_UNO = M.USER_NO)
+		LEFT JOIN CLASS_APPLY C ON (M.USER_NO = C.REF_UNO)
+		WHERE C.REF_CNO = ?
+    </entry>
+    <entry key="deleteApplyMember">
+    DELETE FROM CLASS_APPLY
+   	WHERE REF_UNO = ?
+    	AND REF_CNO = ?
+    </entry>
+    <entry key="selectClassMemberCount">
+    SELECT COUNT(*) COUNT
+    FROM CLASS_MEMBER
+    JOIN CLASS ON (CLASS_NO = REF_CNO)
+    WHERE CLASS_CODE = ?
+    </entry>
+    <entry key="insertMemberNotice">
+		INSERT INTO MEMBER_NOTICE
+		(REF_UNO , REF_CNO, INTERACTION_NO, NOTICE_DATE, NOTICE_TYPE)
+		VALUES ((SELECT REF_UNO FROM (SELECT ROWNUM R, REF_UNO FROM CLASS_MEMBER JOIN CLASS ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ? ORDER BY R ASC) WHERE R = ?),
+				(SELECT DISTINCT CLASS_NO FROM CLASS JOIN CLASS_MEMBER ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ?),
+				?,SYSDATE,1)
+	</entry>
 </properties>

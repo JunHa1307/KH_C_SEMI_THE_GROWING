@@ -4,10 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-	String contextPath = request.getContextPath();
+   String contextPath = request.getContextPath();
     Member loginUser = (Member) session.getAttribute("loginUser");
     Class cInfo = (Class)session.getAttribute("cInfo");
-
+	String alertMsg = (String) session.getAttribute("alertMsg");
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,126 +35,135 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> 
     
     <!-- summernote -->
-    <script src="resources/summernote/summernote-lite.js"></script>
-	<script src="resources/summernote/summernote-ko-KR.js"></script>
-	<link rel="stylesheet" href="resources/summernote/summernote-lite.css">
-	
-	    
+   <!--   <script src="resources/summernote/summernote-lite.js"></script>
+   <script src="resources/summernote/summernote-ko-KR.js"></script>
+   <link rel="stylesheet" href="resources/summernote/summernote-lite.css"> --> 
+   
+     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    
+   	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
+       
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+
     
     <style>
+    .dropdown-toggle::after {
+    display:none;
+}
+    
   /* 버튼 css */
  .box {
-	display: flex;
-	background: #ffffff;
-	color: #000000;
+   display: flex;
+   background: #ffffff;
+   color: #000000;
 }
 
 .button_UI {
-	float: left;
-	display: block;
-	border: none;
-	background: none;
-	color: inherit;
-	position: relative;
-	z-index: 1;
-	-webkit-backface-visibility: hidden;
-	-moz-osx-font-smoothing: grayscale;
+   float: left;
+   display: block;
+   border: none;
+   background: none;
+   color: inherit;
+   position: relative;
+   z-index: 1;
+   -webkit-backface-visibility: hidden;
+   -moz-osx-font-smoothing: grayscale;
 } 
 
 .button_UI :active {
-	color: rgb(137, 180, 166);
+   color: rgb(137, 180, 166);
 }
 
 .button_UI:focus {
-	outline: none;
+   outline: none;
 }
 
 .button--winona {
-	overflow: hidden;
-	padding: 0;
-	-webkit-transition: border-color 0.3s, background-color 0.3s;
-	transition: border-color 0.3s, background-color 0.3s;
-	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+   overflow: hidden;
+   padding: 0;
+   -webkit-transition: border-color 0.3s, background-color 0.3s;
+   transition: border-color 0.3s, background-color 0.3s;
+   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 .button--winona::after {
-	content: attr(data-text);
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	color: rgb(137, 180, 166);
-	font-weight: 600;
-	-webkit-transform: translate3d(0, 25%, 0);
-	transform: translate3d(0, 25%, 0);
+   content: attr(data-text);
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   opacity: 0;
+   color: rgb(137, 180, 166);
+   font-weight: 600;
+   -webkit-transform: translate3d(0, 25%, 0);
+   transform: translate3d(0, 25%, 0);
 }
 
  .button--winona::after, .button--winona>span {
-	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-	transition: transform 0.3s, opacity 0.3s;
-	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	display: block;
-	font-weight: 600;
+   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+   transition: transform 0.3s, opacity 0.3s;
+   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+   display: block;
+   font-weight: 600;
 } 
 
 .button--winona:hover {
-	border-color: rgb(137, 180, 166);
-	background-color: rgba(255, 255, 255, 0.1);
+   border-color: rgb(137, 180, 166);
+   background-color: rgba(255, 255, 255, 0.1);
 }
 
 .button--winona:hover::after {
-	opacity: 1;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
+   opacity: 1;
+   -webkit-transform: translate3d(0, 0, 0);
+   transform: translate3d(0, 0, 0);
 }
 
 .button--winona:hover>span {
-	opacity: 0;
-	-webkit-transform: translate3d(0, -25%, 0);
-	transform: translate3d(0, -25%, 0);
+   opacity: 0;
+   -webkit-transform: translate3d(0, -25%, 0);
+   transform: translate3d(0, -25%, 0);
 }
 /* 화면 너비 780 이상일 떄 */
 
-	.box {
-	width: 2vw;
-	height: 3vw;
-	border-radius: 4vw;
-	font-size:0.9vw;
-	}
-	
-	.button_UI {
-	width: 140px;
-	height: 45px;
-	border-radius: 4vw;
-	border: 0.15vw solid;
-	min-width:70px;
-	min-height:27px;
-	}
-	
-	.button--winona::after, .button--winona>span {
-	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-	transition: transform 0.3s, opacity 0.3s;
-	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-	display: block;
-	font-weight: 600;
-	padding: 0.335vw;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+   .box {
+   width: 2vw;
+   height: 3vw;
+   border-radius: 4vw;
+   font-size:0.9vw;
+   }
+   
+   .button_UI {
+   width: 140px;
+   height: 45px;
+   border-radius: 4vw;
+   border: 0.15vw solid;
+   min-width:70px;
+   min-height:27px;
+   }
+   
+   .button--winona::after, .button--winona>span {
+   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+   transition: transform 0.3s, opacity 0.3s;
+   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+   display: block;
+   font-weight: 600;
+   padding: 0.335vw;
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 
 /* 화면 너비 780 이하일 떄 */
 
@@ -162,15 +171,15 @@
 
 /* 게시판 헤더 및 정보(게시판마다 공통) */
 #classInfo, #userInfo{
-	padding:1.3em 0em 1em 1em;
-	height:100%;
+   padding:1.3em 0em 1em 1em;
+   height:100%;
 }
 .small{
-	font-size: 1vw;
+   font-size: 1vw;
 }
 .big{
-	font-size: 1.3vw;
-	font-weight: 900;
+   font-size: 1.3vw;
+   font-weight: 900;
 }
 .info_text{
 vertical-align: middle;
@@ -178,31 +187,31 @@ vertical-align: middle;
 
 
 #info {
-	background-color: rgb(228, 236, 226);
-	width: 100%;
-	height: 10%;
-	justify-content: center;
-	align-item: center;
-	margin-top:20px;
-		
+   background-color: rgb(228, 236, 226);
+   width: 100%;
+   height: 10%;
+   justify-content: center;
+   align-item: center;
+   margin-top:20px;
+      
 }
 .info_space{
-	padding:1em 0em 1em 0em;
-	width: 60%;
-	min-width:350px;
-	margin: auto;
-	height: 100%;
-	min-height:120px;
-	display: flex;
-	justify-content: center;
-	align-item: center;
+   padding:1em 0em 1em 0em;
+   width: 60%;
+   min-width:350px;
+   margin: auto;
+   height: 100%;
+   min-height:120px;
+   display: flex;
+   justify-content: center;
+   align-item: center;
 }
 
 
 .profile_area{
-	width: 8vw;
-	min-width: 85px;
-	min-height: 85px;
+   width: 8vw;
+   min-width: 85px;
+   min-height: 85px;
     height:8vw;
     border-radius: 50%;
     text-align: center;
@@ -212,330 +221,332 @@ vertical-align: middle;
 }
 
 #classInfo{
-	width: 50%;
-	min-width:85px;
+   width: 50%;
+   min-width:85px;
 }
 #userInfo {
-	width: 25%;
-	min-width:75px;
+   width: 25%;
+   min-width:75px;
 }
 
 
 .profile {
-	
-	width:100%;
+   
+   width:100%;
     object-fit: cover;
-	height: 100%;
-	vertical-align: middle;
+   height: 100%;
+   vertical-align: middle;
 
         
 }
 
 .btnStyle {
-	border: none;
-	background: none;
-	cursor: pointer;
-	padding: 0;
+   border: none;
+   background: none;
+   cursor: pointer;
+   padding: 0;
 }
 @media only screen and (min-width: 1200px) {
 /* 게시판 목록 css */
 #board_wrap {
-	margin-top: 30px;
-	width: 100%;
-	min-height: 700px;
+   margin-top: 30px;
+   width: 100%;
+   min-height: 700px;
 }
 
 #inner_wrap {
-	width: 1200px;
-	min-height: 700px;
-	margin: auto;
+   width: 1200px;
+   min-height: 700px;
+   margin: auto;
 }
 
 #inner_wrap>div {
-	height: 100%;
-	float: left;
+   height: 100%;
+   float: left;
 }
 
 #board {
-	width: 239px;
-	height: 700px;
-	/* position: fixed; */
-	
+   width: 239px;
+   height: 700px;
+   /* position: fixed; */
+   
 }
 
 #board_fix {
-/* 	width: 20%;
-	height: 700px;
-	position: relative;
-	border: 1px solid white;
-	display:block; */
+/*    width: 20%;
+   height: 700px;
+   position: relative;
+   border: 1px solid white;
+   display:block; */
 }
 
 #board_area {
-	width: 80%;
-	padding: 0px 20px 20px 20px;
+   width: 80%;
+   padding: 0px 20px 20px 20px;
 }
 
 #board>ul>li {
-	list-style-type: none;
+   list-style-type: none;
 }
 
 #board>ul {
-	padding: 0;
+   padding: 0;
 }
 
 .board_li {
-	height: 28px;
-	cursor: pointer;
+   height: 28px;
+   cursor: pointer;
 }
 
 .board_title {
-	font-size: large;
-	font-weight: 700;
-	padding-bottom: 10px;
-	padding-left: 14px;
+   font-size: large;
+   font-weight: 700;
+   padding-bottom: 10px;
+   padding-left: 14px;
 }
 
 .board_li:hover {
-	font-weight: 700;
+   font-weight: 700;
 }
 
 .board_li>div {
-	border-radius: 30px;
-	width: 100%;
-	height: 40px;
-	padding: 9px;
-	padding-left: 14px;
+   border-radius: 30px;
+   width: 100%;
+   height: 40px;
+   padding: 9px;
+   padding-left: 14px;
 }
 
 .board_li>div>a {
-	color: black;
+   color: black;
 }
 
 .board_li {
-	margin-bottom: 13px;
+   margin-bottom: 13px;
 }
 
 .board_hr {
-	padding: 7px;
+   padding: 7px;
 }
 
 #veil {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	bottom: 0px;
-	background-color: black;
-	opacity: 0.6;
-	z-index: 1;
-	display: none;
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   bottom: 0px;
+   background-color: black;
+   opacity: 0.6;
+   z-index: 1;
+   display: none;
 }
 
 .board_hr {
-	padding: 7px;
+   padding: 7px;
 }
 
 #album_header {
-	height: 80px;
-	width: 100%;
-	
+   height: 80px;
+   width: 100%;
+   
 }
 
 #album_area>div {
-	float: left;
-	height: 100%;
+   float: left;
+   height: 100%;
 }
 
 #album_title {
-	width: 70%;
-	font-size: 25px;
-	font-weight: 700;
-	padding-left: 14px;
+   width: 70%;
+   font-size: 25px;
+   font-weight: 700;
+   padding-left: 14px;
 }
 
 #album_button {
-	width: 30%;
-	align-item : right;
+   width: 30%;
+   align-item : right;
 }
 
 #album_area {
-	width: 100%;
-	height: 70%;
-	/* background-color: aliceblue; */
+   width: 100%;
+   height: 70%;
+   /* background-color: aliceblue; */
 }
 
 
 #album_hr {
-	width: 100%;
-	height: 30%;
+   width: 100%;
+   height: 30%;
 
-	/* background-color: aquamarine; */
+   /* background-color: aquamarine; */
 }
 
 #album_hr>hr {
-	margin: 0;
+   margin: 0;
 
-	/* background-color: aquamarine; */
+   /* background-color: aquamarine; */
 }
 
-	#hamburgur {
-		display: none;
-	}
-	
-	
+   #hamburgur {
+      display: none;
+      
+   }
+   
+   
 }
 @media only screen and (max-width: 1200px) {
 #hamburgur {
-		position: fixed;
-		top: 230px;
-		display: block;
-		padding-left: 30px;
-		cursor: pointer;
-	}
-	#hamburgur>img {
-		width: 30px;
-	}
+      position: fixed;
+      top: 230px;
+      display: block;
+      padding-left: 30px;
+      cursor: pointer;
+      z-index: 9;
+   }
+   #hamburgur>img {
+      width: 30px;
+   }
 
-	#board {
-		opacity: 0.9;
-		left: -300px;
-		transition: left .3s;
-		background-color: white;
-		top: 260px;
-		border-radius: 10px;
-		max-width: 150px;
-		width: 239px;
-	height: 700px;
-	position: fixed;
-	z-index:9;
-	}
+   #board {
+      opacity: 0.9;
+      left: -300px;
+      transition: left .3s;
+      background-color: white;
+      top: 260px;
+      border-radius: 10px;
+      max-width: 150px;
+      width: 239px;
+   height: 700px;
+   position: fixed;
+   z-index:9;
+   }
 
 
 
 #board_wrap {
-	margin-top: 40px;
+   margin-top: 40px;
 
 }
 
 #inner_wrap {
-	
-	margin: auto;
+   
+   margin: auto;
 }
 
 
 
 
 #board_fix {
-/* 	width: 20%;
-	height: 700px;
-	position: relative;
-	border: 1px solid white;
-	display:none; */
+/*    width: 20%;
+   height: 700px;
+   position: relative;
+   border: 1px solid white;
+   display:none; */
 }
 
 #board_area {
-	padding: 0px 20px 20px 20px;
-	
+   padding: 0px 20px 20px 20px;
+   
 }
 
 #board>ul>li {
-	list-style-type: none;
+   list-style-type: none;
 }
 
 #board>ul {
-	padding: 0;
+   padding: 0;
 }
 
 .board_li {
-	height: 28px;
-	cursor: pointer;
+   height: 28px;
+   cursor: pointer;
 }
 
 .board_title {
-	font-size: large;
-	font-weight: 700;
-	padding-bottom: 10px;
-	padding-left: 14px;
+   font-size: large;
+   font-weight: 700;
+   padding-bottom: 10px;
+   padding-left: 14px;
 }
 
 .board_li:hover {
-	font-weight: 700;
+   font-weight: 700;
 }
 
 .board_li>div {
-	border-radius: 30px;
-	width: 100%;
-	height: 40px;
-	padding: 9px;
-	padding-left: 14px;
+   border-radius: 30px;
+   width: 100%;
+   height: 40px;
+   padding: 9px;
+   padding-left: 14px;
 }
 
 .board_li>div>a {
-	color: black;
+   color: black;
 }
 
 .board_li {
-	margin-bottom: 13px;
+   margin-bottom: 13px;
 }
 
 .board_hr {
-	padding: 7px;
+   padding: 7px;
 }
 
 #veil {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	bottom: 0px;
-	background-color: black;
-	opacity: 0.6;
-	z-index: 1;
-	display: none;
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   bottom: 0px;
+   background-color: black;
+   opacity: 0.6;
+   z-index: 1;
+   display: none;
 }
 
 .board_hr {
-	padding: 7px;
+   padding: 7px;
 }
 
 #album_header {
-	height: 80px;
-	width: 100%;
-	margin-top:10px;
+   height: 80px;
+   width: 100%;
+   margin-top:10px;
 }
 
 #album_area>div {
-	float: left;
-	height: 100%;
+   float: left;
+   height: 100%;
 }
 
 #album_title {
-	width: 70%;
-	font-size: 25px;
-	font-weight: 700;
-	padding-left: 14px;
+   width: 70%;
+   font-size: 25px;
+   font-weight: 700;
+   padding-left: 14px;
 }
 
 #album_button {
-	width: 30%;
+   width: 30%;
 }
 
 #album_area {
-	width: 100%;
-	height: 70%;
-	/* background-color: aliceblue; */
+   width: 100%;
+   height: 70%;
+   /* background-color: aliceblue; */
 }
 
 #album_hr {
-	width: 100%;
-	height: 30%;
+   width: 100%;
+   height: 30%;
 
-	/* background-color: aquamarine; */
+   /* background-color: aquamarine; */
 }
 
 #album_hr>hr {
-	margin: 0;
+   margin: 0;
 
-	/* background-color: aquamarine; */
+   /* background-color: aquamarine; */
 }
 }
 
@@ -551,67 +562,91 @@ vertical-align: middle;
                   });
                   
                   $("#board_recent").click(function(){
-      				location.href="<%=contextPath%>/resent.bo";
-      			});
-          	
-        			$(".board_album").click(function(){
-        				location.href = "<%=contextPath %>/list.al";
-        			});
-        			$("#board_album").click(function(){
-        				location.href = "<%=contextPath %>/list.al";
-        			});
-        			
-        			$("#board_free").click(function(){
-        				location.href = "<%=contextPath %>/list.fr?boardType="+4;
-        			});
-        			
-        			$("#board_counsel").click(function(){
-        				location.href = "<%=contextPath %>/list.fr?boardType="+5;
-        			});
-        			
-        			$("#board_survey").click(function(){
-        				location.href="<%=contextPath %>/list.su";
-        			});
-        			
-        			$("#mypage").click(function(){
-        				location.href="<%=contextPath%>/info.c";
-        			});
-        			
-        			$("#hamburgur>img").click(function() {
-        				if ($("#board").css("left") == "-300px") {
-        					$("#board").css("left", "0");
-        				} else {
-        					$("#board").css("left", "-300px");
-        				}
-        			});
-        			
-        			$("#board_check").click(function(){
-        				location.href="<%=contextPath%>/attendance.bo";
-        			});
-        			
 
-        			$("#board_invite").click(function(){
-        				location.href="<%=contextPath%>/invite.bo";
-        			});
-        			
-        			$("#board_option").click(function(){
-        				location.href="<%=contextPath%>/infor.bo";
-        			});
-        			
-        			
+                  location.href="<%=contextPath%>/resent.bo";
+               });
+             
+                 $(".board_album").click(function(){
+                    location.href = "<%=contextPath %>/list.al";
+                 });
+                 $("#board_album").click(function(){
+                    location.href = "<%=contextPath %>/list.al";
+                 });
+                 
+                 $("#board_free").click(function(){
+                    location.href = "<%=contextPath %>/list.fr?boardType="+4;
+                 });
+                 
+                 $("#board_counsel").click(function(){
+                    location.href = "<%=contextPath %>/list.fr?boardType="+5;
+                 });
+                 
+                 $("#board_survey").click(function(){
+                    location.href="<%=contextPath %>/list.su";
+                 });
+                 
+                 $("#mypage").click(function(){
+                    location.href="<%=contextPath%>/info.c";
+                 });
+                 
+                 $("#hamburgur>img").click(function() {
+                    if ($("#board").css("left") == "-300px") {
+                       $("#board").css("left", "0");
+                    } else {
+                       $("#board").css("left", "-300px");
+                    }
+                 });
+                 
+                 $("#board_check").click(function(){
+                    location.href="<%=contextPath%>/attendance.bo";
+                 });
+                 
+
+                 $("#board_invite").click(function(){
+                    location.href="<%=contextPath%>/invite.bo";
+                 });
+                 
+                 $("#board_option").click(function(){
+                    location.href="<%=contextPath%>/infor.bo";
+                 });
+                 
+                 $("#board_notice").click(function(){
+                    location.href="<%=contextPath%>/movenotice.bo";
+                 });
+                 
+                 $("#class_option").click(function(){
+                    location.href="<%=contextPath%>/moveManagement.bo";
+                 });
+                 
+                 $("#board_manage").click(function(){
+                     location.href="<%=contextPath%>/classmembermanagement.c";
+                  });
+
+
               });
-
             </script>
 </head>
 <body>
+<script>
+	const msg = "<%= alertMsg  %>";
+	
+	if(msg != "null"){
+		alert(msg);
+		<% session.removeAttribute("alertMsg"); %>
+	}
+
+</script>
     <div class="wrap">
         <div id="header">
             <button id="logoBtn" class="btnStyle" type="button">
-                 <img id="logo" src="resources/image/logo.png" >
+                 <img id="logo" src="resources/image/logo.png" onclick="location.href='<%= request.getContextPath()%>/mainpage.me'">
             </button>
             <div id="search">
                 <button id="searchBtn" type="button">
-                    <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요."><img src="resources/image/search.svg">
+                    <form id="classSearchForm" action="searchClass.c" method="get">
+		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+		               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
+	       	   		</form>
                 </button>
             </div>
             <div class="dropdown">
@@ -633,9 +668,9 @@ vertical-align: middle;
               </div>
         </div>
         <div id="info">
-        		<div class="info_space">
+              <div class="info_space">
             <div id="pSchool" class="profile_area">
-                 <img class="profile" src="<%= contextPath+cInfo.getFilePath()+cInfo.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">   
+                 <img class="profile"  onclick="location.href='<%= request.getContextPath()%>/mainpage.me'" src="<%= contextPath+cInfo.getFilePath()+cInfo.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">   
             </div>
             <div id="classInfo">
      
@@ -647,20 +682,20 @@ vertical-align: middle;
             <div id="pUser" class="profile_area"><img class="profile" src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
             <div id="userInfo" >
                 <div class="info_text big"><%=loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %></div>
-                <div class="info_text small"><button class="btnStyle" type="button">로그아웃</button></div>
+                <div class="info_text small"><button class="btnStyle" type="button" onclick="location.href='<%= contextPath %>/logout.me'">로그아웃</button></div>
                 <div class="info_text small"><button id="mypage" class="btnStyle" type="button">마이페이지</button></div>
             </div>
-       		</div>
+             </div>
         </div>
         
-		<div id="veil"></div>
-		<%if( loginUser.getUserLevel() == 1) {%>
+      <div id="veil"></div>
+      <%if( loginUser.getUserLevel() == 1) {%>
         <div id="board_wrap">
             <div id="inner_wrap">
-          	  <div id="board_fix"></div>
-          	  <div id="hamburgur">
-					<img src="resources/image/list.svg">
-				</div>
+               <div id="board_fix"></div>
+               <div id="hamburgur">
+               <img src="resources/image/list.svg">
+            </div>
               <div id="board">
                   <ul>
                     <li class="board_title">게시판</li>
@@ -675,33 +710,20 @@ vertical-align: middle;
                     <li class="board_li" id="board_check"><div>출석체크</div></li>
                     <li class="board_hr"><hr></li>
                     <li class="board_title">클래스 관리</li>
-                    <li class="board_li" id="board_option"><div>클래스 설정</div></li>
+                    <li class="board_li" id="_option"><div>클래스 설정</div></li>
                     <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>
              </div>
-             <script>
-             	$(function(){
-             		$("#board_notice").on("click", function(){
-             			location.href="<%= request.getContextPath() %>/movenotice.bo";
-             		});
-             		
-             	});
-             
-             	$(function(){
-             		$("#board_option").on("click", function(){
-             			location.href="<%= request.getContextPath() %>/moveManagement.bo";
-             		});
-             	});
-             </script>
+          
              
            <%}else{ %>
            <div id="board_wrap">
             <div id="inner_wrap">
-          	  <div id="board_fix"></div>
-          	  <div id="hamburgur">
-					<img src="resources/image/list.svg">
-				</div>
+               <div id="board_fix"></div>
+               <div id="hamburgur">
+               <img src="resources/image/list.svg">
+            </div>
               <div id="board">
                   <ul>
                     <li class="board_title">게시판</li>

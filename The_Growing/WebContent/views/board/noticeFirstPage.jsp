@@ -10,7 +10,7 @@
 <body>
 <%@ include file="boardFrame.jsp" %>
 <div id="board_area">
-	<form action="<%= contextPath %>/views/board/noticeEnrollForm.jsp" method="post">
+	<form action="<%= contextPath %>/insert.no" method="post">
 		<div id="album_header">
         	<div id="album_area">
         		<div id="album_title">알림장</div>

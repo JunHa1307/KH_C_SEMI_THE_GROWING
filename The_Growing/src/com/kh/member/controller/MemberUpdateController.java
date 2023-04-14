@@ -40,26 +40,39 @@ public class MemberUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
+		String url = (String) request.getHeader("REFERER");
+		
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");		
 		String userId = request.getParameter("id");
 		String userName = request.getParameter("userName");
+		String childName = request.getParameter("childName");
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
 		
 		Member m = new Member();
-		m.setUserNo(loginUser.getUserNo());
+		if(url.contains("growing/myPage.me")) {
+			m.setUserNo(loginUser.getUserNo());
+		}else {
+			int userNo = Integer.parseInt(request.getParameter("uno"));
+			m.setUserNo(userNo);
+		}
 		m.setUserId(userId);
 		m.setUserName(userName);
+		m.setChildrenName(childName);
 		m.setPhone(phone);
 		m.setAddress(address);
 		
 		int result = new MemberService().updateMember(m);
 		
-		if(result>0) {
+		if(result>0 && url.contains("growing/myPage.me")) {
 			request.getSession().setAttribute("alertMsg", "성공적으로 회원정보를 수정했습니다");
 			loginUser = new MemberService().loginMember(userId, loginUser.getUserPwd(), loginUser.getUserLevel());
 			request.getSession().setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getContextPath()+"/myPage.me");
+		}else if(result>0 && url.contains("growing/classmembermanagement.c")){
+			request.getSession().setAttribute("alertMsg", "성공적으로 회원정보를 수정했습니다");
+			response.sendRedirect(request.getContextPath()+"/classmembermanagement.c");
 		}else {
 			request.setAttribute("errorMsg", "회원정보 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

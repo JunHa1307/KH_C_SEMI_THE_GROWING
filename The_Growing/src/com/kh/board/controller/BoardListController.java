@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.PageInfo;
+import com.kh.board.model.vo.Reply;
 
 /**
  * Servlet implementation class BoardListController
@@ -33,7 +34,9 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardType = Integer.parseInt(request.getParameter("boardType"));
-		System.out.println(boardType);
+		
+	
+	
 		int listCount; 
 		int currentPage; 
 		int pageLimit; 
@@ -44,7 +47,7 @@ public class BoardListController extends HttpServlet {
 		int endPage;
 		int cno = (int)request.getSession().getAttribute("cno");
 		
-		listCount = new BoardService().selectListCount(cno); 
+		listCount = new BoardService().selectBoardListCount(cno, boardType); 
 		
 		currentPage = Integer.parseInt(  request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage")  );
 		
@@ -63,15 +66,21 @@ public class BoardListController extends HttpServlet {
 		 }
 		 
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 ArrayList<Board> list = new BoardService().selectBoardList(pi);
-		
-		 request.setAttribute("pi", pi);
+		 ArrayList<Board> list = new BoardService().selectBoardList(pi, boardType, cno);
+		 
+		 ArrayList<Integer> r = new ArrayList<Integer>();
+		 for(int i =0; i<list.size(); i++) {
+			int rCount = new BoardService().selectCountReply(list.get(i).getBoardNo());
+			 r.add(rCount);
+		 }
+		 request.setAttribute("r", r);
 		 request.setAttribute("boardType", boardType);
+		 request.setAttribute("pi", pi);
 		 request.setAttribute("list", list);
 		 
 //		 System.out.println(pi);
 //		 System.out.println(list);
-		 
+		
 		
 			 request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
 		

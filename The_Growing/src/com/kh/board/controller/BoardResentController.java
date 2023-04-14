@@ -33,6 +33,9 @@ public class BoardResentController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+		
 		int listCount;	 	// 현재 게시판의 총 게시글 갯수 
 		int currentPage; 	// 현재 페이지(사용자가 요청한 페이지) 
 		int pageLimit; 		// 페이지 하단에 보여질 페이징바의 페이지 최대 갯수 
@@ -52,7 +55,7 @@ public class BoardResentController extends HttpServlet {
 		pageLimit = 10; 
 		
 		// * boardLimit : 한 페이지에 보여질 게시글의 최대 갯수 (게시글 몇개 단위씩) 
-		boardLimit = 10; 
+		boardLimit = 8; 
 		
 		// * maxPage : 가장 마지막 페이지가 몇번 페이지인지(총 페이지 수)
 		/*
@@ -142,6 +145,12 @@ public class BoardResentController extends HttpServlet {
 		
 		// 2. 현재 사용자가 요청한 페이지(currentPage)에 보여질 게시글 리스트 요청하기 
 		ArrayList<Board> list = new BoardService().selectList(pi, cno);
+		 ArrayList<Integer> r = new ArrayList<Integer>();
+		 for(int i =0; i<list.size(); i++) {
+			int rCount = new BoardService().selectCountReply(list.get(i).getBoardNo());
+			 r.add(rCount);
+		 }
+		 request.setAttribute("r", r);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
@@ -156,7 +165,6 @@ public class BoardResentController extends HttpServlet {
 		 * new Gson().toJson(list, response.getWriter());
 		 * 
 		 */
-		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("views/board/boardResent.jsp").forward(request, response);
 	}

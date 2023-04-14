@@ -7,11 +7,13 @@ import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.MemberNotice;
 import com.kh.member.model.vo.SnsLogin;
 
 public class MemberService {
@@ -233,5 +235,46 @@ public class MemberService {
 		}
 		close(conn);
 		return result;
+	}
+	
+
+	public ArrayList<Member> selectUserName(int uno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> noticeCheckList  = new MemberDao().selectUserName(conn, uno);
+		close(conn);
+		
+		return noticeCheckList;
+	}
+	
+	public ArrayList<Member> selectMemberList(int classNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Member> list = new MemberDao().selectMemberList(conn, classNo);
+
+		close(conn);
+
+		return list;
+
+	}
+
+	public Member selectMember(int userNo) {
+		Connection conn = getConnection();
+
+		Member m = new MemberDao().selectMember(conn, userNo);
+		
+		close(conn);
+		
+		return m;
+	}
+	
+	public ArrayList<MemberNotice> selectMemberNoticeList(int uno){
+		Connection conn = getConnection();
+		
+		ArrayList<MemberNotice> list = new MemberDao().selectMemberNoticeList(conn, uno);
+		
+		close(conn);
+		
+		return list;
 	}
 }

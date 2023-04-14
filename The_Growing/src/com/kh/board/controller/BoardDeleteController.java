@@ -33,6 +33,7 @@ public class BoardDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
+	  	int boardType = Integer.parseInt(request.getParameter("boardType"));
 		
 		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	
@@ -43,7 +44,7 @@ public class BoardDeleteController extends HttpServlet {
 			//삭제처리
 		
 			request.getSession().setAttribute("alertMsg", "성공적으로 게시글을 삭제했습니다.");
-			response.sendRedirect(request.getContextPath()+"/list.fr");
+			response.sendRedirect(request.getContextPath()+"/list.fr?boardType="+boardType);
 		}else {
 			request.setAttribute("errorMsg", "게시글작성에 실패했습니다..");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

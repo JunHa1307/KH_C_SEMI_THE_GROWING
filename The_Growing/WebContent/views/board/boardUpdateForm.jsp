@@ -5,6 +5,7 @@
 <%
 	Board b = (Board) request.getAttribute("b");
 	Attachment at = (Attachment) request.getAttribute("at"); 
+	int boardType =(int)request.getAttribute("boardType");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,9 +54,21 @@
                 <!-- 자유게시판 수정하기-->
                 
                 <div id="board_area">
-                    <h1 align="center">자유게시판</h1>
+                    	<div id="album_header">
+			<div id="album_area">
+				<%if (boardType == 4) {%>
+				<div id="album_title">자유게시판</div>
+				<%} else {%>
+				<div id="album_title" >상담게시판</div>
+				<%}%>
+			
+			</div>
+			<div id="album_hr">
+				<hr />
+			</div>
+		</div>
                 
-                <form action="<%= contextPath %>/update.fr" id="update-form" method="post" >
+                <form action="<%= contextPath %>/update.fr?boardType=<%=boardType %>" id="update-form" method="post" >
                 <input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
                     <table class="list-table"  border="5">
                         <tr >

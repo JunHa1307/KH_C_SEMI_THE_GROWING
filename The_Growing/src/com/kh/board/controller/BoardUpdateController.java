@@ -38,11 +38,12 @@ public class BoardUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService bService = new BoardService();
-
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		int boardType = Integer.parseInt(request.getParameter("boardType"));
 		
 		Board b = bService.selectBoard(boardNo);
 		
+		request.setAttribute("boardType", boardType);
 		request.setAttribute("b", b);
 		
 		request.getRequestDispatcher("views/board/boardUpdateForm.jsp").forward(request, response);
@@ -52,8 +53,9 @@ public class BoardUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 			
+			request.setCharacterEncoding("UTF-8");
+			int boardType = Integer.parseInt(request.getParameter("boardType"));
 			int boardNo = Integer.parseInt(request.getParameter("bno").trim());
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
@@ -69,8 +71,9 @@ public class BoardUpdateController extends HttpServlet {
 			int result = new BoardService().updateBoard(b);
 			
 			if(result > 0) {
+				request.setAttribute("boardType", boardType);
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
-				response.sendRedirect(request.getContextPath()+"/list.fr");
+				response.sendRedirect(request.getContextPath()+"/list.fr?boardType="+boardType);
 			}else { 
 				request.setAttribute("errorMsg", "게시글 수정에 실패했습니다");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

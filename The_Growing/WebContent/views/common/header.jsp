@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
 <%
+	Member loginUser1 = (Member) session.getAttribute("loginUser");
 	String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <html lang="en">
@@ -30,6 +31,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 
+<script src="<%= request.getContextPath() %>/resources/js/headerNotice.js"></script>
+
 <!-- css -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/button.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
@@ -42,17 +45,19 @@
 			alert(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
-	
+		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
 	</script>
 <div class="wrap">
     <div id="header">
        <button id="logoBtn" class="btnStyle" type="button">
-           <img id="logo" src="resources/image/logo.png">
+           <img id="logo" src="resources/image/logo.png" onclick="location.href='<%= request.getContextPath()%>/mainpage.me'">
        </button>
        <div id="search">
            <button id="searchBtn" type="button">
-               <input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요.">
-               <img src="<%= request.getContextPath() %>/resources/image/search.svg">
+	       	   <form id="classSearchForm" action="searchClass.c" method="get">
+	               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+	               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
+       	   		</form>
            </button>
        </div>
        <div class="dropdown">
@@ -66,7 +71,7 @@
                
                <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/bell.svg" />
            </button>
-           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           <div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
              <a class="dropdown-item" href="#">알림3</a>
              <a class="dropdown-item" href="#">알림2</a>
              <a class="dropdown-item" href="#">알림1</a>

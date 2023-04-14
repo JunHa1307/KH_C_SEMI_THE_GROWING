@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectAlbumList">
-		SELECT BOARD_NO, BOARD_TITLE, CREATE_DATE, FILE_PATH || CHANGE_NAME AS TITLEIMG
+		SELECT BOARD_NO, BOARD_TITLE, TO_CHAR(CREATE_DATE, 'YY.MM.DD') AS C_DATE, FILE_PATH || CHANGE_NAME AS TITLEIMG
 		FROM BOARD B
 		JOIN ATTACHMENT ON(BOARD_NO = REF_BNO)
 		WHERE BOARD_TYPE = 3 
@@ -43,11 +43,13 @@
 					       USER_ID,
 					       BOARD_TITLE,
 					       CREATE_DATE,
-					       REF_CNO
+					       REF_CNO,
+					       BOARD_COUNT
 					FROM BOARD B
 					JOIN MEMBER ON (REF_UNO = USER_NO)
-					WHERE BOARD_TYPE = 4
+					WHERE BOARD_TYPE = ?
 					  AND B.STATUS = 'Y'
+					  AND B.REF_CNO = ?
 					ORDER BY BOARD_NO DESC
 				) A
 			)
@@ -67,7 +69,8 @@
 			BOARD_TYPE,
 			BOARD_TITLE,
 			USER_ID,
-			CREATE_DATE,
+			USER_NO,
+			TO_CHAR(CREATE_DATE, 'MM.DD HH:MI') AS C_DATE,
 			BOARD_CONTENT
 		FROM BOARD B
 		JOIN MEMBER ON (REF_UNO = USER_NO)
@@ -89,7 +92,7 @@
 	</entry>
 	
 	<entry key="selectReplyList">
-	     SELECT REPLY_NO,  REPLY_CONTENT, USER_ID, TO_CHAR(CREATE_DATE, 'YY.MM.DD HH:MI:SS') AS CREATE_DATE, FILE_PATH, CHANGE_NAME
+	     SELECT REPLY_NO,  REPLY_CONTENT, USER_ID, TO_CHAR(CREATE_DATE, 'MM.DD HH24:MI:SS') AS CREATE_DATE, FILE_PATH, CHANGE_NAME
         FROM REPLY R
         JOIN MEMBER ON(REPLY_WRITER = USER_NO)
         LEFT JOIN ATTACHMENT ON(REF_UNO = USER_NO)
@@ -106,7 +109,7 @@
 	</entry>
 	
 	<entry key="selectAlbumBoard">
-	  SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE, FILE_PATH, CHANGE_NAME
+	  SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_ID, TO_CHAR(CREATE_DATE, 'MM.DD HH24:MI') AS C_DATE, FILE_PATH, CHANGE_NAME
         FROM BOARD B 
         JOIN MEMBER M ON (M.USER_NO = B.REF_UNO)
         LEFT JOIN ATTACHMENT A ON (M.USER_NO = A.REF_UNO)
@@ -144,15 +147,7 @@
 		WHERE REF_BNO = ? AND FILE_LEVEL =?
 		
 	</entry>
-	
 
-		<entry key="deleteBoard">
-		UPDATE BOARD
-		SET STATUS = 'N'
-		WHERE BOARD_NO = ? 
-		
-	</entry>
-	
 	<entry key="selectLike">
 		SELECT REF_BNO, REF_UNO
 		FROM LIKESS 
@@ -179,7 +174,13 @@
 	<entry key="selectListCount">
 		SELECT COUNT(*) AS COUNT
 		FROM BOARD
-		WHERE STATUS = 'Y' AND REF_CNO =?
+		WHERE STATUS = 'Y' AND REF_CNO =? AND BOARD_TYPE IN (2,3,4)
+			
+	</entry>
+		<entry key="selectBoardListCount">
+		SELECT COUNT(*) AS COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y' AND REF_CNO =?   AND BOARD_TYPE = ?
 			
 	</entry>
 	<entry key="selectList">
@@ -195,7 +196,7 @@
 					CREATE_DATE
 				FROM  BOARD B 
 				JOIN MEMBER ON (REF_UNO = USER_NO)
-				WHERE B.STATUS = 'Y' AND REF_CNO = ?
+				WHERE B.STATUS = 'Y' AND REF_CNO = ? AND BOARD_TYPE IN (2,3,4)
 				ORDER BY CREATE_DATE DESC
 			) A
 		)
@@ -218,7 +219,7 @@
 		UPDATE Reply
 		SET STATUS = 'N'
 		WHERE REPLY_NO = ?
-		AND REF_BNO = ?
+		
 		</entry>
 
 	<entry key="insertNotice">
@@ -226,7 +227,6 @@
 				VALUES (SEQ_BNO.NEXTVAL, ?, ?, ?, ?, ?)
 	</entry>
 	
-
 	<entry key="selectNoticeList">
 		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE
 		FROM BOARD 
@@ -251,4 +251,64 @@
 		WHERE BOARD_NO = ? 
 	</entry>
 
+	<entry key="deleteNotice">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	
+		<entry key="selectReply">
+	 SELECT REPLY_CONTENT, REPLY_NO 
+	 FROM REPLY 
+	   WHERE REPLY_NO = ?
+	</entry>
+	
+		<entry key="selectCountReply">
+	SELECT COUNT(*) AS R_COUNT
+        FROM REPLY
+    WHERE REF_BNO=? AND
+         STATUS = 'Y' 
+	</entry>
+
+	<entry key="insertNoticeCheck">
+		INSERT INTO NOTICE_CHECK(REF_UNO, REF_CNO, REF_BNO, USER_NAME, USER_LEVEL)
+				VALUES (?, ?, ?, ?, ?)
+	</entry>
+
+	<entry key="selectUserName">
+		SELECT USER_NAME, REF_UNO
+		FROM NOTICE_CHECK
+		WHERE REF_CNO = ?
+		AND REF_BNO = ?
+	</entry>
+
+	<entry key="twoNoCheck">
+		SELECT COUNT(*)
+		FROM NOTICE_CHECK
+		WHERE REF_UNO = ?
+		AND REF_CNO = ?
+	</entry>
+
+	<entry key="threeNoCheck">
+		SELECT *
+		FROM NOTICE_CHECK
+		WHERE REF_UNO = ?
+		AND REF_CNO = ?
+		AND REF_BNO = ?
+	</entry>
+
+	<entry key="insertReplyNotice">
+		INSERT INTO MEMBER_NOTICE
+		(REF_UNO, INTERACTION_NO, REF_BNO, NOTICE_DATE, NOTICE_TYPE)
+		VALUES (?, ?, ?, SYSDATE, 2)
+	</entry>
+	
+	<entry key="insertBoardNotice">
+		INSERT INTO MEMBER_NOTICE
+			(REF_UNO , REF_CNO, INTERACTION_NO, REF_BNO, NOTICE_DATE, NOTICE_TYPE)
+			VALUES ((SELECT REF_UNO FROM (SELECT ROWNUM R, REF_UNO FROM CLASS_MEMBER JOIN CLASS ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ? ORDER BY R ASC) WHERE R = ?),
+					(SELECT DISTINCT CLASS_NO FROM CLASS JOIN CLASS_MEMBER ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ?),
+					?, SEQ_BNO.CURRVAL, SYSDATE, 3)
+	</entry>
 </properties>

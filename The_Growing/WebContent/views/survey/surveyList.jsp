@@ -116,9 +116,9 @@
                     }
                  });
     		});
-    	});
-    	$(".doSurvey").click(function(){
-    		location.href ="answer.su?sno="+$(this).closest(".surveys").children("input[name='sno']").val();
+	    	$(".doSurvey").click(function(){
+	    		location.href ="answer.su?sno="+$(this).closest(".surveys").children("input[name='sno']").val();
+	    	});
     	});
     	/* 수정 */
     	$(".upSurvey").click(function(){

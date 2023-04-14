@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser1 = (Member) session.getAttribute("loginUser");
 	String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
@@ -44,6 +45,9 @@
 <!-- summernote -->
 <script src="resources/summernote/summernote-lite.js"></script>
 <script src="resources/summernote/summernote-ko-KR.js"></script>
+
+<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>
+
 <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
 
 
@@ -272,12 +276,14 @@
 	<div class="wrap">
 		<div id="header">
 			<button id="logoBtn" class="btnStyle" type="button">
-				<img id="logo" src="resources/image/logo.png">
+				<img id="logo" onclick="location.href='<%= request.getContextPath()%>/mainpage.me'" src="resources/image/logo.png">
 			</button>
 			<div id="search">
 				<button id="searchBtn" type="button">
-					<input id="seachClass" type="text" placeholder="찾으시는 클래스를 입력해주세요."><img
-						src="resources/image/search.svg">
+					<form id="classSearchForm" action="searchClass.c" method="get">
+		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+		               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
+	       	   		</form>
 				</button>
 
 			</div>

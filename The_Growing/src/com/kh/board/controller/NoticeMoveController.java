@@ -1,6 +1,8 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Board;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -37,8 +41,13 @@ public class NoticeMoveController extends HttpServlet {
 		
 		session.setAttribute("refUno", refUno);
 		session.setAttribute("refCno", refCno);
+		
+		ArrayList<Board> list2 = new BoardService().selectNoticeList(refCno);
 
-		request.getRequestDispatcher("views/board/noticeFirstPage.jsp").forward(request, response);
+		request.getSession().setAttribute("list2", list2);
+		
+		request.getRequestDispatcher("views/board/noticeListView.jsp").forward(request, response);
+
 		
 	}
 

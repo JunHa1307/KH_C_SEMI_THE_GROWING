@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Reply;
 import com.google.gson.Gson;
 
@@ -40,6 +41,10 @@ public class ReplyListController extends HttpServlet {
 		
 		
 		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
+		Board b = new BoardService().selectBoard(bno);
+		
+		
+		request.setAttribute("b", b);
 		
 		/*
 		 * //Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기
