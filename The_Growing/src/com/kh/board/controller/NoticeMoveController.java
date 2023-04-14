@@ -42,8 +42,13 @@ public class NoticeMoveController extends HttpServlet {
 		session.setAttribute("refUno", refUno);
 		session.setAttribute("refCno", refCno);
 		
+		ArrayList<Integer> arr = new BoardService().selectMyScrapList(refUno);
+		
 		ArrayList<Board> list2 = new BoardService().selectNoticeList(refCno);
-
+		
+		request.setAttribute("arr", arr);
+		System.out.println(arr.toString());
+		
 		request.getSession().setAttribute("list2", list2);
 		
 		request.getRequestDispatcher("views/board/noticeListView.jsp").forward(request, response);

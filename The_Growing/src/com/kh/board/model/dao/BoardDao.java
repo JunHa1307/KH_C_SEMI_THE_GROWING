@@ -17,6 +17,7 @@ import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.NoticeCheck;
 import com.kh.board.model.vo.PageInfo;
 import com.kh.board.model.vo.Reply;
+import com.kh.board.model.vo.Scrap;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 
@@ -1191,56 +1192,185 @@ public int threeNoCheck(Connection conn, int uno, int cno, int bno) {
 				
 	}
 
-	public int insertReplyNotice(Connection conn, int uno, int writer, int bno, int cno) {
+public int selectScrap(Connection conn, int bno, int uno){
+	int like = 0;
+	PreparedStatement pstmt = null;
 	
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertReplyNotice");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, uno);
-			pstmt.setInt(2, cno);
-			pstmt.setInt(3, writer);
-			pstmt.setInt(4, bno);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
+	ResultSet rset = null;
 	
-	public int insertBoardNotice(Connection conn, int code, int rowNum, int uno) {
+	String sql = prop.getProperty("selectScrap");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
 		
-		int result = 0;
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
 		
-		PreparedStatement pstmt = null;
+		rset = pstmt.executeQuery();
 		
-		String sql = prop.getProperty("insertBoardNotice");
+		if(rset.next()) {
+
+			like = 1;
 		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, code);
-			pstmt.setInt(2, rowNum);
-			pstmt.setInt(3, code);
-			pstmt.setInt(4, uno);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
+		
 		}
-		return result;
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
 	}
+	return like;
+	
+	
+}
+
+public int insertScrap(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("insertScrap");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+public int deleteScrap(Connection conn, int bno, int uno) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("deleteScrap");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, bno);
+		pstmt.setInt(2, uno);
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+	
+}
+
+public ArrayList<Scrap> selectScrapList(Connection conn, int uno) {
+	 
+	ArrayList<Scrap> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectScrapList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, uno);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+
+			Scrap s = new Scrap();
+			
+			s.setRefUno(rset.getInt("REF_UNO"));
+			
+			list.add(s);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+}
+
+public Scrap selectScrapForMy(Connection conn, int bno, int uno) {
+	Scrap s = new Scrap();
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectScrapForMy");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, uno);
+		pstmt.setInt(2, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			s.setRefBno(rset.getInt("REF_BNO"));
+			s.setRefUno(rset.getInt("REF_UNO"));
+			
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return s;
+}
+
+public ArrayList<Integer> selectMyScrapList(Connection conn, int uno) {
+	 
+	ArrayList<Integer> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectMyScrapList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, uno);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+
+			int s = 0;
+			
+			s = rset.getInt("REF_BNO");
+			
+			list.add(s);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+}
+
 }
 

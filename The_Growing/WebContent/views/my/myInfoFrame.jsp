@@ -263,6 +263,10 @@
 			location.href = "<%=contextPath%>/info.c";
 		});
 
+		$("#myScrap").click(function(){
+			location.href = "<%= contextPath %>/goMyScrap.s";
+		});
+		
 		$("#hamburgur>img").click(function() {
 			if ($("#myli").css("left") == "-300px") {
 				$("#myli").css("left", "0");
