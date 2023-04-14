@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser1 = (Member) session.getAttribute("loginUser");
 	String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
@@ -45,7 +46,7 @@
 <script src="resources/summernote/summernote-lite.js"></script>
 <script src="resources/summernote/summernote-ko-KR.js"></script>
 
-<script src="<%= contextPath %>/resources/js/headerSearch.js"></script>
+<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>
 
 <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
 
