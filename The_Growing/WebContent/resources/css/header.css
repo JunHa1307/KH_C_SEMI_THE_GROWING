@@ -65,6 +65,20 @@ html{
 	cursor: pointer;
 }
 
+#dropdownMenuButton {
+	width:70px;
+}
+
+.isAlarmNew {
+	 border:1px solid red; 
+	 border-radius:1000px;
+	 width:0.5vw;
+	 height:0.5vw;
+	 float:right; 
+	 background-color:red;
+	 display:none;
+}
+
 /* 버튼호버시 이벤트 css부여 */
 .btnStyle:hover {
 	color: #209dce;

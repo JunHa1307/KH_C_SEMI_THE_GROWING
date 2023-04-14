@@ -7,7 +7,7 @@ public class MemberNotice {
 	private int refCno;
 	private int interactionNo;
 	private int refBno;
-	private Timestamp noticeDate;
+	private String noticeDate;
 	private int noticeType;
 	private String userName;
 	private String interactionName;
@@ -18,7 +18,7 @@ public class MemberNotice {
 		super();
 	}
 	
-	public MemberNotice(int refUno, int refCno, int interactionNo, int refBno, Timestamp noticeDate, int noticeType,
+	public MemberNotice(int refUno, int refCno, int interactionNo, int refBno, String noticeDate, int noticeType,
 			String userName, String interactionName, String className, String boardTitle) {
 		super();
 		this.refUno = refUno;
@@ -65,11 +65,11 @@ public class MemberNotice {
 		this.refBno = refBno;
 	}
 
-	public Timestamp getNoticeDate() {
+	public String getNoticeDate() {
 		return noticeDate;
 	}
 
-	public void setNoticeDate(Timestamp noticeDate) {
+	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}
 

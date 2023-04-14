@@ -816,6 +816,7 @@ public Board selectBoard(Connection conn, int boardNo) {
 			b.setRefUno(rset.getInt("USER_NO"));
 			b.setcDate(rset.getString("C_DATE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+			b.setRefCno(rset.getInt("REF_CNO"));
 					   
 		}
 		
@@ -1190,7 +1191,7 @@ public int threeNoCheck(Connection conn, int uno, int cno, int bno) {
 				
 	}
 
-	public int insertReplyNotice(Connection conn, int uno, int writer, int bno) {
+	public int insertReplyNotice(Connection conn, int uno, int writer, int bno, int cno) {
 	
 		int result = 0;
 		
@@ -1202,8 +1203,9 @@ public int threeNoCheck(Connection conn, int uno, int cno, int bno) {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, uno);
-			pstmt.setInt(2, writer);
-			pstmt.setInt(3, bno);
+			pstmt.setInt(2, cno);
+			pstmt.setInt(3, writer);
+			pstmt.setInt(4, bno);
 			
 			result = pstmt.executeUpdate();
 			
