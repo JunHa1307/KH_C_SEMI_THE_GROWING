@@ -314,6 +314,24 @@
 		FROM SCRAP S
 		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
 		WHERE S.REF_UNO = ?
+		
+	</entry>
+
+	<entry key="selectScrapForMy">
+		SELECT S.REF_BNO, S.REF_UNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		AND S.REF_BNO = ?
+	</entry>
+	
+	<entry key="selectMyScrapList">
+		SELECT S.REF_BNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		ORDER BY S.REF_BNO DESC
+		
 	</entry>
 
 </properties>

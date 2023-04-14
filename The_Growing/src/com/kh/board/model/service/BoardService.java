@@ -532,9 +532,35 @@ public class BoardService {
 	
 	public ArrayList<Scrap> selectScrapList(int uno) {
 		Connection conn = getConnection();
+		
 		ArrayList<Scrap> list = new BoardDao().selectScrapList(conn, uno);
+		
 		close(conn);
+		
 		return list;
+		
+	}
+	
+	public Scrap selectScrapForMy(int bno, int uno) {
+		Connection conn = getConnection();
+		
+		Scrap s = new BoardDao().selectScrapForMy(conn, bno, uno);
+		
+		close(conn);
+		
+		return s;
+		
+	}
+	
+	public ArrayList<Integer> selectMyScrapList(int uno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Integer> list = new BoardDao().selectMyScrapList(conn, uno);
+		
+		close(conn);
+		
+		return list;
+		
 	}
 	
 }

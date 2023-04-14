@@ -1245,7 +1245,6 @@ public ArrayList<Scrap> selectScrapList(Connection conn, int uno) {
 
 			Scrap s = new Scrap();
 			
-			s.setRefBno(rset.getInt("REF_BNO"));
 			s.setRefUno(rset.getInt("REF_UNO"));
 			
 			list.add(s);
@@ -1258,5 +1257,101 @@ public ArrayList<Scrap> selectScrapList(Connection conn, int uno) {
 	}
 	return list;
 }
+
+public Scrap selectScrapForMy(Connection conn, int bno, int uno) {
+	Scrap s = new Scrap();
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectScrapForMy");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, uno);
+		pstmt.setInt(2, bno);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			s.setRefBno(rset.getInt("REF_BNO"));
+			s.setRefUno(rset.getInt("REF_UNO"));
+			
+		}
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return s;
+}
+
+public ArrayList<Integer> selectMyScrapList(Connection conn, int uno) {
+	 
+	ArrayList<Integer> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectMyScrapList");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, uno);
+		
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+
+			int s = 0;
+			
+			s = rset.getInt("REF_BNO");
+			
+			list.add(s);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+}
+
+/*
+ * public ArrayList<Scrap> selectScrapListForMy(Connection conn, int uno, int[]
+ * bnoArr) {
+ * 
+ * ArrayList<Scrap> slist = new ArrayList<>(); PreparedStatement pstmt = null;
+ * 
+ * ResultSet rset = null;
+ * 
+ * String sql = prop.getProperty("selectScrapListForMy");
+ * 
+ * 
+ * 
+ * try { pstmt = conn.prepareStatement(sql);
+ * 
+ * pstmt.setInt(1, uno);
+ * 
+ * for(int bno : bnoArr) { pstmt.setInt(2, bno); rset = pstmt.executeQuery();
+ * 
+ * if(rset.next()) {
+ * 
+ * Scrap s = new Scrap();
+ * 
+ * s.setRefBno(rset.getInt("REF_BNO")); s.setRefUno(rset.getInt("REF_UNO"));
+ * 
+ * slist.add(s); } }
+ * 
+ * } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
+ * close(pstmt); } return slist; }
+ */
 }
 

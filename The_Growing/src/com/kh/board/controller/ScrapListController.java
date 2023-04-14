@@ -41,22 +41,32 @@ public class ScrapListController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Scrap> scrapList = new Gson().fromJson(request.getParameter("scrapList"), ArrayList.class);
-		System.out.println(scrapList);
-		System.out.println(scrapList.size());
+		ArrayList<String> bnoArr = new Gson().fromJson(request.getParameter("bnoArr"), ArrayList.class);
+		System.out.println(bnoArr);
+		System.out.println(bnoArr.size());
+
+		int[] bnoArr2 = new int[bnoArr.size()];
 		
-		int uno = scrapList.get(0).getRefUno();
-		System.out.println(uno);
+		for(int i=0 ; i<bnoArr.size(); i++) {
+			bnoArr2[i] = Integer.parseInt(bnoArr.get(i));
+		}
 		
-		ArrayList<Scrap> slist = new BoardService().selectScrapList(uno);
+		int uno = Integer.parseInt(request.getParameter("uno"));
+
+		ArrayList<Scrap> slist = new BoardService().selectScrapListForMy(uno, bnoArr2);
+		
 		System.out.println(slist);
 		if(slist != null) {
 			
 			 request.getSession().setAttribute("slist", slist);
-			  
-			 response.sendRedirect(request.getContextPath()+"/goMyScrap.s");
+				/*
+				 * request.getRequestDispatcher("views/my/myScrap.jsp").forward(request,
+				 * response);
+				 */
 			 
-			/* response.getWriter().print(slist); */
+				/* response.sendRedirect(request.getContextPath()+"/goMyScrap.s"); */
+			 
+			response.getWriter().print(slist);
 		}else {
 			request.setAttribute("errorMsg", "스크랩 리스트 보내기 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

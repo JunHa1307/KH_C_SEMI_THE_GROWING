@@ -31,17 +31,14 @@ public class ScrapMoveToMy extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList scrapList = new Gson().fromJson(request.getParameter("scrapList"), ArrayList.class);
-		System.out.println(scrapList);
-		
-		
-		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 		/* response.setContentType("application/json; charset=UTF-8"); */
 		
-		  request.getSession().setAttribute("scrapList", scrapList);
+		/*
+		 * ArrayList<Scrap> slist = (ArrayList<Scrap>)
+		 * request.getSession().getAttribute("slist");
+		 */		
 		
-		  request.getRequestDispatcher("views/my/myScrap.jsp").forward(request, response);
 		
 	
 		/*
@@ -58,8 +55,32 @@ public class ScrapMoveToMy extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		ArrayList<String> scrap = new Gson().fromJson(request.getParameter("scrap"),  ArrayList.class);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		System.out.println(scrap.toString());
+		System.out.println("scrap.get(0):"+scrap.get(0));
+		System.out.println("scrap.get(0):"+scrap.get(1));
+		int uno = Integer.parseInt( scrap.get(0)); 
+		int bno = Integer.parseInt(scrap.get(1));
+		
+		Scrap resultScrap = new Scrap();
+		
+		resultScrap.setRefUno(uno); 
+		resultScrap.setRefBno(bno);
+
+		System.out.println(resultScrap.toString());
+		  
+		request.getSession().setAttribute("resultScrap", resultScrap);
+		
+		new Gson().toJson(resultScrap);
+		
+		request.getRequestDispatcher("views/my/myScrap.jsp").forward(request, response);
+		
 	}
 
 }

@@ -1,12 +1,13 @@
+
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
-
+	ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 	/* ArrayList<NoticeCheck> noticeCheckList = (ArrayList<NoticeCheck>) session.getAttribute("noticeCheckList"); */
-
-
+	
+	
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
 <!DOCTYPE html>
@@ -177,8 +178,13 @@
      <br>
      <div class="scrollBox" style="overflow-y:scroll; width:100%; height: 500px;">
      <div id="notice_content" class="notice_content">
-     
-     		<% for( Board b : list2) {%>
+     		<%-- <% for( Board b : list2) {%> --%>
+     		<% for(int i = 0; i < list2.size(); i++) {%>
+     		<% Board b = list2.get(i); boolean isScraped =false; %>
+     		<% for(int a : arr){ %>
+     		<% if(a == b.getBoardNo()){ %>
+     		<% 	isScraped = true;} %>
+     		<% } %>
      		<% if(loginUser.getUserLevel() == 1){ %>
      		<div class="controllBtn">
 					<button type="button" class="ctBtn" onclick="location.href='<%= contextPath %>/update.no?bno=<%= b.getBoardNo() %>'"><img src="resources/image/editIcon.png" style="width:45px;"></button>
@@ -262,7 +268,7 @@
 				<div id="mo_reply_list">
 					<ul class="scrapIc">
 						<li id="<%= loginUser.getUserNo() %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick('<%= b.getBoardNo() %>');">
-							<i class="bi bi-star" style="padding-right: 10px;"></i>
+							<i class="bi bi-star <%= isScraped ? "clicked" : "uncliked" %>" style="padding-right: 10px;"></i>
 						</li>
 					</ul>
 				</div>
@@ -382,33 +388,37 @@
      			type: "post",
      			data: {bno, uno},
      			/* 성공시 데이터 스크랩리스트 받아서 for문 돌리면서 하나하ㅏ 색변하게 */
-     			success: function(){
-     				/* let sUno = 0;
-     				let sBno = 0;
-     				
-     				for(let i=0 ; i<scrapList.length; i++){
-     					if(scrapList==null){
-         					console.log("값이없슴");
-     					}else{
-     						sUno = scrapList[i].refUno;
-     						sBno = scrapList[i].refBno;
-     						
-     					}
-     				
-     				
-     				} */	
+     			success: function(scrap){
+     					console.log(scrap);
      					console.log("스크랩 잘됨");
-     					<%-- $.ajax({
+     					/* let arr[] = 0;
+     					
+     					for(let i=0; i<scrapList.size(); i++){
+     						JSONObject jsonObject = scrapList.getJSONObject(i);
+     						let bno = jsonObject.getString("refBno");
+     						arr.push(bno);
+     						console.log("bno:"+bno);
+     						console.log("arr:"+arr);
+     					} */
+     					
+     					/* 15, 25 */
+     					/* scrap.subString(14, 15) */
+     					<%-- 
+      					$.ajax({
      						url: "<%= contextPath %>/goMyScrap.s",
-     						data: {scrapList : JSON.stringify(scrapList)},
-     						success: function(result){
-     							console.log("스크랩리스트 데이터 보내기 성공");
-     						},
-     						error: function(){
-     							console.log("스크랩리스트 데이터 보내기 실패");
-     						}
+     						type:"post",
+      						data: { 
+      							scrap : JSON.stringify(scrap)
+      						},
+      						success: function(){
+      							location.href="<%= contextPath%>/views/my/myScrap.jsp";
+      							console.log("스크랩 데이터 보내기 성공");
+      						},
+      						error: function(){
+     							console.log("스크랩 데이터 보내기 실패");
+      						}
      						
-     					}); --%>
+      					}); --%>
      			},
      			error: function(){
      				console.log("게시글 스크랩 실패");
@@ -439,7 +449,7 @@
            });	
           console.log("6j"+j);	  */
           
-      /* $(function(){
+      $(function(){
           $('.scrap').on('click',function(){
         	  
         	  if($(this).children($(".bi-star")).hasClass('unclicked')){
@@ -449,12 +459,12 @@
         		  $(this).children($(".bi-star")).removeClass('clicked');
         		  $(this).children($(".bi-star")).addClass('unclicked');
         	  }else{
-        		  $(this).children($(".bi-star")).addClass('unclicked');
+        		  $(this).children($(".bi-star")).addClass('clicked');
         	  }
 	     		
              });	
           
-     }); */
+     });
         
         
      	
