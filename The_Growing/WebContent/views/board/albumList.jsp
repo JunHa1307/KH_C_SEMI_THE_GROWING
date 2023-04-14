@@ -610,7 +610,8 @@ div {
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno %>');"></div></li>
 						<li class="like" onclick="likeClick('<%=uno %>');"><i class="bi"></i></li>
-						<li class="chat"><i class="bi bi-chat-quote"></i></li>
+						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
+							id="chat_count">0</span>개</li>
 						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
 							style="padding-right: 10px;"></i>스크랩</li>
 					</ul>
@@ -697,7 +698,7 @@ div {
    				url : "<%=contextPath%>/rCount.bo",
    				data : { bno : bno},
    				success : function(list){
-   					 $(".chat").html('<i class="bi bi-chat-quote"></i>댓글 '+list+'개</li>');
+   				 $("#chat_count").html(list);
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
@@ -764,8 +765,8 @@ div {
   				}
        	});   
         	  
-        	  
         	//사진
+        	  
          $.ajax({
    				url : "<%=contextPath%>/innerlist.al",
    				data : { bno},
@@ -935,6 +936,17 @@ div {
    			   					console.log("게시글 목록조회 실패")
    			   				}
    			        	});
+   						$.ajax({
+			   				url : "<%=contextPath%>/rCount.bo",
+			   				data : { bno },
+			   				success : function(list){
+			   					console.log(list);
+			   					 $("#chat_count").html(list);
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	}); 
    						
    					}else{
    						alert("댓글작성에 실패했습니다");
@@ -946,7 +958,50 @@ div {
    				} 
    			});
    		}); 
-        
+<%--         $(".deleteReply").click(function(){
+			let rno = $(this).data('rno'); 
+			let bno = $(this).data('bno'); 
+			$.ajax({
+   				url : "<%=contextPath%>/rDelete.bo",
+   				data : { rno},
+   				type : "get",
+   				success : function(result){
+   					 /* albumClick(bno);  */
+   			- 		if(result>0){
+   					$.ajax({
+		   				url : "<%=contextPath%>/rlist.bo",
+		   				data : { bno :bno},
+		   				type : "get",
+						dataType : "html", 
+		   				success : function(list){
+		   					 $(".mo_reply").html(list); 
+		   					
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});
+					$.ajax({
+		   				url : "<%=contextPath%>/rCount.bo",
+		   				data : { bno : bno},
+		   				success : function(list){
+		   					 $("#chat_count").html(list);
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});   
+   					}else {
+						alert("댓글삭제에 실패했습니다");
+
+					} 
+   					
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+        		});
+		}); --%>
      
 
     </script>

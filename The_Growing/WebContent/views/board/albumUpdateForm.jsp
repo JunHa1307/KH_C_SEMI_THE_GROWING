@@ -17,6 +17,17 @@
 
 	object-fit: cover;
 }
+#enrollWrap{
+	width:100%;
+	height:100%;
+	border : 1px solid rgb(224, 224, 224);
+	border-radius: 10px;
+	padding:20px;
+}
+
+#textInput{
+	border : 1px solid rgb(224, 224, 224);
+}
 </style>
 </head>
 <body>
@@ -36,8 +47,16 @@
                   <hr />
                 </div>
               </div>
-           		 <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99" value="<%=b.getBoardTitle()%>"></div>
+              
+               <div id="enrollWrap">
+           		 <div style="font-size:larger; font-weight:600">제목 : <input id="textInput" type="text" name="title" required style="width:100%;"  value="<%=b.getBoardTitle()%>"></div>
                 <textarea id="summernote" name="content"><%=b.getBoardContent() %></textarea>
+              
+              
+              
+              
+           	<%-- 	 <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99" value="<%=b.getBoardTitle()%>"></div>
+                <textarea id="summernote" name="content"><%=b.getBoardContent() %></textarea> --%>
           
         		<div style="padding: 10px">
 					이미지 첨부
@@ -56,6 +75,7 @@
 				<input type="file" id ="file3" name="file3" value="3"  onchange="loadImg(this, 3);" >
 				<input type="file" id ="file4" name="file4" value="4"  onchange="loadImg(this, 4);" >
 				<input type="file" id ="file5" name="file5" value="5"  onchange="loadImg(this, 5);" >
+			</div>
 			</div>
 					<%for (int i =0; i<list.size(); i++){ %>
 						<% if(list.get(i) != null) { %>

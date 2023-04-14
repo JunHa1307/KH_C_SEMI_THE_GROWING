@@ -21,6 +21,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
+
+
     <!-- 부트스트랩 게시판 목록을 위한 css -->
 
     <!-- 폰트 -->
@@ -44,12 +46,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> 
     
     <!-- summernote -->
-   <!--   <script src="resources/summernote/summernote-lite.js"></script>
+      <script src="resources/summernote/summernote-lite.js"></script>
    <script src="resources/summernote/summernote-ko-KR.js"></script>
-   <link rel="stylesheet" href="resources/summernote/summernote-lite.css"> --> 
+   <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
    
-     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     
    	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
        
@@ -189,8 +189,8 @@
    font-size: 1vw;
 }
 .big{
-   font-size: 1.3vw;
-   font-weight: 900;
+   font-size: 1.2vw;
+   font-weight: 700;
 }
 .info_text{
 vertical-align: middle;

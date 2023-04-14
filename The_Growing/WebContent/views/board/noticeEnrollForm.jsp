@@ -6,7 +6,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+#enrollWrap {
+	width: 100%;
+	min-height: 470px; 
+	/* height:100%; */
+	border: 1px solid rgb(224, 224, 224);
+	border-radius: 10px;
+	padding: 20px;
+	background: rgb(247, 245, 241);
+}
+.note-frame{
+ background: white;
+}
 
+.note-toolbar {
+	background: rgb(242, 242, 250);
+}
+
+#textInput {
+	border: 1px solid rgb(224, 224, 224);
+}
 </style>
 </head>
 <body>
@@ -24,9 +43,16 @@
                   <hr />
                 </div>
               </div>
-               <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" required size="99"></div>
-               <br>
-               <textarea id="summernote" name="content"></textarea>
+              
+              	<div id="enrollWrap">
+					<div style="font-size: larger; font-weight: 600">
+						제목 : <input id="textInput" type="text" name="title" required
+							style="width: 100%;">
+					</div>
+					<textarea id="summernote" name="content"></textarea>
+				</div>
+              
+              
     
       </form>
    
@@ -48,8 +74,8 @@
                       
                });
                
-                  $("#board_album").css("fontWeight", "700");
-                   $("#board_album").children().css("background", "rgb(239, 243, 239)");
+                  $("#board_notice").css("fontWeight", "700");
+                   $("#board_notice").children().css("background", "rgb(239, 243, 239)");
             });
          
          </script>
