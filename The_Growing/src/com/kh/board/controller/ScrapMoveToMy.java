@@ -47,6 +47,11 @@ public class ScrapMoveToMy extends HttpServlet {
 		 * response);
 		 */	
 		/* new Gson().toJson(scrapList, response.getWriter()); */
+		
+		
+		
+		request.getRequestDispatcher("views/my/myScrap.jsp").forward(request, response);
+
 	
 	}
 		
@@ -56,31 +61,31 @@ public class ScrapMoveToMy extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
-		
-		ArrayList<String> scrap = new Gson().fromJson(request.getParameter("scrap"),  ArrayList.class);
-		
-		response.setContentType("application/json; charset=UTF-8");
-		
-		System.out.println(scrap.toString());
-		System.out.println("scrap.get(0):"+scrap.get(0));
-		System.out.println("scrap.get(0):"+scrap.get(1));
-		int uno = Integer.parseInt( scrap.get(0)); 
-		int bno = Integer.parseInt(scrap.get(1));
-		
-		Scrap resultScrap = new Scrap();
-		
-		resultScrap.setRefUno(uno); 
-		resultScrap.setRefBno(bno);
-
-		System.out.println(resultScrap.toString());
-		  
-		request.getSession().setAttribute("resultScrap", resultScrap);
-		
-		new Gson().toJson(resultScrap);
-		
-		request.getRequestDispatcher("views/my/myScrap.jsp").forward(request, response);
-		
+		/*
+		 * request.setCharacterEncoding("UTF-8");
+		 * 
+		 * ArrayList<String> scrap = new Gson().fromJson(request.getParameter("scrap"),
+		 * ArrayList.class);
+		 * 
+		 * response.setContentType("application/json; charset=UTF-8");
+		 * 
+		 * System.out.println(scrap.toString());
+		 * System.out.println("scrap.get(0):"+scrap.get(0));
+		 * System.out.println("scrap.get(0):"+scrap.get(1)); int uno = Integer.parseInt(
+		 * scrap.get(0)); int bno = Integer.parseInt(scrap.get(1));
+		 * 
+		 * Scrap resultScrap = new Scrap();
+		 * 
+		 * resultScrap.setRefUno(uno); resultScrap.setRefBno(bno);
+		 * 
+		 * System.out.println(resultScrap.toString());
+		 * 
+		 * request.getSession().setAttribute("resultScrap", resultScrap);
+		 * 
+		 * new Gson().toJson(resultScrap);
+		 */
+		doGet(request, response);
+				
 	}
 
 }
