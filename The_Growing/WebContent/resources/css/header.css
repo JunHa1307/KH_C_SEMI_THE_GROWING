@@ -79,6 +79,10 @@ html{
 	 display:none;
 }
 
+.closeButton:after {
+	content: "\00d7";
+}
+
 /* 버튼호버시 이벤트 css부여 */
 .btnStyle:hover {
 	color: #209dce;

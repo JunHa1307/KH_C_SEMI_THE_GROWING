@@ -257,6 +257,16 @@ public class BoardService {
 		return list;
 	}
 	
+	public ArrayList<Board> selectBoardList(PageInfo pi, int boardType, int cno, String search){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectBoardList(conn, pi, boardType, cno, search);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 	public int increaseCount(int boardNo) {
 		Connection conn = getConnection();
 		

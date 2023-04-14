@@ -618,6 +618,51 @@ return list;
 
 }
 
+//게시글 검색에 필요함
+public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi, int boardType, int cno ,String search){
+
+ArrayList<Board> list = new ArrayList<>();
+
+PreparedStatement pstmt = null;
+
+ResultSet rset = null;
+
+String sql = prop.getProperty("selectBoardList2");
+
+try {
+	pstmt = conn.prepareStatement(sql);
+	int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+	int endRow = startRow + pi.getBoardLimit() - 1;
+	
+	pstmt.setInt(1, boardType);
+	pstmt.setInt(2, cno);
+	pstmt.setString(3, "%"+search+"%");
+	pstmt.setInt(4, startRow);
+	pstmt.setInt(5, endRow);
+	
+
+
+	rset = pstmt.executeQuery();
+	while(rset.next()) {
+		Board b = new Board();
+		b.setBoardNo(rset.getInt("BOARD_NO"));
+		b.setUserId(rset.getString("USER_ID"));
+		b.setBoardTitle(rset.getString("BOARD_TITLE"));
+		b.setCreateDate(rset.getDate("CREATE_DATE"));
+		b.setRefCno(rset.getInt("REF_CNO"));		
+		b.setCount(rset.getInt("BOARD_COUNT"));
+				           
+		list.add(b);
+	}
+} catch (SQLException e) {
+	e.printStackTrace();
+} finally {
+	close(rset);
+	close(pstmt);
+}
+return list;
+
+}
 
 public int selectListCount(Connection conn, int cno) {
 	int listCount = 0; 

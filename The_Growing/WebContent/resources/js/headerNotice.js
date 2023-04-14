@@ -22,13 +22,13 @@ function userNotice(contextPath,uno){
 			list = '';
 			for(let i = 0; i < result.length; i++){
 				if(result[i].noticeType == 1){
-					list += "<a class='dropdown-item'>"+result[i].className+"에 "+result[i].interactionName+"님이 가입했습니다.</a>"
+					list += "<a href='noticeToClass.c?noticeType=1&cno="+result[i].refCno+"' class='dropdown-item'>"+result[i].className+"에 "+result[i].interactionName+"님이 가입했습니다.</a>"
 				}
 				else if(result[i].noticeType == 2){
-					list += "<a class='dropdown-item'>"+result[i].className+"의 게시글'"+ result[i].boardTitle +"'에 "+result[i].interactionName+"님이 댓글을 남겼습니다.</a>"
+					list += "<a href='noticeToClass.c?noticeType=2&cno="+result[i].refCno+"&bno="+result[i].refBno+"&search="+result[i].boardTitle+"' class='dropdown-item'>"+result[i].className+"의 게시글'"+ result[i].boardTitle +"'에 "+result[i].interactionName+"님이 댓글을 남겼습니다.</a>"
 				}
 				else if(result[i].noticeType == 3){					
-					list += "<a class='dropdown-item'>"+result[i].className+"에 '"+result[i].boardTitle+"'알림장이 작성되었습니다.</a>"
+					list += "<a href='noticeToClass.c?noticeType=3&cno="+result[i].refCno+"' class='dropdown-item'>"+result[i].className+"에 '"+result[i].boardTitle+"'알림장이 작성되었습니다.</a>"
 				}
 			}
             $("#memberNotice").html(list);

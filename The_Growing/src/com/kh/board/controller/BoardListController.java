@@ -34,8 +34,7 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardType = Integer.parseInt(request.getParameter("boardType"));
-		
-	
+		String search = request.getParameter("search");
 	
 		int listCount; 
 		int currentPage; 
@@ -66,7 +65,14 @@ public class BoardListController extends HttpServlet {
 		 }
 		 
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 ArrayList<Board> list = new BoardService().selectBoardList(pi, boardType, cno);
+		 ArrayList<Board> list = new ArrayList<Board>();
+		 
+		 if(search == null || search.isBlank()) {
+			list = new BoardService().selectBoardList(pi, boardType, cno);
+		}else {
+			list = new BoardService().selectBoardList(pi, boardType, cno, search);
+		}
+		 
 		 
 		 ArrayList<Integer> r = new ArrayList<Integer>();
 		 for(int i =0; i<list.size(); i++) {
