@@ -204,7 +204,7 @@ span{
 					<label for="id">휴대전화</label><br>
 				</h3>
 				<span class="box1 int_phone">
-					<input type="text" id="phoneNo" name="phone" maxlength="20" class="int" value="<%= loginUser.getPhone()%>">
+					<input type="text" id="phoneNo" name="phone" maxlength="20" class="int" value="<%= loginUser.getPhone()==null ? "": loginUser.getPhone() %>">
 				</span>
 			</div>
 			
@@ -213,7 +213,7 @@ span{
 					<label for="id">주소</label><br>
 				</h3>
 				<span class="box1 int_phone">
-					<input type="text" name="address" class="int" value="<%= loginUser.getAddress()%>" style="width:100%">
+					<input type="text" name="address" class="int" value="<%= loginUser.getAddress()==null ? "": loginUser.getAddress()%>" style="width:100%">
 				</span>
 			</div>
 	

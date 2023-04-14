@@ -24,9 +24,18 @@
     <!-- 부트스트랩 게시판 목록을 위한 css -->
 
     <!-- 폰트 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<!--     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet"> -->
+    
+<!--     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=swap" rel="stylesheet"> -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
     
     <!-- 슬릭 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
@@ -48,6 +57,8 @@
     .dropdown-toggle::after {
     display:none;
 }
+
+
     
   /* 버튼 css */
  .box {
@@ -707,7 +718,7 @@ vertical-align: middle;
                     <li class="board_li" id="board_check"><div>출석체크</div></li>
                     <li class="board_hr"><hr></li>
                     <li class="board_title">클래스 관리</li>
-                    <li class="board_li" id="_option"><div>클래스 설정</div></li>
+                    <li class="board_li" id="class_option"><div>클래스 설정</div></li>
                     <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>

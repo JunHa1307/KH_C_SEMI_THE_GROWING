@@ -38,32 +38,16 @@
 }
 
 @
-keyframes fave-heart { 0% {
+keyframes fave-heart { 
+	0% {
 	background-position: 0 0;
-}
-
-100
-
-
-%
-{
-background-position
-
-
-:
-
-
--2800px
-
-
-0
-;
-
-
-}
+	}
+	100%{ 
+	background-position:-2800px 0;
+	}
 }
 * {
-	font-family: "Gowun Dodum", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 div {
@@ -125,6 +109,9 @@ div {
 	height: 28px;
 	margin: auto;
 	text-align: right;
+	font-size: 14px;
+	font-weight:590;
+	color:grey;
 }
 
 #modal {
@@ -255,6 +242,7 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 #mo_writer_text {
@@ -321,6 +309,7 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 .mo_reply_text {
@@ -685,7 +674,7 @@ div {
        
           });
 
-
+        
 
         function albumClick(bno, level,uno){
         	

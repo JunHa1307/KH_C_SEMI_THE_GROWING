@@ -76,8 +76,9 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 	   				data : { rno},
 	   				type : "get",
 	   				success : function(result){
-	   					if(result>0){
-	   		<%-- 			$.ajax({
+	   					albumClick(bno);
+	   			<%-- 		if(result>0){
+	   					$.ajax({
 			   				url : "<%=contextPath%>/rlist.bo",
 			   				data : { bno :bno},
 			   				type : "get",
@@ -99,11 +100,11 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 			   				error: function(){
 			   					console.log("게시글 목록조회 실패")
 			   				}
-			        	});  --%>
+			        	});   
 	   					}else {
 							alert("댓글삭제에 실패했습니다");
 
-						}
+						} --%>
 	   					
 	   				},
 	   				error: function(){
