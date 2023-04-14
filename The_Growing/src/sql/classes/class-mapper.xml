@@ -191,9 +191,22 @@
 		LEFT JOIN CLASS_APPLY C ON (M.USER_NO = C.REF_UNO)
 		WHERE C.REF_CNO = ?
     </entry>
-      <entry key="deleteApplyMember">
+    <entry key="deleteApplyMember">
     DELETE FROM CLASS_APPLY
    	WHERE REF_UNO = ?
     	AND REF_CNO = ?
     </entry>
+    <entry key="selectClassMemberCount">
+    SELECT COUNT(*) COUNT
+    FROM CLASS_MEMBER
+    JOIN CLASS ON (CLASS_NO = REF_CNO)
+    WHERE CLASS_CODE = ?
+    </entry>
+    <entry key="insertMemberNotice">
+		INSERT INTO MEMBER_NOTICE
+		(REF_UNO , REF_CNO, INTERACTION_NO, NOTICE_DATE, NOTICE_TYPE)
+		VALUES ((SELECT REF_UNO FROM (SELECT ROWNUM R, REF_UNO FROM CLASS_MEMBER JOIN CLASS ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ? ORDER BY R ASC) WHERE R = ?),
+				(SELECT DISTINCT CLASS_NO FROM CLASS JOIN CLASS_MEMBER ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ?),
+				?,SYSDATE,1)
+	</entry>
 </properties>
