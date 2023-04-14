@@ -105,6 +105,7 @@
 		UPDATE MEMBER 
 		SET USER_ID = ?,
 			USER_NAME = ?,
+			CHILDREN_NAME = ?,
 			PHONE = ?,
 			ADDRESS = ?
 		WHERE USER_NO = ?

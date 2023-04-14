@@ -57,7 +57,7 @@ private Properties prop = new Properties();
 				Board b = new Board();
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setCreateDate(rset.getDate("CREATE_DATE"));
+				b.setcDate(rset.getString("C_DATE"));
 				b.setTitleImg(rset.getString("TITLEIMG"));
 				
 				list.add(b);
@@ -285,7 +285,7 @@ public Board selectAlbumBoard(Connection conn, int bno){
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
 			b.setUserId(rset.getString("USER_ID"));
-			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setcDate(rset.getString("C_DATE"));
 			b.setFilePath(rset.getString("FILE_PATH"));
 			b.setChangeName(rset.getString("CHANGE_NAME"));
 		
@@ -410,31 +410,6 @@ public int deleteAttachment(Connection conn, int bno, int filelevel) {
 	
 }
 
-
-public int deleteBoard(Connection conn, int bno) {
-	
-	int result = 0;
-	
-	PreparedStatement pstmt = null;
-	
-	String sql = prop.getProperty("deleteBoard");
-	
-	try {
-		pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setInt(1, bno);
-		
-		
-		result = pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	}
-	return result;
-	
-	
-}
 
 
 public int selectLike(Connection conn, int bno, int uno){

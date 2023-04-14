@@ -249,7 +249,7 @@ public class MemberService {
 	
 	public ArrayList<Member> selectMemberList(int classNo) {
 		Connection conn = getConnection();
-		
+
 		ArrayList<Member> list = new MemberDao().selectMemberList(conn, classNo);
 
 		close(conn);
