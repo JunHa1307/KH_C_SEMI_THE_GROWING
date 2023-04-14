@@ -12,8 +12,7 @@ function userNotice(contextPath,uno){
 			currDate = sessionStorage.getItem("currAlarmDate");
 			oldDate = new Date(currDate);
 			if(currDate == null){
-				sessionStorage.setItem("currAlarmDate", new Date());
-				$(".isAlarmNew").attr('style',"display:none;");
+				$(".isAlarmNew").attr('style',"display:block;");
 			}else if(newDate > oldDate){
 				$(".isAlarmNew").attr('style',"display:block;");
 			}else{
@@ -44,7 +43,7 @@ function userNotice(contextPath,uno){
 
 $(function(){
 	$("#dropdownMenuButton, #alarmIcon").click(function(){
-		sessionStorage.setItem("currAlarmDate", new Date());
+		sessionStorage.setItem("currAlarmDate", $("#alarmIcon").attr("class"));
 		$(".isAlarmNew").attr('style',"display:none;");
 	});
 });
