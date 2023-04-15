@@ -14,7 +14,7 @@ Class c = (Class) request.getAttribute("Class");
 .classListWrap{
 	padding-bottom: 20px;
 	min-height:200px;
-	max-height:300px;
+	max-height:520px;
 	overflow-y: scroll;
 }
 
@@ -117,6 +117,17 @@ Class c = (Class) request.getAttribute("Class");
 	font-weight: 550;
 	margin: 0;
 }
+.modal-body>table{
+	margin: auto;
+}
+.modal-body>table>tbody>tr>td{
+	padding:5px;
+}
+.modal-body>table>tbody>tr>td>input{
+	width:100%;
+}
+
+
 </style>
 </head>
 <body>
@@ -210,27 +221,29 @@ Class c = (Class) request.getAttribute("Class");
 					<div class="modal-body">
 						<input class="detailUno" type="hidden" name="uno"> 
 						<input class="detailUno" type="hidden" name="id">
-						<div>
-							<img>
-						</div>
+						<table width=350>
+						<tr>
+							<td >이름 </td>
+							<td>:</td>
+							<td><input type="text" name="userName"> </td>
+						</tr>
+						<tr >
+							<td >자녀 이름 </td>
+							<td>:</td>
+							<td ><input type="text" name="childName"> </td>
+						</tr>
+						<tr >
+							<td >번호 </td>
+							<td>:</td>
+							<td ><input type="text" name="phone"> </td>
+						</tr>
+						<tr >
+							<td >주소 </td>
+							<td>:</td>
+							<td ><input type="text" name="address"> </td>
+						</tr>
 					
-						<div>
-							이름 : <input type="text" name="userName">
-						</div>
-						<br>
-						
-						<div>
-							자녀이름 : <input type="text" name="childName">
-						</div>
-						<br>
-						<div>
-							번호 : <input type="text" name="phone">
-						</div>
-						<br>
-						<div>
-							주소 : <input type="text" name="address">
-						</div>
-						
+						</table>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
@@ -243,7 +256,7 @@ Class c = (Class) request.getAttribute("Class");
 	</div>
 	<div id="insertMember" class="modal fade" tabindex="-1"
 		aria-labelledby="modalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-xl">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalLabel">임시 학생 계정 생성</h5>
@@ -256,26 +269,34 @@ Class c = (Class) request.getAttribute("Class");
 					<div class="modal-body">
 						<input class="detailUno" type="hidden" name="classCode"
 							value="<%=c.getClassCode()%>">
-						<div>
-							아이디 : <input type="text" name="userId">
-						</div>
-						<br>
-						<div>
-							비밀번호 : <input type="text" name="userPwd">
-						</div>
-						<br>
-						<div>
-							이름 : <input type="text" name="userName">
-						</div>
-						<br>
-						<div>
-							번호 : <input type="text" name="phone">
-						</div>
-						<br>
-						<div>
-							주소 : <input type="text" name="address">
-						</div>
-
+							
+						<table width=350>
+						<tr>
+							<td >아이디 </td>
+							<td>:</td>
+							<td><input type="text" name="userId"> </td>
+						</tr>
+						<tr>
+							<td >비밀번호 </td>
+							<td>:</td>
+							<td><input type="text" name="userPwd"> </td>
+						</tr>
+						<tr>
+							<td >이름 </td>
+							<td>:</td>
+							<td><input type="text" name="userName"> </td>
+						</tr>
+						<tr>
+							<td >번호 </td>
+							<td>:</td>
+							<td><input type="text" name="phone"> </td>
+						</tr>
+						<tr>
+							<td >주소 </td>
+							<td>:</td>
+							<td><input type="text" name="address"> </td>
+						</tr>
+						</table>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"

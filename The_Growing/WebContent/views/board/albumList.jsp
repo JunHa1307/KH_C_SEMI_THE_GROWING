@@ -38,33 +38,15 @@
 }
 
 @
-keyframes fave-heart { 0% {
+keyframes fave-heart { 
+	0% {
 	background-position: 0 0;
+	}
+	100%{ 
+	background-position:-2800px 0;
+	}
 }
 
-100
-
-
-%
-{
-background-position
-
-
-:
-
-
--2800px
-
-
-0
-;
-
-
-}
-}
-* {
-	font-family: "Gowun Dodum", sans-serif;
-}
 
 div {
 	box-sizing: border-box;
@@ -125,6 +107,9 @@ div {
 	height: 28px;
 	margin: auto;
 	text-align: right;
+	font-size: 14px;
+	font-weight:590;
+	color:grey;
 }
 
 #modal {
@@ -255,6 +240,7 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 #mo_writer_text {
@@ -321,6 +307,7 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 .mo_reply_text {
@@ -621,7 +608,8 @@ div {
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno %>');"></div></li>
 						<li class="like" onclick="likeClick('<%=uno %>');"><i class="bi"></i></li>
-						<li class="chat"><i class="bi bi-chat-quote"></i></li>
+						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
+							id="chat_count">0</span>개</li>
 						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
 							style="padding-right: 10px;"></i>스크랩</li>
 					</ul>
@@ -685,7 +673,7 @@ div {
        
           });
 
-
+        
 
         function albumClick(bno, level,uno){
         	
@@ -708,7 +696,7 @@ div {
    				url : "<%=contextPath%>/rCount.bo",
    				data : { bno : bno},
    				success : function(list){
-   					 $(".chat").html('<i class="bi bi-chat-quote"></i>댓글 '+list+'개</li>');
+   				 $("#chat_count").html(list);
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
@@ -728,7 +716,7 @@ div {
   		   						 
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
-  							'<div id="mo_date" class="grey">'+b.cDate+
+  							'<div id="mo_date" class="grey">'+
   							
   							'<div id="menu" class="dropdown"'+
                                 'style="float: right; margin: -7% 0% 0% 10%;">'+
@@ -775,8 +763,8 @@ div {
   				}
        	});   
         	  
-        	  
         	//사진
+        	  
          $.ajax({
    				url : "<%=contextPath%>/innerlist.al",
    				data : { bno},
@@ -946,6 +934,17 @@ div {
    			   					console.log("게시글 목록조회 실패")
    			   				}
    			        	});
+   						$.ajax({
+			   				url : "<%=contextPath%>/rCount.bo",
+			   				data : { bno },
+			   				success : function(list){
+			   					console.log(list);
+			   					 $("#chat_count").html(list);
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	}); 
    						
    					}else{
    						alert("댓글작성에 실패했습니다");
@@ -957,7 +956,50 @@ div {
    				} 
    			});
    		}); 
-        
+<%--         $(".deleteReply").click(function(){
+			let rno = $(this).data('rno'); 
+			let bno = $(this).data('bno'); 
+			$.ajax({
+   				url : "<%=contextPath%>/rDelete.bo",
+   				data : { rno},
+   				type : "get",
+   				success : function(result){
+   					 /* albumClick(bno);  */
+   			- 		if(result>0){
+   					$.ajax({
+		   				url : "<%=contextPath%>/rlist.bo",
+		   				data : { bno :bno},
+		   				type : "get",
+						dataType : "html", 
+		   				success : function(list){
+		   					 $(".mo_reply").html(list); 
+		   					
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});
+					$.ajax({
+		   				url : "<%=contextPath%>/rCount.bo",
+		   				data : { bno : bno},
+		   				success : function(list){
+		   					 $("#chat_count").html(list);
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});   
+   					}else {
+						alert("댓글삭제에 실패했습니다");
+
+					} 
+   					
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+        		});
+		}); --%>
      
 
     </script>

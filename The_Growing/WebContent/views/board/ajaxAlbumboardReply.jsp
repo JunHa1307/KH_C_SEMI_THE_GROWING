@@ -68,48 +68,52 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		<%} %>
 		
 		<script>
-		   $(".deleteReply").click(function(){
+ 		   $(".deleteReply").click(function(){
 				let rno = $(this).data('rno'); 
 				let bno = $(this).data('bno'); 
+			
 				$.ajax({
 	   				url : "<%=contextPath%>/rDelete.bo",
 	   				data : { rno},
 	   				type : "get",
 	   				success : function(result){
-	   					if(result>0){
-	   		<%-- 			$.ajax({
-			   				url : "<%=contextPath%>/rlist.bo",
-			   				data : { bno :bno},
-			   				type : "get",
-							dataType : "html", 
-			   				success : function(list){
-			   					 $(".mo_reply").html(list); 
 			   					
-			   				},
-			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
-			   				}
-			        	});
-						$.ajax({
-			   				url : "<%=contextPath%>/rCount.bo",
-			   				data : { bno : bno},
-			   				success : function(list){
-			   					 $("#chat_count").html(list);
-			   				},
-			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
-			   				}
-			        	});  --%>
-	   					}else {
-							alert("댓글삭제에 실패했습니다");
-
-						}
+			   					 /* albumClick(bno);  */
+			   			 		if(result>0){
+			   					$.ajax({
+					   				url : "<%=contextPath%>/rlist.bo",
+					   				data : { bno :bno},
+					   				type : "get",
+									dataType : "html", 
+					   				success : function(list){
+					   					 $(".mo_reply").html(list); 
+					   					
+					   				},
+					   				error: function(){
+					   					console.log("게시글 목록조회 실패")
+					   				}
+					        	});
+								$.ajax({
+					   				url : "<%=contextPath%>/rCount.bo",
+					   				data : { bno : bno},
+					   				success : function(list){
+					   					 $("#chat_count").html(list);
+					   					console.log(list);
+					   				},
+					   				error: function(){
+					   					console.log("게시글 목록조회 실패")
+					   				}
+					        	});   
+			   					}else {
+									alert("댓글삭제에 실패했습니다");
+		
+								} 
 	   					
 	   				},
 	   				error: function(){
 	   					console.log("게시글 목록조회 실패")
 	   				}
-	        		});
+        		});
 			});
 	 
 		</script>

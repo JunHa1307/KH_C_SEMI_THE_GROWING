@@ -85,47 +85,47 @@ public class AlbumUpdateController extends HttpServlet {
 							if(multi.getOriginalFileName("file"+i) != null) {
 							index = i;
 							System.out.println(index);
-							}
-						}
-						
-					for(int i=1; i<=index; i++) {
-						
-						if(multi.getOriginalFileName("file"+i) != null) {
-							System.out.println(i);
-							Attachment at = new Attachment();
-							
-							at.setRefBno(bno);
-							at.setOriginName(multi.getOriginalFileName("file"+i));
-							at.setChangeName(multi.getFilesystemName("file"+i));
-							at.setFilePath("/resources/album_upfiles/");
-							at.setFileLevel(i);
-							list.add(at);
-							// 첨부파일이 원래 등록되어 있을경우 원본파일의 파일번호, 수정된 이름을 hidden 넘겨받았음
-							if(multi.getParameter("originFileNo"+(i-1)) != null ) {
-							
-								// 기존에 파일이 있었던 경우 
-								// Attachment 테이블의 정보를 update
-						
-							
-								// 기존의 파일번호를 저장시키기 
-								list.get(i-1).setFileNo(Integer.parseInt(multi.getParameter("originFileNo"+(i-1))));
-								System.out.println(list.get(i-1).getFileNo());
-								// 기존의 첨부파일을 삭제 
-								new File(path+multi.getParameter("changeFileName"+(i-1))).delete();
-							}else {
-								//기존에 첨부파일이 없는 경우 
-								// Attachment 테이블의 정보를 insert
+							for(int j=1; j<=index; j++) {
 								
-								// REF_BNO에 현재 게시글 번호를 추가시켜줌. 
-								/*
-								 * list.get(i-1).setRefBno(Integer.parseInt(multi.getParameter("bno")));
-								 * System.out.println((multi.getParameter("bno")));
-								 */
-								
+								if(multi.getOriginalFileName("file"+j) != null) {
+									System.out.println(j);
+									Attachment at = new Attachment();
+									
+									at.setRefBno(bno);
+									at.setOriginName(multi.getOriginalFileName("file"+j));
+									at.setChangeName(multi.getFilesystemName("file"+j));
+									at.setFilePath("/resources/album_upfiles/");
+									at.setFileLevel(j);
+									list.add(at);
+									// 첨부파일이 원래 등록되어 있을경우 원본파일의 파일번호, 수정된 이름을 hidden 넘겨받았음
+									if(multi.getParameter("originFileNo"+(j-1)) != null ) {
+										
+										// 기존에 파일이 있었던 경우 
+										// Attachment 테이블의 정보를 update
+										
+										
+										// 기존의 파일번호를 저장시키기 
+										list.get(j-1).setFileNo(Integer.parseInt(multi.getParameter("originFileNo"+(j-1))));
+										System.out.println(list.get(j-1).getFileNo());
+										// 기존의 첨부파일을 삭제 
+										new File(path+multi.getParameter("changeFileName"+(j-1))).delete();
+									}else {
+										//기존에 첨부파일이 없는 경우 
+										// Attachment 테이블의 정보를 insert
+										
+										// REF_BNO에 현재 게시글 번호를 추가시켜줌. 
+										/*
+										 * list.get(i-1).setRefBno(Integer.parseInt(multi.getParameter("bno")));
+										 * System.out.println((multi.getParameter("bno")));
+										 */
+										
+									}
 								}
+								
 							}
-						
+							}
 						}
+						
 						
 						int result = new BoardService().updateBoard(b, list);
 						// 하나의 트랜잭션으로 board에 update문과 Attachment 테이블의 insert, update 동시에 처리해주기 
