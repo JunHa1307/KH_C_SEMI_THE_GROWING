@@ -34,7 +34,11 @@ public class myPageController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int uno = loginUser.getUserNo();
-		int[] snsType = new MemberService().selectSnsType(uno);
+		String[] snsType = new String[2];
+		snsType = new MemberService().selectSnsType(uno);
+		if(snsType[0]==null) {
+			snsType[0] = "0";
+		}
 		if(uno == 0) {
 		
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다");

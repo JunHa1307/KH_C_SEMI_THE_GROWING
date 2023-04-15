@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
-	int snsType0 = (int)request.getAttribute("snsType0");
-	int snsType1 = (int)request.getAttribute("snsType1");
+	int snsType0 = Integer.parseInt(request.getAttribute("snsType0").toString());
+	String snsType1 = request.getAttribute("snsType1")+"";
 %>
 <!DOCTYPE html>
 <html>
@@ -209,7 +209,7 @@ label{
 					<%} %>
 					<input type="hidden" name="uno" value="<%= loginUser.getUserNo() %>">
 					<input type="submit" class="btnJoin" onclick="updateProfile();" value="변경">
-					<input type="button" class="btnJoin" class="fileDelete" value="삭제">
+					<input type="button" class="btnJoin fileDelete" value="삭제">
 				<% } %>
 			</div>
 		</form>
