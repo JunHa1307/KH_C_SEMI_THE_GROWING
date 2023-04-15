@@ -166,7 +166,7 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 
 
 
-public int insertReply(Connection conn, String content, int bno, int writer) {
+public int insertReply(Connection conn, String content, int bno, int writer, String lock) {
 	int result = 0;
 	PreparedStatement pstmt = null;
 	
@@ -178,6 +178,7 @@ public int insertReply(Connection conn, String content, int bno, int writer) {
 		pstmt.setString(1, content);
 		pstmt.setInt(2, bno);
 		pstmt.setInt(3, writer);
+		pstmt.setString(4,lock);
 		
 		result = pstmt.executeUpdate();
 		
@@ -214,6 +215,7 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setReplyWriter(rset.getString("USER_ID"));
 			r.setFilePath(rset.getString("FILE_PATH"));
 			r.setChangeName(rset.getString("CHANGE_NAME"));
+			r.setReplySecret(rset.getString("REPLY_SECRET"));
 			list.add(r);
 		}
 	} catch (SQLException e) {
@@ -1047,7 +1049,8 @@ public Board selectBoard(Connection conn, int boardNo) {
 			if(rset.next()) {
 				r = new Reply();
 				r.setReplyContent(rset.getString("REPLY_CONTENT"));
-				r.setReplyNo(rset.getInt("REPLY_NO"));	   
+				r.setReplyNo(rset.getInt("REPLY_NO"));	
+				r.setReplySecret(rset.getString("REPLY_SECRET"));
 			}
 			
 		} catch (SQLException e) {

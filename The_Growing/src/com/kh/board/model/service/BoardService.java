@@ -64,10 +64,10 @@ public class BoardService {
 			return list;
 		}
 	
-	public int insertReply(String content, int bno, int writer) {
+	public int insertReply(String content, int bno, int writer, String lock) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().insertReply(conn, content, bno, writer);
+		int result = new BoardDao().insertReply(conn, content, bno, writer, lock);
 		Board b = new BoardDao().selectBoard(conn, bno);
 		
 		 if(writer != b.getRefUno()) {
