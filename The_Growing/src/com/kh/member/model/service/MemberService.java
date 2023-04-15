@@ -165,11 +165,11 @@ public class MemberService {
 		return result;
 	}
 	
-	public int[] selectSnsType(int uno) {
+	public String[] selectSnsType(int uno) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int[] type = new MemberDao().selectSnsType(conn, uno);
+		String[] type = new MemberDao().selectSnsType(conn, uno);
 		
 		return type;
 	}
