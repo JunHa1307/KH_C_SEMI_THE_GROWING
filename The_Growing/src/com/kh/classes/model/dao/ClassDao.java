@@ -924,4 +924,36 @@ public class ClassDao {
 			}
 			return result;
 	}
+	 
+	 public boolean isClassMember (Connection conn, int cno, int uno) {
+		 
+		 boolean isClassMember = false;
+		 
+		 PreparedStatement pstmt = null;
+		 
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("isClassMember");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				isClassMember = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		 return isClassMember;
+	 }
+
 }

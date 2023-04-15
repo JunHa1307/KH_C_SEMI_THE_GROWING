@@ -210,4 +210,9 @@
 				(SELECT DISTINCT CLASS_NO FROM CLASS JOIN CLASS_MEMBER ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ?),
 				?,SYSDATE,1)
 	</entry>
+	<entry key="isClassMember">
+		SELECT *
+		FROM CLASS_MEMBER
+		WHERE REF_CNO = ? AND REF_UNO = ?
+	</entry>
 </properties>
