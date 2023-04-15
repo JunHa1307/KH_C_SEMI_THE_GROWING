@@ -80,7 +80,7 @@ public class NaverLoginController extends HttpServlet {
 		      int userLevel = (int) request.getSession().getAttribute("userLevel");
 		      String snsId = responseId.get("id") + "";
 		      String snsName = responseId.get("name") + "";
-		      int snsType = 3;
+		      int snsType = 2;
 		      String filePath = responseId.get("profile_image") + "";
 		     		      
 		      br.close();
