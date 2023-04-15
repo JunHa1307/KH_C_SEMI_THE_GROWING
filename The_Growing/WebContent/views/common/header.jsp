@@ -74,7 +74,7 @@
                <div class="isAlarmNew"></div>
                <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/bell.svg" />
            </button>
-           <div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           <div id="memberNotice" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
              <a class="dropdown-item" href="#">알림3</a>
              <a class="dropdown-item" href="#">알림2</a>
              <a class="dropdown-item" href="#">알림1</a>
