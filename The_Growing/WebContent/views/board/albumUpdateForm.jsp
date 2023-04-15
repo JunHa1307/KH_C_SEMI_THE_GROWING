@@ -67,12 +67,12 @@
           
         		<div style="padding: 10px">
 					<div style="height:60px;">이미지를 첨부해주세요.</div>
-					<div style="width:800px;height:125px;">
+					<div >
 					<%for (int i = 1; i<=list.size(); i++){ %>
-					<span  style="position:relative; width:155px"><img id="contentImg<%=i%>"  src="resources/album_upfiles/<%=list.get(i-1).getChangeName() %>" style="width:150px; height:120px;"><img data-index="<%=i%>" class="x" src="resources/image/x-circle.svg"></span>
+					<span  style="position:relative; width:155px"><img id="contentImg<%=i%>"  src="resources/album_upfiles/<%=list.get(i-1).getChangeName() %>" style="width:150px; height:120px;"><img data-bno="<%=b.getBoardNo()%>" data-index="<%=i%>" data-level="<%=list.get(i-1).getFileLevel() %>"  class="x" src="resources/image/x-circle.svg"></span>
 					<%} %>
 					<%for (int i = list.size()+1; i<=5; i++){ %>
-					<span  style="position:relative; width:155px"><img id="contentImg<%=i%>"  style="width:150px; height:120px;"></span>
+					<span  style="position:relative; width:155px"><img id="contentImg<%=i%>"  style="width:150px; height:120px;"><img data-bno="<%=b.getBoardNo()%>" data-index="<%=i%>"  class="x" src="resources/image/x-circle.svg"></span>
 					<%} %>
 					</div>
 				</div>
@@ -127,10 +127,23 @@
 				// 파일 삭제 
 			 	$(".x").click(function(){
 		      		let index = $(this).data("index");
-		      		$(this).siblings("img").attr("src", "");
+		      		let level = $(this).data("level");
+		      		let bno = $(this).data("bno");
+		      		$(this).siblings("img").attr("src", "<%= contextPath %>/resources/image/noImage.png");
 		      		
-		      		console.log($("#file"+index).val(""));
-		      		$(this).attr("src", "");
+		      	   	$.ajax({
+		   				url : "<%=contextPath%>/deleteAttachment.al",
+		   				data : { bno, index, level},
+		   				success : function(list){
+		   					
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});  
+		     
+		      		
+		      		
 		      	});
 				
 				

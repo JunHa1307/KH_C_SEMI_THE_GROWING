@@ -66,7 +66,11 @@ html{
 }
 
 #dropdownMenuButton {
-	width:70px;
+	width:40px;
+	height:40px;
+	padding:0px;
+	
+	
 }
 
 .isAlarmNew {
@@ -98,6 +102,7 @@ html{
 	border: none;
 	border-radius: 50%;
 	margin-top: 20px;
+	
 }
 
 .dropdown-item {
@@ -106,13 +111,16 @@ html{
 
 #seachClass {
 	background: none;
+	font-size:0.8vw;
 }
 
 #alarmIcon {
-	width: 30px;
+	width: 25px;
+	
 }
 #alarmIcon:focus {
 	outline: none;
+	width:20px;
 }
 
 .dropdown>button:hover {

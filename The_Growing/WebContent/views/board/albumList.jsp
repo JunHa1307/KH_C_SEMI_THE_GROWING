@@ -46,9 +46,7 @@ keyframes fave-heart {
 	background-position:-2800px 0;
 	}
 }
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-}
+
 
 div {
 	box-sizing: border-box;
@@ -718,7 +716,7 @@ div {
   		   						 
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
-  							'<div id="mo_date" class="grey">'+b.cDate+
+  							'<div id="mo_date" class="grey">'+
   							
   							'<div id="menu" class="dropdown"'+
                                 'style="float: right; margin: -7% 0% 0% 10%;">'+
