@@ -282,6 +282,9 @@
      </div>
      <script>
 				              $(function(){
+				            	    $("#board_notice").css("fontWeight", "700");
+				                    $("#board_notice").children().css("background", "rgb(239, 243, 239)");
+				            	  
 				              	if(<%= loginUser.getUserLevel() != 1 %>){
 				              		$().ready(function(){
 				              			$(".checkList").click(function(){

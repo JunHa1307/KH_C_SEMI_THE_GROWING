@@ -85,6 +85,7 @@
      #contentImg{
      	margin-top:20px;
      	margin-bottom: 20px;
+     	object-fit : cover;
      }
      input[type=file]::file-selector-button {
 		  width: 150px;

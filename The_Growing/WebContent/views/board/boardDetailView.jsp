@@ -496,8 +496,17 @@ div {
 	</div>
 	<script>
 		$(function(){
+			if(<%=boardType == 4 %>){
+			  $("#board_free").css("fontWeight", "700");
+              $("#board_free").children().css("background", "rgb(239, 243, 239)");
+			}else if(<%=boardType == 5 %>) {
+				
+				  $("#board_counsel").css("fontWeight", "700");
+	              $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+			}
 			
-	<%-- 		 $.ajax({
+			
+		 $.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno :<%=b.getBoardNo()%>},
    				type : "get",
@@ -508,7 +517,7 @@ div {
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
-        	}); --%>
+        	}); 
         	
          	$.ajax({
    				url : "<%=contextPath%>/rCount.bo",
@@ -636,7 +645,7 @@ div {
 			});
 		});
            
-           $(".deleteReply").click(function(){
+<%--            $(".deleteReply").click(function(){
 				let rno = $(this).data('rno'); 
 				$.ajax({
 	   				url : "<%=contextPath%>/rDelete.bo",
@@ -677,7 +686,7 @@ div {
 	   					console.log("게시글 목록조회 실패")
 	   				}
 	        		});
-			});
+			});  --%>
 	
        
 	</script>
