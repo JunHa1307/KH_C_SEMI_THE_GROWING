@@ -46,6 +46,9 @@ public class UpdateProfileImg extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
+		int result = 0;
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int mb = 1024 * 1024 * 10;
 			String path = request.getSession().getServletContext().getRealPath("/resources/image/memberProfile/");
@@ -62,12 +65,12 @@ public class UpdateProfileImg extends HttpServlet {
 					at.setFileNo(ano);
 					new File(path + multi.getParameter("changeFileName")).delete();
 				}else {
-					
 					at.setRefUno(Integer.parseInt(multi.getParameter("uno")));
 				}
+				result = new MemberService().updateAttachment(at);
+			} else {
+				result = new MemberService().deleteAttachment(loginUser.getUserNo());
 			}
-			
-			int result = new MemberService().updateAttachment(at);
 			
 			if(result >0) {
 				loginUser = new MemberService().loginMember(loginUser.getUserId(), loginUser.getUserPwd(), loginUser.getUserLevel());

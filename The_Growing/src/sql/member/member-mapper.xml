@@ -125,6 +125,10 @@
 		 WHERE FILE_NO = ?
 		 	AND STATUS = 'Y'
 	</entry>
+	<entry key="deleteAttachment">
+	DELETE FROM ATTACHMENT
+	WHERE REF_UNO = ?
+	</entry>
 	<entry key="reInsertAttachment">
 		INSERT INTO ATTACHMENT(FILE_NO, REF_UNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL)
 		VALUES (SEQ_ANO.NEXTVAL, ?, ?, ? ,?, SYSDATE, 1)
