@@ -37,15 +37,21 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 #lock_btn {
 	background-color: rgb(244, 247, 247);
 	border-style: none;
-	margin-left: 10px;
+	margin: 10px;
 	width: 50px;
 	height: 50px;
+	border-radius: 50%;
+	
+}
+#lock_btn:hover {
+	background-color: rgb(233, 233, 231);
+	border-style: none;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	
 }
 
-#lock_btn:hover {
-	border-radius: 50%;
-	background-color: grey;
-}
 
 #profile_img {
 	width: 50px;
@@ -55,10 +61,11 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 }
 
 #lock_img {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+	
 }
+
 
 #mo_reply_list {
 	width: 100%;
@@ -508,7 +515,7 @@ font-size:30px;
 					<div style="width: 12%">
 						<button id="lock_btn" data-lock="N">
 							<img id="lock_img"
-								src="<%=contextPath%>/resources/image/icons8-잠금-해제-66.png" >
+								src="<%=contextPath%>/resources/image/unlock.png" >
 						</button>
 					</div>
 
@@ -629,32 +636,35 @@ font-size:30px;
           	});
            	};
            	
+           	
+          let i = 0;
            	$("#lock_btn").click(function(){
+           		if(i==0){
          		 $(this).data("lock","Y");
-         		let lock = $(this).data("lock");
-         		/* $(this).setAttribute('data-lock', "Y"); */
-      			console.log("1"+lock);
+         		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
+         		$("#lock_img").css({"width":"40px", "height":"40px"});
+         		
+         		i++;
+           		}else{
+           		 $(this).data("lock","N");
+          		$(this).children("#lock_img").attr("src","/growing/resources/image/unlock.png");
+          		$("#lock_img").css({"width":"35px", "height":"35px"});
+          		i--;
+           		}
          	});
            
            	
            $("#insertReply").click(function(){
-		        	 	$("#lock_btn").click(function(){
-		            		 $(this).data("lock","Y");
-		            		let lock = $(this).data("lock");
-		         			console.log("1"+lock);
-		            	});
-              
-		        	   
 			    	let bno = $("#modal").attr("class"); 
 			    	let lock = $("#lock_btn").data("lock");
-	   		 	console.log("2"+lock);
+	   		 
 	    	
    			$.ajax({
    				url : "<%=contextPath%>/rinsert.bo",
 				data : {
 					content : $("#mo_reply_textarea").val(),
 					bno :<%=b.getBoardNo()%>, lock},
-				success : function(result) {
+					success : function(result) {
 					
 					if (result > 0) {
 
@@ -683,8 +693,8 @@ font-size:30px;
 			   				}
 			        	}); 
 						$("#lock_btn").data("lock","N");
-						let lock = $("#lock_btn").data("lock");
-						console.log("3"+lock);
+						$("#lock_btn").css("background", "");
+						
 					} else {
 						alert("댓글작성에 실패했습니다");
 

@@ -39,8 +39,7 @@ public class albumAttachmentDeleteController extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		int index = Integer.parseInt(request.getParameter("index"));
 		int level = Integer.parseInt(request.getParameter("level"));
-		System.out.println("i"+index);
-		System.out.println(bno);
+	
 		
 		ArrayList<Attachment> list = new BoardService().selectAlbumInnerList(bno);
 		
