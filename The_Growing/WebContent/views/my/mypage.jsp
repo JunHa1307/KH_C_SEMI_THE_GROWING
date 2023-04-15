@@ -209,7 +209,7 @@ label{
 					<%} %>
 					<input type="hidden" name="uno" value="<%= loginUser.getUserNo() %>">
 					<input type="submit" class="btnJoin" onclick="updateProfile();" value="변경">
-					<input type="button" class="btnJoin" class="fileDelete" value="삭제">
+					<input type="button" class="btnJoin fileDelete" value="삭제">
 				<% } %>
 			</div>
 		</form>
