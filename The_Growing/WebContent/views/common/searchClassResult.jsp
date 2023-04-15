@@ -147,13 +147,13 @@ margin-bottom:20px;
 		<div id="class_img" >
 			<img src="<%= request.getContextPath() + list.get(i).getFilePath()+ list.get(i).getChangeName()%>" onerror="this.src='<%= request.getContextPath() %>/resources/image/noImage.png'">
 		</div>
-		<div id="class_text"  style="width:45%">
+		<div id="class_text"  style="width:55%">
 			
 			<span style="font-size:1.4vw; font-weight:600;"><%= list.get(i).getClassTypeName() + " " +(list.get(i).getClassGrade()+"").substring(5)+"학년 " + list.get(i).getClassName()+"반" %></span>
 			<br><br>
 			<span style="font-size:0.9vw; font-weight:600; color:grey; word-break:break-all;">구성원 <%= list.get(i).getUserCount() %>명 | 담임 : <%= list.get(i).getTeacherName() %> 선생님 | <%=(list.get(i).getClassGrade()+"").substring(0,4)+"년 " %></span>
 		</div>
-		<div style="width:23%"><button class="apply <%= list.get(i).getClassNo() %>">가입 신청</button></div>
+		<div style="width:23%"><button data-cno="<%= list.get(i).getClassNo() %>" class="apply ">가입 신청</button></div>
 	</div>
 	
 		<% } %>
@@ -164,9 +164,7 @@ margin-bottom:20px;
 <script>
 $(function(){
 	$(".apply").click(function(){
-		$(this).removeClass("apply");
-		let cno = $(this).attr("class");
-		$(this).addClass("apply");
+		let cno = $(this).data("cno");
 		$.ajax({
 			url : "<%=request.getContextPath()%>/classapply.c",
 			method : 'GET',
@@ -186,11 +184,10 @@ $(function(){
             },
 		});
 	});
+	
+	
+
 });
 </script>
-<!-- 	</div>
-	</div>
-</div> -->
-
 </body>
 </html>
