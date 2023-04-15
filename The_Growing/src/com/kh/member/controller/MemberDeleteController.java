@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +41,18 @@ public class MemberDeleteController extends HttpServlet {
 			 
 				request.getSession().removeAttribute("loginUser");
 			 
-			 response.sendRedirect(request.getContextPath());
+				
+				Cookie c1 = new Cookie("userId", "");
+				Cookie c2 = new Cookie("userPwd", "");
+				Cookie c3 = new Cookie("userLevel", "");
+				c1.setMaxAge(0);
+				c2.setMaxAge(0);
+				c3.setMaxAge(0);
+				response.addCookie(c1);
+				response.addCookie(c2);
+				response.addCookie(c3);
+				
+				response.sendRedirect(request.getContextPath());
 			 
 			 
 			} else{ // 실패시 -> 에러페이지 포워딩 or 안내문구 전송

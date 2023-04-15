@@ -222,6 +222,23 @@ public class MemberService {
 		return result;
 	}
 	
+	public int deleteAttachment(int uno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		
+		int result = new MemberDao().deleteAttachment(conn, uno);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+		return result;
+	}
+	
 	public int updatePassword(int uno, String oldPwd, String newPwd) {
 		
 		Connection conn = getConnection();

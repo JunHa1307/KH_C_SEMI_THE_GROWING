@@ -1417,5 +1417,57 @@ public ArrayList<Integer> selectMyScrapList(Connection conn, int uno) {
 	return list;
 }
 
+public int insertReplyNotice(Connection conn, int uno, int writer, int bno, int cno) {
+
+	int result = 0;
+
+	PreparedStatement pstmt = null;
+
+	String sql = prop.getProperty("insertReplyNotice");
+
+	try {
+		pstmt = conn.prepareStatement(sql);
+
+		pstmt.setInt(1, uno);
+		pstmt.setInt(2, cno);
+		pstmt.setInt(3, writer);
+		pstmt.setInt(4, bno);
+
+		result = pstmt.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int insertBoardNotice(Connection conn, int code, int rowNum, int uno) {
+
+	int result = 0;
+
+	PreparedStatement pstmt = null;
+
+	String sql = prop.getProperty("insertBoardNotice");
+
+	try {
+		pstmt = conn.prepareStatement(sql);
+
+		pstmt.setInt(1, code);
+		pstmt.setInt(2, rowNum);
+		pstmt.setInt(3, code);
+		pstmt.setInt(4, uno);
+
+		result = pstmt.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
 }
 
