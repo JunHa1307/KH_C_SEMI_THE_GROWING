@@ -352,7 +352,7 @@ font-size:30px;
 				<%
 					if (loginUser != null && loginUser.getUserId().equals(b.getUserId())) {
 				%>
-				<div class="dropdown" style="float: right; margin-top: -9%;">
+				<div class="dropdown" style="float: right; ">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">

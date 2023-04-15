@@ -25,7 +25,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 			<div class="mo_reply_content">
 			<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {%>
 			
-			<div class="dropdown" style="float: right; margin-top: -4%;">
+			<div class="dropdown" style="float: right;  margin-top: -2%; margin-right:7px;">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
@@ -133,7 +133,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 					   				data : { bno : bno},
 					   				success : function(list){
 					   					 $("#chat_count").html(list);
-					   					console.log(list);
+					   					
 					   				},
 					   				error: function(){
 					   					console.log("게시글 목록조회 실패")
