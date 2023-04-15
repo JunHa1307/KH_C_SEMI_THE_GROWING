@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +48,19 @@ public class UpdatePassword extends HttpServlet {
 		
 		if(result > 0) {
 			loginUser = new MemberService().loginMember(loginUser.getUserId(), newPwd, loginUser.getUserLevel());
+			
+			Cookie c1 = new Cookie("userId",loginUser.getUserId());
+			Cookie c2 = new Cookie("userPwd",loginUser.getUserPwd());
+			Cookie c3 = new Cookie("userLevel",loginUser.getUserLevel()+"");
+			
+			c1.setMaxAge(24*60*60);
+			c2.setMaxAge(24*60*60);
+			c3.setMaxAge(24*60*60);
+			
+			response.addCookie(c1);
+			response.addCookie(c2);
+			response.addCookie(c3);
+			
 			request.getSession().setAttribute("loginUser", loginUser);
 			request.getSession().setAttribute("alertMsg", "비밀번호 수정 성공");
 			response.sendRedirect(request.getContextPath()+"/myPage.me");
