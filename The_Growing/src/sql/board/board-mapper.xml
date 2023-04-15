@@ -56,6 +56,30 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectBoardList2">
+		SELECT * 	
+		FROM(
+				SELECT ROWNUM RNUM , A.*
+				FROM (
+					SELECT
+					       BOARD_NO,
+					       USER_ID,
+					       BOARD_TITLE,
+					       CREATE_DATE,
+					       REF_CNO,
+					       BOARD_COUNT
+					FROM BOARD B
+					JOIN MEMBER ON (REF_UNO = USER_NO)
+					WHERE BOARD_TYPE = ?
+					  AND B.STATUS = 'Y'
+					  AND B.REF_CNO = ?
+					  AND B.BOARD_TITLE LIKE ?
+					ORDER BY BOARD_NO DESC
+				) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<entry key="increaseCount">
 		UPDATE BOARD
 		SET BOARD_COUNT = BOARD_COUNT +1
@@ -71,7 +95,8 @@
 			USER_ID,
 			USER_NO,
 			TO_CHAR(CREATE_DATE, 'MM.DD HH:MI') AS C_DATE,
-			BOARD_CONTENT
+			BOARD_CONTENT,
+			REF_CNO
 		FROM BOARD B
 		JOIN MEMBER ON (REF_UNO = USER_NO)
 		WHERE BOARD_NO = ?
@@ -298,10 +323,55 @@
 		AND REF_BNO = ?
 	</entry>
 
+
+	<entry key="selectScrap">
+		SELECT REF_BNO, REF_UNO
+		FROM SCRAP 
+		WHERE REF_BNO= ? 
+		AND REF_UNO =?
+	</entry>
+
+	<entry key="insertScrap">
+		INSERT INTO SCRAP(REF_BNO, REF_UNO) 
+		VALUES(?, ?)
+	</entry>
+
+	<entry key="deleteScrap">
+		DELETE FROM SCRAP 
+		WHERE REF_BNO= ? 
+		AND REF_UNO =?
+	</entry>
+
+	<entry key="selectScrapList">
+		SELECT S.REF_BNO, S.REF_UNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		
+	</entry>
+
+	<entry key="selectScrapForMy">
+		SELECT S.REF_BNO, S.REF_UNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		AND S.REF_BNO = ?
+	</entry>
+	
+	<entry key="selectMyScrapList">
+		SELECT S.REF_BNO
+		FROM SCRAP S
+		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
+		WHERE S.REF_UNO = ?
+		ORDER BY S.REF_BNO DESC
+		
+	</entry>
+
+
 	<entry key="insertReplyNotice">
 		INSERT INTO MEMBER_NOTICE
-		(REF_UNO, INTERACTION_NO, REF_BNO, NOTICE_DATE, NOTICE_TYPE)
-		VALUES (?, ?, ?, SYSDATE, 2)
+		(REF_UNO, REF_CNO, INTERACTION_NO, REF_BNO, NOTICE_DATE, NOTICE_TYPE)
+		VALUES (?, ?, ?, ?, SYSDATE, 2)
 	</entry>
 	
 	<entry key="insertBoardNotice">
@@ -311,4 +381,5 @@
 					(SELECT DISTINCT CLASS_NO FROM CLASS JOIN CLASS_MEMBER ON (CLASS_NO = REF_CNO) WHERE CLASS_CODE = ?),
 					?, SEQ_BNO.CURRVAL, SYSDATE, 3)
 	</entry>
+
 </properties>

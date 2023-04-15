@@ -138,6 +138,7 @@
    -webkit-transform: translate3d(0, -25%, 0);
    transform: translate3d(0, -25%, 0);
 }
+
 /* 화면 너비 780 이상일 떄 */
 
    .box {
@@ -645,7 +646,9 @@ vertical-align: middle;
 		alert(msg);
 		<% session.removeAttribute("alertMsg"); %>
 	}
-
+	
+	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);
+	setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>)},3000);
 </script>
     <div class="wrap">
         <div id="header">
@@ -669,9 +672,10 @@ vertical-align: middle;
                     aria-haspopup="true" 
                     aria-expanded="false">
                     
+                    <div class="isAlarmNew"></div>
                     <img id="alarmIcon" src="resources/image/bell.svg"/>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">알림3</a>
                   <a class="dropdown-item" href="#">알림2</a>
                   <a class="dropdown-item" href="#">알림1</a>

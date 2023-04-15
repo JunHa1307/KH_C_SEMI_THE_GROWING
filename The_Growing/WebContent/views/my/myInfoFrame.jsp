@@ -241,7 +241,9 @@
 			alert(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
-	
+		
+		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
+		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
 <script>
 	$(function(){
@@ -261,6 +263,10 @@
 			location.href = "<%=contextPath%>/info.c";
 		});
 
+		$("#myScrap").click(function(){
+			location.href = "<%= contextPath %>/goMyScrap.s";
+		});
+		
 		$("#hamburgur>img").click(function() {
 			if ($("#myli").css("left") == "-300px") {
 				$("#myli").css("left", "0");
@@ -291,11 +297,12 @@
 				<button class="btn btn-secondary" type="button"
 					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">
-
+					
+					<div class="isAlarmNew"></div>
 					<img id="alarmIcon" src="resources/image/bell.svg" />
 
 				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" href="#">알림3</a> <a class="dropdown-item"
 						href="#">알림2</a> <a class="dropdown-item" href="#">알림1</a>
 				</div>

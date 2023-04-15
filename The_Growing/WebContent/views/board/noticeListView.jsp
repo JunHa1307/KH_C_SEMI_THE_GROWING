@@ -1,12 +1,13 @@
+
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
-
+	ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 	/* ArrayList<NoticeCheck> noticeCheckList = (ArrayList<NoticeCheck>) session.getAttribute("noticeCheckList"); */
-
-
+	
+	
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
 <!DOCTYPE html>
@@ -106,11 +107,17 @@
 	}
 	#mo_reply_list>ul>li {
 		list-style-type: none;
-		float: left;
+		float: right;
 		width: 115px;
 		font-weight: 600;
 		text-align: right;
 		cursor: pointer;
+	}
+	.clicked{
+		color:orange;
+	}
+	.unclicked{
+		color:black;
 	}
 	
 </style>
@@ -173,8 +180,13 @@
      <br>
      <div class="scrollBox" style="overflow-y:scroll; width:100%; height: 500px;">
      <div id="notice_content" class="notice_content">
-     
-     		<% for( Board b : list2) {%>
+     		<%-- <% for( Board b : list2) {%> --%>
+     		<% for(int i = 0; i < list2.size(); i++) {%>
+     		<% Board b = list2.get(i); boolean isScraped =false; %>
+     		<% for(int a : arr){ %>
+     		<% if(a == b.getBoardNo()){ %>
+     		<% 	isScraped = true;} %>
+     		<% } %>
      		<% if(loginUser.getUserLevel() == 1){ %>
      		<div class="controllBtn">
 					<button type="button" class="ctBtn" onclick="location.href='<%= contextPath %>/update.no?bno=<%= b.getBoardNo() %>'"><img src="resources/image/editIcon.png" style="width:45px;"></button>
@@ -187,7 +199,7 @@
 			</div>
 			<br>
 			<% } %>
-			<div>No. <%= b.getBoardNo() %></div>
+			<div id="noDiV<%=b.getBoardNo() %>">No. <%= b.getBoardNo() %></div>
 			<% if(loginUser.getUserLevel() == 1) { %>
 				<input id="<%=b.getBoardNo() %>" type="checkbox" name="folderCheckname"> <label>삭제할 게시글을 선택하세요</label>
 			<% }else{ %>
@@ -256,9 +268,10 @@
 					</div>
 				</div>
 				<div id="mo_reply_list">
-					<ul id="mo_icon">
-						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
-							style="padding-right: 10px;"></i></li>
+					<ul class="scrapIc">
+						<li id="<%= loginUser.getUserNo() %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick('<%= b.getBoardNo() %>');">
+							<i class="bi bi-star <%= isScraped ? "clicked" : "uncliked" %>" style="padding-right: 10px;"></i>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -350,7 +363,7 @@
 			              		} */
 			              </script>
      <script>
-     	
+     	// 인쇄
      	function divPrint(boardNo){
      		var printId = "print"+boardNo;
      		var initBody = document.body.innerHTML;
@@ -363,19 +376,103 @@
      			document.body.innerHTML = initBody;
      		}
      		window.print();
-     	}
-     	
-     	let j = 0;
-        $('.scrap').on('click',function(){
-            if(j==0){
-                $('.bi-star').css({color : "orange", fontSize : "30px"});
-                j++;
-            }else if(j==1){
-                $('.bi-star').css('color','black');
-                j--;
-            }
+     	};
 
-        });
+     	//스크랩
+     	function scrapClick(bno){
+     		//let bno = $(".scrap").attr("class"); ex) scrap_1
+     		/* let scrapBno = $(".scrap").attr("class");
+     		let bno = scrapBno.substring(scrapBno.indexOf('_')+1, scrapBno.indexOf('_', scrapBno.indexOf('_')+1)); // ex) 1 */
+     		let uno =  $(".scrap").attr("id");
+     		
+     		/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함 */
+    		
+     		
+     		$.ajax({
+     			url: "<%= contextPath %>/scrap.bo",
+     			type: "post",
+     			data: {bno, uno},
+     			/* 성공시 데이터 스크랩리스트 받아서 for문 돌리면서 하나하ㅏ 색변하게 */
+     			success: function(scrap){
+     					console.log(scrap);
+     					console.log("스크랩 잘됨");
+     					/* let arr[] = 0;
+     					
+     					for(let i=0; i<scrapList.size(); i++){
+     						JSONObject jsonObject = scrapList.getJSONObject(i);
+     						let bno = jsonObject.getString("refBno");
+     						arr.push(bno);
+     						console.log("bno:"+bno);
+     						console.log("arr:"+arr);
+     					} */
+     					
+     					/* 15, 25 */
+     					/* scrap.subString(14, 15) */
+     					<%-- 
+      					$.ajax({
+     						url: "<%= contextPath %>/goMyScrap.s",
+     						type:"post",
+      						data: { 
+      							scrap : JSON.stringify(scrap)
+      						},
+      						success: function(){
+      							location.href="<%= contextPath%>/views/my/myScrap.jsp";
+      							console.log("스크랩 데이터 보내기 성공");
+      						},
+      						error: function(){
+     							console.log("스크랩 데이터 보내기 실패");
+      						}
+     						
+      					}); --%>
+     			},
+     			error: function(){
+     				console.log("게시글 스크랩 실패");
+     			}
+     			
+     		});
+     	
+     	
+     	
+     	};
+     	
+     	
+     	/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함  */
+     	 /* let j = 0;
+          $('.scrap').on('click',function(){
+   			if(j==0){
+                   $(this).children($(".bi-star")).css({color : "orange"});
+                   console.log("1j"+j);
+                   j++;
+                   console.log("2j"+j);
+            }else if(j==1){
+            	console.log("3j"+j);
+               	$(this).children($(".bi-star")).css('color','black');
+                   j--;
+                console.log("4j"+j);
+            }
+   			console.log("5j"+j);
+           });	
+          console.log("6j"+j);	  */
+          
+      $(function(){
+          $('.scrap').on('click',function(){
+        	  
+        	  if($(this).children($(".bi-star")).hasClass('unclicked')){
+        		  $(this).children($(".bi-star")).removeClass('unclicked');
+        		  $(this).children($(".bi-star")).addClass('clicked');
+        	  }else if($(this).children($(".bi-star")).hasClass('clicked')){
+        		  $(this).children($(".bi-star")).removeClass('clicked');
+        		  $(this).children($(".bi-star")).addClass('unclicked');
+        	  }else{
+        		  $(this).children($(".bi-star")).addClass('clicked');
+        	  }
+	     		
+             });	
+          
+     });
+        
+        
+     	
      </script>
 </div>
 </div>

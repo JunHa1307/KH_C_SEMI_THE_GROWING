@@ -45,7 +45,9 @@
 			alert(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
+		
 		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
+		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
 <div class="wrap">
     <div id="header">
@@ -69,6 +71,7 @@
                aria-haspopup="true" 
                aria-expanded="false">
                
+               <div class="isAlarmNew"></div>
                <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/bell.svg" />
            </button>
            <div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
