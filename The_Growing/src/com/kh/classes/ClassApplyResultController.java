@@ -34,8 +34,10 @@ public class ClassApplyResultController extends HttpServlet {
 		Class c = (Class) request.getSession().getAttribute("cInfo");
 		int uno = Integer.parseInt(request.getParameter("uno"));
 		int type= Integer.parseInt(request.getParameter("type"));
-		System.out.println(type);
-		if(type == 1) {
+		
+		boolean isClassMember = new ClassService().isClassMember(c.getClassNo(),uno);
+		
+		if(type == 1 && !isClassMember) {
 			int result1 = new ClassService().insertClassMember(c.getClassCode(),uno);
 			int result2 = new ClassService().deleteApplyMember(uno,c.getClassNo());
 			if((result1 * result2) > 0) {
@@ -54,7 +56,11 @@ public class ClassApplyResultController extends HttpServlet {
 		}else {
 			int result = new ClassService().deleteApplyMember(uno,c.getClassNo());
 			if(result > 0) {
-				request.getSession().setAttribute("alertMsg","가입신청 거절 성공");
+				if(!isClassMember) {
+					request.getSession().setAttribute("alertMsg","가입신청 거절 성공");
+				}else {
+					request.getSession().setAttribute("alertMsg","이미 가입된 회원입니다.");
+				}
 				response.sendRedirect(request.getContextPath()+"/classmembermanagement.c");
 			}else {
 				request.setAttribute("errorMsg", "가입신청 거절 실패");

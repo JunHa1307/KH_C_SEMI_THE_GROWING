@@ -73,6 +73,11 @@ html{
 	
 }
 
+#memberNotice {
+	max-height: 200px;
+	overflow: auto;
+}
+
 .isAlarmNew {
 	 border:1px solid red; 
 	 border-radius:1000px;
