@@ -55,7 +55,10 @@
     display:none;
 }
 
-
+	#memberNotice {
+		max-height: 200px;
+		overflow: auto;
+	}
     
   /* 버튼 css */
  .box {
@@ -669,7 +672,7 @@ vertical-align: middle;
                     <div class="isAlarmNew"></div>
                     <img id="alarmIcon" src="resources/image/bell.svg"/>
                 </button>
-                <div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div id="memberNotice" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">알림3</a>
                   <a class="dropdown-item" href="#">알림2</a>
                   <a class="dropdown-item" href="#">알림1</a>
