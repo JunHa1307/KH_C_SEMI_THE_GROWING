@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> boardArr = (ArrayList<Board>) request.getAttribute("boardArr");
+	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -20,14 +21,27 @@
 		height: 300px;
 		border-radius: 20px;
 		margin: 10px 20px;
-		
+		padding: 100px 0;
 		background-color: #fcffb0;
 		box-shadow: 0 3px 10px rgba(0,0,0,0.25);
 	}
 	#myscrap_content:hover{
 		background-color: #fdfa87;
 	}
-	
+	.divStyle{
+		text-align: center;
+		
+	}
+	.scrapTitle{
+		margin: 10px 0px; 
+		height: 40px;
+		background-color: white;
+		font-weight: 700;
+		font-size: 25px;
+	}
+	.conSt{
+		background-color: white;
+	}
 </style>
 </head>
 <body>
@@ -48,19 +62,20 @@
 				
 					<div id = "myscrap_content" onclick="goScrapBoard('<%= b.getBoardType() %>', '<%= b.getBoardNo() %>');">
 						<% if( b.getBoardType() == 1 ) { %>
-							<div>앨범</div>
+							<div class="divStyle scrapTitle">앨범</div>
 						<% } else if( b.getBoardType() == 2) {%>
-							<div>알림장</div>
+							<div class="divStyle scrapTitle">알림장</div>
 						<% } else if( b.getBoardType() == 3) { %>
-							<div>자유 게시판</div>
+							<div class="divStyle scrapTitle">자유 게시판</div>
 						<% } else { %>
-							<div>상담 게시판</div>
+							<div class="divStyle scrapTitle">상담 게시판</div>
 						<% } %>
-						<div id="bTitle"> 제목 : <%= b.getBoardTitle() %></div>
+						<div id="bTitle" class="divStyle"> 제목 <div class="conSt"><%= b.getBoardTitle() %></div></div>
 						
-						<div>생성 날짜 : <%= b.getCreateDate() %></div>
+						<div id="" class="divStyle">생성 날짜<div class="conSt"><%= b.getCreateDate() %></div></div>
+						
 					</div>
-			
+					<button id="<%= loginUser.getUserNo() %>" type="button" class="scrapDelete" onclick="scrapDelete('<%= b.getBoardNo() %>');">취소</button>
 				</form>
      		<% }  %>
 		</div>
@@ -82,5 +97,31 @@
 		}
 	</script>
 
+	<script>
+		function scrapDelete(bno){
+	 		
+			let uno =  $(".scrapDelete").attr("id");
+	 		
+	 		$.ajax({
+	 			url: "<%= contextPath %>/scrapDelete.bo",
+	 			type: "post",
+	 			data: {bno, uno},
+	 			
+	 			success: function(result){
+	 					console.log("스크랩 취소");
+	 					alert('스크랩이 취소되었습니다.');
+	 					window.location.reload();
+	 					
+	 			},
+	 			error: function(){
+	 				console.log("스크랩 취소 실패");
+	 			}
+	 			
+	 		});
+	 	
+	 	
+	 	
+	 	};
+	</script>
 </body>
 </html>

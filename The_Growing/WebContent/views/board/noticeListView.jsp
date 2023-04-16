@@ -396,34 +396,7 @@
      			success: function(scrap){
      					console.log(scrap);
      					console.log("스크랩 잘됨");
-     					/* let arr[] = 0;
      					
-     					for(let i=0; i<scrapList.size(); i++){
-     						JSONObject jsonObject = scrapList.getJSONObject(i);
-     						let bno = jsonObject.getString("refBno");
-     						arr.push(bno);
-     						console.log("bno:"+bno);
-     						console.log("arr:"+arr);
-     					} */
-     					
-     					/* 15, 25 */
-     					/* scrap.subString(14, 15) */
-     					<%-- 
-      					$.ajax({
-     						url: "<%= contextPath %>/goMyScrap.s",
-     						type:"post",
-      						data: { 
-      							scrap : JSON.stringify(scrap)
-      						},
-      						success: function(){
-      							location.href="<%= contextPath%>/views/my/myScrap.jsp";
-      							console.log("스크랩 데이터 보내기 성공");
-      						},
-      						error: function(){
-     							console.log("스크랩 데이터 보내기 실패");
-      						}
-     						
-      					}); --%>
      			},
      			error: function(){
      				console.log("게시글 스크랩 실패");
@@ -435,24 +408,6 @@
      	
      	};
      	
-     	
-     	/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함  */
-     	 /* let j = 0;
-          $('.scrap').on('click',function(){
-   			if(j==0){
-                   $(this).children($(".bi-star")).css({color : "orange"});
-                   console.log("1j"+j);
-                   j++;
-                   console.log("2j"+j);
-            }else if(j==1){
-            	console.log("3j"+j);
-               	$(this).children($(".bi-star")).css('color','black');
-                   j--;
-                console.log("4j"+j);
-            }
-   			console.log("5j"+j);
-           });	
-          console.log("6j"+j);	  */
           
       $(function(){
           $('.scrap').on('click',function(){
