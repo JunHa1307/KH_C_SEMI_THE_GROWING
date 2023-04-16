@@ -309,6 +309,10 @@ label{
              </div>
                 </div>
 	<script>
+	$(function(){
+        $("#myInfo").css("fontWeight","700").fadeIn(1000);
+        $("#myInfo").children().css("background","rgb(239, 243, 239)");
+	});
 		function deleteMember(){
 			if(confirm("돌이킬 수 없습니다. 정말 회원탈퇴를 하시겠습니까?")){
 				location.href="<%=request.getContextPath()%>/delete.me";

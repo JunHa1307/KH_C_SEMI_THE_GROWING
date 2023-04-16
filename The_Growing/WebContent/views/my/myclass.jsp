@@ -56,6 +56,8 @@ z-index:9;
 	width: 100%;
 	border-radius:10px;
 	 box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+	 background-color: rgb(247, 251, 246);
+	 
 	
 }
 
@@ -65,6 +67,7 @@ z-index:9;
 	object-fit: cover;
 	cursor:pointer;
 	 transition : 0.5s;
+	  box-shadow:0px 8px 6px -6px;
 	
 	
 }
@@ -78,18 +81,20 @@ z-index:9;
 #myclass_small{
 	width: 90%;
 	height: 90%;
-	background-color:rgb(246, 249, 243);
+	
 	margin : auto;
 	min-width: 270px;
+	border-radius: 10px;
 	
 }
 
 .b1{
 padding:5px; 
 font-size:16px; 
-font-weight:700;
+font-weight:500;
 border-radius: 10px;
 color:grey;
+
 }
 .b2{
 text-align: center; 
@@ -100,6 +105,7 @@ font-weight:700;
 .b3{
 text-align: center;
 font-size:20px; 
+font-weight:500;
 }
 .b_hover:hover{
 	cursor: pointer;
