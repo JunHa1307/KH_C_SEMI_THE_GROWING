@@ -42,6 +42,13 @@
 	.conSt{
 		background-color: white;
 	}
+	.scrapDelete{
+		float: right;
+		margin-right: 30px;
+		border: none;
+		border-radius: 20px;
+		height: 40px; 
+	}
 </style>
 </head>
 <body>
@@ -75,6 +82,7 @@
 						<div id="" class="divStyle">생성 날짜<div class="conSt"><%= b.getCreateDate() %></div></div>
 						
 					</div>
+					<div style="display:inline-block; margin-left: 60px;">게시물 No. <%= b.getBoardNo() %> 스크랩</div>
 					<button id="<%= loginUser.getUserNo() %>" type="button" class="scrapDelete" onclick="scrapDelete('<%= b.getBoardNo() %>');">취소</button>
 				</form>
      		<% }  %>
