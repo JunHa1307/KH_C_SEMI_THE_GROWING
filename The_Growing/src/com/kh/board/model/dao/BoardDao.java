@@ -1462,6 +1462,7 @@ public ArrayList<Board> selectMyScrapList2(Connection conn, int uno, ArrayList<I
 		close(pstmt);
 	}
 	return list;
+}
 
 public int insertReplyNotice(Connection conn, int uno, int writer, int bno, int cno) {
 
