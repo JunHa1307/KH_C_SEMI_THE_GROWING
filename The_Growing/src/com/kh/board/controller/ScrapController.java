@@ -36,6 +36,23 @@ public class ScrapController extends HttpServlet {
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		/* scrap = new BoardService().selectScrap(bno,uno); */
+		/*
+		 * ArrayList<Scrap> scrapList = new ArrayList<>(); if(result1 > 0) { scrapList =
+		 * new BoardService().selectScrapList(uno);
+		 * System.out.println("scrapList:"+scrapList);
+		 * System.out.println("scrapList:"+scrapList.get(0).getRefUno()); }else {
+		 * System.out.println("scrapList:"+scrapList); }
+		 * 
+		 * jsonarray로 파싱함
+		 * 
+		 * response.getWriter().print(new Gson().toJson(scrapList));
+		 */
+		/*
+		 * request.getSession().setAttribute("scrapList", scrapList);
+		 * request.getRequestDispatcher("views/my/myScrap.jsp").forward(request,
+		 * response);
+		 */
 	}
 
 	/**
