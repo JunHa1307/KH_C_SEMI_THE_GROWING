@@ -745,7 +745,7 @@ div {
   				data : { bno},
   				success : function(b){
   				 	 let result = ""; 
-  				 	if(level==1){
+  				 	if(level==1 || b.refUno == uno){
   						  result  += 
   		   						 
   								'<div id="mo_write_wrap">'+

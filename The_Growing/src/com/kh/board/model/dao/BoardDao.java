@@ -291,6 +291,7 @@ public Board selectAlbumBoard(Connection conn, int bno){
 			b.setcDate(rset.getString("C_DATE"));
 			b.setFilePath(rset.getString("FILE_PATH"));
 			b.setChangeName(rset.getString("CHANGE_NAME"));
+			b.setRefUno(rset.getInt("REF_UNO"));
 		
 		}
 	} catch (SQLException e) {
