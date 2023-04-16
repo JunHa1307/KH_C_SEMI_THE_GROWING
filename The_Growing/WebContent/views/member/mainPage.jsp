@@ -105,7 +105,7 @@
 							</div>
 						<% } %>
 					<% } else { %>
-						<div id="class0" class="myClass-list" onclick="moveToBoard();">
+						<div id="class0" class="myClass-list">
 							<div class="myClass-img">
 								<img src="" alt="클래스 프로필"
 									onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
@@ -131,7 +131,7 @@
 						</span>
 					</div>
 				<%} else { %>
-					<nav class="myClass-btn" onclick="ClassSearch(구현안됨);"
+					<nav class="myClass-btn" onclick="location.href='<%= contextPath %>/searchClass.c?searchClassName='"
 						style="background-image: url('<%= contextPath %>/resources/image/house-add-fill.svg');">
 						<img src="<%= contextPath %>/resources/image/house-add-fill.svg"
 							alt=" 클래스 찾기" width="0" height="90%"> <span>클래스<br>찾기

@@ -161,7 +161,6 @@
 }
 
 .myClass-btn>span {
-	padding: 1em;
 	display: flex;
 	justify-content: center; 
 	font-weight: 700;
@@ -285,6 +284,7 @@
 	
 	.myClass-btn>span {
 		font-size: 1vw;
+		padding: 1em;
 	}
 	
 	.timeTable {
@@ -322,7 +322,7 @@
             width: 100%;
             height: 22em;
             padding: 2em 1em 1em 1em;
-            margin: 1em;
+            margin: 1em 1em 1em 0;
 			background-color:#f8f9fc;
         }
 
@@ -435,6 +435,10 @@
             margin: 1em auto 1em auto;
         }
 
+		.table-btn>button {
+			margin: 1em;
+		}
+
         .lunch {
             width: 100%;
         }
@@ -444,4 +448,23 @@
             height: 100%;
             padding: 1em
         }
+}
+@media only screen and (max-width: 320px) {
+		
+		.myClass-btn {
+            width: 30%;
+            height: 80px; 
+            margin: 1vw;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+			background-repeat: no-repeat;
+			background-size: 45%;
+			background-position:center;
+			background-color:#ffffff;
+			border-radius:10em;
+        }
+		.myClass-btn>img {
+		 	height: 18vw;
+		}
 }

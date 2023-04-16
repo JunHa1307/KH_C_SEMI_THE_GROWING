@@ -161,14 +161,14 @@ int boardType = (int) request.getAttribute("boardType");
 			</div>
 		</div>
 
-
+		<%if (boardType == 4) {%>
 		<div id="list_search" align="right">
 			<button id="searchBtn_1" type="button" >
 				<input id="searchBoard" type="text" placeholder="게시판 검색" > 
-				<img src="resources/image/search.svg">
+				<img src="resources/image/search.svg" onclick="location.href='<%=contextPath%>/list.fr?boardType=<%= boardType%>&search='+$('#searchBoard').val();">
 			</button>
 		</div>
-
+		<%} %>
 		<table class="list-table">
 			
 				<% if(list.isEmpty()) {%>
@@ -284,6 +284,19 @@ int boardType = (int) request.getAttribute("boardType");
 
 		</div>
 	</div>
+<script>
+$(function (){
+	if(<%=boardType == 4 %>){
+		  $("#board_free").css("fontWeight", "700");
+	    $("#board_free").children().css("background", "rgb(239, 243, 239)");
+		}else if(<%=boardType == 5 %>) {
+			
+			  $("#board_counsel").css("fontWeight", "700");
+	        $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+		};
+});
 
+
+</script>
 </body>
 </html>

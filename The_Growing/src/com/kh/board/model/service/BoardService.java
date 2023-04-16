@@ -64,15 +64,15 @@ public class BoardService {
 			return list;
 		}
 	
-	public int insertReply(String content, int bno, int writer) {
+	public int insertReply(String content, int bno, int writer, String lock) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().insertReply(conn, content, bno, writer);
+		int result = new BoardDao().insertReply(conn, content, bno, writer, lock);
 		Board b = new BoardDao().selectBoard(conn, bno);
 		
-		if(writer != b.getRefUno()) {
-			int insertNotice = new BoardDao().insertReplyNotice(conn, b.getRefUno(), writer, bno, b.getRefCno());
-		}
+		 if(writer != b.getRefUno()) {
+			 int insertNotice = new BoardDao().insertReplyNotice(conn, b.getRefUno(), writer, bno,b.getRefCno()); 
+		 }
 		
 		if(result > 0) {
 			commit(conn);
@@ -173,6 +173,23 @@ public class BoardService {
 		
 	}
 	
+	public int deleteAttachment(int bno, int level) {
+		Connection conn = getConnection();
+		
+		int result =new BoardDao().deleteAttachment(conn, bno, level);
+	
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
 	public int selectLike(int bno, int uno) {
 		Connection conn = getConnection();
 		int like  = new BoardDao().selectLike(conn, bno, uno);
@@ -262,6 +279,16 @@ public class BoardService {
 		return list;
 	}
 	
+	public ArrayList<Board> selectBoardList(PageInfo pi, int boardType, int cno, String search){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectBoardList(conn, pi, boardType, cno, search);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 	public int increaseCount(int boardNo) {
 		Connection conn = getConnection();
 		
@@ -278,32 +305,30 @@ public class BoardService {
 		
 	}
   
-	public int insertNotice(Board b) {
-		
-		Connection conn = getConnection();
-		
-		int result = new BoardDao().insertNotice(conn, b);
-		Class c = new ClassDao().selectClass(conn, b.getRefCno(), b.getRefUno());
-		int count = new ClassDao().selectClassMemberCount(conn, c.getClassCode());
-		for(int i = 1; i <= (count==0?1:count); i ++) {
-			int result1 = new BoardDao().insertBoardNotice(conn,c.getClassCode(), i, b.getRefUno());
-		}
-		
-		// 트랜잭션처리
-		if(result > 0) { // 성공
-			//커밋
-			commit(conn);
-		}else { // 실패
-			//롤백
-			rollback(conn);
-		}
-		
-		// 사용한 자원 반납. conn.close();
-		close(conn);
-		
-		// 컨트롤로에게 결과값 반환(처리된 행의 갯수)
-		return result;
-	}
+	
+	 public int insertNotice(Board b) {
+	 
+	 Connection conn = getConnection();
+	 
+	 int result = new BoardDao().insertNotice(conn, b); 
+	 Class c = new ClassDao().selectClass(conn, b.getRefCno(), b.getRefUno()); 
+	 int count = new ClassDao().selectClassMemberCount(conn, c.getClassCode()); 
+	 
+	 for(int i = 1; i<= (count==0?1:count); i ++) { 
+		 int result1 = new BoardDao().insertBoardNotice(conn,c.getClassCode(), i, b.getRefUno()); 
+	 }
+	 
+	 if(result > 0) {
+		 commit(conn);
+	 }else {
+		 rollback(conn); 
+	 }
+	 
+	 close(conn);
+	 
+	 return result; 
+	 }
+	 
 	
 	public ArrayList<Board> selectNoticeList(int refCno) {
 		Connection conn = getConnection();

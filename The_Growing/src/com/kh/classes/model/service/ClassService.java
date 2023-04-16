@@ -378,4 +378,14 @@ public class ClassService {
 		return result;
 	}
 	
+	public boolean isClassMember(int cno, int uno) {
+		Connection conn = getConnection();
+		
+		boolean isClassMember = new ClassDao().isClassMember(conn,cno,uno);
+		
+		close(conn);
+		
+		return isClassMember;
+	}
+	
 }

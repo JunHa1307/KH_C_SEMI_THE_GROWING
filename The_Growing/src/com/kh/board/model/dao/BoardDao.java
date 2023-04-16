@@ -166,7 +166,7 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 
 
 
-public int insertReply(Connection conn, String content, int bno, int writer) {
+public int insertReply(Connection conn, String content, int bno, int writer, String lock) {
 	int result = 0;
 	PreparedStatement pstmt = null;
 	
@@ -178,6 +178,7 @@ public int insertReply(Connection conn, String content, int bno, int writer) {
 		pstmt.setString(1, content);
 		pstmt.setInt(2, bno);
 		pstmt.setInt(3, writer);
+		pstmt.setString(4,lock);
 		
 		result = pstmt.executeUpdate();
 		
@@ -214,6 +215,7 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setReplyWriter(rset.getString("USER_ID"));
 			r.setFilePath(rset.getString("FILE_PATH"));
 			r.setChangeName(rset.getString("CHANGE_NAME"));
+			r.setReplySecret(rset.getString("REPLY_SECRET"));
 			list.add(r);
 		}
 	} catch (SQLException e) {
@@ -619,6 +621,51 @@ return list;
 
 }
 
+//게시글 검색에 필요함
+public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi, int boardType, int cno ,String search){
+
+ArrayList<Board> list = new ArrayList<>();
+
+PreparedStatement pstmt = null;
+
+ResultSet rset = null;
+
+String sql = prop.getProperty("selectBoardList2");
+
+try {
+	pstmt = conn.prepareStatement(sql);
+	int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+	int endRow = startRow + pi.getBoardLimit() - 1;
+	
+	pstmt.setInt(1, boardType);
+	pstmt.setInt(2, cno);
+	pstmt.setString(3, "%"+search+"%");
+	pstmt.setInt(4, startRow);
+	pstmt.setInt(5, endRow);
+	
+
+
+	rset = pstmt.executeQuery();
+	while(rset.next()) {
+		Board b = new Board();
+		b.setBoardNo(rset.getInt("BOARD_NO"));
+		b.setUserId(rset.getString("USER_ID"));
+		b.setBoardTitle(rset.getString("BOARD_TITLE"));
+		b.setCreateDate(rset.getDate("CREATE_DATE"));
+		b.setRefCno(rset.getInt("REF_CNO"));		
+		b.setCount(rset.getInt("BOARD_COUNT"));
+				           
+		list.add(b);
+	}
+} catch (SQLException e) {
+	e.printStackTrace();
+} finally {
+	close(rset);
+	close(pstmt);
+}
+return list;
+
+}
 
 public int selectListCount(Connection conn, int cno) {
 	int listCount = 0; 
@@ -1002,7 +1049,8 @@ public Board selectBoard(Connection conn, int boardNo) {
 			if(rset.next()) {
 				r = new Reply();
 				r.setReplyContent(rset.getString("REPLY_CONTENT"));
-				r.setReplyNo(rset.getInt("REPLY_NO"));	   
+				r.setReplyNo(rset.getInt("REPLY_NO"));	
+				r.setReplySecret(rset.getString("REPLY_SECRET"));
 			}
 			
 		} catch (SQLException e) {
@@ -1414,6 +1462,58 @@ public ArrayList<Board> selectMyScrapList2(Connection conn, int uno, ArrayList<I
 		close(pstmt);
 	}
 	return list;
+
+public int insertReplyNotice(Connection conn, int uno, int writer, int bno, int cno) {
+
+	int result = 0;
+
+	PreparedStatement pstmt = null;
+
+	String sql = prop.getProperty("insertReplyNotice");
+
+	try {
+		pstmt = conn.prepareStatement(sql);
+
+		pstmt.setInt(1, uno);
+		pstmt.setInt(2, cno);
+		pstmt.setInt(3, writer);
+		pstmt.setInt(4, bno);
+
+		result = pstmt.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int insertBoardNotice(Connection conn, int code, int rowNum, int uno) {
+
+	int result = 0;
+
+	PreparedStatement pstmt = null;
+
+	String sql = prop.getProperty("insertBoardNotice");
+
+	try {
+		pstmt = conn.prepareStatement(sql);
+
+		pstmt.setInt(1, code);
+		pstmt.setInt(2, rowNum);
+		pstmt.setInt(3, code);
+		pstmt.setInt(4, uno);
+
+		result = pstmt.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+
 }
 
 }

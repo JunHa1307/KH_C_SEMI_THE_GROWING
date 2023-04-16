@@ -391,8 +391,8 @@ public Member loginMemberInfo(Connection conn, int uno) {
 					
 	}
 	
-	public int[] selectSnsType(Connection conn, int uno) {
-		int[] snsType = new int[2];
+	public String[] selectSnsType(Connection conn, int uno) {
+		String[] snsType = new String[2];
 		
 		PreparedStatement pstmt = null;
 		
@@ -408,8 +408,8 @@ public Member loginMemberInfo(Connection conn, int uno) {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				snsType[0] = rset.getInt("SNS_TYPE");
-				snsType[1] = rset.getInt("SNS_ENROLL_DATE");
+				snsType[0] = rset.getInt("SNS_TYPE")+"";
+				snsType[1] = rset.getString("SNS_ENROLL_DATE");
 			}
 			
 		} catch (SQLException e) {
@@ -508,6 +508,30 @@ public Member loginMemberInfo(Connection conn, int uno) {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int deleteAttachment(Connection conn, int uno) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			
+		}
+		return result;
+					
 	}
 	
 	public int reInsertAttachment(Connection conn, Attachment at) {

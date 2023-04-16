@@ -165,11 +165,11 @@ public class MemberService {
 		return result;
 	}
 	
-	public int[] selectSnsType(int uno) {
+	public String[] selectSnsType(int uno) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int[] type = new MemberDao().selectSnsType(conn, uno);
+		String[] type = new MemberDao().selectSnsType(conn, uno);
 		
 		return type;
 	}
@@ -218,6 +218,23 @@ public class MemberService {
 		} else {
 			rollback(conn);
 		}
+		close(conn);
+		return result;
+	}
+	
+	public int deleteAttachment(int uno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		
+		int result = new MemberDao().deleteAttachment(conn, uno);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
 		close(conn);
 		return result;
 	}

@@ -104,7 +104,7 @@ public class UpdateClassController extends HttpServlet {
 				session.setAttribute("cInfo", updateClass);
 				session.setAttribute("alertMsg", "성공적으로 클래스를 수정했습니다");
 				
-				response.sendRedirect(request.getContextPath()+"/moveManagement.bo");
+				response.sendRedirect(request.getContextPath()+"/views/management/classSetting.jsp");
 			}else {
 				request.setAttribute("errorMsg", "클래스 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

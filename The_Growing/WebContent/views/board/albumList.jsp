@@ -38,33 +38,15 @@
 }
 
 @
-keyframes fave-heart { 0% {
+keyframes fave-heart { 
+	0% {
 	background-position: 0 0;
+	}
+	100%{ 
+	background-position:-2800px 0;
+	}
 }
 
-100
-
-
-%
-{
-background-position
-
-
-:
-
-
--2800px
-
-
-0
-;
-
-
-}
-}
-* {
-	font-family: "Gowun Dodum", sans-serif;
-}
 
 div {
 	box-sizing: border-box;
@@ -125,6 +107,9 @@ div {
 	height: 28px;
 	margin: auto;
 	text-align: right;
+	font-size: 14px;
+	font-weight:590;
+	color:grey;
 }
 
 #modal {
@@ -196,7 +181,7 @@ div {
 
 #mo_write_wrap {
 	width: 100%;
-	height: 60px;
+	height: 50px;
 	
 }
 
@@ -255,6 +240,7 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 #mo_writer_text {
@@ -321,6 +307,7 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 .mo_reply_text {
@@ -410,17 +397,17 @@ div {
 
 #mo_reply_write_text {
 	height: 90px;
-	padding:10px;
+	padding:10px 10px 0px 10px;
 	/* background-color: antiquewhite; */
 }
 
 #mo_reply_write_text_content {
-	width: 75%;
+	width: 70%;
 	height:100%;
 }
 
 #mo_reply_bt {
-	width: 25%;
+	width: 15%;
 	height: 90%;
 }
 
@@ -460,12 +447,40 @@ div {
 }
 #mo_reply_textarea {
 	border: 1px solid rgb(224, 224, 224);
-	width:95%; 
+	width:100%; 
 	height:100%;
 	 resize:none;
 }
 .grey{
 	color:grey;
+}
+#lock_btn {
+	background-color: white;
+	border-style: none;
+	
+	margin-top:17px;
+	margin-right:5px;
+	margin-left:5px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	
+}
+#lock_btn:hover {
+	background-color: rgb(233, 233, 231);
+	border-style: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	
+}
+
+
+
+#lock_img {
+	width: 25px;
+	height: 25px;
+	
 }
 </style>
 </head>
@@ -621,7 +636,8 @@ div {
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno %>');"></div></li>
 						<li class="like" onclick="likeClick('<%=uno %>');"><i class="bi"></i></li>
-						<li class="chat"><i class="bi bi-chat-quote"></i></li>
+						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
+							id="chat_count">0</span>개</li>
 						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
 							style="padding-right: 10px;"></i>스크랩</li>
 					</ul>
@@ -632,6 +648,12 @@ div {
 					<div id="mo_reply_write_text_content">
 						<textarea id="mo_reply_textarea" 
 							placeholder="댓글을 입력하여 주세요." style="resize: none;"></textarea>
+					</div>
+					<div>
+						<button id="lock_btn" data-lock="N">
+							<img id="lock_img"
+								src="<%=contextPath%>/resources/image/unlock.png" >
+						</button>
 					</div>
 					<div id="mo_reply_bt" class="box">
 						<button class="button_UI button--winona insert_bt"
@@ -685,7 +707,7 @@ div {
        
           });
 
-
+        
 
         function albumClick(bno, level,uno){
         	
@@ -708,7 +730,7 @@ div {
    				url : "<%=contextPath%>/rCount.bo",
    				data : { bno : bno},
    				success : function(list){
-   					 $(".chat").html('<i class="bi bi-chat-quote"></i>댓글 '+list+'개</li>');
+   				 $("#chat_count").html(list);
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
@@ -728,7 +750,7 @@ div {
   		   						 
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
-  							'<div id="mo_date" class="grey">'+b.cDate+
+  							'<div id="mo_date" class="grey">'+
   							
   							'<div id="menu" class="dropdown"'+
                                 'style="float: right; margin: -7% 0% 0% 10%;">'+
@@ -775,8 +797,8 @@ div {
   				}
        	});   
         	  
-        	  
         	//사진
+        	  
          $.ajax({
    				url : "<%=contextPath%>/innerlist.al",
    				data : { bno},
@@ -919,15 +941,30 @@ div {
 
            
            
-     
+           let i = 0;
+          	$("#lock_btn").click(function(){
+          		if(i==0){
+        		 $(this).data("lock","Y");
+        		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
+        		$("#lock_img").css({"width":"30px", "height":"30px"});
+        		
+        		i++;
+          		}else{
+          		 $(this).data("lock","N");
+         		$(this).children("#lock_img").attr("src","/growing/resources/image/unlock.png");
+         		$("#lock_img").css({"width":"25px", "height":"25px"});
+         		i--;
+          		}
+        	});
     	
         $("#insertReply").click(function(){
           	let bno = $("#modal").attr("class"); 
+          	let lock = $("#lock_btn").data("lock");
    			$.ajax({
    				url : "<%=contextPath%>/rinsert.bo",
    				data : {
    					content : $("#mo_reply_textarea").val(), 
-   					bno
+   					bno,  lock
    				},
    				success : function(result){
    				 
@@ -946,7 +983,19 @@ div {
    			   					console.log("게시글 목록조회 실패")
    			   				}
    			        	});
-   						
+   						$.ajax({
+			   				url : "<%=contextPath%>/rCount.bo",
+			   				data : { bno },
+			   				success : function(list){
+			   					console.log(list);
+			   					 $("#chat_count").html(list);
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	}); 
+   						$("#lock_btn").data("lock","N");
+						$("#lock_btn").css("background", "");
    					}else{
    						alert("댓글작성에 실패했습니다");
    						
@@ -957,7 +1006,50 @@ div {
    				} 
    			});
    		}); 
-        
+<%--         $(".deleteReply").click(function(){
+			let rno = $(this).data('rno'); 
+			let bno = $(this).data('bno'); 
+			$.ajax({
+   				url : "<%=contextPath%>/rDelete.bo",
+   				data : { rno},
+   				type : "get",
+   				success : function(result){
+   					 /* albumClick(bno);  */
+   			- 		if(result>0){
+   					$.ajax({
+		   				url : "<%=contextPath%>/rlist.bo",
+		   				data : { bno :bno},
+		   				type : "get",
+						dataType : "html", 
+		   				success : function(list){
+		   					 $(".mo_reply").html(list); 
+		   					
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});
+					$.ajax({
+		   				url : "<%=contextPath%>/rCount.bo",
+		   				data : { bno : bno},
+		   				success : function(list){
+		   					 $("#chat_count").html(list);
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});   
+   					}else {
+						alert("댓글삭제에 실패했습니다");
+
+					} 
+   					
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+        		});
+		}); --%>
      
 
     </script>

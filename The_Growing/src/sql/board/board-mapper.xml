@@ -56,6 +56,30 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectBoardList2">
+		SELECT * 	
+		FROM(
+				SELECT ROWNUM RNUM , A.*
+				FROM (
+					SELECT
+					       BOARD_NO,
+					       USER_ID,
+					       BOARD_TITLE,
+					       CREATE_DATE,
+					       REF_CNO,
+					       BOARD_COUNT
+					FROM BOARD B
+					JOIN MEMBER ON (REF_UNO = USER_NO)
+					WHERE BOARD_TYPE = ?
+					  AND B.STATUS = 'Y'
+					  AND B.REF_CNO = ?
+					  AND B.BOARD_TITLE LIKE ?
+					ORDER BY BOARD_NO DESC
+				) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<entry key="increaseCount">
 		UPDATE BOARD
 		SET BOARD_COUNT = BOARD_COUNT +1
@@ -88,12 +112,12 @@
 	</entry>
 	
 	<entry key="insertReply">
-		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER)
-		VALUES (SEQ_RNO.NEXTVAL, ?, ?, ?)
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER,REPLY_SECRET)
+		VALUES (SEQ_RNO.NEXTVAL, ?, ?, ?,?)
 	</entry>
 	
 	<entry key="selectReplyList">
-	     SELECT REPLY_NO,  REPLY_CONTENT, USER_ID, TO_CHAR(CREATE_DATE, 'MM.DD HH24:MI:SS') AS CREATE_DATE, FILE_PATH, CHANGE_NAME
+	     SELECT REPLY_NO,  REPLY_CONTENT, USER_ID, TO_CHAR(CREATE_DATE, 'MM.DD HH24:MI:SS') AS CREATE_DATE, FILE_PATH, CHANGE_NAME, REPLY_SECRET
         FROM REPLY R
         JOIN MEMBER ON(REPLY_WRITER = USER_NO)
         LEFT JOIN ATTACHMENT ON(REF_UNO = USER_NO)
@@ -260,7 +284,7 @@
 	
 	
 		<entry key="selectReply">
-	 SELECT REPLY_CONTENT, REPLY_NO 
+	 SELECT REPLY_CONTENT, REPLY_NO , REPLY_SECRET
 	 FROM REPLY 
 	   WHERE REPLY_NO = ?
 	</entry>

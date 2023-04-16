@@ -57,7 +57,7 @@
        <div id="search">
            <button id="searchBtn" type="button">
 	       	   <form id="classSearchForm" action="searchClass.c" method="get">
-	               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+	               <input id="seachClass" type="text" name="searchClassName" placeholder="학교 / 클래스 / 선생님 검색">
 	               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
        	   		</form>
            </button>
@@ -74,7 +74,7 @@
                <div class="isAlarmNew"></div>
                <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/bell.svg" />
            </button>
-           <div id="memberNotice" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           <div id="memberNotice" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
              <a class="dropdown-item" href="#">알림3</a>
              <a class="dropdown-item" href="#">알림2</a>
              <a class="dropdown-item" href="#">알림1</a>

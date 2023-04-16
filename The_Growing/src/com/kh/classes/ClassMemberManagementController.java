@@ -73,8 +73,8 @@ public class ClassMemberManagementController extends HttpServlet {
 		list.add(m.getUserNo()+"");
 		list.add(m.getUserName());
 		list.add(m.getChildrenName());
-		list.add(m.getPhone());
-		list.add(m.getAddress());
+		list.add(m.getPhone() ==null ? "": m.getPhone());
+		list.add(m.getAddress() ==null ? "": m.getAddress());
 		list.add(m.getUserId());
 		
 		response.setContentType("application/json; charset=UTF-8");

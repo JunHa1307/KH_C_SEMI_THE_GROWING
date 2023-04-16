@@ -18,9 +18,7 @@
 	border-radius: 10px;
 	padding:20px;
 }
-.note-toolbar{
-	background: rgb(242, 242, 250);
-}
+
 #textInput{
 	border : 1px solid rgb(224, 224, 224);
 }
