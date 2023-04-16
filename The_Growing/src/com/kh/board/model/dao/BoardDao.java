@@ -1372,5 +1372,49 @@ public ArrayList<Integer> selectMyScrapList(Connection conn, int uno) {
 	return list;
 }
 
+public ArrayList<Board> selectMyScrapList2(Connection conn, int uno, ArrayList<Integer> arr) {
+	 
+	ArrayList<Board> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectMyScrapList2");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+
+		for(int bno : arr) {
+			
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, bno);
+		
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+			
+			Board b = new Board();
+			
+			b.setBoardNo(rset.getInt("BOARD_NO"));
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			
+			list.add(b);
+		  }
+		}	
+			
+	
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+}
+
 }
 
