@@ -1,8 +1,6 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Board;
-import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class ScrapMoveToMy
+ * Servlet implementation class ScrapMoveToBoard
  */
-@WebServlet("/goMyScrap.s")
-public class ScrapMoveToMy extends HttpServlet {
+@WebServlet("/goscrap.bo")
+public class ScrapMoveToBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ScrapMoveToMy() {
+    public ScrapMoveToBoard() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +28,13 @@ public class ScrapMoveToMy extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		/*
 		 * response.getWriter().append("Served at: ").append(request.getContextPath());
 		 */
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		ArrayList<Integer> arr = new BoardService().selectMyScrapList(uno);
 		
-		ArrayList<Board> boardArr = new BoardService().selectMyScrapList2(uno, arr);
-		
-		request.setAttribute("boardArr", boardArr);
-		
-		request.getRequestDispatcher("views/my/myScrap.jsp").forward(request, response);
-	
 	}
 
 	/**
