@@ -621,4 +621,15 @@ public int selectCountReply(int bno ) {
 		
 	}
 	
+	public ArrayList<Board> selectMyScrapList2(int uno, ArrayList<Integer> arr) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectMyScrapList2(conn, uno, arr);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+	
 }

@@ -349,14 +349,6 @@
 		WHERE S.REF_UNO = ?
 		
 	</entry>
-
-	<entry key="selectScrapForMy">
-		SELECT S.REF_BNO, S.REF_UNO
-		FROM SCRAP S
-		JOIN BOARD B ON (B.BOARD_NO = S.REF_BNO)
-		WHERE S.REF_UNO = ?
-		AND S.REF_BNO = ?
-	</entry>
 	
 	<entry key="selectMyScrapList">
 		SELECT S.REF_BNO
@@ -367,7 +359,15 @@
 		
 	</entry>
 
-
+	<entry key="selectMyScrapList2">
+		SELECT DISTINCT B.BOARD_NO, B.BOARD_TYPE, B.BOARD_TITLE, B.CREATE_DATE
+		FROM BOARD B
+        JOIN SCRAP S ON (S.REF_UNO = ?)
+        WHERE B.BOARD_NO = ?
+		ORDER BY B.BOARD_NO DESC
+		
+	</entry>
+	
 	<entry key="insertReplyNotice">
 		INSERT INTO MEMBER_NOTICE
 		(REF_UNO, REF_CNO, INTERACTION_NO, REF_BNO, NOTICE_DATE, NOTICE_TYPE)
