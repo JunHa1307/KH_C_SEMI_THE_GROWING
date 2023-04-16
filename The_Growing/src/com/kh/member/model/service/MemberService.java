@@ -9,11 +9,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.kh.board.model.vo.Board;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.Attachment;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.MemberNotice;
 import com.kh.member.model.vo.SnsLogin;
 
 public class MemberService {
@@ -165,11 +165,11 @@ public class MemberService {
 		return result;
 	}
 	
-	public int[] selectSnsType(int uno) {
+	public String[] selectSnsType(int uno) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int[] type = new MemberDao().selectSnsType(conn, uno);
+		String[] type = new MemberDao().selectSnsType(conn, uno);
 		
 		return type;
 	}
@@ -222,6 +222,23 @@ public class MemberService {
 		return result;
 	}
 	
+	public int deleteAttachment(int uno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		
+		int result = new MemberDao().deleteAttachment(conn, uno);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+		return result;
+	}
+	
 	public int updatePassword(int uno, String oldPwd, String newPwd) {
 		
 		Connection conn = getConnection();
@@ -247,5 +264,34 @@ public class MemberService {
 		return noticeCheckList;
 	}
 	
+	public ArrayList<Member> selectMemberList(int classNo) {
+		Connection conn = getConnection();
 
+		ArrayList<Member> list = new MemberDao().selectMemberList(conn, classNo);
+
+		close(conn);
+
+		return list;
+
+	}
+
+	public Member selectMember(int userNo) {
+		Connection conn = getConnection();
+
+		Member m = new MemberDao().selectMember(conn, userNo);
+		
+		close(conn);
+		
+		return m;
+	}
+	
+	public ArrayList<MemberNotice> selectMemberNoticeList(int uno){
+		Connection conn = getConnection();
+		
+		ArrayList<MemberNotice> list = new MemberDao().selectMemberNoticeList(conn, uno);
+		
+		close(conn);
+		
+		return list;
+	}
 }

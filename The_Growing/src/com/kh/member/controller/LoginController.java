@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -88,6 +89,21 @@ public class LoginController extends HttpServlet {
 			// 포워딩 방식 : 해당 경로로 선택된 뷰가 보여질 뿐 url은 변경되지 않는다.(요청했을때의 url(login.me)이 그대로 남아있음)
 			view.forward(request, response);
 		}else { // 로그인 성공 => index페이지(메인페이지) 응답
+			
+			// 쿠키 생성하기
+			Cookie c1 = new Cookie("userId",userId);
+			Cookie c2 = new Cookie("userPwd",userPwd);
+			Cookie c3 = new Cookie("userLevel",loginUser.getUserLevel()+"");
+			// 쿠키 객체 생성 시 저장할 key, value값을 생성자의 매개변수로 넣어준다.
+			
+			c1.setMaxAge(24*60*60);// 1일 동안 유지되도록 설정
+			c2.setMaxAge(24*60*60);
+			c3.setMaxAge(24*60*60);
+			// 생성된 쿠키를 클라이언트에게 전달
+			response.addCookie(c1);
+			response.addCookie(c2);
+			response.addCookie(c3);
+			
 			
 			// 로그인한 회원의 정보를 로그아웃하기 전까지 계속 가져다가 쓸것이기 때문에 session에 데이터 담기
 			

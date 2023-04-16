@@ -35,6 +35,8 @@ public class ClassMemberManagementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		Member m = (Member) request.getSession().getAttribute("loginUser");
 		int uno = m.getUserNo();
 		int cno = (int)request.getSession().getAttribute("cno");
@@ -53,6 +55,7 @@ public class ClassMemberManagementController extends HttpServlet {
 			 
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
 		}
+		response.setContentType("application/x-json; charset=UTF-8");
 	}
 
 	/**
@@ -70,8 +73,8 @@ public class ClassMemberManagementController extends HttpServlet {
 		list.add(m.getUserNo()+"");
 		list.add(m.getUserName());
 		list.add(m.getChildrenName());
-		list.add(m.getPhone());
-		list.add(m.getAddress());
+		list.add(m.getPhone() ==null ? "": m.getPhone());
+		list.add(m.getAddress() ==null ? "": m.getAddress());
 		list.add(m.getUserId());
 		
 		response.setContentType("application/json; charset=UTF-8");

@@ -94,8 +94,13 @@ public class AlbumInsertController extends HttpServlet {
 					at.setOriginName(multi.getOriginalFileName(key));
 					at.setChangeName(multi.getFilesystemName(key));
 					at.setFilePath("/resources/album_upfiles/");
-					at.setFileLevel(i);
-					
+					if(list.size()==0 ) {
+						
+						at.setFileLevel(1);
+						
+					}else {
+						at.setFileLevel(i);
+					}
 					list.add(at);
 				}
 			}

@@ -1,6 +1,7 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.SnsLogin;
 
 
 /**
@@ -46,18 +48,21 @@ public class MemberUpdateController extends HttpServlet {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");		
 		String userId = request.getParameter("id");
 		String userName = request.getParameter("userName");
+		String childName = request.getParameter("childName");
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
 		
 		Member m = new Member();
 		if(url.contains("growing/myPage.me")) {
 			m.setUserNo(loginUser.getUserNo());
+			m.setUserId(loginUser.getUserId());
 		}else {
 			int userNo = Integer.parseInt(request.getParameter("uno"));
 			m.setUserNo(userNo);
+			m.setUserId(userId);
 		}
-		m.setUserId(userId);
 		m.setUserName(userName);
+		m.setChildrenName(childName);
 		m.setPhone(phone);
 		m.setAddress(address);
 		
@@ -65,7 +70,21 @@ public class MemberUpdateController extends HttpServlet {
 		
 		if(result>0 && url.contains("growing/myPage.me")) {
 			request.getSession().setAttribute("alertMsg", "성공적으로 회원정보를 수정했습니다");
-			loginUser = new MemberService().loginMember(userId, loginUser.getUserPwd(), loginUser.getUserLevel());
+			Enumeration<String> attributes = request.getSession().getAttributeNames();
+			boolean notSns = true;
+			while (attributes.hasMoreElements()) {
+				 String attribute = (String) attributes.nextElement();
+				 if(attribute.equals("snsLoginUser")) {
+					 notSns = false;
+					 loginUser = new MemberService().snsLoginMember(loginUser.getUserNo(), loginUser.getUserId(), loginUser.getUserLevel());
+					 SnsLogin snsLoginUser = (SnsLogin) request.getSession().getAttribute("snsLoginUser");
+					 snsLoginUser.setSnsName(userName);
+					 request.getSession().setAttribute("snsLoginUser", snsLoginUser);
+				 }
+			}
+			if(notSns) {
+				loginUser = new MemberService().loginMember(m.getUserId(), loginUser.getUserPwd(), loginUser.getUserLevel());
+			}
 			request.getSession().setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getContextPath()+"/myPage.me");
 		}else if(result>0 && url.contains("growing/classmembermanagement.c")){

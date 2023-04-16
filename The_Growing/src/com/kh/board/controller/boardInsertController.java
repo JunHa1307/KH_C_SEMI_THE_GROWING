@@ -42,7 +42,8 @@ public class boardInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		int boardType = Integer.parseInt(request.getParameter("boardType"));
+		 request.setAttribute("boardType", boardType);
 		request.getRequestDispatcher("views/board/boardEnrollForm.jsp").forward(request, response);
 	}
 
@@ -59,7 +60,7 @@ public class boardInsertController extends HttpServlet {
 			
 			int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 			int cno = (int) request.getSession().getAttribute("cno");
-			int boardType = (int)(request.getSession().getAttribute("boardType"));
+			int boardType = Integer.parseInt(request.getParameter("boardType"));
 		
 			
 			Board b = new Board();
@@ -74,7 +75,7 @@ public class boardInsertController extends HttpServlet {
 				 int result = new BoardService().insertBoard(b);
 					
 				 if(result > 0 ) { 
-					 
+					 request.setAttribute("boardType", boardType);
 					 request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
 					 response.sendRedirect(request.getContextPath()+"/list.fr?currentPage=1&boardType="+boardType);
 				 	}else { 

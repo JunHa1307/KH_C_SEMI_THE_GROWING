@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser1 = (Member) session.getAttribute("loginUser");
 	String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
@@ -27,9 +28,7 @@
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 <!-- 슬릭 -->
 <script
@@ -45,7 +44,7 @@
 <script src="resources/summernote/summernote-lite.js"></script>
 <script src="resources/summernote/summernote-ko-KR.js"></script>
 
-<script src="<%= contextPath %>/resources/js/headerSearch.js"></script>
+<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>
 
 <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
 
@@ -56,8 +55,14 @@
 	href="<%=request.getContextPath()%>/resources/css/header.css">
 <style>
 * {
-	font-family: 'Gowun Dodum', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
+
+#memberNotice {
+	max-height: 200px;
+	overflow: auto;
+}
+
 /* 화면 너비 900 이상 */
 @media only screen and (min-width: 1200px) {
 	/* 게시판 목록 css */
@@ -240,7 +245,9 @@
 			alert(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
-	
+		
+		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
+		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
 <script>
 	$(function(){
@@ -294,11 +301,12 @@
 				<button class="btn btn-secondary" type="button"
 					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">
-
+					
+					<div class="isAlarmNew"></div>
 					<img id="alarmIcon" src="resources/image/bell.svg" />
 
 				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<div id="memberNotice" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" href="#">알림3</a> <a class="dropdown-item"
 						href="#">알림2</a> <a class="dropdown-item" href="#">알림1</a>
 				</div>

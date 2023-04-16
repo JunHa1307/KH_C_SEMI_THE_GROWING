@@ -2,7 +2,7 @@
 
 /* 게시판 헤더 및 정보(게시판마다 공통) */
 * {
-	font-family: 'Gowun Dodum', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 html{
@@ -65,6 +65,33 @@ html{
 	cursor: pointer;
 }
 
+#dropdownMenuButton {
+	width:40px;
+	height:40px;
+	padding:0px;
+	
+	
+}
+
+#memberNotice {
+	max-height: 200px;
+	overflow: auto;
+}
+
+.isAlarmNew {
+	 border:1px solid red; 
+	 border-radius:1000px;
+	 width:0.5vw;
+	 height:0.5vw;
+	 float:right; 
+	 background-color:red;
+	 display:none;
+}
+
+.closeButton:after {
+	content: "\00d7";
+}
+
 /* 버튼호버시 이벤트 css부여 */
 .btnStyle:hover {
 	color: #209dce;
@@ -78,8 +105,9 @@ html{
 .dropdown>button {
 	background: none;
 	border: none;
-	border-radius: 40%;
+	border-radius: 50%;
 	margin-top: 20px;
+	
 }
 
 .dropdown-item {
@@ -88,13 +116,16 @@ html{
 
 #seachClass {
 	background: none;
+	font-size:0.8vw;
 }
 
 #alarmIcon {
-	width: 30px;
+	width: 25px;
+	
 }
 #alarmIcon:focus {
 	outline: none;
+	width:20px;
 }
 
 .dropdown>button:hover {

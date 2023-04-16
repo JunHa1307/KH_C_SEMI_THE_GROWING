@@ -21,12 +21,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
+
+
     <!-- 부트스트랩 게시판 목록을 위한 css -->
 
     <!-- 폰트 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
     
     <!-- 슬릭 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
@@ -35,14 +40,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> 
     
     <!-- summernote -->
-    <script src="resources/summernote/summernote-lite.js"></script>
+      <script src="resources/summernote/summernote-lite.js"></script>
    <script src="resources/summernote/summernote-ko-KR.js"></script>
    <link rel="stylesheet" href="resources/summernote/summernote-lite.css">
    
+    
+   	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
        
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+
     
     <style>
+    .dropdown-toggle::after {
+    display:none;
+}
+
+	#memberNotice {
+		max-height: 200px;
+		overflow: auto;
+	}
+    
   /* 버튼 css */
  .box {
    display: flex;
@@ -118,6 +135,7 @@
    -webkit-transform: translate3d(0, -25%, 0);
    transform: translate3d(0, -25%, 0);
 }
+
 /* 화면 너비 780 이상일 떄 */
 
    .box {
@@ -169,8 +187,8 @@
    font-size: 1vw;
 }
 .big{
-   font-size: 1.3vw;
-   font-weight: 900;
+   font-size: 1.2vw;
+   font-weight: 700;
 }
 .info_text{
 vertical-align: middle;
@@ -380,6 +398,7 @@ vertical-align: middle;
 
    #hamburgur {
       display: none;
+      
    }
    
    
@@ -391,6 +410,7 @@ vertical-align: middle;
       display: block;
       padding-left: 30px;
       cursor: pointer;
+      z-index: 9;
    }
    #hamburgur>img {
       width: 30px;
@@ -623,7 +643,9 @@ vertical-align: middle;
 		alert(msg);
 		<% session.removeAttribute("alertMsg"); %>
 	}
-
+	
+	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);
+	setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>)},3000);
 </script>
     <div class="wrap">
         <div id="header">
@@ -647,9 +669,10 @@ vertical-align: middle;
                     aria-haspopup="true" 
                     aria-expanded="false">
                     
+                    <div class="isAlarmNew"></div>
                     <img id="alarmIcon" src="resources/image/bell.svg"/>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div id="memberNotice" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">알림3</a>
                   <a class="dropdown-item" href="#">알림2</a>
                   <a class="dropdown-item" href="#">알림1</a>
@@ -699,7 +722,7 @@ vertical-align: middle;
                     <li class="board_li" id="board_check"><div>출석체크</div></li>
                     <li class="board_hr"><hr></li>
                     <li class="board_title">클래스 관리</li>
-                    <li class="board_li" id="_option"><div>클래스 설정</div></li>
+                    <li class="board_li" id="class_option"><div>클래스 설정</div></li>
                     <li class="board_li"  id="board_manage"><div>구성원 관리</div></li>
                     <li class="board_li" id="board_invite"><div>초대하기</div></li>
                   </ul>

@@ -69,8 +69,13 @@ public class ClassService {
 	
 	public int insertClassMember(int code, int userNo) {
 		Connection conn = getConnection();
+		ClassDao cd = new ClassDao();
+		int result = cd.insertClassMember(conn, code, userNo, 0);
+		int count = cd.selectClassMemberCount(conn, code);
 		
-		int result = new ClassDao().insertClassMember(conn, code, userNo, 0);
+		for(int i = 1; i <= (count==0?1:count); i ++) {
+			int result1 = cd.insertMemberNotice(conn,code, i,userNo);
+		}
 		
 		if(result>0) {
 			commit(conn);
@@ -371,6 +376,16 @@ public class ClassService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public boolean isClassMember(int cno, int uno) {
+		Connection conn = getConnection();
+		
+		boolean isClassMember = new ClassDao().isClassMember(conn,cno,uno);
+		
+		close(conn);
+		
+		return isClassMember;
 	}
 	
 }

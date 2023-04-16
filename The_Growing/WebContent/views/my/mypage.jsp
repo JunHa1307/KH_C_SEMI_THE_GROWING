@@ -2,49 +2,41 @@
 	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
-	int snsType0 = (int)request.getAttribute("snsType0");
-	int snsType1 = (int)request.getAttribute("snsType1");
+	int snsType0 = Integer.parseInt(request.getAttribute("snsType0").toString());
+	String snsType1 = request.getAttribute("snsType1")+"";
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
-	rel="stylesheet">
+	rel="stylesheet"> -->
 <style>
-@media only screen and (max-width: 780px) {
-	* {
-		font-family: 'Gowun Dodum', sans-serif;
-		font-size: 3vw;
-	}
-	
-	.chaegepro {
-		padding-left: 1em;
-		width: 100%;
-	}
-}
-
-@media only screen and (min-width: 780px) {
-	* {
-		font-family: 'Gowun Dodum', sans-serif;
+	.chaegepro>* {
 		font-size: 1.125vw;
 	}
 	.chaegepro {
-	padding-left: 1em;
+	
 	width: 80%;
+	height:800px;
+	margin:auto;
+	border:1px rgb(224,224,224) solid;
+	border-radius:10px;
+	box-shadow: 
+	
 	}
-}
 
 .chaegepro div {
-	/* border: 1px solid red;  */
-	float: left;
 	text-align: center;
 }
-
+.chaegepro>div{
+	float: left;
+	
+}
 span{
 	display:block; 
 	width:40%;
@@ -52,38 +44,41 @@ span{
 }
 
 .imgDiv{
-	margin: 1vw 25%; 
-	width:50%;
-	height:50%;
+	margin:auto;
+	margin-bottom:20px;
+	width:8vw;
+	height:8vw;
+	min-width:60px;
+	min-height:60px;
+	border-radius:50%;
 	text-align: center;
     overflow: hidden;
+    object-fit :cover;
+    cursor: pointer;
 }
 
 .imgDiv>img{
 	width: 100%;
 	height: 100%;
+	
 	object-fit: cover;
 }
 
-.prople {
-	padding-top: 120px;
-	width: 28%;
+.profile {
+	width:100%;
 }
 
-.member {
-	width: 72%;
-	padding-top: 3%;
+.memberInfo {
+	width: 80%;
+	height:100px;
+	margin:auto;
 }
 
-.phone {
-	width: 72%;
-	padding-top: 3%;
-	margin-left: 28%;
-}
 
 .btn15 {
 	padding-top: 3%;
-	width: 72%;
+	width: 100%;
+	height:100px;
 	text-align: center;
 	border: none;
 	font-weight: 400;
@@ -92,88 +87,147 @@ span{
 }
 
 .int {
-	position: relative;
 	min-height: 26px;
 	border: none;
 	background: #fff;
-	font-size: 15px;
+	font-size: 1.1vw;
+	width:100%;
+	height:100%;
+	text-align: center;
+	
+	
+}
+.int:focus{
+box-shadow: 5px 5px 9px rgb(224,224,224) inset;
+outline:1px solid rgb(224,224,224);
 }
 
+
 .box1 {
-	width: 70%;
+	width: 100%;
+	height: 40px;
 	border: solid 1px #dadada;
 	box-sizing: border-box;
 	background: #fff;
-	position: relative;
 	margin: auto;
 }
 
-#btnJoin1, #btnJoin {
-	display: inline-block;
-	min-width: 44px;
+
+.btnJoin{
+
+	min-width: 50px;
+	min-height:30px;
 	padding: 2px 9px 2px;
 	border-radius: 4px;
 	border: solid 1px rgba(212, 216, 229, .5);
 	background-color: rgba(212, 216, 229, .25);
 	box-sizing: border-box;
 	text-align: center;
+	box-shadow: 0px 8px 6px -6px #666;
+	font-weight:600;
 }
 
-.loginset {
-	width: 72%;
-	text-align: center;
-	padding-top: 7%;
-	margin-left: 28%;
-}
 
-.loginset>button{
+
+.memberInfo>button{
 	border: solid 1px rgba(212, 216, 229, .5);
 	padding: 3% 5%;
 	border-radius: 4px;
+	font-weight:600;
+	background: rgba(212, 216, 229, .55);
+	box-shadow: 0px 8px 6px -6px #666
 }
 
 #btnJoin1 {
-	padding: 3% 23%;
-	margin: auto;
+	width: 80%;
+	height:60px;
+	border-radius: 4px;
+	border: solid 1px rgba(212, 216, 229, .5);
+	background-color: rgba(212, 216, 229, .25);
+	box-sizing: border-box;
 	text-align: center;
+	font-weight:600;
+	box-shadow: 0px 8px 6px -6px #666
 }
 
 .modal-body>span{
 	width:35% 
+}
+#memberWrap>div{
+	margin:auto;
+}
+
+#memberWrap{
+ width:65%; 
+ height:100%;
+ background: rgba(212, 216, 229, .25);
+ border-radius: 10px;
+ padding:15px;
+ box-shadow: -7px 0px 5px -1px gray ;
+}
+#profileWrap{
+width:35%; 
+ padding:15px;
+ border-radius: 10px;
+}
+label{
+	font-size:20px;
+	font-weight:600;
+}
+.name{
+	font-weight:600;
+	color:grey;
+	font-size:17px;
+	
 }
 </style>
 
 </head>
 <body>
 	<%@ include file="myInfoFrame.jsp"%>
-
-	<div class="chaegepro">
-		<form id="update-profile-img" action="<%=contextPath %>/updateImg.me" method="post" enctype="multipart/form-data">
-			<div class="prople">
-				<h3 class="title_text">프로필정보</h3>
+	<div id="board_area">
+		<div id="myclass_header">
+		<div id="myclass_area">
+				<div id="myclass_title">개인정보</div>
+		</div>
+		<div id="myclass_hr">
+			<hr />
+		</div>
+		</div>
+		<% if(snsType0 == 0){ %>
+	<div class="chaegepro" style="height:800px;">
+	<%}else{ %>
+		<div class="chaegepro" style="height:731px;">
+	<%} %>
+	<div id="profileWrap" >
+			<form id="update-profile-img" action="<%=contextPath %>/updateImg.me" method="post" enctype="multipart/form-data">
+			<div class="profile">
+				<label for="id" style="font-size:1.3vw;">프로필 정보</label>
 				<div class="imgDiv">
 					<img src="<%= request.getContextPath()+ loginUser.getFilePath()+loginUser.getChangeName() %>" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+					 <% if(snsType0 == 0){ %>
 					 <div id="file-area" style="display: none;">
 	                           <input type="file" id="profileImgFile" name="upfile" onchange="loadImg(this);">
 	                 </div>
+	                 <%} %>
 				</div>
 				<% if(snsType0 == 0){ %>
 					<%if(loginUser.getChangeName() != null){ %>
 						<input type="hidden" name="changeFileName" value="<%= loginUser.getChangeName()%>">
 					<%} %>
 					<input type="hidden" name="uno" value="<%= loginUser.getUserNo() %>">
-					<input type="submit" id="btnJoin" onclick="updateProfile();" value="변경">
-					<input type="button" id="btnJoin" class="fileDelete" value="삭제">
+					<input type="submit" class="btnJoin" onclick="updateProfile();" value="변경">
+					<input type="button" class="btnJoin fileDelete" value="삭제">
 				<% } %>
 			</div>
 		</form>
+	</div>
+	<div id="memberWrap" >
 		<form id="update-form" action="<%=contextPath %>/update.me" method="post">
-			<div class="member">
-				<h3>
+			<div class="memberInfo">
 					<label for="id">아이디</label>
-				</h3>
-				<span class="box1 int_id">
-					<input type="text" id="name" name="id" maxlength="20" class="int" value="<%=snsType0 ==0 ? loginUser.getUserId():"sns유저는 변경불가."%>" <%= snsType0==0?"":"readonly"  %>><br>
+				<span class="box1">
+					<input type="text" class="int name" value="<%=snsType0 ==0 ? loginUser.getUserId():"sns유저"%>" readonly  ><br>
 				</span>
 			</div>
 			<% if(snsType0 == 0){ %>
@@ -181,52 +235,49 @@ span{
 				<input type="button" id="btnJoin1" data-toggle="modal" data-target="#changePassword" value="비밀번호 변경">
 			</div>
 			<% } %>
-			<br>
-			<div class="member">
-				<h3>
+			
+			<div class="memberInfo">
 					<label for="id">역할 </label>
-				</h3>
-				<span class="box1 int_name">
-					<input type="text" id="name" maxlength="20" class="int" value="<%= loginUser.getUserLevel() == 1?"선생님": loginUser.getUserLevel() == 2?"학부모":"학생" %>(수정불가)" readonly><br>
+				<span class="box1">
+					<input type="text" class="int name" value="<%= loginUser.getUserLevel() == 1?"선생님": loginUser.getUserLevel() == 2?"학부모":"학생" %>" readonly><br>
 				</span>
 			</div>
-			<div class="phone">
-				<h3>
+			<div class="memberInfo">
 					<label for="id">이름</label><br>
-				</h3>
-				<span class="box1 int_phone">
-					<input type="text" id="phoneNo" name="userName" maxlength="20" class="int" value="<%= loginUser.getUserName()%>">
+				<span class="box1">
+					<input type="text" name="userName" class="int" value="<%= loginUser.getUserName()%>">
 				</span>
 			</div>
 			
-			<div class="phone">
-				<h3>
+			<div class="memberInfo">
+				
 					<label for="id">휴대전화</label><br>
-				</h3>
-				<span class="box1 int_phone">
-					<input type="text" id="phoneNo" name="phone" maxlength="20" class="int" value="<%= loginUser.getPhone()%>">
+				
+				<span class="box1">
+					<input type="text" name="phone" class="int" value="<%= loginUser.getPhone()==null ? "": loginUser.getPhone() %>">
 				</span>
 			</div>
 			
-			<div class="phone">
-				<h3>
+			<div class="memberInfo">
 					<label for="id">주소</label><br>
-				</h3>
-				<span class="box1 int_phone">
-					<input type="text" name="address" class="int" value="<%= loginUser.getAddress()%>" style="width:100%">
+				<span class="box1">
+					<input type="text" name="address" class="int" value="<%= loginUser.getAddress()==null ? "": loginUser.getAddress()%>">
 				</span>
 			</div>
 	
-			<div class="loginset">
-				<label for="loginid"><h3>로그인 계정 정보</h3></label><br> <span
-					class="box1 int_login"> <input type="text" id="login"
+			<div class="memberInfo">
+				<label for="loginid">로그인 계정 정보</label><br> <span
+					class="box1"> <input type="text" 
 					maxlength="20" class="int" value="<%=snsType0==0?"일반":snsType0==1?"카카오":snsType0==2?"네이버":"구글" %>가입(<%= snsType0!=0?snsType1:loginUser.getEnrollDate() %>)" readonly></span>
 			</div>
-			<div class="loginset">
+			<div class="memberInfo">
 				<button type="submit">수정</button>	
 				<button type="button" onclick="deleteMember();">회원탈퇴</button>	
 			</div> 
 		</form>
+	</div>
+	
+		
 	</div>
 	<%-- 비밀번호 변경 모달창 --%>
 	 <div id="changePassword" class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -253,13 +304,17 @@ span{
              </div>
           </div>
        </div>
+       </div>
+          </div>
+             </div>
+                </div>
 	<script>
 		function deleteMember(){
 			if(confirm("돌이킬 수 없습니다. 정말 회원탈퇴를 하시겠습니까?")){
 				location.href="<%=request.getContextPath()%>/delete.me";
 			}
 		}
-	
+
 		
 		// 파일 선택
 		$(".imgDiv>img").on('click',function(){

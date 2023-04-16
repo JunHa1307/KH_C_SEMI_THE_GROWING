@@ -32,39 +32,21 @@
 	background-position: 0 0;
 	cursor: pointer;
 	animation: fave-heart 1s steps(28);
-	top:82%;
-	left:63%;
+	top:55%;
+	left:5%;
 	position: absolute;
 }
 
 @
-keyframes fave-heart { 0% {
+keyframes fave-heart { 
+	0% {
 	background-position: 0 0;
+	}
+	100%{ 
+	background-position:-2800px 0;
+	}
 }
 
-100
-
-
-%
-{
-background-position
-
-
-:
-
-
--2800px
-
-
-0
-;
-
-
-}
-}
-* {
-	font-family: "Gowun Dodum", sans-serif;
-}
 
 div {
 	box-sizing: border-box;
@@ -125,6 +107,9 @@ div {
 	height: 28px;
 	margin: auto;
 	text-align: right;
+	font-size: 14px;
+	font-weight:590;
+	color:grey;
 }
 
 #modal {
@@ -139,11 +124,14 @@ div {
 	margin: auto;
 	visibility: hidden;
 	z-index: 5;
+	border-radius:10px; 
+	
 }
 
 #modal>div {
 	float: left;
 	height: 100%;
+	border-radius:10px; 
 }
 
 #mo_picture {
@@ -183,7 +171,7 @@ div {
 #mo_write {
 	width: 40%;
 	background-color: white;
-	padding: 15px;
+	
 }
 #a {
 	width: 100%;
@@ -193,7 +181,7 @@ div {
 
 #mo_write_wrap {
 	width: 100%;
-	height: 60px;
+	height: 50px;
 	
 }
 
@@ -205,6 +193,7 @@ div {
 #mo_title {
 	width: 80%;
 	font-weight: 700;
+	font-size: 20px;
 }
 
 #mo_date {
@@ -251,27 +240,31 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 #mo_writer_text {
 	width: 70%;
+	overflow-y: scroll;
 	/* background-color: aqua; */
 }
-
+#mo_writer_text::-webkit-scrollbar {
+	display: none;
+}
 #mo_writer_content2>div {
 	float: left;
 	height: 100%;
 }
 
 #mo_writer_id {
-	width: 30%;
-	
+	width: 100px;
+	text-align:center;
 	font-weight: 600;
-	padding-left:8.5%;
+	padding-left:20px;
 }
 
 #mo_writer_date {
-	width: 70%;
+	width:340px;
 	text-align: right;
 	font-size: smaller;
 }
@@ -285,6 +278,7 @@ div {
 .mo_reply_content {
 	width: 100%;
 	height: 69%;
+	position: relative;
 }
 
 .mo_reply_content>div {
@@ -303,8 +297,8 @@ div {
 }
 
 .mo_reply_profileImg {
-	width: 60%;
-	height: 100%;
+	width: 65px;
+	height: 65px;
 	border-radius: 100%;
 	overflow: hidden;
 }
@@ -313,11 +307,20 @@ div {
 	border-radius: 100%;
 	width: 100%;
 	height: 100%;
+	object-fit : cover;
 }
 
 .mo_reply_text {
-	width: 70%;
+	width: 73%;
+	word-break: break-all;
+	overflow-y: scroll;
+	position: absolute;
+	top: 0;
+	left: 100px;
 	/* background-color: aqua; */
+}
+.mo_reply_text::-webkit-scrollbar {
+	display: none;
 }
 
 .mo_reply_content2>div {
@@ -326,16 +329,15 @@ div {
 }
 
 .mo_reply_id {
-	width: 30%;
-	padding-left: 3%;
-	padding-right: 8.5%;
+	width: 70px;
+	
 	text-align:center;
 	font-size: smaller;
 	font-weight: 600;
 }
 
 .mo_reply_date {
-	width: 70%;
+	width: 95%;
 	text-align: right;
 	font-size: smaller;
 }
@@ -360,6 +362,7 @@ div {
 	width: 100%;
 	height: 45px;
 	margin-bottom: 5px;
+	position:relative;
 	/* background-color: antiquewhite; */
 }
 
@@ -394,16 +397,18 @@ div {
 
 #mo_reply_write_text {
 	height: 90px;
+	padding:10px 10px 0px 10px;
 	/* background-color: antiquewhite; */
 }
 
 #mo_reply_write_text_content {
-	width: 80%;
+	width: 70%;
+	height:100%;
 }
 
 #mo_reply_bt {
-	width: 20%;
-	height: 80%;
+	width: 15%;
+	height: 90%;
 }
 
 #mo_reply_bt>div>button {
@@ -429,6 +434,54 @@ div {
 	top : 10px;
 	left:-70px;
 } */
+#boardReplyIcon {
+	height: 50px;
+	border-bottom: 1px solid rgb(224, 224, 224);
+	border-top: 1px solid rgb(224, 224, 224);
+	display: flex;
+	align-items: center;
+	background-color: rgb(244, 247, 247);
+}
+#mo_write_inner{
+	padding:15px;
+}
+#mo_reply_textarea {
+	border: 1px solid rgb(224, 224, 224);
+	width:100%; 
+	height:100%;
+	 resize:none;
+}
+.grey{
+	color:grey;
+}
+#lock_btn {
+	background-color: white;
+	border-style: none;
+	
+	margin-top:17px;
+	margin-right:5px;
+	margin-left:5px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	
+}
+#lock_btn:hover {
+	background-color: rgb(233, 233, 231);
+	border-style: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	
+}
+
+
+
+#lock_img {
+	width: 25px;
+	height: 25px;
+	
+}
 </style>
 </head>
 <body>
@@ -464,7 +517,7 @@ div {
 					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>','<%=uno%>');">
 					<img src="<%=contextPath %><%=b.getTitleImg() %> ">
 				</div>
-				<div class="album_con_date"><%=b.getCreateDate() %></div>
+				<div class="album_con_date"><%=b.getcDate()%></div>
 
 			</div>
 			<%} %>
@@ -577,24 +630,30 @@ div {
 
 
 			<div id="mo_reply_write">
-				<div class="mo_reply_hr">
-					<hr>
-				</div>
+			
+				<div id="boardReplyIcon">
 				<div id="mo_reply_list">
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno %>');"></div></li>
 						<li class="like" onclick="likeClick('<%=uno %>');"><i class="bi"></i></li>
-						<li class="chat"><i class="bi bi-chat-quote"></i></li>
+						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
+							id="chat_count">0</span>개</li>
 						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
 							style="padding-right: 10px;"></i>스크랩</li>
 					</ul>
 
 				</div>
-
+			</div>
 				<div id="mo_reply_write_text">
 					<div id="mo_reply_write_text_content">
-						<textarea id="mo_reply_textarea" cols="45" rows="3"
+						<textarea id="mo_reply_textarea" 
 							placeholder="댓글을 입력하여 주세요." style="resize: none;"></textarea>
+					</div>
+					<div>
+						<button id="lock_btn" data-lock="N">
+							<img id="lock_img"
+								src="<%=contextPath%>/resources/image/unlock.png" >
+						</button>
 					</div>
 					<div id="mo_reply_bt" class="box">
 						<button class="button_UI button--winona insert_bt"
@@ -648,15 +707,15 @@ div {
        
           });
 
-
+        
 
         function albumClick(bno, level,uno){
         	
           //댓글
-        	$("#modal").attr("class",bno);
-        	$.ajax({
+ 	$("#modal").attr("class",bno); 
+      	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
-   				data : { bno : bno},
+   				data : { bno },
    				type : "get",
 				dataType : "html", 
    				success : function(list){
@@ -665,13 +724,13 @@ div {
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
-        	});
+        	});  
         	
          	$.ajax({
    				url : "<%=contextPath%>/rCount.bo",
    				data : { bno : bno},
    				success : function(list){
-   					 $(".chat").html('<i class="bi bi-chat-quote"></i>댓글 '+list+'개</li>');
+   				 $("#chat_count").html(list);
    				},
    				error: function(){
    					console.log("게시글 목록조회 실패")
@@ -686,12 +745,12 @@ div {
   				data : { bno},
   				success : function(b){
   				 	 let result = ""; 
-  				 	if(level==1){
+  				 	if(level==1 || b.refUno == uno){
   						  result  += 
   		   						 
   								'<div id="mo_write_wrap">'+
   							'<div id="mo_title">'+b.boardTitle+'</div>'+
-  							'<div id="mo_date">'+b.createDate+
+  							'<div id="mo_date" class="grey">'+
   							
   							'<div id="menu" class="dropdown"'+
                                 'style="float: right; margin: -7% 0% 0% 10%;">'+
@@ -703,28 +762,28 @@ div {
                                    '<a class="dropdown-item" href="/growing/delete.al?bno='+b.boardNo+'">삭제</a></div></div>'+
                                    '</div></div>'+
   						'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
-  									'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+  									'<div id="mo_writer_profileImg"><img src="/growing/'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
   								'<div id="mo_writer_id">'+b.userId+'</div>'+
-  								'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
+  								'<div id="mo_writer_date" class="grey">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
   				 	}else{
   				 	  result  += 
 	   						
 							'<div id="mo_write_wrap">'+
 						'<div id="mo_title">'+b.boardTitle+'</div>'+
-						'<div id="mo_date">'+b.createDate+
+						'<div id="mo_date">'+b.cDate+
 						
 
                              '</div></div>'+
 					'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
-								'<div id="mo_writer_profileImg"><img src="'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+								'<div id="mo_writer_profileImg"><img src="/growing/'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
 								'</div></div>'+
 							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
 						'<div id="mo_writer_content2">'+
 							'<div id="mo_writer_id">'+b.userId+'</div>'+
-							'<div id="mo_writer_date">'+b.createDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
+							'<div id="mo_writer_date">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
   				 		
   				 	}
   		   						 
@@ -738,12 +797,13 @@ div {
   				}
        	});   
         	  
-        	  
         	//사진
+        	  
          $.ajax({
    				url : "<%=contextPath%>/innerlist.al",
    				data : { bno},
    				success : function(list){
+   					console.log(list);
    				let slength = $("#slider-div .slick-slide").length;
    					 for(let i = 0; i<slength; i++){ 
    						$("#slider-div").slick('slickRemove',false);
@@ -762,15 +822,7 @@ div {
         	
 
 
-            $("#veil").click(function(){
-                if($("#modal").css("visibility")=="visible"){
-                    $("#modal").css("visibility","hidden"); 
-                    $('body').css({overflow :"scroll",scroll:"yes"});
-                    $("#veil").css("display","none");
-               
-
-                }
-            });
+            
             
            
             $.ajax({
@@ -794,6 +846,7 @@ div {
 			                $("#veil").css("display","block");
 			               
 			            }
+					 
 				},
 				error: function(){
 					console.log("게시글 목록조회 실패")
@@ -803,6 +856,16 @@ div {
            
         };
 
+        $("#veil").click(function(){
+            if($("#modal").css("visibility")=="visible"){
+                $("#modal").css("visibility","hidden"); 
+                $('body').css({overflow :"scroll",scroll:"yes"});
+                $("#veil").css("display","none");
+           
+
+            }
+        });
+        
             let j = 0;
         $('.scrap').on('click',function(){
             if(j==0){
@@ -878,22 +941,61 @@ div {
 
            
            
-     
+           let i = 0;
+          	$("#lock_btn").click(function(){
+          		if(i==0){
+        		 $(this).data("lock","Y");
+        		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
+        		$("#lock_img").css({"width":"30px", "height":"30px"});
+        		
+        		i++;
+          		}else{
+          		 $(this).data("lock","N");
+         		$(this).children("#lock_img").attr("src","/growing/resources/image/unlock.png");
+         		$("#lock_img").css({"width":"25px", "height":"25px"});
+         		i--;
+          		}
+        	});
     	
         $("#insertReply").click(function(){
           	let bno = $("#modal").attr("class"); 
+          	let lock = $("#lock_btn").data("lock");
    			$.ajax({
    				url : "<%=contextPath%>/rinsert.bo",
    				data : {
    					content : $("#mo_reply_textarea").val(), 
-   					bno
+   					bno,  lock
    				},
    				success : function(result){
    				 
    					if(result > 0){
-   						albumClick(bno);
-   						$("#mo_reply_textarea").val("");
    						
+   						$("#mo_reply_textarea").val("");
+   						$.ajax({
+   			   				url : "<%=contextPath%>/rlist.bo",
+   			   				data : { bno : bno},
+   			   				type : "get",
+   							dataType : "html", 
+   			   				success : function(list){
+   			   					 $(".mo_reply").html(list); 
+   			   				},
+   			   				error: function(){
+   			   					console.log("게시글 목록조회 실패")
+   			   				}
+   			        	});
+   						$.ajax({
+			   				url : "<%=contextPath%>/rCount.bo",
+			   				data : { bno },
+			   				success : function(list){
+			   					console.log(list);
+			   					 $("#chat_count").html(list);
+			   				},
+			   				error: function(){
+			   					console.log("게시글 목록조회 실패")
+			   				}
+			        	}); 
+   						$("#lock_btn").data("lock","N");
+						$("#lock_btn").css("background", "");
    					}else{
    						alert("댓글작성에 실패했습니다");
    						
@@ -904,6 +1006,52 @@ div {
    				} 
    			});
    		}); 
+<%--         $(".deleteReply").click(function(){
+			let rno = $(this).data('rno'); 
+			let bno = $(this).data('bno'); 
+			$.ajax({
+   				url : "<%=contextPath%>/rDelete.bo",
+   				data : { rno},
+   				type : "get",
+   				success : function(result){
+   					 /* albumClick(bno);  */
+   			- 		if(result>0){
+   					$.ajax({
+		   				url : "<%=contextPath%>/rlist.bo",
+		   				data : { bno :bno},
+		   				type : "get",
+						dataType : "html", 
+		   				success : function(list){
+		   					 $(".mo_reply").html(list); 
+		   					
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});
+					$.ajax({
+		   				url : "<%=contextPath%>/rCount.bo",
+		   				data : { bno : bno},
+		   				success : function(list){
+		   					 $("#chat_count").html(list);
+		   				},
+		   				error: function(){
+		   					console.log("게시글 목록조회 실패")
+		   				}
+		        	});   
+   					}else {
+						alert("댓글삭제에 실패했습니다");
+
+					} 
+   					
+   				},
+   				error: function(){
+   					console.log("게시글 목록조회 실패")
+   				}
+        		});
+		}); --%>
+     
+
     </script>
 </body>
 </html>

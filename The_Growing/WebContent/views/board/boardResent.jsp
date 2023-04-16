@@ -5,6 +5,7 @@
     <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Board> list= (ArrayList<Board>)request.getAttribute("list");
+	ArrayList<Integer> r = (ArrayList<Integer>) request.getAttribute("r");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -56,57 +57,73 @@
 #album_hr>hr {
 	margin: 0;
 }
-	/* background-color: aquamarine; */
-	.list-area{
-		text-align : center;
-		box-shadow: 0 0 0 0.8px rgb(224, 224, 224);
-		border-radius: 10px;
-	}
-	.list-area tr{
-		height: 50px;
-	}
-	
-	.list-area>tbody>tr:hover{
-		background : gray;
-		cursor : pointer;
-	}
-	.type{
-		width : 80%;
-		height: 30px;
-		border-radius: 50px;
-		margin: auto;
-		padding-top:3px;
-		background-color:  rgb(239, 239, 216);
-	}
-	#notice {background-color:   #D7COAE;}
-	#album {background-color:    #EEE3CB;}
-	#free {
-		background-color:  #B7C4CF;
-		font-size: 0.8vw;	
-	}
+/* background-color: aquamarine; */
+.list-area {
+	text-align: center;
+	box-shadow: 0 0 0 0.8px rgb(224, 224, 224);
+	border-radius: 10px;
+}
 
+.list-area tr {
+	height: 50px;
+}
 
+.list-area>tbody>tr:hover {
+	background: gray;
+	cursor: pointer;
+	height:70px;
+}
 
-	.pagination {
-         justify-content: center;
-       }
-                   
-       .pagination button {
-           border-style : none;
-           float: left;
-           padding: 8px 16px;
-           text-decoration: none;
-           border-radius:50%;
-           margin-right: 4px;
-           color : grey;
-       }
-                   
-       .pagination button.active {
-           background-color: #cff0cc;
-            color: black;
-       }
-                   
-      .pagination button:hover:not(.active) {background-color: silver;}
+.type {
+	width: 80%;
+	height: 30px;
+	border-radius: 50px;
+	margin: auto;
+	padding-top: 3px;
+	background-color: rgb(239, 239, 216);
+	font-weight:500;
+}
+
+#notice {
+	background-color: #D7COAE;
+}
+
+#album {
+	background-color: #EEE3CB;
+}
+
+#free {
+	background-color: #B7C4CF;
+	font-size: 0.8vw;
+}
+
+.pagination {
+	justify-content: center;
+}
+
+.pagination button {
+	border-style: none;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	border-radius: 50%;
+	margin-right: 4px;
+	color: grey;
+}
+
+.pagination button.active {
+	background-color: #cff0cc;
+	color: black;
+}
+
+.pagination button:hover:not(.active) {
+	background-color: silver;
+}
+#bno{
+	color:grey;
+	font-size:13px;
+	font-weight :500;
+}
 </style>
 </head>
 <body>
@@ -124,6 +141,11 @@
 			<table class="list-area" align="center">
 			<thead>
 				<tr>
+				<!-- 	<th width="100">글번호	</th>
+					<th width="150">카테고리</th>
+					<th width="350">제목</th>
+					<th width="100">작성자</th>
+					<th width="150">작성일</th> -->
 					<th width="100">글번호	</th>
 					<th width="150">카테고리</th>
 					<th width="350">제목</th>
@@ -137,21 +159,39 @@
 					<td colspan="6">조회된 리스트가 없습니다.</td>
 				</tr>
 			<%} else { %>
-				<% for(Board b : list) {%>
+				<%-- <% for(int i =0; i<list.size(); i++) { %>
 					<tr>
-						<td id="bno"><%=b.getBoardNo() %></td>
-						<input type="hidden" id="type" value="<%=b.getBoardType() %>">
-						<%if (b.getBoardType()==2){%>
+						<td id="bno"><%=list.get(i).getBoardNo() %></td>
+						<input type="hidden" id="type" value="<%=list.get(i).getBoardType() %>">
+						<%if (list.get(i).getBoardType()==2){%>
 							<td>	<div class="type" id="notice">알림장</div></td>
-						<% }else if (b.getBoardType()==3) {%>
+						<% }else if (list.get(i).getBoardType()==3) {%>
 							<td>	<div class="type" id="album">앨범</div></td>
-						<%}else if (b.getBoardType()==4){ %>
+						<%}else if (list.get(i).getBoardType()==4){ %>
 							<td>	<div class="type" id="free">자유게시판</div></td>
 						<%} %>
 					
-						<td ><%=b.getBoardTitle() %><div id="title" onclick="count(<%=b.getBoardNo() %>);"></div></td>
-						<td><%=b.getUserId() %></td>
-						<td style=" font-size: 0.8vw;"><%=b.getCreateDate() %>
+						<td ><%=list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span><div id="title" onclick="count(<%=list.get(i).getBoardNo() %>);"></div></td>
+						<td><%=list.get(i).getUserId() %></td>
+						<td style=" font-size: 0.8vw; color:grey;"><%=list.get(i).getCreateDate() %>
+					</tr>
+				<%} %> --%>
+				
+				<% for(int i =0; i<list.size(); i++) { %>
+					<tr>
+						<td id="bno"><%=list.get(i).getBoardNo() %></td>
+						<input type="hidden" id="type" value="<%=list.get(i).getBoardType() %>">
+						<%if (list.get(i).getBoardType()==2){%>
+							<td>	<div class="type" id="notice">알림장</div></td>
+						<% }else if (list.get(i).getBoardType()==3) {%>
+							<td>	<div class="type" id="album">앨범</div></td>
+						<%}else if (list.get(i).getBoardType()==4){ %>
+							<td>	<div class="type" id="free">자유게시판</div></td>
+						<%} %>
+					
+						<td ><%=list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span><div id="title" onclick="count(<%=list.get(i).getBoardNo() %>);"></div></td>
+						<td><%=list.get(i).getUserId() %></td>
+						<td style=" font-size: 0.8vw; color:grey;"><%=list.get(i).getCreateDate() %>
 					</tr>
 				<%} %>
 			<%} %>
@@ -176,7 +216,7 @@
 				}else if(type==3){
 					location.href = "<%=contextPath %>/list.al?bno="+bno;
 				}else  if(type==4){
-					location.href = "<%=contextPath %>/detail.fr?bno="+bno;
+					location.href = "<%=contextPath %>/detail.fr?bno="+bno+'&boardType='+4;
 				}
 				
 				
@@ -201,7 +241,7 @@
 				
 				<%for(int i = startPage; i<=endPage; i++){ %>
 					<% if(i != currentPage) { %>
-						<button onclick="location.href='<%=contextPath %>/resent.bo?currentPage=<%=i %>';"><%=i %></button>
+						<button onclick="location.href='<%=contextPath %>/resent.bo?currentPage=<%=i %>'"><%=i %></button>
 					<%} else { %>
 						<button disabled><%=i %></button>
 					<%} %>

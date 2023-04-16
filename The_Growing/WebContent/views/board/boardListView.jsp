@@ -1,17 +1,18 @@
+<%@page import="com.kh.board.model.vo.Reply"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="com.kh.board.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-
+int boardType = (int) request.getAttribute("boardType");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	ArrayList<Integer> r = (ArrayList<Integer>) request.getAttribute("r");
 	Board bt = new Board();
 	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
 	String user =((Member)request.getSession().getAttribute("loginUser")).getUserId();
 	
-	int boardType =(int) request.getSession().getAttribute("boardType");
 	int currentPage = pi.getCurrentPage(); 
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -126,7 +127,7 @@
        
     
     }
-  
+
  
     </style>
 </head>
@@ -160,14 +161,14 @@
 			</div>
 		</div>
 
-
+		<%if (boardType == 4) {%>
 		<div id="list_search" align="right">
 			<button id="searchBtn_1" type="button" >
 				<input id="searchBoard" type="text" placeholder="게시판 검색" > 
-				<img src="resources/image/search.svg">
+				<img src="resources/image/search.svg" onclick="location.href='<%=contextPath%>/list.fr?boardType=<%= boardType%>&search='+$('#searchBoard').val();">
 			</button>
 		</div>
-
+		<%} %>
 		<table class="list-table">
 			
 				<% if(list.isEmpty()) {%>
@@ -183,41 +184,41 @@
 					<th width="130">작성일</th>
 					<th width="120">조회수</th>
 				</tr>
-				<% for(Board b  :  list) { %>
+				<% for(int i =0; i<list.size(); i++) { %>
 				<%if (boardType == 4) {%>
-				<tr  onclick="level1(<%= b.getBoardNo() %>);">
-					<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
-					<td><%= b.getBoardTitle() %></td>
-					<td><%= b.getUserId() %></td>
-					<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
-					<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+				<tr  onclick="level1(<%= list.get(i).getBoardNo() %>);">
+					<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
+					<td><%= list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span></td>
+					<td><%= list.get(i).getUserId() %></td>
+					<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
+					<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
 				</tr>
 				<%}else if(boardType==5){ %>
 						<%if (level == 1) {%>
-					<tr onclick="level1(<%= b.getBoardNo() %>);">
-						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
-						<td><%= b.getBoardTitle() %></td>
-						<td><%= b.getUserId() %></td>
-						<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
-						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+					<tr onclick="level2(<%= list.get(i).getBoardNo() %>);">
+						<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
+						<td><%= list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span></td>
+						<td><%= list.get(i).getUserId() %></td>
+						<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
+						<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
 
 					</tr>
-					<%}else if(loginUser.getUserId().equals(b.getUserId())){ %>
-					<tr id="level2" onclick="level2(<%= b.getBoardNo() %>);">
-						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
-						<td><%= b.getBoardTitle() %></td>
-						<td><%= b.getUserId() %></td>
-						<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
-						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+					<%}else if(loginUser.getUserId().equals(list.get(i).getUserId())){ %>
+					<tr id="level3" onclick="level3(<%= list.get(i).getBoardNo() %>);">
+						<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
+						<td><%= list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span></td>
+						<td><%= list.get(i).getUserId() %></td>
+						<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
+						<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
 					</tr>
 					
 					<%} else{%>
-					<tr onclick="level3();">
-						<td style="font-size: 13px; color:grey;"><%= b.getBoardNo() %></td>
+					<tr onclick="level4();">
+						<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
 						<td>비밀글 입니다</td>
 						<td>비밀 작성자</td>
-						<td style="font-size: 0.8vw;"><%= b.getCreateDate() %></td>
-						<td style="font-size: 13px; color:grey;"><%= b.getCount() %></td>
+						<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
+						<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
 					</tr>
 						<%} %>
 					<%} %>
@@ -226,28 +227,29 @@
 			
 		</table>
 		<script>
-						
-							function level1(bno){
+						function level1(bno){
+							
+							location.href = "<%=contextPath%>/detail.fr?bno="+bno+'&boardType=4';
 								
-								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
-							};
+						};
+							
 							function level2(bno){
-								location.href = '<%= contextPath %>/detail.fr?bno='+bno;
+								
+								location.href = "<%= contextPath %>/detail.fr?bno="+bno+'&boardType=5';
+									
+							};
+							function level3(bno){
+								location.href = "<%= contextPath %>/detail.fr?bno="+bno+'&boardType=5';
 						
 							};
-							function level3(){
+							
+							function level4(){
 								alert("해당 작성자만 확인할 수 있습니다.");
 						
 							};
 							
 							
-						/* 	$(".list-table>tbody>tr").click(function(){
-								
-								
-								
-							
-							}); */
-						/* }); */
+						
 					</script>
 
 
@@ -282,6 +284,19 @@
 
 		</div>
 	</div>
+<script>
+$(function (){
+	if(<%=boardType == 4 %>){
+		  $("#board_free").css("fontWeight", "700");
+	    $("#board_free").children().css("background", "rgb(239, 243, 239)");
+		}else if(<%=boardType == 5 %>) {
+			
+			  $("#board_counsel").css("fontWeight", "700");
+	        $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+		};
+});
 
+
+</script>
 </body>
 </html>
