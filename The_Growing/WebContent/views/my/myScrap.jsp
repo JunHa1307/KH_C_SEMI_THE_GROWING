@@ -49,6 +49,10 @@
 		border-radius: 20px;
 		height: 40px; 
 	}
+	.scrapDelete:hover{
+		background-color:  #D3D3D3;
+	}
+	
 </style>
 </head>
 <body>
@@ -74,7 +78,7 @@
 							<div class="divStyle scrapTitle">알림장</div>
 						<% } else if( b.getBoardType() == 3) { %>
 							<div class="divStyle scrapTitle">자유 게시판</div>
-						<% } else { %>
+						<% } else if( b.getBoardType() == 4)  { %>
 							<div class="divStyle scrapTitle">상담 게시판</div>
 						<% } %>
 						<div id="bTitle" class="divStyle"> 제목 <div class="conSt"><%= b.getBoardTitle() %></div></div>
@@ -82,7 +86,7 @@
 						<div id="" class="divStyle">생성 날짜<div class="conSt"><%= b.getCreateDate() %></div></div>
 						
 					</div>
-					<div style="display:inline-block; margin-left: 60px;">게시물 No. <%= b.getBoardNo() %> 스크랩</div>
+					<div style="display:inline-block; margin-left: 60px; margin-top: 8px;">게시물 No. <%= b.getBoardNo() %> 스크랩</div>
 					<button id="<%= loginUser.getUserNo() %>" type="button" class="scrapDelete" onclick="scrapDelete('<%= b.getBoardNo() %>');">취소</button>
 				</form>
      		<% }  %>
@@ -93,15 +97,15 @@
 	<script>
 		function goScrapBoard(boardType, bno){
 			if(boardType==1){
-				location.href="<%= contextPath %>/movenotice.bo#noDiV"+bno;
-			}else if(boardType==2){
 				location.href="<%= contextPath %>/list.al?bno="+bno;
-			}else if(boardType==3){
-				
-			}else{
-				
+			}else if(boardType==2){
+				location.href="<%= contextPath %>/movenotice.bo#noDiV"+bno;
+			}else if(boardType==4){
+				location.href="<%= contextPath %>/detail.fr?bno="+bno+"&boardType=4"+boardType;
+			}else if(boardType==5){
+				location.href="<%= contextPath %>/detail.fr?bno="+bno+"&boardType=5"+boardType;
 			}
-			location.href="<%= contextPath %>/goscrap.bo?bno="+bno;
+			
 		}
 	</script>
 
