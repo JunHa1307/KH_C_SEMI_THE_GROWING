@@ -11,7 +11,7 @@
 	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
 	int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 	//ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
-	ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -557,9 +557,7 @@ div {
 			</div>
 		</div>
 		<div class="album_content">
-
 			<% for( int i = 0; i<list.size(); i++) {%>
-
 			<div class="album_con1">
 				<input type="hidden" value="<%=list.get(i).getBoardNo() %>" id="hiddenNo">
 				<div class="album_con_title"
@@ -700,14 +698,11 @@ div {
 						<li class="like" onclick="likeClick('<%=uno %>');"><i class="bi"></i></li>
 						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
 							id="chat_count">0</span>개</li>
-						<li id="<%= uno %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick();">
-							<i class="bi bi-star" style="padding-right: 10px;"></i>
-							스크랩
-						</li>
+						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
+							style="padding-right: 10px;"></i>스크랩</li>
 					</ul>
 
 				</div>
-				
 			</div>
 				<div id="mo_reply_write_text">
 					<div id="mo_reply_write_text_content">
@@ -778,7 +773,7 @@ div {
         function albumClick(bno, level,uno){
         	
           //댓글
- 		$("#modal").attr("class",bno); 
+ 	$("#modal").attr("class",bno); 
       	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno },
@@ -933,7 +928,11 @@ div {
             }
         });
         
+<<<<<<< HEAD
              let j = 0;
+=======
+            let j = 0;
+>>>>>>> parent of 8261cdf (Merge pull request #143 from JunHa1307/main)
         $('.scrap').on('click',function(){
             if(j==0){
                 $('.bi-star').css({color : "orange", fontSize : "30px"});
@@ -943,7 +942,11 @@ div {
                 j--;
             }
 
+<<<<<<< HEAD
         }); 
+=======
+        });
+>>>>>>> parent of 8261cdf (Merge pull request #143 from JunHa1307/main)
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
@@ -1118,6 +1121,7 @@ div {
         		});
 		}); --%>
      
+<<<<<<< HEAD
 		//스크랩
      	function scrapClick(){
      		
@@ -1162,6 +1166,8 @@ div {
              });	
           
      });
+=======
+>>>>>>> parent of 8261cdf (Merge pull request #143 from JunHa1307/main)
 
     </script>
 </body>
