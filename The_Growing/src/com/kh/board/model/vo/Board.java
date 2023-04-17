@@ -52,6 +52,10 @@ public class Board {
 	private String keyword;
 	private String cDate;
 	
+	private String userName;
+	private int userLevel;
+	
+	
 	
 	
 	public Board() {
@@ -86,6 +90,42 @@ public class Board {
 		this.changeName = changeName;
 		this.titleImg = titleImg;
 		this.cDate=cDate;
+	}
+
+
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
+
+
+	public int getUserLevel() {
+		return userLevel;
+	}
+
+
+
+
+
+
+	public void setUserLevel(int userLevel) {
+		this.userLevel = userLevel;
 	}
 
 

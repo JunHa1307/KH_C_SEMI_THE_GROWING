@@ -6,7 +6,6 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Board> list= (ArrayList<Board>)request.getAttribute("list");
 	ArrayList<Integer> r = (ArrayList<Integer>) request.getAttribute("r");
-	ArrayList<Member> mList = (ArrayList<Member>)request.getAttribute("mList");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -215,7 +214,7 @@
 						<%} %>
 					
 						<td><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span><div id="title" onclick="count(<%=list.get(i).getBoardNo() %>);"></div></td>
-						<td id="user"><%=mList.get(i).getUserName() %> <%=mList.get(i).getUserLevel() ==1 ? "선생님" :mList.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
+						<td id="user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
 						<td id="cDate" ><%=list.get(i).getCreateDate() %>
 					</tr>
 				<%} %>
