@@ -296,7 +296,8 @@ public Board selectAlbumBoard(Connection conn, int bno){
 			b.setFilePath(rset.getString("FILE_PATH"));
 			b.setChangeName(rset.getString("CHANGE_NAME"));
 			b.setRefUno(rset.getInt("REF_UNO"));
-		
+			b.setUserLevel(rset.getInt("USER_LEVEL"));
+			b.setUserName(rset.getString("USER_NAME"));
 		}
 	} catch (SQLException e) {
 		e.printStackTrace();
