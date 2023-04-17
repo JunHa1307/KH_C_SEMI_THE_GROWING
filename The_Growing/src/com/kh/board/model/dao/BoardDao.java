@@ -60,6 +60,10 @@ private Properties prop = new Properties();
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setcDate(rset.getString("C_DATE"));
 				b.setTitleImg(rset.getString("TITLEIMG"));
+				b.setCount(rset.getInt("BOARD_COUNT"));
+				b.setUserLevel(rset.getInt("USER_LEVEL"));
+				b.setUserName(rset.getString("USER_NAME"));
+				
 				
 				list.add(b);
 			}
@@ -564,6 +568,8 @@ public ArrayList<Board> selectList(Connection conn, PageInfo pi, int cno){
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setUserId(rset.getString("USER_ID"));
 			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			b.setUserLevel(rset.getInt("USER_LEVEL"));
+			b.setUserName(rset.getString("USER_NAME"));
 								
 			list.add(b);
 					
@@ -769,7 +775,7 @@ public int insertBoard(Connection conn, Board b) {
 	return result;
 }
 
-public int deleteBoard(Connection conn, int boardNo, int userNo) {
+public int deleteBoard(Connection conn, int boardNo) {
 	
 	int result = 0;
 	
@@ -780,7 +786,6 @@ public int deleteBoard(Connection conn, int boardNo, int userNo) {
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, boardNo);
-		pstmt.setInt(2, userNo);
 		
 		result = pstmt.executeUpdate();
 		

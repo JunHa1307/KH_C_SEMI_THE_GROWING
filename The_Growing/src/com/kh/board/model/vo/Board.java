@@ -43,6 +43,7 @@ public class Board {
 	private String userId; 
 	private String filePath;
 	private String changeName;
+	
 
 	private String titleImg; 
 	
@@ -50,6 +51,12 @@ public class Board {
 	private String type;
 	private String keyword;
 	private String cDate;
+	
+	private String userName;
+	private int userLevel;
+	
+	
+	
 	
 	public Board() {
 		super();
@@ -83,6 +90,42 @@ public class Board {
 		this.changeName = changeName;
 		this.titleImg = titleImg;
 		this.cDate=cDate;
+	}
+
+
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
+
+
+	public int getUserLevel() {
+		return userLevel;
+	}
+
+
+
+
+
+
+	public void setUserLevel(int userLevel) {
+		this.userLevel = userLevel;
 	}
 
 

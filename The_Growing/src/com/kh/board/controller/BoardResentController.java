@@ -13,6 +13,8 @@ import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.PageInfo;
 import com.kh.board.model.vo.Reply;
+import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardResentController
@@ -151,7 +153,6 @@ public class BoardResentController extends HttpServlet {
 			 r.add(rCount);
 		 }
 		 request.setAttribute("r", r);
-		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 

@@ -38,7 +38,7 @@ public class BoardDeleteController extends HttpServlet {
 		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 	
 		
-		int result = new BoardService().deleteBoard(boardNo, userNo);
+		int result = new BoardService().deleteBoard(boardNo);
 		
 		if(result > 0) {
 			//삭제처리

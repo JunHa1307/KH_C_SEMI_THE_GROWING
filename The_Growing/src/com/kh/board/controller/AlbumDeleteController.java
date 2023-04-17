@@ -35,11 +35,14 @@ public class AlbumDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("이동");
 		int bno = Integer.parseInt(request.getParameter("bno"));
-		int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		/*
+		 * int uno =
+		 * ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		 */
 		
 		ArrayList<Attachment> list = new BoardService().selectAlbumInnerList(bno);
 	
-		int result = new BoardService().deleteBoard(bno , uno, list);
+		int result = new BoardService().deleteBoard(bno , list);
 		
 		if(result > 0) {
 			//삭제처리 

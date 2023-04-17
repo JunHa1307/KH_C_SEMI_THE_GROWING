@@ -6,7 +6,6 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Board> list= (ArrayList<Board>)request.getAttribute("list");
 	ArrayList<Integer> r = (ArrayList<Integer>) request.getAttribute("r");
-	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -58,6 +57,14 @@
 	margin: 0;
 }
 /* background-color: aquamarine; */
+
+#tableHead{
+	 border-bottom: 2px solid rgb(41, 33, 88);
+	 background: rgb(242, 244, 247);
+	 
+	 
+}
+
 .list-area {
 	text-align: center;
 	box-shadow: 0 0 0 0.8px rgb(224, 224, 224);
@@ -69,9 +76,9 @@
 }
 
 .list-area>tbody>tr:hover {
-	background: gray;
+	background: rgb(245, 246, 247);
 	cursor: pointer;
-	height:70px;
+	
 }
 
 .type {
@@ -80,21 +87,23 @@
 	border-radius: 50px;
 	margin: auto;
 	padding-top: 3px;
-	background-color: rgb(239, 239, 216);
 	font-weight:500;
+	box-shadow: 0px 8px 6px -6px #666;
 }
 
 #notice {
-	background-color: #D7COAE;
+	background-color: rgb(186, 202, 197);
 }
 
 #album {
-	background-color: #EEE3CB;
+	background-color: rgb(245, 241, 241);
+	
 }
 
 #free {
-	background-color: #B7C4CF;
+	background-color: rgb(90, 142, 163);
 	font-size: 0.8vw;
+	color:white;
 }
 
 .pagination {
@@ -120,10 +129,30 @@
 	background-color: silver;
 }
 #bno{
-	color:grey;
+	color:rgb(64, 106, 131);
 	font-size:13px;
-	font-weight :500;
+	font-weight :300;
 }
+#user{
+	font-size:14px;
+	font-weight:500;
+	 overflow: hidden;
+  text-overflow: ellipsis;
+}
+#cDate{
+	font-size: 0.7vw; 
+	color:rgb(64, 106, 131);
+	font-weight:300;
+}
+#topLeftRadius{
+	border-top-left-radius: 10px;
+
+}
+#topRightRadius{
+	border-top-right-radius: 10px;
+	
+}
+
 </style>
 </head>
 <body>
@@ -139,18 +168,13 @@
 			</div>
 		</div>
 			<table class="list-area" align="center">
-			<thead>
+			<thead id="tableHead" >
 				<tr>
-				<!-- 	<th width="100">글번호	</th>
+					<th width="100" id="topLeftRadius">글번호</th>
 					<th width="150">카테고리</th>
-					<th width="350">제목</th>
-					<th width="100">작성자</th>
-					<th width="150">작성일</th> -->
-					<th width="100">글번호	</th>
-					<th width="150">카테고리</th>
-					<th width="350">제목</th>
-					<th width="100">작성자</th>
-					<th width="150">작성일</th>
+					<th width="300">제목</th>
+					<th width="150">작성자</th>
+					<th width="150" id="topRightRadius">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -189,9 +213,9 @@
 							<td>	<div class="type" id="free">자유게시판</div></td>
 						<%} %>
 					
-						<td ><%=list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span><div id="title" onclick="count(<%=list.get(i).getBoardNo() %>);"></div></td>
-						<td><%=list.get(i).getUserId() %></td>
-						<td style=" font-size: 0.8vw; color:grey;"><%=list.get(i).getCreateDate() %>
+						<td><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span><div id="title" onclick="count(<%=list.get(i).getBoardNo() %>);"></div></td>
+						<td id="user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
+						<td id="cDate" ><%=list.get(i).getCreateDate() %>
 					</tr>
 				<%} %>
 			<%} %>
