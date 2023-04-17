@@ -43,6 +43,7 @@ public class Board {
 	private String userId; 
 	private String filePath;
 	private String changeName;
+	
 
 	private String titleImg; 
 	
@@ -50,6 +51,8 @@ public class Board {
 	private String type;
 	private String keyword;
 	private String cDate;
+	
+	
 	
 	public Board() {
 		super();

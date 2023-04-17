@@ -20,7 +20,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인 페이지</title>
+    <title>TheGrowing</title>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
@@ -28,14 +28,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
         div {
             box-sizing: border-box;
-            font-family: 'Gowun Dodum', sans-serif;
-            /* border: 1px solid red; */
+            font-family: 'Noto Sans KR', sans-serif;
         }
          
         html, body {
@@ -60,21 +59,14 @@
         }
 
         #header_1, #header_3 {
-            width: 20%;
             height: 100%;
             background-color: green;
         }
 
         #header_2 {
-            width: 60%;
             height: 100%;
         }
         
-        #tree_img {
-            height: 100px;
-            position: absolute;
-            margin: 2%;
-        }
 
         #text_img {
             width: 500px;
@@ -90,13 +82,11 @@
         }
 
         .content_2 {
-            width: 60%;
             height: 100%;
             text-align: center;    
         }
         
         .content_1, .content_3 {
-            width: 20%;
             height: 100%;
             background-color: green;
         }
@@ -112,39 +102,57 @@
         #userId, #userPwd {
             width: 70%;
             height: 70%;
-            font-size: 1.5em;
+            font-size: 1.5vw;
             border-color: rgb(161, 160, 160);
             border-radius: 500px;
             border-style: solid;
+            background-size: 45px; 
+            background-repeat: no-repeat;
+            background-position: left; 
+            text-align: center;
+        }
+        
+        #userId {
+        	background-image: url('https://search.pstatic.net/sunny/?src=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F94160753%3Fv%3D4%3Fs%3D400&type=a340');
+        }
+        
+        #userPwd {
+        	background-image: url('https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F00%2F5e%2Fe3%2F005ee3d4096f948347b994294e5a552a.jpg&type=a340');
         }
        
         #start_btn {
-            margin: 5%;
+            margin: 2.5% 5% 5% 5%;
             width: 200px;
             height: 60px;
             border-radius: 500px; 
-            border-color: black;
+            border: 5px outset greenyellow;
             font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
-            background-color: greenyellow;
+            background-color: #ffffff;
+            transition: 0.25s;
         }
 
         #enroll_btn {      
             width: 300px;
             height: 60px;
             border-radius: 500px;    
-            border-color: black;
+            border: 5px outset green;
             font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
-            background-color: green;
-            color: white;
+            background-color: #ffffff;
+            transition: 0.25s;
         }
        
         #start_btn:hover, #enroll_btn:hover {
-            opacity: 70%;
+			letter-spacing: 2px;
+	    	transform: scale(1.2);
+	    	background-color: #469536;
+	    	border: 5px solid #469536;
+   			color: #ffffff;
         }
+        
         #text_area {
             height: 20%;
             margin: 5%;
@@ -156,9 +164,40 @@
         }
        
         #title_1 {
-            font-size: 35pt;
+            font-size: 4vw;
         }
-
+        
+        #title_2 {
+        	font-size: 1.5vw;
+        }
+        
+		@media only screen and (min-width: 780px) {
+			 #header_1, #header_3 {
+			 	width: 20%;
+			 }
+			 
+			.content_1, .content_3 {
+				width: 20%;
+			}
+			
+			.content_2, #header_2 {
+        		width: 60%;
+			}
+		}
+		
+		@media only screen and (max-width: 780px) {
+			 #header_1, #header_3 {
+			 	width: 10%;
+			 }
+			 
+			 .content_1, .content_3 {
+				width: 10%;
+			}
+			
+			.content_2, #header_2 {
+        		width: 80%;
+			}
+		}
     </style>
 </head>
 <body>
@@ -167,8 +206,7 @@
             <div id="header_1"></div>
             
             <div id="header_2">
-                <img id="tree_img" src="https://media.discordapp.net/attachments/1083632858645663788/1087912949311619073/treelogo.png">
-                <img id="text_img" src="resources/image/그로잉.png">
+                <img id="tree_img" class="goFirst" src="<%= request.getContextPath() %>/resources/image/removeBackgroundLogo.png" height="100%">
             </div>
            
             <div id="header_3"></div>
@@ -180,27 +218,22 @@
 	
 	            <div class="content_2">
 	                <div id="title_area">
-	                   <h1 id="title_1">The Growing 계정으로 로그인</h1>
+	                   <h1 id="title_1">일반 계정으로 로그인</h1>
 	                   <h2 id="title_2">The Growing 회원가입 후에 이용 가능한 서비스 입니다.</h2>
 	                   
 	                </div>
 	
 	                <div id="loginForm_area">                
-	                    <input id="userId" type="text" name="userId" placeholder="아이디를 입력하세요."
-	                    style="background-image: url('https://search.pstatic.net/sunny/?src=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F94160753%3Fv%3D4%3Fs%3D400&type=a340');
-	                    background-size: 60px; background-repeat: no-repeat; text-align: center"> 
+	                    <input id="userId" type="text" name="userId" placeholder="아이디를 입력하세요."> 
 	                </div>   
 	                
 	                <div id="pwdForm_area">
-	                    <input id="userPwd" type="password" name="userPwd"  placeholder="비밀번호를 입력하세요."
-	                    style="background-image: url('https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F00%2F5e%2Fe3%2F005ee3d4096f948347b994294e5a552a.jpg&type=a340');
-	                    background-size: 60px; background-repeat: no-repeat; text-align: center"> 
+	                    <input id="userPwd" type="password" name="userPwd"  placeholder="비밀번호를 입력하세요."> 
 	                </div>    
 	                
 	                <div id="start_area"> <!-- 시작하기 버튼-->
 	                        <button id="start_btn" onclick="submitLogin();">시작하기</button>
 	                </div>
-					</form>
 	                <div id="text_area">
 	                    <span style="font-weight: bold;">
 	                        The Growing 계정이 없으신가요? <br>
@@ -211,9 +244,12 @@
 	                <div id="loginEnroll_area"> <!-- 회원가입 버튼-->
 	                        <button id="enroll_btn" type="button" onclick="enrollPage();">회원가입 바로가기</button>
 	                </div>
-	            </div>
+                </div>
+                
+                <div class="content_3"></div>
+          </form>
+	</div>
 	
-	            <div class="content_3"></div>
 
        	<script>
        		/* 회원가입을 위한 페이지 */
@@ -225,6 +261,10 @@
 			function submitLogin(){
 				$("#login-form").submit();
 			}
+			
+			$(".goFirst").click(function(){
+	            location.href = "<%= contextPath %>";
+       		});
        	</script>
     </div>
 </body>
