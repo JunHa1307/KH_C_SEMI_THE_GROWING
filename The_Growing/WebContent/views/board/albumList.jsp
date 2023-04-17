@@ -928,11 +928,14 @@ div {
             }
         });
         
-<<<<<<< HEAD
-             let j = 0;
-=======
-            let j = 0;
->>>>>>> parent of 8261cdf (Merge pull request #143 from JunHa1307/main)
+
+            
+
+          
+
+
+     /*        let j = 0;
+
         $('.scrap').on('click',function(){
             if(j==0){
                 $('.bi-star').css({color : "orange", fontSize : "30px"});
@@ -942,11 +945,13 @@ div {
                 j--;
             }
 
-<<<<<<< HEAD
+
         }); 
-=======
+
         });
->>>>>>> parent of 8261cdf (Merge pull request #143 from JunHa1307/main)
+
+        }); */
+
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
@@ -1002,11 +1007,11 @@ div {
         
         
         $("#album_Enroll").click(function () {
-    		location.href="<%=contextPath%>/insert.al?cno="+<%=cno%>;
+    		location.href="<%=contextPath%>/insert.al?cno="+cno;
     	});
                 
            $("#album_file").click(function () {
-    		location.href="<%=contextPath%>/att.al?cno="+<%=cno%>;
+    		location.href="<%=contextPath%>/att.al?cno="+cno
     	});
 
            
@@ -1076,7 +1081,7 @@ div {
    				} 
    			});
    		}); 
-<%--         $(".deleteReply").click(function(){
+         $(".deleteReply").click(function(){
 			let rno = $(this).data('rno'); 
 			let bno = $(this).data('bno'); 
 			$.ajax({
@@ -1085,7 +1090,7 @@ div {
    				type : "get",
    				success : function(result){
    					 /* albumClick(bno);  */
-   			- 		if(result>0){
+   			 		if(result>0){
    					$.ajax({
 		   				url : "<%=contextPath%>/rlist.bo",
 		   				data : { bno :bno},
@@ -1119,13 +1124,13 @@ div {
    					console.log("게시글 목록조회 실패")
    				}
         		});
-		}); --%>
+		}); 
      
-<<<<<<< HEAD
+
 		//스크랩
      	function scrapClick(){
      		
-     		let uno =  <%=uno%>
+     		let uno =  $(".scrap").attr("id");
      		let bno = $("#modal").attr("class");
      		
      		$.ajax({
@@ -1166,8 +1171,6 @@ div {
              });	
           
      });
-=======
->>>>>>> parent of 8261cdf (Merge pull request #143 from JunHa1307/main)
 
     </script>
 </body>
