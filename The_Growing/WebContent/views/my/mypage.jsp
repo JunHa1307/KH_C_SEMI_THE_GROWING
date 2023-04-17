@@ -17,7 +17,7 @@
 	rel="stylesheet"> -->
 <style>
 	.chaegepro>* {
-		font-size: 1.125vw;
+		font-size: 1vw;
 	}
 	.chaegepro {
 	
@@ -90,7 +90,7 @@ span{
 	min-height: 26px;
 	border: none;
 	background: #fff;
-	font-size: 1.1vw;
+	font-size: 0.9vw;
 	width:100%;
 	height:100%;
 	text-align: center;
@@ -309,6 +309,10 @@ label{
              </div>
                 </div>
 	<script>
+	$(function(){
+        $("#myInfo").css("fontWeight","700").fadeIn(1000);
+        $("#myInfo").children().css("background","rgb(239, 243, 239)");
+	});
 		function deleteMember(){
 			if(confirm("돌이킬 수 없습니다. 정말 회원탈퇴를 하시겠습니까?")){
 				location.href="<%=request.getContextPath()%>/delete.me";
