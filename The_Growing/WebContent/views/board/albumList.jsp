@@ -10,7 +10,7 @@
 	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
 	int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 	//ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist");
-
+	ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -507,6 +507,7 @@ div {
 		</div>
 		<div class="album_content">
 			<% for( Board b : list) {%>
+			
 			<div class="album_con1">
 				<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
 				<div class="album_con_title"
@@ -638,11 +639,14 @@ div {
 						<li class="like" onclick="likeClick('<%=uno %>');"><i class="bi"></i></li>
 						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
 							id="chat_count">0</span>개</li>
-						<li class="scrap" style="padding-right: 15px;"><i class="bi bi-star"
-							style="padding-right: 10px;"></i>스크랩</li>
+						<li id="<%= uno %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick();">
+							<i class="bi bi-star" style="padding-right: 10px;"></i>
+							스크랩
+						</li>
 					</ul>
 
 				</div>
+				
 			</div>
 				<div id="mo_reply_write_text">
 					<div id="mo_reply_write_text_content">
@@ -712,7 +716,7 @@ div {
         function albumClick(bno, level,uno){
         	
           //댓글
- 	$("#modal").attr("class",bno); 
+ 		$("#modal").attr("class",bno); 
       	$.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno },
@@ -866,7 +870,7 @@ div {
             }
         });
         
-            let j = 0;
+     /*        let j = 0;
         $('.scrap').on('click',function(){
             if(j==0){
                 $('.bi-star').css({color : "orange", fontSize : "30px"});
@@ -876,7 +880,7 @@ div {
                 j--;
             }
 
-        });
+        }); */
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
@@ -1051,6 +1055,50 @@ div {
         		});
 		}); --%>
      
+		//스크랩
+     	function scrapClick(){
+     		
+     		let uno =  $(".scrap").attr("id");
+     		let bno = $("#modal").attr("class");
+     		
+     		$.ajax({
+     			url: "<%= contextPath %>/scrap.bo",
+     			type: "post",
+     			data: {bno, uno},
+     			
+     			success: function(scrap){
+     					console.log(scrap);
+     					console.log("스크랩 잘됨");
+     					
+     			},
+     			error: function(){
+     				console.log("게시글 스크랩 실패");
+     			}
+     			
+     		});
+     	
+     	
+     	
+     	};
+     	
+
+          
+      $(function(){
+          $('.scrap').on('click',function(){
+        	  
+        	  if($(this).children($(".bi-star")).hasClass('unclicked')){
+        		  $(this).children($(".bi-star")).removeClass('unclicked');
+        		  $(this).children($(".bi-star")).addClass('clicked');
+        	  }else if($(this).children($(".bi-star")).hasClass('clicked')){
+        		  $(this).children($(".bi-star")).removeClass('clicked');
+        		  $(this).children($(".bi-star")).addClass('unclicked');
+        	  }else{
+        		  $(this).children($(".bi-star")).addClass('clicked');
+        	  }
+	     		
+             });	
+          
+     });
 
     </script>
 </body>
