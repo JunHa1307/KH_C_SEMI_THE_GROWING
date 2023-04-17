@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- google login api -->
   	<meta name ="google-signin-client_id" content="973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com">
-    <title>loginPage</title>
+    <title>TheGrowing</title>
 
     <!-- kakao login api cdn -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>    
@@ -36,13 +36,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
        div {
             box-sizing: border-box;
-            font-family: 'Gowun Dodum', sans-serif;
-            /* border: 1px solid red; */
+            font-family: 'Noto Sans KR', sans-serif;
         }
          
         html, body {
@@ -59,76 +58,109 @@
 
         .header {
             height: 15%;
+            min-height:120px;
             text-align: center;
+            overflow:hidden;
         }
 
-        #tree_img {
-            height: 130px;
+        .header>img {
+            box-sizing: border-box;
+            object-fit:cover;
         }
 
         #text_img {
             width: 600px;
         }
+        
+        @keyframes backgroundAnimation {
+			0% {
+				background-position: 0 bottom;
+			}
+			100% {
+				background-position: -3000px bottom;
+			}
+		}
+		
         .content {
-            height: 70%;
+            height: 75%;
+            background: url("<%=request.getContextPath()%>/resources/image/footTree.png") repeat-x center bottom;
+            animation: backgroundAnimation 120s linear infinite;
         }
 
         #content_1 {
             height: 10%;
+            margin-top : 10px;
             text-align: center;
         }
         
         #content_2 {
-            height: 90%;
+            height: 80%;
             text-align: center;
         }
-
+		
+		.snsContent{
+			width: 20%;
+			min-width: 450px;
+			padding: 1em 0 1em 0;
+			margin: auto;
+			border: 1px solid rgb(224, 224, 224);
+			border-radius: 1em;
+			background-color: white;
+		}
+		
+		.snsContent>li{
+			padding : 0.5vw;
+		}
+		
         .start_btn {
-            width: 500px;
-            height: 100px;
-            margin: 1%;
+            width: 30%;
+            min-width: 350px;
+            min-height: 100px;
+            margin: 2.5% 2%;
             border-radius: 500px;
-            border-color: white;
-            border-style: none;
+            border: 5px solid green;
             font-size: large;
             font-weight: bold;
             cursor: pointer;
             font-family: 'Gowun Dodum', sans-serif;
+            background-color: #ffffff;
+            transition: 0.25s;
         }
-
-        #start_btn1:hover,  #start_btn2:hover,  #start_btn3:hover,  #start_btn4:hover, #footer_1>a:hover{
+        
+		#start_btn1:hover{
+			letter-spacing: 2px;
+	    	transform: scale(1.2);
+	    	background-color: green;
+   			color: #ffffff;
+		}
+		
+        #start_btn2:hover,  #start_btn3:hover, #footer_1>a:hover{
             opacity: 70%;
         }
-
-        #start_btn1{
-            background-color: green;  
-        }
-
-        #start_btn2{
-            background-color: rgb(248, 232, 6);           
+        
+        #start_btn2{          
+             background: yellow url("<%=request.getContextPath()%>/resources/image/kakao_login_large_wide.png") no-repeat center center;
+             background-size: cover; 
         }
 
         #start_btn3{
-            background-color: rgb(9, 212, 60);      
+            background: rgb(3,199,90) url("<%=request.getContextPath()%>/resources/image/btnG_Naver.png") no-repeat center center;
+            background-size: 250px;
         }
-
-        #start_btn4{
-            background-color: white;
-            border-color: rgb(182, 181, 181);
-            border-style: solid;
+        
+        #start_btn2, #start_btn3 {
+        	width: 400px;
+            height: 40px;  
+            border-color: white;
+            border-style: none; 
+            border-radius: 3em;
         }
-        #kakao {
-            width: 50px;
-            height: 50px;
-            margin: -3%;           
-        }
-
-        #google, #naver{
-            width: 30px;
-            height: 30px;
-            margin: -1%;
-        }
-
+        
+		#buttonDiv {
+			background-color: white;
+            border-style: none; 
+            border-radius: 3em;
+		}
         
         @keyframes fadeInUp {
             0% {
@@ -145,15 +177,14 @@
                 transform: translateZ(0%);
             }
         }
-
+		
         #start_btn1{animation: fadeInUp 0.5s;}
         #start_btn2{animation: fadeInUp 1s;}
         #start_btn3{animation: fadeInUp 1.5s;}
-        #start_btn4{animation: fadeInUp 2s;}
+        #buttonDiv{animation: fadeInUp 2s;}
 
-
-        .footer {
-            height: 12.8%;
+		.footer {
+			height: 7.8%;
             background-color: green;
             color: white;
             display: flex;
@@ -161,20 +192,7 @@
             font-size: 15pt;
            
         }
-
-        .footer>* {
-            width: 50%;
-            height: 100%;
-            padding: 2.5%;
-        }
        
-        #footer_1>a{
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            margin: 15px;   
-        }
-
         li{
             display: block;
             list-style: none;
@@ -184,7 +202,7 @@
 <body>
     <div class="wrap">
         <div class="header">
-            <img id="treelogo.png" class="goFirst" src="resources/image/treelogo.png">
+            <img id="treelogo.png" class="goFirst" src="resources/image/treelogo.png" width=200px; height=120px;>
             <img id="textlogo.png" class="goFirst" src="resources/image/textlogo.png">
         </div>
 
@@ -205,43 +223,40 @@
             </div>  
             <div id="content_2">  
                 <button class="start_btn" id="start_btn1">The Growing으로 시작하기</button><br>
-
-                <li onclick="kakaoLogin();">
-                    <a href="javascript:void(0)">
-                        <button class="start_btn" id="start_btn2">
-	                        <img id="kakao" src="https://www.hiclass.net/img/icon_login_kakao.7b0cff84.png">
-	                        카카오로 시작하기
-                		</button>
-                    </a>
-                </li>
-                <%-- 네이버 로그인(java) --%>
-                <%
-				    String clientId = "AoXLANkB0ykozQKaSUNj";//애플리케이션 클라이언트 아이디값";
-				    String redirectURI = URLEncoder.encode("http://localhost:8085/growing/naverlogin.me", "UTF-8");
-				    SecureRandom random = new SecureRandom();
-				    String state = new BigInteger(130, random).toString();
-				    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-				    apiURL += "&client_id=" + clientId;
-				    apiURL += "&redirect_uri=" + redirectURI;
-				    apiURL += "&state=" + state;
-				    session.setAttribute("state", state);
-				 %>
-				<li>
-	  				<a href="<%=apiURL%>">
-		  				<button class="start_btn start_btn3" id="start_btn3">
-		  					네이버로 시작하기
-		  				</button>
-	  				</a>
-               	</li>         
-				<%-- 구글 로그인 --%>
-				<li>
-					<div class="gDid_signin" data-type="standard" data-size="large" data-width="100%"
-					  	data-theme="filled_blue" data-text="sign_in_with" data-shape="circle" data-logo_alignment="right"></div>
-	                <a><button id="buttonDiv" class="start_btn">
-	                구글로 시작하기
-	                </button></a>
-				</li>
-            </div>   
+				<ul class="snsContent">
+					<li><h3>SNS 로그인</h3></li>
+	                <li onclick="kakaoLogin();">
+	                    <a href="javascript:void(0)">
+	                        <button id="start_btn2"></button>
+	                    </a>
+	                </li>
+	                <%-- 네이버 로그인(java) --%>
+	                <%
+					    String clientId = "AoXLANkB0ykozQKaSUNj";//애플리케이션 클라이언트 아이디값";
+					    String redirectURI = URLEncoder.encode("http://localhost:8085/growing/naverlogin.me", "UTF-8");
+					    SecureRandom random = new SecureRandom();
+					    String state = new BigInteger(130, random).toString();
+					    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+					    apiURL += "&client_id=" + clientId;
+					    apiURL += "&redirect_uri=" + redirectURI;
+					    apiURL += "&state=" + state;
+					    session.setAttribute("state", state);
+					 %>
+					<li>
+		  				<a href="<%=apiURL%>">
+			  				<button class="start_btn3" id="start_btn3"></button>
+		  				</a>
+	               	</li>         
+					<%-- 구글 로그인 --%>
+					<li>
+						<div class="gDid_signin" data-type="standard" data-size="large" data-width="100%"
+						  	data-theme="filled_blue" data-text="sign_in_with" data-shape="circle" data-logo_alignment="right"></div>
+		                <a><button id="buttonDiv">
+		                구글로 시작하기
+		                </button></a>
+					</li>
+				</ul>
+            </div>
         </div>
 
         <div class="footer">
