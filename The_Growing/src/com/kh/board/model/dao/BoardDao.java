@@ -166,7 +166,7 @@ public ArrayList<Attachment> selectAttachList(Connection conn, int cno){
 
 
 
-public int insertReply(Connection conn, String content, int bno, int writer) {
+public int insertReply(Connection conn, String content, int bno, int writer, String lock) {
 	int result = 0;
 	PreparedStatement pstmt = null;
 	
@@ -178,6 +178,7 @@ public int insertReply(Connection conn, String content, int bno, int writer) {
 		pstmt.setString(1, content);
 		pstmt.setInt(2, bno);
 		pstmt.setInt(3, writer);
+		pstmt.setString(4,lock);
 		
 		result = pstmt.executeUpdate();
 		
@@ -214,6 +215,7 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setReplyWriter(rset.getString("USER_ID"));
 			r.setFilePath(rset.getString("FILE_PATH"));
 			r.setChangeName(rset.getString("CHANGE_NAME"));
+			r.setReplySecret(rset.getString("REPLY_SECRET"));
 			list.add(r);
 		}
 	} catch (SQLException e) {
@@ -289,6 +291,7 @@ public Board selectAlbumBoard(Connection conn, int bno){
 			b.setcDate(rset.getString("C_DATE"));
 			b.setFilePath(rset.getString("FILE_PATH"));
 			b.setChangeName(rset.getString("CHANGE_NAME"));
+			b.setRefUno(rset.getInt("REF_UNO"));
 		
 		}
 	} catch (SQLException e) {
@@ -1047,7 +1050,8 @@ public Board selectBoard(Connection conn, int boardNo) {
 			if(rset.next()) {
 				r = new Reply();
 				r.setReplyContent(rset.getString("REPLY_CONTENT"));
-				r.setReplyNo(rset.getInt("REPLY_NO"));	   
+				r.setReplyNo(rset.getInt("REPLY_NO"));	
+				r.setReplySecret(rset.getString("REPLY_SECRET"));
 			}
 			
 		} catch (SQLException e) {
@@ -1417,6 +1421,50 @@ public ArrayList<Integer> selectMyScrapList(Connection conn, int uno) {
 	return list;
 }
 
+public ArrayList<Board> selectMyScrapList2(Connection conn, int uno, ArrayList<Integer> arr) {
+	 
+	ArrayList<Board> list = new ArrayList<>();
+	PreparedStatement pstmt = null;
+	
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectMyScrapList2");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+
+		for(int bno : arr) {
+			
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, bno);
+		
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+			
+			Board b = new Board();
+			
+			b.setBoardNo(rset.getInt("BOARD_NO"));
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+			
+			list.add(b);
+		  }
+		}	
+			
+	
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	return list;
+}
+
 public int insertReplyNotice(Connection conn, int uno, int writer, int bno, int cno) {
 
 	int result = 0;
@@ -1467,6 +1515,7 @@ public int insertBoardNotice(Connection conn, int code, int rowNum, int uno) {
 		close(pstmt);
 	}
 	return result;
+
 }
 
 }

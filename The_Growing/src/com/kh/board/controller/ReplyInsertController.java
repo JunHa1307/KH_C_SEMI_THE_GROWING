@@ -38,13 +38,13 @@ public class ReplyInsertController extends HttpServlet {
 	
 		String content = request.getParameter("content");
 		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		
+		String lock = request.getParameter("lock");
+		System.out.println(lock);
 		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		
 		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
-		int result = new BoardService().insertReply(content, bno, writer);
+		int result = new BoardService().insertReply(content, bno, writer, lock);
 		
 		response.getWriter().print(result);
 		

@@ -25,7 +25,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 			<div class="mo_reply_content">
 			<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {%>
 			
-			<div class="dropdown" style="float: right; margin-top: -4%;">
+			<div class="dropdown" style="float: right;  margin-top: -2%; margin-right:7px;">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
@@ -40,7 +40,43 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 				
 				
 				<%} %>
+			<%if (list.get(i).getReplySecret().equals("Y")) {%>
+				<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter()) || b.getRefUno()==loginUser.getUserNo() || loginUser.getUserLevel()==1){%>
+				<div class="mo_reply_profile">
+					<div class="mo_reply_profileImg">
+						<img
+							src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
+							alt=""
+							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
+					</div>
+					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+				</div>
+				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%><img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
+			</div>
+		
+			<div class="mo_reply_content2">
+				
+				<div class="mo_reply_date grey"><%=list.get(i).getCreateDate()%></div>
+			</div>
+
+	
+				<%}else{%>
+						<div class="mo_reply_profile">
+						<div class="mo_reply_profileImg">
+							<img
+								src="<%=contextPath%>/resources/image/noImage.png">
+						</div>
+						<div class="mo_reply_id">비밀작성자</div>
+					</div>
+					<div class="mo_reply_text">비밀 댓글입니다.<img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
+				</div>
 			
+				<div class="mo_reply_content2">
+					
+					<div class="mo_reply_date grey"><%=list.get(i).getCreateDate()%></div>
+				</div>
+				<%} %>
+			<%}else{%>
 				<div class="mo_reply_profile">
 					<div class="mo_reply_profileImg">
 						<img
@@ -57,9 +93,8 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 				
 				<div class="mo_reply_date grey"><%=list.get(i).getCreateDate()%></div>
 			</div>
-
-	
-			<%}%>
+				<%} %>
+			<%} %>
 		<%}else{%>
 			<div style="text-align: center; padding-top:30px; font-size:20px; font-weight:600; color:grey;">
 				조회된 댓글이 없습니다.
@@ -98,7 +133,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 					   				data : { bno : bno},
 					   				success : function(list){
 					   					 $("#chat_count").html(list);
-					   					console.log(list);
+					   					
 					   				},
 					   				error: function(){
 					   					console.log("게시글 목록조회 실패")

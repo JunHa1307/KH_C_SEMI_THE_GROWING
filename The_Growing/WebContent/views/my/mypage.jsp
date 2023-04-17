@@ -22,7 +22,7 @@
 	.chaegepro {
 	
 	width: 80%;
-	height: 800px;
+	height:800px;
 	margin:auto;
 	border:1px rgb(224,224,224) solid;
 	border-radius:10px;
@@ -35,7 +35,7 @@
 }
 .chaegepro>div{
 	float: left;
-	height:100%;
+	
 }
 span{
 	display:block; 
@@ -54,6 +54,7 @@ span{
 	text-align: center;
     overflow: hidden;
     object-fit :cover;
+    cursor: pointer;
 }
 
 .imgDiv>img{
@@ -158,6 +159,7 @@ outline:1px solid rgb(224,224,224);
 
 #memberWrap{
  width:65%; 
+ height:100%;
  background: rgba(212, 216, 229, .25);
  border-radius: 10px;
  padding:15px;
@@ -192,16 +194,22 @@ label{
 			<hr />
 		</div>
 		</div>
-	<div class="chaegepro">
+		<% if(snsType0 == 0){ %>
+	<div class="chaegepro" style="height:800px;">
+	<%}else{ %>
+		<div class="chaegepro" style="height:731px;">
+	<%} %>
 	<div id="profileWrap" >
 			<form id="update-profile-img" action="<%=contextPath %>/updateImg.me" method="post" enctype="multipart/form-data">
 			<div class="profile">
 				<label for="id" style="font-size:1.3vw;">프로필 정보</label>
 				<div class="imgDiv">
 					<img src="<%= request.getContextPath()+ loginUser.getFilePath()+loginUser.getChangeName() %>" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+					 <% if(snsType0 == 0){ %>
 					 <div id="file-area" style="display: none;">
 	                           <input type="file" id="profileImgFile" name="upfile" onchange="loadImg(this);">
 	                 </div>
+	                 <%} %>
 				</div>
 				<% if(snsType0 == 0){ %>
 					<%if(loginUser.getChangeName() != null){ %>
@@ -297,6 +305,9 @@ label{
           </div>
        </div>
        </div>
+          </div>
+             </div>
+                </div>
 	<script>
 		function deleteMember(){
 			if(confirm("돌이킬 수 없습니다. 정말 회원탈퇴를 하시겠습니까?")){

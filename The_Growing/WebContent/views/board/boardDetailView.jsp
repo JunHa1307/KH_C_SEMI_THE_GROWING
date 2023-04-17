@@ -37,15 +37,21 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 #lock_btn {
 	background-color: rgb(244, 247, 247);
 	border-style: none;
-	margin-left: 10px;
+	margin: 10px;
 	width: 50px;
 	height: 50px;
+	border-radius: 50%;
+	
+}
+#lock_btn:hover {
+	background-color: rgb(233, 233, 231);
+	border-style: none;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	
 }
 
-#lock_btn:hover {
-	border-radius: 50%;
-	background-color: grey;
-}
 
 #profile_img {
 	width: 50px;
@@ -55,10 +61,11 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 }
 
 #lock_img {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+	
 }
+
 
 #mo_reply_list {
 	width: 100%;
@@ -142,8 +149,10 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 }
 
 .mo_reply_profile {
-	width: 15%;
+	width: 110px;
 	padding-left: 2%;
+	margin-right:10px;
+
 }
 
 .mo_reply_profileImg {
@@ -151,6 +160,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 	height: 65px;
 	border-radius: 100%;
 	overflow: hidden;
+	margin: auto;
 }
 
 .mo_reply_profileImg>img {
@@ -158,15 +168,16 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	
 }
 
 .mo_reply_text {
-	width: 80%;
+	width: 70%;
 	word-break: break-all;
 	overflow-y: scroll;
 	position: absolute;
 	top: 0;
-	left: 100px;
+	left: 120px;
 	/* background-color: aqua; */
 }
 
@@ -180,7 +191,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 }
 
 .mo_reply_id {
-	width: 65px;
+	width: 90px;
 	text-align: center;
 	font-size: 15px;
 	font-weight: 600;
@@ -233,8 +244,10 @@ div {
 
 #boardTitle {
 	height: 50px;
-	padding: 0 10px 0 10px;
-	margin-top: 10px;
+	padding: 0 10px 10px 10px;
+/* 	margin-top: 10px; */
+font-weight:600;
+font-size:30px;
 }
 
 #boardProfile {
@@ -289,6 +302,10 @@ div {
 #mo_reply_textarea {
 	border: 1px solid rgb(224, 224, 224);
 }
+
+.secretImg{
+	margin-bottom:3px;
+}
 </style>
 </head>
 <body>
@@ -331,11 +348,11 @@ div {
 
 		<div id="board_content">
 			<div id="boardTitle">
-				<h1><%=b.getBoardTitle()%></h1>
+				<span><%=b.getBoardTitle()%></<span>
 				<%
 					if (loginUser != null && loginUser.getUserId().equals(b.getUserId())) {
 				%>
-				<div class="dropdown" style="float: right; margin-top: -9%;">
+				<div class="dropdown" style="float: right; ">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
@@ -401,67 +418,88 @@ div {
 
 				<div class="mo_reply_wrap" style="overflow-y: scroll;">
 					<div class="mo_reply">
-						<%
-							if (list.size() != 0) {
-						%>
-						<%
-							for (int i = 0; i < list.size(); i++) {
-						%>
-						<div class="mo_reply_content">
-							<%
-								if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {
-							%>
+					<%if(list.size()!=0){ %>
+		<% 	for (int i = 0; i < list.size(); i++) {%>
+			<div class="mo_reply_content">
+			<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {%>
+			
+			<div class="dropdown" style="float: right; margin-top: -4%;">
+					<button class="btn btn-secondary" type="button"
+						id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
 
-							<div class="dropdown" style="float: right; margin-top: -4%;">
-								<button class="btn btn-secondary" type="button"
-									id="dropdownMenuButton" data-toggle="dropdown"
-									aria-haspopup="true" aria-expanded="false">
+						<img id="alarmIcon"
+							src="<%=contextPath%>/resources/image/icons8-메뉴-2-48.png">
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item deleteReply" data-rno='<%= list.get(i).getReplyNo()%>' data-bno='<%= b.getBoardNo()%>'>삭제</a>
+					</div>
+				</div>
+				
+				
+				<%} %>
+			<%if (list.get(i).getReplySecret().equals("Y")) {%>
+				<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter()) || b.getRefUno()==loginUser.getUserNo() || loginUser.getUserLevel()==1){%>
+				<div class="mo_reply_profile">
+					<div class="mo_reply_profileImg">
+						<img
+							src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
+							alt=""
+							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
+					</div>
+					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+				</div>
+				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%><img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
+			</div>
+		
+			<div class="mo_reply_content2">
+				
+				<div class="mo_reply_date grey"><%=list.get(i).getCreateDate()%></div>
+			</div>
 
-									<img id="alarmIcon"
-										src="<%=contextPath%>/resources/image/icons8-메뉴-2-48.png">
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item deleteReply"
-										data-rno='<%=list.get(i).getReplyNo()%>'>삭제</a>
-								</div>
-							</div>
-
-
-							<%
-								}
-							%>
-
-							<div class="mo_reply_profile">
-								<div class="mo_reply_profileImg">
-									<img
-										src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
-										alt=""
-										onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
-								</div>
-								<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
-							</div>
-							<div class="mo_reply_text"><%=list.get(i).getReplyContent()%></div>
+	
+				<%}else{%>
+						<div class="mo_reply_profile">
+						<div class="mo_reply_profileImg">
+							<img
+								src="<%=contextPath%>/resources/image/noImage.png">
 						</div>
-
-						<div class="mo_reply_content2">
-
-							<div class="mo_reply_date"><%=list.get(i).getCreateDate()%></div>
-						</div>
-
-
-						<%
-							}
-						%>
-						<%
-							} else {
-						%>
-						<div
-							style="text-align: center; padding-top: 30px; font-size: 20px; font-weight: 600; color: grey;">
-							조회된 댓글이 없습니다.</div>
-
-						<%
-							}
-						%>
+						<div class="mo_reply_id">비밀작성자</div>
+					</div>
+					<div class="mo_reply_text">비밀 댓글입니다.<img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
+				</div>
+			
+				<div class="mo_reply_content2">
+					
+					<div class="mo_reply_date grey"><%=list.get(i).getCreateDate()%></div>
+				</div>
+				<%} %>
+			<%}else{%>
+				<div class="mo_reply_profile">
+					<div class="mo_reply_profileImg">
+						<img
+							src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
+							alt=""
+							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
+					</div>
+					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+				</div>
+				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%></div>
+			</div>
+		
+			<div class="mo_reply_content2">
+				
+				<div class="mo_reply_date grey"><%=list.get(i).getCreateDate()%></div>
+			</div>
+				<%} %>
+			<%} %>
+		<%}else{%>
+			<div style="text-align: center; padding-top:30px; font-size:20px; font-weight:600; color:grey;">
+				조회된 댓글이 없습니다.
+			</div>
+		
+		<%} %>
+		
 
 					</div>
 				</div>
@@ -475,9 +513,9 @@ div {
 							style="resize: none; width: 100%; height: 100%;"></textarea>
 					</div>
 					<div style="width: 12%">
-						<button id="lock_btn">
+						<button id="lock_btn" data-lock="N">
 							<img id="lock_img"
-								src="<%=contextPath%>/resources/image/icons8-잠금-해제-66.png">
+								src="<%=contextPath%>/resources/image/unlock.png" >
 						</button>
 					</div>
 
@@ -505,7 +543,7 @@ div {
 	              $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
 			}
 			
-			
+		<%-- 	
 		 $.ajax({
    				url : "<%=contextPath%>/rlist.bo",
    				data : { bno :<%=b.getBoardNo()%>},
@@ -517,7 +555,7 @@ div {
    				error: function(){
    					console.log("게시글 목록조회 실패")
    				}
-        	}); 
+        	});  --%>
         	
          	$.ajax({
    				url : "<%=contextPath%>/rCount.bo",
@@ -597,16 +635,37 @@ div {
       				}
           	});
            	};
-      
+           	
+           	
+          let i = 0;
+           	$("#lock_btn").click(function(){
+           		if(i==0){
+         		 $(this).data("lock","Y");
+         		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
+         		$("#lock_img").css({"width":"40px", "height":"40px"});
+         		
+         		i++;
+           		}else{
+           		 $(this).data("lock","N");
+          		$(this).children("#lock_img").attr("src","/growing/resources/image/unlock.png");
+          		$("#lock_img").css({"width":"35px", "height":"35px"});
+          		i--;
+           		}
+         	});
+           
+           	
            $("#insertReply").click(function(){
-	    	let bno = $("#modal").attr("class"); 
+			    	let bno = $("#modal").attr("class"); 
+			    	let lock = $("#lock_btn").data("lock");
+	   		 
+	    	
    			$.ajax({
    				url : "<%=contextPath%>/rinsert.bo",
 				data : {
 					content : $("#mo_reply_textarea").val(),
-					bno :<%=b.getBoardNo()%>},
-				success : function(result) {
-
+					bno :<%=b.getBoardNo()%>, lock},
+					success : function(result) {
+					
 					if (result > 0) {
 
 						$("#mo_reply_textarea").val("");
@@ -633,7 +692,9 @@ div {
 			   					console.log("게시글 목록조회 실패")
 			   				}
 			        	}); 
-
+						$("#lock_btn").data("lock","N");
+						$("#lock_btn").css("background", "");
+						
 					} else {
 						alert("댓글작성에 실패했습니다");
 
@@ -643,6 +704,7 @@ div {
 					console.log("댓글 작성 실패")
 				}
 			});
+   			
 		});
            
 <%--            $(".deleteReply").click(function(){

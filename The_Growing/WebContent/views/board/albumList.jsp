@@ -181,7 +181,7 @@ div {
 
 #mo_write_wrap {
 	width: 100%;
-	height: 60px;
+	height: 50px;
 	
 }
 
@@ -397,17 +397,17 @@ div {
 
 #mo_reply_write_text {
 	height: 90px;
-	padding:10px;
+	padding:10px 10px 0px 10px;
 	/* background-color: antiquewhite; */
 }
 
 #mo_reply_write_text_content {
-	width: 75%;
+	width: 70%;
 	height:100%;
 }
 
 #mo_reply_bt {
-	width: 25%;
+	width: 15%;
 	height: 90%;
 }
 
@@ -447,12 +447,40 @@ div {
 }
 #mo_reply_textarea {
 	border: 1px solid rgb(224, 224, 224);
-	width:95%; 
+	width:100%; 
 	height:100%;
 	 resize:none;
 }
 .grey{
 	color:grey;
+}
+#lock_btn {
+	background-color: white;
+	border-style: none;
+	
+	margin-top:17px;
+	margin-right:5px;
+	margin-left:5px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	
+}
+#lock_btn:hover {
+	background-color: rgb(233, 233, 231);
+	border-style: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	
+}
+
+
+
+#lock_img {
+	width: 25px;
+	height: 25px;
+	
 }
 </style>
 </head>
@@ -621,6 +649,12 @@ div {
 						<textarea id="mo_reply_textarea" 
 							placeholder="댓글을 입력하여 주세요." style="resize: none;"></textarea>
 					</div>
+					<div>
+						<button id="lock_btn" data-lock="N">
+							<img id="lock_img"
+								src="<%=contextPath%>/resources/image/unlock.png" >
+						</button>
+					</div>
 					<div id="mo_reply_bt" class="box">
 						<button class="button_UI button--winona insert_bt"
 							data-text="click" id="insertReply" style="margin-top:15px">
@@ -711,7 +745,7 @@ div {
   				data : { bno},
   				success : function(b){
   				 	 let result = ""; 
-  				 	if(level==1){
+  				 	if(level==1 || b.refUno == uno){
   						  result  += 
   		   						 
   								'<div id="mo_write_wrap">'+
@@ -907,15 +941,30 @@ div {
 
            
            
-     
+           let i = 0;
+          	$("#lock_btn").click(function(){
+          		if(i==0){
+        		 $(this).data("lock","Y");
+        		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
+        		$("#lock_img").css({"width":"30px", "height":"30px"});
+        		
+        		i++;
+          		}else{
+          		 $(this).data("lock","N");
+         		$(this).children("#lock_img").attr("src","/growing/resources/image/unlock.png");
+         		$("#lock_img").css({"width":"25px", "height":"25px"});
+         		i--;
+          		}
+        	});
     	
         $("#insertReply").click(function(){
           	let bno = $("#modal").attr("class"); 
+          	let lock = $("#lock_btn").data("lock");
    			$.ajax({
    				url : "<%=contextPath%>/rinsert.bo",
    				data : {
    					content : $("#mo_reply_textarea").val(), 
-   					bno
+   					bno,  lock
    				},
    				success : function(result){
    				 
@@ -945,7 +994,8 @@ div {
 			   					console.log("게시글 목록조회 실패")
 			   				}
 			        	}); 
-   						
+   						$("#lock_btn").data("lock","N");
+						$("#lock_btn").css("background", "");
    					}else{
    						alert("댓글작성에 실패했습니다");
    						
