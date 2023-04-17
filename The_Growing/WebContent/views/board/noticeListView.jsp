@@ -1,12 +1,9 @@
-
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
 	ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
-	/* ArrayList<NoticeCheck> noticeCheckList = (ArrayList<NoticeCheck>) session.getAttribute("noticeCheckList"); */
-	
 	
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
@@ -19,42 +16,46 @@
 	.notice_con1 .divSt{
 		display: inline-flex;
 	}
-	
 	.notice_con1{
-		height: 400px;
+		height: 100%;
 		border-radius: 20px;
 		border: 2px solid #D3D3D3;
 		background-color: rgb(235, 236, 240);
+		margin-bottom: 50px;
 	}
 	.notice_content div{
-		font-weight: 900;
+		font-weight: 500;
 	}
  	.notice_content{
 		margin-right: 10px;
 	} 
 	.notice_confirm{
-		
 		width:100%;
-		border-bottom: 1px solid gray;
+		border-bottom: 1px solid #BEBEBE;
 	}
 	.notice_confirm>th{
 		margin: 10px;
-		border-left: 1px solid gray;
 	}
 	.notice_date{
-		
 		width: 60%;
+		margin-top: 15px;
+		margin-left: 150px;
+		font-size:20px;
+		position: absolute;
 	}
-	.notice_date>div{
-		text-align:center;
-	}
-	.notice_con_title, .notice_con_content{
-		width: 20%;
-	}
-	
+
 	.notice_con_title{
+		width: 20%;
 		display: inline-flex;
+		position: relative;
 	}
+	.notice_con_title>p{
+		position: absolute;
+	}
+	.notice_con_content{
+		height: 100%;	
+	}
+
 	
 	.notice_con_content{
 		width:850px;
@@ -78,7 +79,9 @@
 		cursor: pointer;
 	}
 	#checkIcon{
-		width: 45px;
+		width:100%;
+		margin-bottom: 5px;
+		
 	}
 	.ctBtn:hover{
 		background-color: #D3D3D3;
@@ -87,9 +90,16 @@
 	.scrollBox{
 	   -ms-overflow-style: none;
 	}
-	.scrollBox::-webkit-scrollbar{
-	  display:none;
+	.scrollBox::-webkit-scrollbar {
+          width: 10px;
 	}
+	.scrollBox::-webkit-scrollbar-track {
+          background-color: transparent;
+    }
+    .scrollBox::-webkit-scrollbar-thumb {
+          border-radius: 5px;
+          background-color: #D3D3D3;
+    }
 	
 	#mo_reply_bt {
 	width: 20%;
@@ -119,36 +129,60 @@
 	.unclicked{
 		color:black;
 	}
-	
+	.noticeHeader{
+		text-align: center;
+		margin-bottom: 10px;
+		position: relative;
+	}
+	#checkList{
+		border: 2px solid white;
+		width: 45px;
+		height: 45px;
+		margin: auto;
+		margin-top: 10px;
+	}
+	.marginSt{
+		margin-top: 5px;
+		margin-right: 15px;
+		
+	}
+	#teacherStamp{
+		margin-top: 7px;
+		margin-right: 15px;
+		boarder: 2px solid black;
+	}
+	.thStampWrap{
+		margin-left: 500px;
+		
+	}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 </head>
 <body>
 <%@include file="boardFrame.jsp" %>
 <div id="board_area">
 	<form action="<%= contextPath %>/enroll.no" method="post">
-
+	
 	<div id="album_header">
     	<div id="album_area">
        		<div id="album_title">알림장</div>
         	<div id="album_button" align="right" class="box">
         		<% if(loginUser.getUserLevel() == 1){ %>
                   <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
-            	  <button type="button" class="ctBtn button_UI button--winona" onclick="folderDeleteClick();">삭제</button>
+            	  <button type="button" class="button_UI button--winona" data-text="삭제" onclick="folderDeleteClick();">삭제</button>
             	<% } else{ %>
 				  <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px; display:none;"><span>글 등록</span></button>				
 				<% } %>
             </div>
         </div>
         <div id="album_hr">
-				<hr />
-			</div>
+			<hr />
+		</div>
      </div>
 
      <script>
      	function folderDeleteClick(){
-     	  
-     	  
     	  var checkBoxArr = []; 
     	  $("input:checkbox[name='folderCheckname']:checked").each(function() {
     	  	checkBoxArr.push($(this).attr("id"));     // 체크된 것만 값을 뽑아서 배열에 push
@@ -199,20 +233,20 @@
 			</div>
 			<br>
 			<% } %>
-			<div id="noDiV<%=b.getBoardNo() %>">No. <%= b.getBoardNo() %></div>
+			<div id="noDiV<%=b.getBoardNo() %>" style="padding-bottom: 10px;">No. <%= b.getBoardNo() %></div>
 			<% if(loginUser.getUserLevel() == 1) { %>
 				<input id="<%=b.getBoardNo() %>" type="checkbox" name="folderCheckname"> <label>삭제할 게시글을 선택하세요</label>
 			<% }else{ %>
 				<input id="<%=b.getBoardNo() %>" type="checkbox" name="folderCheckname" style="display:none;">
 			<% } %>
 			<div class="notice_con1">
-				<table class="notice_confirm marginSt">
-					<tr>
-						<th class="notice_date divSt"><%=b.getCreateDate() %></th>
-						<th class="divSt"><div>선생님<br>확&nbsp;&nbsp; 인</div>
-							<img class="divSt" id="teacherProfile" src="<%= contextPath %>/resources/image/teacherStemp.png" style="width: 50px; height: 50px;">
-						</th>
-						<th class="divSt"><div>학부모<label style="font-weight: lighter;">(/본인)</label><br>확&nbsp;&nbsp; 인</div>
+				<div class="notice_confirm marginSt">
+					<div class="noticeHeader">
+						<span class="notice_date divSt"><fmt:formatDate value="<%=b.getCreateDate() %>" pattern="yyyy년 M월 dd일" /></span>
+						<div class="divSt thStampWrap"><div class="marginSt">선생님<br>확&nbsp;&nbsp; 인</div>
+							<img class="divSt" id="teacherStamp" src="<%= contextPath %>/resources/image/teacherStampIc.png" style="width: 50px; height: 50px;">
+						</div>
+						<div class="mycheck divSt"><div class="marginSt">학부모<label style="font-size: small; font-weight: 400; margin-bottom: 0px;">/(본인)</label><br>확&nbsp;&nbsp; 인</div>
 							<div class="dropdown">
 
 			                <%if(loginUser.getUserLevel() == 1){ %>
@@ -239,7 +273,7 @@
 			                    aria-expanded="false"
 			                    >
 			                <% } %>
-			                    <img id="checkIcon" src="resources/image/checkIcon.png"/>
+			                    <img id="checkIcon" src="resources/image/blue-check-mark.png"/>
 			                </button>
 			                <% if(loginUser.getUserLevel() == 1){ %>
 				                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow-y:scroll; height: 150px;">
@@ -254,17 +288,17 @@
 			              
 			              
 			              
-						</th>
-					</tr>
-				</table>
+						</div>
+					</div>
+				</div>
 				
 				<div id="print<%= b.getBoardNo() %>">
 					<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
-					<div class="notice_con_title marginSt">
-						<p style="width: 42px; display:inline-block; margin: 8px 5px 20px 16px;">(공지) <p style="display:inline-block; margin: 8px;"><%= b.getBoardTitle() %></p></p>
+					<div class="notice_con_title marginSt" style="padding-bottom: 30px">
+						<p style="width: 50px; margin-left: 20px;">(공지)</p> <p style="width: 750px; margin-left: 70px;"><%= b.getBoardTitle() %></p>
 					</div>
 					<div class="notice_con_content">
-						<pre><%=b.getBoardContent() %></pre>
+						<pre style="height: 100%;"><%=b.getBoardContent() %></pre>
 					</div>
 				</div>
 				<div id="mo_reply_list">
@@ -274,6 +308,7 @@
 						</li>
 					</ul>
 				</div>
+				<br><br>
 			</div>
 			<br>
 		<%} %>
@@ -380,19 +415,14 @@
 
      	//스크랩
      	function scrapClick(bno){
-     		//let bno = $(".scrap").attr("class"); ex) scrap_1
-     		/* let scrapBno = $(".scrap").attr("class");
-     		let bno = scrapBno.substring(scrapBno.indexOf('_')+1, scrapBno.indexOf('_', scrapBno.indexOf('_')+1)); // ex) 1 */
-     		let uno =  $(".scrap").attr("id");
      		
-     		/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함 */
-    		
+     		let uno =  $(".scrap").attr("id");
      		
      		$.ajax({
      			url: "<%= contextPath %>/scrap.bo",
      			type: "post",
      			data: {bno, uno},
-     			/* 성공시 데이터 스크랩리스트 받아서 for문 돌리면서 하나하ㅏ 색변하게 */
+     			
      			success: function(scrap){
      					console.log(scrap);
      					console.log("스크랩 잘됨");
@@ -408,6 +438,7 @@
      	
      	};
      	
+
           
       $(function(){
           $('.scrap').on('click',function(){
