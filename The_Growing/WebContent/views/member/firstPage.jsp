@@ -23,12 +23,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <style>
-    	* {
-			font-family: 'Noto Sans KR', sans-serif;
-		  }
         div {
             box-sizing: border-box;
-            border: 1px solid red;
+            font-family: 'Gowun Dodum', sans-serif;
+            /* border: 1px solid red; */
+            
         }
          
         html, body {
@@ -36,7 +35,10 @@
             height: 100%;    
             margin: 0;     
         }
+        
+
         .wrap {
+            background-color: rgb(147, 199, 248);
             width: 100%;
             height: 100%;  
         }
@@ -47,22 +49,25 @@
         
         #logo {
             height: 100%;
-           
-            display: inline-flex;
+            width: 30%;
+            
         }
+
+        #logo_img {
+            margin: -15% 1% 0% -3%;
+        }
+
         #content {
             height: 60%;
             width: 100%;
-            
+           
         }
 
         #content_1{
             width: 30%;
             height: 100%;
             float: left;
-            /* padding: 5%; */
-             text-align : center;
- 			 padding : 100px 0;
+            padding: 5%;
         }
 
         #content_2{
@@ -72,15 +77,12 @@
         }
 
         #grow_btn {
-        	margin-top: 5px;
-        	margin-left: 10px;
-        	
             border-radius: 100%;
-            width: 33px;
-            height: 33px;
-            border : none;
+            width: 50px;
+            height: 50px;
+            font-size: 30pt;
+            border-style: none;
             cursor: pointer;
-        	display: block;
         }
 
         .btn {
@@ -100,7 +102,7 @@
             margin: 1%
         }
 
-        #teacher:hover, #parent:hover, #student:hover{
+        #teacher:hover, #parent:hover, #student:hover, #grow_btn:hover {
             box-shadow: 5px 20px 5px 10px rgba(0,0,0,0.20);
             transition: 0.1s ease-in;
             transform: translate(-10px,-10px);
@@ -120,14 +122,11 @@
                 transform: translateZ(0);
             }
         }
-		h1{
-			font-size: 30px;
-			
-		}
+
         #text1{animation: fadeInUp 1s;}
         #text2{animation: fadeInUp 2s;}
         #text3{animation: fadeInUp 3s;}
-        #text4{animation: fadeInUp 3.5s; font-weight: 600;}
+        #text4{animation: fadeInUp 3.5s;}
         #teacher{animation: fadeInUp 0.5s;}
         #parent{animation: fadeInUp 1s;}
         #student{animation: fadeInUp 1.5s;}
@@ -144,29 +143,9 @@
             width: 400px;
             margin: -1.5% 0% 0% -1.3%;   
             border-radius: 40px 40px 0px 0px;
-           	
         }
-      	#logo_txt{
-      		font-size: 80px;
-      		text-align: center;
-      		font-weight: bold;
-      		color: rgb(19, 94, 54);
-      		margin-top: 20px;
-      		margin-left: 50px;
-      	}
-      	#logo_img{
-      		margin-top: 30px;
-      		margin-left: 150px;
-      		width: 250px;
-      		height: 100px;
-      	}
-        .btnWrap{
-        	display: inline-flex;
-        }
-        .mainTitle{
-        	font-size: 30px;
-        	font-weight: bold; 
-        }
+      
+        
     </style>
 </head>
 
@@ -174,8 +153,7 @@
     <div class="wrap">
         <div id="header">
             <div id="logo">
-                <img id="logo_img" src="resources/image/treelogo.png">
-                <div id="logo_txt">THE GROWING</div>
+                <img id="logo_img" src="https://cdn.discordapp.com/attachments/1083632858645663788/1087912947734564934/KakaoTalk_20230317_133720841-removebg-preview.png">
             </div>
         </div>
 
@@ -183,47 +161,42 @@
             <div id="content_1">
                 <h1 id="text1">학교 소식부터</h1>
                 <h1 id="text2">스터디까지</h1><br>
-                <h1 id="text3">우리의 성장 기록</h1><br>
-                <div class="btnWrap">
-                	<h1 id="text4">THE GROWING</h1>
-                	<button id="grow_btn"></button>
-                </div>
+                <h1 id="text3">우리의 성장기록</h1><br>
+                <h1 id="text4">THE GROWING <button id="grow_btn">></button></h1>
             </div>
 
             <div id="content_2">
                 <div class="btn">
                     <button class="c_btn" id="teacher">
                         <div id="img_area">
-                            
+                            <img id="img" src="resources/image/bono.jpg">
                         </div>
                        
                         <div>
-                            <div class="mainTitle">선생님</div>
-                            <br>
-                            <div class="mainDt">선생님으로 클래스를 만들어보세요.</div>
+                            <h1>선생님</h1>
+                            <h2>선생님이자 학부모인 경우<br>선생님으로 시작하세요.</h2>
                         </div>
                     </button>
 
                     <button class="c_btn" id="parent">
                         <div id="img_area">
-                            
+                            <img id="img" src="resources/image/bono.jpg">
                         </div>
 
                         <div>
-                            <div class="mainTitle">학부모</div><br>
-                            <div class="mainDt">자녀가 있는 학부모</div>
+                            <h1>학부모</h1><br>
+                            <h2>자녀가 있는 학부모</h2>
                         </div>
                     </button>
 
                     <button class="c_btn" id="student">
                         <div id="img_area">
-                            
+                            <img id="img" src="resources/image/bono.jpg">
                         </div>
                         
                         <div>
-                            <div class="mainTitle">학생</div>
-                            <br>
-                            <div class="mainDt">초중고등, 유치원, 대학교, 스터디 학생</div>
+                            <h1>학생</h1>
+                            <h2>초중고등, 유치원, 대학교,<br>스터디 학생</h2>
                         </div>
                     </button>
                 </div>
@@ -232,10 +205,6 @@
     </div>
     
     <script>
-    	$("#logo").click(function(){
-    		window.location.reload();
-    		
-    	});
     	let userLevel;
     	
     	$(".c_btn").click(function(){
