@@ -928,29 +928,6 @@ div {
         });
         
 
-            
-
-          
-
-
-     /*        let j = 0;
-
-        $('.scrap').on('click',function(){
-            if(j==0){
-                $('.bi-star').css({color : "orange", fontSize : "30px"});
-                j++;
-            }else if(j==1){
-                $('.bi-star').css('color','black');
-                j--;
-            }
-
-
-        }); 
-
-        });
-
-        }); */
-
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
