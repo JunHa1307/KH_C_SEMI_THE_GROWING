@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TheGrowing</title>
 <style>
 	#main-title{
 		   width: 70%;
@@ -21,77 +21,130 @@
 	}
 	
 	#board_area{
-		width: 80%;
 		height: 60%;
     	padding: 0px 20px 20px 20px;
+    	overflow: auto;
 	}
 	
 	#board_hr{
 		width: 100%;
     	height: 30%;
-		}
-		
-	
-	#id{
-		width:4%
 	}
-	 
-	 #id2{
-	 	width:3%;
-	 	height:2%;
-	 	
-	 
-	 }
+		
 	 .okc{
 	 	width:100%;
 	 	height:80%;
 	 }
-	 tr{
-	 	text-align:center;
-	 }
+	 
+	#attendTable {
+		border-collapse: separate;
+  		border-spacing: 0;
+	}
+	
+	tr:first-child th:first-child {
+	  border-top-left-radius: 1em;
+	}
+	tr:first-child th:last-child {
+	  border-top-right-radius: 1em;
+	}
+	tr:first-child th:first-child {
+	  border-top-left-radius: 1em;
+	}
+	tr:first-child th:last-child {
+	  border-top-right-radius: 1em;
+	}
+	td {
+	  border-right: 1px solid #c6c9cc;
+	  border-bottom: 1px solid #c6c9cc;
+	}
+	td:first-child {
+	  border-left: 1px solid #c6c9cc;
+	}
+	tr:last-child td:first-child {
+	  border-bottom-left-radius: 1em;
+	}
+	tr:last-child td:last-child {
+	  border-bottom-right-radius: 1em;
+	}
+	tr{
+		text-align:center;
+	}
+	th, td {
+		width:1%;
+		min-width: 25px;
+	}
+	.tableHead {
+		background-color: #73685d;
+		color: #ffffff;
+	}
+	tr:nth-child(odd){
+		background-color: #eaeaed;
+	}
+	.memberName {
+		min-width: 60px;
+	}
+	
+	@media only screen and (max-width: 1200px) {
+		#board_area {
+			width: 100%;
+		}
+	}
+	 
+	@media only screen and (min-width: 1200px) {
+		#board_area {
+			width: 80%;
+		}
+	}
+	 
 </style>
 </head>
 <body>
 <%@include file="boardFrame.jsp" %>
 	<div id="board_area">
-	 <div id="album_header">
-	 	<div id="album_area">
-		<div id="main-title">출석표</div>
-			<div id="album_button" align="right" class="box">
-				<button id="album_Enoroll" class="button_UI button--winona" data-text="업데이트" style="margin-right: 10px;"  onclick="update();">
-					<span>업데이트</span>
+		<div id="album_header">
+		 	<div id="album_area">
+				<div id="main-title">출석표</div>
+				<% if(loginUser.getUserLevel() == 1){ %>
+				<div id="album_button" align="right" class="box">
+					<button id="album_Enoroll" class="button_UI button--winona" data-text="업데이트" style="margin-right: 10px;"  onclick="update();">
+						<span>업데이트</span>
 					</button>
 				</div>
-				</div>
-				<div id="board_hr">
-					<hr>
-				</div>
-			
+				<%} %>
+			</div>
+			<div id="album_hr">
+				<hr>
+			</div>
 		</div>  
 			<div class="okc">
-				<table id="attendTable" border=2>
-				
+				<% if(loginUser.getUserLevel() == 1){ %>
+					<p style="font-size:1vw;">표 안을 클릭하면 출석 상태가 변경됩니다.( 'X' = 미출석, 'O' = 출석, '/' = 기타 )</p>
+				<%} %>
+				<h3></h3>
+				<table id="attendTable">
 					<tr>
 						<% for(int i =0; i < lastDay + 1; i++){ %>
 						
-							<th id="id1" ><%= i == 0 ? "이름" : i %></th>	
+							<th class="tableHead"><%= i == 0 ? "이름" : i %></th>	
 						<% } %>
 					</tr>
 					<% for(int i = 0; i < arr.length; i++){ %>
 						<tr>
-							<th><%= arr[i].split("/")[0].toString() %></th>
+							<td class="memberName"><%= arr[i].split("/")[0].toString() %></td>
 							<% for(int j = 0; j < lastDay; j++){ %>
-								<td id="id2"><%= arr[i].split("/")[1].toString().charAt(j) %></td>					
+								<td><%= arr[i].split("/")[1].toString().charAt(j) %></td>					
 							<% } %>
 						</tr>
 					<% } %>
 				</table>
-				<!-- <button onclick="update();">업데이트</button> -->
 			</div>
 		</div>
  	</div>
 </div>
 <script>
+	let month = ("0" + (1 + new Date().getMonth())).slice(-2)+"월";
+	$(".okc>h3").text(month);
+	
 	<% if(loginUser.getUserLevel() == 1){ %>
 		$(function(){
 			$("td").each(function(){
