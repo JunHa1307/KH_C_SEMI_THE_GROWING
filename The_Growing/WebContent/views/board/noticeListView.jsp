@@ -163,7 +163,7 @@
 <%@include file="boardFrame.jsp" %>
 <div id="board_area">
 	<form action="<%= contextPath %>/enroll.no" method="post">
-
+	
 	<div id="album_header">
     	<div id="album_area">
        		<div id="album_title">알림장</div>
@@ -177,8 +177,8 @@
             </div>
         </div>
         <div id="album_hr">
-				<hr />
-			</div>
+			<hr />
+		</div>
      </div>
 
      <script>
@@ -244,7 +244,7 @@
 					<div class="noticeHeader">
 						<span class="notice_date divSt"><fmt:formatDate value="<%=b.getCreateDate() %>" pattern="yyyy년 M월 dd일" /></span>
 						<div class="divSt thStampWrap"><div class="marginSt">선생님<br>확&nbsp;&nbsp; 인</div>
-							<img class="divSt" id="teacherStamp" src="<%= contextPath %>/resources/image/teacherStemp.png" style="width: 50px; height: 50px;">
+							<img class="divSt" id="teacherStamp" src="<%= contextPath %>/resources/image/teacherStampIc.png" style="width: 50px; height: 50px;">
 						</div>
 						<div class="mycheck divSt"><div class="marginSt">학부모<label style="font-size: small; font-weight: 400; margin-bottom: 0px;">/(본인)</label><br>확&nbsp;&nbsp; 인</div>
 							<div class="dropdown">

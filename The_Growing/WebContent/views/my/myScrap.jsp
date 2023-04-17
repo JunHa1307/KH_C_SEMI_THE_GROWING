@@ -79,6 +79,8 @@
     	margin-bottom: 10px;
     }
 </style>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="myInfoFrame.jsp"%>
@@ -95,7 +97,7 @@
 			<% for(Board b : boardArr ){ %>
 
 			<input type="hidden" value="<%= b.getBoardNo() %>">
-				<div class="disWrap">
+				<div class="disWrap"data-aos="fade-up" data-aos-duration="1000">
 					<div id = "myscrap_content" onclick="goScrapBoard('<%= b.getBoardType() %>', '<%= b.getBoardNo() %>');">
 						<% if( b.getBoardType() == 3 ) { %>
 							<div class="divStyle scrapTitle">앨범</div>
@@ -160,6 +162,9 @@
 	 	
 	 	
 	 	};
+	</script>
+	<script>
+	  AOS.init();
 	</script>
 </body>
 </html>
