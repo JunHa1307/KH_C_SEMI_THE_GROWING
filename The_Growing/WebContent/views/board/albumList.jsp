@@ -6,7 +6,6 @@
 	pageEncoding="UTF-8"%>
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-	ArrayList<Member> mList = (ArrayList<Member>)request.getAttribute("mList");
 	int cno = (int)request.getSession().getAttribute("cno");
 	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
 	int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
@@ -559,7 +558,7 @@ div {
 					<img src="<%=contextPath %><%=list.get(i).getTitleImg() %> ">
 				</div>
 			
-				<div class= "album_con_user"><%=mList.get(i).getUserName() %> <%=mList.get(i).getUserLevel() ==1 ? "선생님" :mList.get(i).getUserLevel() ==2? "학부모" : "학생" %></div>
+				<div class= "album_con_user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></div>
 				<div class="album_con_date_count">
 					<div id="aDate" ><%=list.get(i).getcDate()%></div>
 					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:25%; width:0.8vw; height:0.8vw; min-width:10px; min-height:10px"><%=list.get(i).getCount() %></div>
