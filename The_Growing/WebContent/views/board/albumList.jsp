@@ -38,8 +38,7 @@
 	position: absolute;
 }
 
-@
-keyframes fave-heart { 
+@keyframes fave-heart { 
 	0% {
 	background-position: 0 0;
 	}
