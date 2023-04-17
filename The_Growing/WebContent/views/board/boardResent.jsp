@@ -60,7 +60,7 @@
 /* background-color: aquamarine; */
 
 #tableHead{
-	 border-bottom: 1px solid rgb(244,244,244); 
+	 border-bottom: 2px solid rgb(41, 33, 88);
 	 background: rgb(242, 244, 247);
 	 
 	 

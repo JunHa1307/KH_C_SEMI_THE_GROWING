@@ -75,6 +75,7 @@ div {
 	margin-right:4px;
 	margin-bottom:8px;
 	box-shadow: 0px 8px 6px -6px #666;
+	background: black;
 	
 	/* background-color: bisque; */
 }
@@ -88,12 +89,10 @@ div {
 	font-weight: 600;
 	border-bottom: 1px solid rgb(182, 182, 177);
 	margin-bottom: 10px;
+	color:white;
 	/* background-color: aqua; */
 }
 
-.album_con_title>p:hover {
-	font-weight: 700;
-}
 
 .album_con_file {
 	width: 90%;
@@ -121,18 +120,18 @@ div {
 	height: 28px;
 	margin: auto;
 	font-size: 14px;
-	font-weight:400;
-	color:grey;
+	font-weight:500;
+	color: white;
 }
 
 .album_con_date_count {
 	width: 100%;
-	height: 28px;
+	height: 28.4px;
 	margin: auto;
 	font-size: 12px;
 	font-weight:400;
 	color:black;
-	background: rgb(242, 244, 247);
+	background: white;
 	border-top: 1px solid rgb(182, 182, 177);
 	padding : 4px 5% 5px 5%; 
 }
@@ -178,8 +177,10 @@ div {
 }
 
 #mo_picture_wrap {
-	width: 100%;
-	height: 100%;
+	width: 720px;
+	height: 700px;
+
+	
 
 	/* background-color: aqua; */
 }
@@ -188,22 +189,34 @@ div {
 	width: 100%;
 	height: 100%;
 
+
+
+
+
 	/* background-color: black; */
 }
 
 #slider-div>div {
 	width: 100%;
-	height: 90%;
-	padding-top:10%;
-
-
-	/* background-color: rgb(164, 123, 123); */
+	height: 100%;
+	
+	
 }
 
+
 .img_1 {
-	width: 100%;
-	height:100%;
+	
+	
 	object-fit: cover;
+	display: inline-block;
+	margin: 0;
+  width: 600px;
+  height: 700px;
+  text-align: center;
+  line-height: 700px;
+
+	
+	
 }
 
 #mo_write {
@@ -549,7 +562,8 @@ div {
 				<input type="hidden" value="<%=list.get(i).getBoardNo() %>" id="hiddenNo">
 				<div class="album_con_title"
 					onclick="albumClick('<%=list.get(i).getBoardNo() %>', '<%=level %>', '<%=uno%>');">
-					<p><%=list.get(i).getBoardTitle() %></p>
+					<span><%=list.get(i).getBoardTitle() %></span><div align=right;><img style="width: 20px; height:20px;" src="/growing/resources/image/pngegg.png"></div>
+					
 				</div>
 				
 				<div class="album_con_file"
@@ -743,6 +757,7 @@ div {
 		          nextArrow: "<button type='button' class='slick-next'>Next</button>", // 다음 화살표 모양 설정
 		          dotsClass: "slick-dots", //아래 나오는 페이지네이션(점) css class 지정
 		          draggable: true, //드래그 가능 여부
+		          
 	        });
     	  
 
