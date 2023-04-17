@@ -15,7 +15,6 @@ import com.kh.board.model.vo.PageInfo;
 import com.kh.board.model.vo.Reply;
 import com.kh.classes.model.service.ClassService;
 import com.kh.classes.model.vo.Class;
-import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -86,14 +85,13 @@ public class BoardMoveController extends HttpServlet {
 		}
 	
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage); 
-		ArrayList<Member> mList = new MemberService().selectMemberList(cno);
+		
 		ArrayList<Board> list = new BoardService().selectList(pi, cno);
 		 ArrayList<Integer> r = new ArrayList<Integer>();
 		 for(int i =0; i<list.size(); i++) {
 			int rCount = new BoardService().selectCountReply(list.get(i).getBoardNo());
 			 r.add(rCount);
 		 }
-		 request.setAttribute("mList", mList);
 		 request.setAttribute("r", r);
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);

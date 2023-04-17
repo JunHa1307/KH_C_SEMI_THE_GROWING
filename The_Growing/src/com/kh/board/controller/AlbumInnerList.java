@@ -36,9 +36,6 @@ public class AlbumInnerList extends HttpServlet {
 	int bno = Integer.parseInt(request.getParameter("bno"));
 		System.out.println(bno);
 		
-		int result = new BoardService().increaseCount(bno);
-		if(result > 0 ) { 
-		
 		ArrayList<Attachment> list = new BoardService().selectAlbumInnerList(bno);
 		
 		//Gson을 이용해서 응답 ArrayList -> JsonArray로 변환해서 보내기 
@@ -46,10 +43,6 @@ public class AlbumInnerList extends HttpServlet {
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new Gson().toJson(list, response.getWriter());
-		}else { 
-			request.setAttribute("errorMsg", "게시글 상세조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
 	}
 
 	/**

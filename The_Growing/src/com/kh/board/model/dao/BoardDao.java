@@ -60,8 +60,6 @@ private Properties prop = new Properties();
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setcDate(rset.getString("C_DATE"));
 				b.setTitleImg(rset.getString("TITLEIMG"));
-				b.setCount(rset.getInt("BOARD_COUNT"));
-				
 				
 				list.add(b);
 			}
@@ -771,7 +769,7 @@ public int insertBoard(Connection conn, Board b) {
 	return result;
 }
 
-public int deleteBoard(Connection conn, int boardNo) {
+public int deleteBoard(Connection conn, int boardNo, int userNo) {
 	
 	int result = 0;
 	
@@ -782,6 +780,7 @@ public int deleteBoard(Connection conn, int boardNo) {
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, boardNo);
+		pstmt.setInt(2, userNo);
 		
 		result = pstmt.executeUpdate();
 		

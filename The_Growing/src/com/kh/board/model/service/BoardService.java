@@ -149,10 +149,10 @@ public class BoardService {
 	}
 	
 
-	public int deleteBoard(int bno,  ArrayList<Attachment> list) {
+	public int deleteBoard(int bno, int uno, ArrayList<Attachment> list) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().deleteBoard(conn, bno);
+		int result = new BoardDao().deleteBoard(conn, bno, uno);
 		
 		int result2 = 1;
 		
@@ -418,10 +418,10 @@ public class BoardService {
 		
 	}
 	
-	public int deleteBoard(int boardNo) {
+	public int deleteBoard(int boardNo, int userNo) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().deleteBoard(conn, boardNo);
+		int result = new BoardDao().deleteBoard(conn, boardNo, userNo);
 		
 		if(result > 0) {
 			commit(conn);

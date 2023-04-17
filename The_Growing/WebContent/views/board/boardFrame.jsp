@@ -196,13 +196,12 @@ vertical-align: middle;
 
 
 #info {
-   background-color:rgb(64, 106, 131);
+   background-color: rgb(228, 236, 226);
    width: 100%;
    height: 10%;
    justify-content: center;
    align-item: center;
    margin-top:20px;
-   color:white;
       
 }
 .info_space{
