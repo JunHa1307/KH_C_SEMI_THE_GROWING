@@ -4,8 +4,6 @@
 <% 
 	ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
 	ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
-	/* ArrayList<NoticeCheck> noticeCheckList = (ArrayList<NoticeCheck>) session.getAttribute("noticeCheckList"); */
-	
 	
 	int refCno = (int)request.getSession().getAttribute("refCno");
 %>
@@ -18,44 +16,46 @@
 	.notice_con1 .divSt{
 		display: inline-flex;
 	}
-	.divSt{
-		/* padding-top: 50px; */
-	}
 	.notice_con1{
 		height: 100%;
 		border-radius: 20px;
 		border: 2px solid #D3D3D3;
 		background-color: rgb(235, 236, 240);
+		margin-bottom: 50px;
 	}
 	.notice_content div{
-		font-weight: 700;
+		font-weight: 500;
 	}
  	.notice_content{
 		margin-right: 10px;
 	} 
 	.notice_confirm{
 		width:100%;
-		border-bottom: 1px solid gray;
+		border-bottom: 1px solid #BEBEBE;
 	}
 	.notice_confirm>th{
 		margin: 10px;
-		border-left: 1px solid gray;
 	}
 	.notice_date{
 		width: 60%;
-		padding-left: 200px;
+		margin-top: 15px;
+		margin-left: 150px;
 		font-size:20px;
+		position: absolute;
 	}
 
 	.notice_con_title{
 		width: 20%;
+		display: inline-flex;
+		position: relative;
+	}
+	.notice_con_title>p{
+		position: absolute;
 	}
 	.notice_con_content{
 		height: 100%;	
 	}
-	.notice_con_title{
-		display: inline-flex;
-	}
+
 	
 	.notice_con_content{
 		width:850px;
@@ -90,9 +90,16 @@
 	.scrollBox{
 	   -ms-overflow-style: none;
 	}
-	.scrollBox::-webkit-scrollbar{
-	  display:none;
+	.scrollBox::-webkit-scrollbar {
+          width: 10px;
 	}
+	.scrollBox::-webkit-scrollbar-track {
+          background-color: transparent;
+    }
+    .scrollBox::-webkit-scrollbar-thumb {
+          border-radius: 5px;
+          background-color: #D3D3D3;
+    }
 	
 	#mo_reply_bt {
 	width: 20%;
@@ -125,6 +132,7 @@
 	.noticeHeader{
 		text-align: center;
 		margin-bottom: 10px;
+		position: relative;
 	}
 	#checkList{
 		border: 2px solid white;
@@ -141,8 +149,12 @@
 	#teacherStamp{
 		margin-top: 7px;
 		margin-right: 15px;
+		boarder: 2px solid black;
 	}
-	
+	.thStampWrap{
+		margin-left: 500px;
+		
+	}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -221,7 +233,7 @@
 			</div>
 			<br>
 			<% } %>
-			<div id="noDiV<%=b.getBoardNo() %>">No. <%= b.getBoardNo() %></div>
+			<div id="noDiV<%=b.getBoardNo() %>" style="padding-bottom: 10px;">No. <%= b.getBoardNo() %></div>
 			<% if(loginUser.getUserLevel() == 1) { %>
 				<input id="<%=b.getBoardNo() %>" type="checkbox" name="folderCheckname"> <label>삭제할 게시글을 선택하세요</label>
 			<% }else{ %>
@@ -230,8 +242,8 @@
 			<div class="notice_con1">
 				<div class="notice_confirm marginSt">
 					<div class="noticeHeader">
-						<div class="notice_date divSt"><fmt:formatDate value="<%=b.getCreateDate() %>" pattern="yyyy년 M월 dd일" /></div>
-						<div class="divSt"><div class="marginSt">선생님<br>확&nbsp;&nbsp; 인</div>
+						<span class="notice_date divSt"><fmt:formatDate value="<%=b.getCreateDate() %>" pattern="yyyy년 M월 dd일" /></span>
+						<div class="divSt thStampWrap"><div class="marginSt">선생님<br>확&nbsp;&nbsp; 인</div>
 							<img class="divSt" id="teacherStamp" src="<%= contextPath %>/resources/image/teacherStemp.png" style="width: 50px; height: 50px;">
 						</div>
 						<div class="mycheck divSt"><div class="marginSt">학부모<label style="font-size: small; font-weight: 400; margin-bottom: 0px;">/(본인)</label><br>확&nbsp;&nbsp; 인</div>
@@ -282,8 +294,8 @@
 				
 				<div id="print<%= b.getBoardNo() %>">
 					<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
-					<div class="notice_con_title marginSt">
-						<p style="display:inline-block; margin: 8px 5px 20px 16px;">(공지) <p style="display:inline-block; margin: 8px;"><%= b.getBoardTitle() %></p></p>
+					<div class="notice_con_title marginSt" style="padding-bottom: 30px">
+						<p style="width: 50px; margin-left: 20px;">(공지)</p> <p style="width: 750px; margin-left: 70px;"><%= b.getBoardTitle() %></p>
 					</div>
 					<div class="notice_con_content">
 						<pre style="height: 100%;"><%=b.getBoardContent() %></pre>
