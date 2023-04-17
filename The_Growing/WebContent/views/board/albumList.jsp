@@ -38,8 +38,7 @@
 	position: absolute;
 }
 
-@
-keyframes fave-heart { 
+@keyframes fave-heart { 
 	0% {
 	background-position: 0 0;
 	}
@@ -75,6 +74,7 @@ div {
 	margin-right:4px;
 	margin-bottom:8px;
 	box-shadow: 0px 8px 6px -6px #666;
+	background: black;
 	
 	/* background-color: bisque; */
 }
@@ -88,12 +88,10 @@ div {
 	font-weight: 600;
 	border-bottom: 1px solid rgb(182, 182, 177);
 	margin-bottom: 10px;
+	color:white;
 	/* background-color: aqua; */
 }
 
-.album_con_title>p:hover {
-	font-weight: 700;
-}
 
 .album_con_file {
 	width: 90%;
@@ -121,18 +119,18 @@ div {
 	height: 28px;
 	margin: auto;
 	font-size: 14px;
-	font-weight:400;
-	color:grey;
+	font-weight:500;
+	color: white;
 }
 
 .album_con_date_count {
 	width: 100%;
-	height: 28px;
+	height: 28.4px;
 	margin: auto;
 	font-size: 12px;
 	font-weight:400;
 	color:black;
-	background: rgb(242, 244, 247);
+	background: white;
 	border-top: 1px solid rgb(182, 182, 177);
 	padding : 4px 5% 5px 5%; 
 }
@@ -178,8 +176,10 @@ div {
 }
 
 #mo_picture_wrap {
-	width: 100%;
-	height: 100%;
+	width: 720px;
+	height: 700px;
+
+	
 
 	/* background-color: aqua; */
 }
@@ -188,22 +188,34 @@ div {
 	width: 100%;
 	height: 100%;
 
+
+
+
+
 	/* background-color: black; */
 }
 
 #slider-div>div {
 	width: 100%;
-	height: 90%;
-	padding-top:10%;
-
-
-	/* background-color: rgb(164, 123, 123); */
+	height: 100%;
+	
+	
 }
 
+
 .img_1 {
-	width: 100%;
-	height:100%;
+	
+	
 	object-fit: cover;
+	display: inline-block;
+	margin: 0;
+  width: 600px;
+  height: 700px;
+  text-align: center;
+  line-height: 700px;
+
+	
+	
 }
 
 #mo_write {
@@ -549,7 +561,8 @@ div {
 				<input type="hidden" value="<%=list.get(i).getBoardNo() %>" id="hiddenNo">
 				<div class="album_con_title"
 					onclick="albumClick('<%=list.get(i).getBoardNo() %>', '<%=level %>', '<%=uno%>');">
-					<p><%=list.get(i).getBoardTitle() %></p>
+					<span><%=list.get(i).getBoardTitle() %></span><div align=right;><img style="width: 20px; height:20px;" src="/growing/resources/image/pngegg.png"></div>
+					
 				</div>
 				
 				<div class="album_con_file"
@@ -743,6 +756,7 @@ div {
 		          nextArrow: "<button type='button' class='slick-next'>Next</button>", // 다음 화살표 모양 설정
 		          dotsClass: "slick-dots", //아래 나오는 페이지네이션(점) css class 지정
 		          draggable: true, //드래그 가능 여부
+		          
 	        });
     	  
 
@@ -913,17 +927,7 @@ div {
             }
         });
         
-            let j = 0;
-        $('.scrap').on('click',function(){
-            if(j==0){
-                $('.bi-star').css({color : "orange", fontSize : "30px"});
-                j++;
-            }else if(j==1){
-                $('.bi-star').css('color','black');
-                j--;
-            }
 
-        });
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
@@ -979,11 +983,11 @@ div {
         
         
         $("#album_Enroll").click(function () {
-    		location.href="<%=contextPath%>/insert.al?cno="+<%=cno%>;
+    		location.href="<%=contextPath%>/insert.al?cno="+cno;
     	});
                 
            $("#album_file").click(function () {
-    		location.href="<%=contextPath%>/att.al?cno="+<%=cno%>;
+    		location.href="<%=contextPath%>/att.al?cno="+cno
     	});
 
            
@@ -1053,7 +1057,7 @@ div {
    				} 
    			});
    		}); 
-<%--         $(".deleteReply").click(function(){
+         $(".deleteReply").click(function(){
 			let rno = $(this).data('rno'); 
 			let bno = $(this).data('bno'); 
 			$.ajax({
@@ -1062,7 +1066,7 @@ div {
    				type : "get",
    				success : function(result){
    					 /* albumClick(bno);  */
-   			- 		if(result>0){
+   			 		if(result>0){
    					$.ajax({
 		   				url : "<%=contextPath%>/rlist.bo",
 		   				data : { bno :bno},
@@ -1096,8 +1100,53 @@ div {
    					console.log("게시글 목록조회 실패")
    				}
         		});
-		}); --%>
+		}); 
      
+
+		//스크랩
+     	function scrapClick(){
+     		
+     		let uno =  $(".scrap").attr("id");
+     		let bno = $("#modal").attr("class");
+     		
+     		$.ajax({
+     			url: "<%= contextPath %>/scrap.bo",
+     			type: "post",
+     			data: {bno, uno},
+     			
+     			success: function(scrap){
+     					console.log(scrap);
+     					console.log("스크랩 잘됨");
+     					
+     			},
+     			error: function(){
+     				console.log("게시글 스크랩 실패");
+     			}
+     			
+     		});
+     	
+     	
+     	
+     	};
+     	
+
+          
+      $(function(){
+          $('.scrap').on('click',function(){
+        	  
+        	  if($(this).children($(".bi-star")).hasClass('unclicked')){
+        		  $(this).children($(".bi-star")).removeClass('unclicked');
+        		  $(this).children($(".bi-star")).addClass('clicked');
+        	  }else if($(this).children($(".bi-star")).hasClass('clicked')){
+        		  $(this).children($(".bi-star")).removeClass('clicked');
+        		  $(this).children($(".bi-star")).addClass('unclicked');
+        	  }else{
+        		  $(this).children($(".bi-star")).addClass('clicked');
+        	  }
+	     		
+             });	
+          
+     });
 
     </script>
 </body>
