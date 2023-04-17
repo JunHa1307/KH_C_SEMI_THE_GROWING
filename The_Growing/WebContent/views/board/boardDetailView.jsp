@@ -9,6 +9,8 @@ Attachment at = (Attachment) request.getAttribute("at");
 int boardType = (int) request.getAttribute("boardType");
 int uno = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
+ArrayList<Board> list2 = (ArrayList<Board>) session.getAttribute("list2");
+ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 %>
 <!DOCTYPE html>
 <html>
@@ -306,6 +308,13 @@ font-size:30px;
 .secretImg{
 	margin-bottom:3px;
 }
+
+	.clicked{
+		color:orange;
+	}
+	.unclicked{
+		color:black;
+	}
 </style>
 </head>
 <body>
@@ -352,6 +361,7 @@ font-size:30px;
 				<%
 					if ( (loginUser != null && loginUser.getUserId().equals(b.getUserId()) ) || loginUser.getUserLevel() ==1) {
 				%>
+				
 				<div class="dropdown" style="float: right; ">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
@@ -399,6 +409,11 @@ font-size:30px;
 			<div id="boardContent">
 				<hr><%=b.getBoardContent()%></div>
 			<div id="boardReplyIcon">
+				<% boolean isScraped =false; %>
+	     		<% for(int a : arr){ %>
+	     			<% if(a == b.getBoardNo()){ %>
+	     			<% 	isScraped = true;} %>
+	     		<% } %>
 				<div id="mo_reply_list">
 					<ul id="mo_icon">
 						<li><div class="heart" onclick="likeClick('<%=uno%>');"></div></li>
@@ -407,8 +422,10 @@ font-size:30px;
 
 						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
 							id="chat_count">0</span>개</li>
-						<li class="scrap" style="padding-right: 15px;"><i
-							class="bi bi-star" style="padding-right: 10px;"></i>스크랩</li>
+						<li id="<%= loginUser.getUserNo() %>" class="scrap" class="scrap" style="padding-right: 15px;"
+							onclick="scrapClick('<%= b.getBoardNo() %>');">
+							<i class="bi bi-star <%= isScraped ? "clicked" : "uncliked" %>" style="padding-right: 10px;"></i>
+							스크랩</li>
 					</ul>
 				</div>
 
@@ -750,6 +767,52 @@ font-size:30px;
 	        		});
 			});  --%>
 	
+			/* 스크랩 */
+			$(function(){
+		          $('.scrap').on('click',function(){
+		        	  
+		        	  if($(this).children($(".bi-star")).hasClass('unclicked')){
+		        		  $(this).children($(".bi-star")).removeClass('unclicked');
+		        		  $(this).children($(".bi-star")).addClass('clicked');
+		        	  }else if($(this).children($(".bi-star")).hasClass('clicked')){
+		        		  $(this).children($(".bi-star")).removeClass('clicked');
+		        		  $(this).children($(".bi-star")).addClass('unclicked');
+		        	  }else{
+		        		  $(this).children($(".bi-star")).addClass('clicked');
+		        	  }
+			     		
+		             });	
+		          
+		     });
+			
+			function scrapClick(bno){
+	     		//let bno = $(".scrap").attr("class"); ex) scrap_1
+	     		/* let scrapBno = $(".scrap").attr("class");
+	     		let bno = scrapBno.substring(scrapBno.indexOf('_')+1, scrapBno.indexOf('_', scrapBno.indexOf('_')+1)); // ex) 1 */
+	     		let uno =  $(".scrap").attr("id");
+	     		
+	     		/* boardNo를 가져와서 해당 bno의 스크랩의 색을 바꿔줘야함 */
+	    		
+	     		
+	     		$.ajax({
+	     			url: "<%= contextPath %>/scrap.bo",
+	     			type: "post",
+	     			data: {bno, uno},
+	     			/* 성공시 데이터 스크랩리스트 받아서 for문 돌리면서 하나하ㅏ 색변하게 */
+	     			success: function(scrap){
+	     					console.log(scrap);
+	     					console.log("스크랩 잘됨");
+	     					
+	     			},
+	     			error: function(){
+	     				console.log("게시글 스크랩 실패");
+	     			}
+	     			
+	     		});
+	     	
+	     	
+	     	
+	     	};
        
 	</script>
 </body>

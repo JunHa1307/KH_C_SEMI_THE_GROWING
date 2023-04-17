@@ -61,7 +61,7 @@ public class NoticeInsertController extends HttpServlet {
 			session.setAttribute("b2", b2);
 			
 			request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-			response.sendRedirect(request.getContextPath()+"/list.no");
+			response.sendRedirect(request.getContextPath()+"/movenotice.bo");
 		} else { // 실패시에는 -> 첨부파일이 있었을 경우 이미 업로드된 첨부파일을 삭제해주기!(용량만 차지함)
 
 			request.setAttribute("errorMsg", "게시글 작성 실패");

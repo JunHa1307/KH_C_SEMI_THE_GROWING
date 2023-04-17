@@ -64,7 +64,7 @@ public class NoticeUpdateController extends HttpServlet {
 			session.setAttribute("updateNotice", updateNotice);
 			
 			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
-			response.sendRedirect(request.getContextPath()+"/list.no");
+			response.sendRedirect(request.getContextPath()+"/movenotice.bo");
 		}else {
 			request.setAttribute("errorMsg", "게시글 수정에 실패했습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
