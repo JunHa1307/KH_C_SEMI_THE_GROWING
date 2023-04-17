@@ -13,26 +13,18 @@
 <title>Insert title here</title>
 <style>
 	.myScWrap{
-		/* display: inline-flex; */
-		float: left;
-		display: inline-block;
+		display: inline-flex;
 	}
 	#myscrap_content{
 		border: 2px solid #ffe4af;
+		width: 250px;
 		height: 300px;
 		border-radius: 20px;
 		margin: 10px 20px;
 		padding: 100px 0;
 		background-color: #fcffb0;
 		box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-		width: 250px;
 	}
-	.disWrap{
-		display: inline-block;
-		
-	}
-	
-	
 	#myscrap_content:hover{
 		background-color: #fdfa87;
 	}
@@ -49,38 +41,15 @@
 	}
 	.conSt{
 		background-color: white;
-		display: inline-block;
-		border-radius: 10px;
-		margin-bottom: 10px;
 	}
 	.scrapDelete{
-		margin-left: 10px;
-		margin-right: 50px;
+		float: right;
+		margin-right: 30px;
 		border: none;
 		border-radius: 20px;
 		height: 40px; 
 	}
-	.scrapDelete:hover{
-		background-color:  #D3D3D3;
-	}
-	
-	/* .scrollDiv::-webkit-scrollbar {
-          width: 5px;
-	}
-	.scrollDiv::-webkit-scrollbar-track {
-          background-color: transparent;
-    }
-    .scrollDiv::-webkit-scrollbar-thumb {
-          border-radius: 5px;
-          background-color: #D3D3D3;
-    } */
-    
-    #bTitle{
-    	margin-bottom: 10px;
-    }
 </style>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="myInfoFrame.jsp"%>
@@ -93,30 +62,29 @@
 			<hr />
 		</div>
 		</div>
-		<div class="myclass_content myScWrap" style="width: 100%; height: 360px;">
+		<div class="myScWrap" style="width: 100%; height: 100%;">
 			<% for(Board b : boardArr ){ %>
-
-			<input type="hidden" value="<%= b.getBoardNo() %>">
-				<div class="disWrap"data-aos="fade-up" data-aos-duration="1000">
+     			<form>
+					<input type="hidden" value="<%= b.getBoardNo() %>">
+				
 					<div id = "myscrap_content" onclick="goScrapBoard('<%= b.getBoardType() %>', '<%= b.getBoardNo() %>');">
-						<% if( b.getBoardType() == 3 ) { %>
+						<% if( b.getBoardType() == 1 ) { %>
 							<div class="divStyle scrapTitle">앨범</div>
 						<% } else if( b.getBoardType() == 2) {%>
 							<div class="divStyle scrapTitle">알림장</div>
-						<% } else if( b.getBoardType() == 4) { %>
+						<% } else if( b.getBoardType() == 3) { %>
 							<div class="divStyle scrapTitle">자유 게시판</div>
-						<% } else if( b.getBoardType() == 5)  { %>
+						<% } else { %>
 							<div class="divStyle scrapTitle">상담 게시판</div>
 						<% } %>
-						<div id="bTitle" class="divStyle"> 제목 &nbsp;<div class="conSt"><%= b.getBoardTitle() %></div></div>
-						<%-- <div>내용<div style=""><%= b.getBoardContent() %></div></div> --%>
-						<div class="divStyle">생성 날짜 &nbsp;<div class="conSt"><%= b.getCreateDate() %></div></div>
+						<div id="bTitle" class="divStyle"> 제목 <div class="conSt"><%= b.getBoardTitle() %></div></div>
+						
+						<div id="" class="divStyle">생성 날짜<div class="conSt"><%= b.getCreateDate() %></div></div>
 						
 					</div>
-					<div style="display:inline-block; margin-left: 120px; margin-top: 8px;">스크랩</div>
+					<div style="display:inline-block; margin-left: 60px;">게시물 No. <%= b.getBoardNo() %> 스크랩</div>
 					<button id="<%= loginUser.getUserNo() %>" type="button" class="scrapDelete" onclick="scrapDelete('<%= b.getBoardNo() %>');">취소</button>
-				
-				</div>
+				</form>
      		<% }  %>
 		</div>
 			
@@ -124,16 +92,16 @@
 	
 	<script>
 		function goScrapBoard(boardType, bno){
-			if(boardType==3){
-				location.href="<%= contextPath %>/list.al?bno="+bno;
-			}else if(boardType==2){
+			if(boardType==1){
 				location.href="<%= contextPath %>/movenotice.bo#noDiV"+bno;
-			}else if(boardType==4){
-				location.href="<%= contextPath %>/detail.fr?bno="+bno+"&boardType="+boardType;
-			}else if(boardType==5){
-				location.href="<%= contextPath %>/detail.fr?bno="+bno+"&boardType="+boardType;
+			}else if(boardType==2){
+				location.href="<%= contextPath %>/list.al?bno="+bno;
+			}else if(boardType==3){
+				
+			}else{
+				
 			}
-			
+			location.href="<%= contextPath %>/goscrap.bo?bno="+bno;
 		}
 	</script>
 
@@ -162,9 +130,6 @@
 	 	
 	 	
 	 	};
-	</script>
-	<script>
-	  AOS.init();
 	</script>
 </body>
 </html>
