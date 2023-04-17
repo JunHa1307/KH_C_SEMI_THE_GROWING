@@ -6,6 +6,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	ArrayList<Member> mList = (ArrayList<Member>)request.getAttribute("mList");
 	int cno = (int)request.getSession().getAttribute("cno");
 	int level = ((Member)request.getSession().getAttribute("loginUser")).getUserLevel();
 	int uno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
@@ -54,27 +55,39 @@ div {
 }
 
 .album_content {
-	height: 250px;
+	height: 298px;
 	width: 100%;
+	
+	
 	/* background-color: blue; */
 }
 
 .album_content>div {
 	float: left;
 	height: 100%;
+	
 }
 
 .album_con1 {
-	width: 33.3%;
+	width: 32.2%;
+	border: 1px solid rgb(182, 182, 177);
+	margin:auto;
+	margin-right:4px;
+	margin-bottom:8px;
+	box-shadow: 0px 8px 6px -6px #666;
+	
 	/* background-color: bisque; */
 }
 
 .album_con_title {
-	width: 90%;
+	width: 100%;
 	height: 30px;
 	margin: auto;
+	padding : 2px 5% 5px 5%; 
 	cursor: pointer;
 	font-weight: 600;
+	border-bottom: 1px solid rgb(182, 182, 177);
+	margin-bottom: 10px;
 	/* background-color: aqua; */
 }
 
@@ -88,6 +101,7 @@ div {
 	margin: auto;
 	overflow: hidden;
 	border-radius: 10px;
+	margin-bottom: 10px;
 }
 
 .album_con_file>img:hover {
@@ -102,14 +116,38 @@ div {
 	object-fit: cover;
 }
 
-.album_con_date {
+.album_con_user {
 	width: 90%;
 	height: 28px;
 	margin: auto;
-	text-align: right;
 	font-size: 14px;
-	font-weight:590;
+	font-weight:400;
 	color:grey;
+}
+
+.album_con_date_count {
+	width: 100%;
+	height: 28px;
+	margin: auto;
+	font-size: 12px;
+	font-weight:400;
+	color:black;
+	background: rgb(242, 244, 247);
+	border-top: 1px solid rgb(182, 182, 177);
+	padding : 4px 5% 5px 5%; 
+}
+.album_con_date_count>div {
+	height:100%;
+	float: left;
+}
+
+#aDate{
+	width:80%;
+}
+#aCount{
+	width:20%;
+	font-size:0.5vw; 
+	margin-top:2px;
 }
 
 #modal {
@@ -506,18 +544,26 @@ div {
 			</div>
 		</div>
 		<div class="album_content">
-			<% for( Board b : list) {%>
+			<% for( int i = 0; i<list.size(); i++) {%>
 			<div class="album_con1">
-				<input type="hidden" value="<%=b.getBoardNo() %>" id="hiddenNo">
+				<input type="hidden" value="<%=list.get(i).getBoardNo() %>" id="hiddenNo">
 				<div class="album_con_title"
-					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>', '<%=uno%>');">
-					<p><%=b.getBoardTitle() %></p>
+					onclick="albumClick('<%=list.get(i).getBoardNo() %>', '<%=level %>', '<%=uno%>');">
+					<p><%=list.get(i).getBoardTitle() %></p>
 				</div>
+				
 				<div class="album_con_file"
-					onclick="albumClick('<%=b.getBoardNo() %>', '<%=level %>','<%=uno%>');">
-					<img src="<%=contextPath %><%=b.getTitleImg() %> ">
+					onclick="albumClick('<%=list.get(i).getBoardNo() %>', '<%=level %>','<%=uno%>');">
+					<img src="<%=contextPath %><%=list.get(i).getTitleImg() %> ">
 				</div>
-				<div class="album_con_date"><%=b.getcDate()%></div>
+			
+				<div class= "album_con_user"><%=mList.get(i).getUserName() %> <%=mList.get(i).getUserLevel() ==1 ? "선생님" :mList.get(i).getUserLevel() ==2? "학부모" : "학생" %></div>
+				<div class="album_con_date_count">
+					<div id="aDate" ><%=list.get(i).getcDate()%></div>
+					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:25%; width:0.8vw; height:0.8vw; min-width:10px; min-height:10px"><%=list.get(i).getCount() %></div>
+					
+					</div>
+				
 
 			</div>
 			<%} %>
@@ -844,7 +890,7 @@ div {
 			               $("#modal").css("visibility","visible");
 			                $('body').css({overflow :"hidden",scroll:"no"});
 			                $("#veil").css("display","block");
-			               
+			              
 			            }
 					 
 				},
@@ -861,6 +907,7 @@ div {
                 $("#modal").css("visibility","hidden"); 
                 $('body').css({overflow :"scroll",scroll:"yes"});
                 $("#veil").css("display","none");
+                location.reload();
            
 
             }

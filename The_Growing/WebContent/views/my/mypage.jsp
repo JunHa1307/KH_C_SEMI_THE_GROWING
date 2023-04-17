@@ -17,7 +17,7 @@
 	rel="stylesheet"> -->
 <style>
 	.chaegepro>* {
-		font-size: 1.125vw;
+		font-size: 1vw;
 	}
 	.chaegepro {
 	
@@ -90,7 +90,7 @@ span{
 	min-height: 26px;
 	border: none;
 	background: #fff;
-	font-size: 1.1vw;
+	font-size: 0.9vw;
 	width:100%;
 	height:100%;
 	text-align: center;

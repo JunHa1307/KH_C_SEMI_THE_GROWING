@@ -215,6 +215,7 @@ div {
 	margin: auto;
 	overflow: hidden;
 	border-radius: 10px;
+		box-shadow: 0px 8px 6px -6px #666;
 }
 
 .album_con_file>img:hover {

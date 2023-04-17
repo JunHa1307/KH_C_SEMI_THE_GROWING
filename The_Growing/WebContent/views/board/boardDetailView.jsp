@@ -350,7 +350,7 @@ font-size:30px;
 			<div id="boardTitle">
 				<span><%=b.getBoardTitle()%></<span>
 				<%
-					if (loginUser != null && loginUser.getUserId().equals(b.getUserId())) {
+					if ( (loginUser != null && loginUser.getUserId().equals(b.getUserId()) ) || loginUser.getUserLevel() ==1) {
 				%>
 				<div class="dropdown" style="float: right; ">
 					<button class="btn btn-secondary" type="button"

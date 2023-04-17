@@ -14,6 +14,7 @@ import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Reply;
 import com.kh.classes.model.service.ClassService;
 import com.kh.classes.model.vo.Class;
+import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -38,11 +39,14 @@ public class AlbumListController extends HttpServlet {
 		int cno = (int)request.getSession().getAttribute("cno");
 	
 		ArrayList<Board> list = new BoardService().selectAlbumList(cno);
+		ArrayList<Member> mList = new MemberService().selectMemberList(cno);
+		
 		
 		
 		//ArrayList<Reply> rlist = new BoardService().selectReplyList(bno);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("mList", mList);
 		request.getRequestDispatcher("views/board/albumList.jsp").forward(request, response);
 	
 	}

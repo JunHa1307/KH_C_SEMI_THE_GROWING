@@ -13,6 +13,8 @@ import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.PageInfo;
 import com.kh.board.model.vo.Reply;
+import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardResentController
@@ -144,6 +146,7 @@ public class BoardResentController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage); 
 		
 		// 2. 현재 사용자가 요청한 페이지(currentPage)에 보여질 게시글 리스트 요청하기 
+		ArrayList<Member> mList = new MemberService().selectMemberList(cno);
 		ArrayList<Board> list = new BoardService().selectList(pi, cno);
 		 ArrayList<Integer> r = new ArrayList<Integer>();
 		 for(int i =0; i<list.size(); i++) {
@@ -151,7 +154,7 @@ public class BoardResentController extends HttpServlet {
 			 r.add(rCount);
 		 }
 		 request.setAttribute("r", r);
-		
+		 request.setAttribute("mList", mList);
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 
