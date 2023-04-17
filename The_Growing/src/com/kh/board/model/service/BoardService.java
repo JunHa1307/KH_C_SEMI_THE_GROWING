@@ -599,16 +599,7 @@ public int selectCountReply(int bno ) {
 		
 	}
 	
-	public Scrap selectScrapForMy(int bno, int uno) {
-		Connection conn = getConnection();
-		
-		Scrap s = new BoardDao().selectScrapForMy(conn, bno, uno);
-		
-		close(conn);
-		
-		return s;
-		
-	}
+
 	
 	public ArrayList<Integer> selectMyScrapList(int uno) {
 		Connection conn = getConnection();

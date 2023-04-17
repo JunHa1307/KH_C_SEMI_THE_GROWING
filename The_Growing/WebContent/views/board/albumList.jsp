@@ -933,7 +933,7 @@ div {
             }
         });
         
-     /*        let j = 0;
+             let j = 0;
         $('.scrap').on('click',function(){
             if(j==0){
                 $('.bi-star').css({color : "orange", fontSize : "30px"});
@@ -943,7 +943,7 @@ div {
                 j--;
             }
 
-        }); */
+        }); 
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
@@ -1121,7 +1121,7 @@ div {
 		//스크랩
      	function scrapClick(){
      		
-     		let uno =  $(".scrap").attr("id");
+     		let uno =  <%=uno%>
      		let bno = $("#modal").attr("class");
      		
      		$.ajax({

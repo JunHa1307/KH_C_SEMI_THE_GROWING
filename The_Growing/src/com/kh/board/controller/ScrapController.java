@@ -49,9 +49,9 @@ public class ScrapController extends HttpServlet {
 		
 		int uno = Integer.parseInt(request.getParameter("uno"));
 		int bno = Integer.parseInt(request.getParameter("bno"));
-
+		System.out.println("?"+uno + bno);
 		int scrap = new BoardService().selectScrap(bno, uno);
-		System.out.println("scrap" + scrap);
+		System.out.println("scrap1" + scrap);
 		int result1 = 0;
 
 		if (scrap == 0) {
@@ -61,9 +61,9 @@ public class ScrapController extends HttpServlet {
 			int result2 = new BoardService().deleteScrap(bno, uno);
 		}
 		
-		Scrap s = new Scrap();
+		ArrayList<Integer> s = new ArrayList<Integer>();
 		if(result1 > 0) {
-			s = new BoardService().selectScrapForMy(bno, uno); 
+			s = new BoardService().selectMyScrapList(uno);
 			System.out.println("scrap:"+s);
 			
 		}else {
