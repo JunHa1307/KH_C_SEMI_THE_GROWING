@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>The Growing</title>
 <!--부트스트랩 알림을 위한 css-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -26,12 +26,16 @@
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css"> 
 </head>
+<style>
+.button_UI {
+	border-color: #7593ff;
+}
+</style>
 <body>
 	<div id="survey_wrap">
 		<div id="s1" style="width:4vw;" ></div>

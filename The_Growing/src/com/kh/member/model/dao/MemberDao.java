@@ -98,6 +98,30 @@ public class MemberDao {
 		return result;
 	}
 	
+	public int insertApiAttachment(Connection conn, SnsLogin snsLoginUser) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertApiAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, snsLoginUser.getFilePath());
+			pstmt.setString(2, snsLoginUser.getFilePath());
+			pstmt.setString(3, "ISSNSMEMBERATTACHMENT");
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
 	public int idCheck(Connection conn, String userId) {
 		
 		int result = 0;

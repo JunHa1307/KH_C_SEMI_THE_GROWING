@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%
 	ArrayList<Member> memberList = (ArrayList<Member>) request.getAttribute("memberList");
-ArrayList<Member> applyList = (ArrayList<Member>) request.getAttribute("applyList");
-Class c = (Class) request.getAttribute("Class");
+	ArrayList<Member> applyList = (ArrayList<Member>) request.getAttribute("applyList");
+	Class c = (Class) request.getAttribute("Class");
 %>
 <!DOCTYPE html>
 <html>
@@ -154,12 +154,16 @@ Class c = (Class) request.getAttribute("Class");
 			<div style="padding-left:10%; padding-bottom:20px; font-weight:600">총 <%=memberList.size() %>명</div>
 			<%
 				for (int i = 0; i < memberList.size(); i++) {
+					String filePath = memberList.get(i).getFilePath();
+					String changeName = memberList.get(i).getChangeName();
 			%>
 			<div id="class_inner" class="<%=i%>">
 				<div class="class_img">
-					<img
-						src="<%=contextPath + memberList.get(i).getFilePath() + memberList.get(i).getChangeName()%>"
-						onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
+					<% if("ISSNSMEMBERATTACHMENT".equals(filePath)){ %>
+						<img src="<%= changeName%>">	
+					<% }else { %>					
+						<img src="<%= contextPath + filePath + changeName%>" onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
+					<% } %>
 				</div>
 				<div class="class_text">
 					<%=memberList.get(i).getUserName()%> <%=memberList.get(i).getUserLevel() ==1 ? "선생님" : memberList.get(i).getUserLevel() ==2 ? "부모님" :  "학생"   %>
@@ -186,7 +190,7 @@ Class c = (Class) request.getAttribute("Class");
 				<div id="class_inner2">
 					<div class="class_img">
 						<img
-							src="<%=contextPath + applyList.get(i).getFilePath() + applyList.get(i).getChangeName()%>"
+							src="<%= contextPath + applyList.get(i).getFilePath() + applyList.get(i).getChangeName()%>"
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
 					<div class="class_text">

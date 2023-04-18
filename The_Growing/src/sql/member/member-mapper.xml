@@ -39,6 +39,12 @@
 		SELECT * FROM DUAL
 	</entry>
 	
+	<entry key="insertApiAttachment">
+		INSERT INTO ATTACHMENT
+			(FILE_NO, REF_UNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL)
+		VALUES
+			(SEQ_ANO.NEXTVAL, SEQ_MNO.CURRVAL, ?, ?, ?, SYSDATE, 2)
+	</entry>
 	
 	<entry key="idCheck">
 		SELECT COUNT(*)

@@ -39,11 +39,7 @@ public class CalendarUpdateController extends HttpServlet {
 		
 	
 		request.setCharacterEncoding("UTF-8");
-		/*
-		 * Enumeration e = request.getParameterNames(); while(e.hasMoreElements()) {
-		 * System.out.println(e.nextElement()); }
-		 */
-
+		
 		String arr = request.getParameter("cArr");
 		int classNo = Integer.parseInt(request.getParameter("cno"));
 		

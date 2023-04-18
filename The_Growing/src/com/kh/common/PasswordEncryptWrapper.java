@@ -25,13 +25,9 @@ public class PasswordEncryptWrapper extends HttpServletRequestWrapper{
 		// 매개변수로 전달받은 name변수의 값이 userPwd일 때 암호화 작업 수행하기
 		if(name.equals("userPwd") || name.equals("newPwd") || name.equals("oldPwd")) {
 			// 암호화 시켜주기
-//			System.out.println("암호화 전 pwd : " + super.getParameter(name));
-			
+		
 			value = getSHA512(super.getParameter(name));
-			
-//			System.out.println("암호화 후 pwd : " + value);
-			
-			
+						
 		}else {
 			value = super.getParameter(name);
 		}

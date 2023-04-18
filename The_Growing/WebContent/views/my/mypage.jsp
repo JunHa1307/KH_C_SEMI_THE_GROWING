@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member"%>
+	pageEncoding="UTF-8" import="com.kh.member.model.vo.Member, com.kh.member.model.vo.SnsLogin"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	SnsLogin snsLoginUser = (SnsLogin) session.getAttribute("snsLoginUser");
 	int snsType0 = Integer.parseInt(request.getAttribute("snsType0").toString());
 	String snsType1 = request.getAttribute("snsType1")+"";
 %>
@@ -203,7 +204,7 @@ label{
 			<div class="profile">
 				<label for="id" style="font-size:1.3vw;">프로필 정보</label>
 				<div class="imgDiv">
-					<img src="<%= request.getContextPath()+ loginUser.getFilePath()+loginUser.getChangeName() %>" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
+					<img src="<%= snsLoginUser == null ? request.getContextPath()+ loginUser.getFilePath()+loginUser.getChangeName() : snsLoginUser.getFilePath()%>" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 					 <% if(snsType0 == 0){ %>
 					 <div id="file-area" style="display: none;">
 	                           <input type="file" id="profileImgFile" name="upfile" onchange="loadImg(this);">

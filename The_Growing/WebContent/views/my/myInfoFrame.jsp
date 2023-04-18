@@ -251,13 +251,17 @@
 }
 </style>
 <script>
-	const msg = "<%= alertMsg  %>";
-	
-	if(msg != "null"){
-		alertMsg(msg);
-		<% session.removeAttribute("alertMsg"); %>
-	}
+
+		const msg = "<%= alertMsg  %>";
 		
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("alertMsg"); %>
+		}
+		window.onbeforeunload = function(){
+			<% session.removeAttribute("alertMsg"); %>
+		}
+
 		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
 		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
