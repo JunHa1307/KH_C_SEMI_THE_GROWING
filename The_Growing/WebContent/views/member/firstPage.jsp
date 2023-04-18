@@ -364,8 +364,8 @@
     		
     	});
     	
-    	$("#grow_btn").click(function(){
-    		
+    	$("#gitBtn").click(function(){
+    		window.open("https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING", "_blank");
     	});
     </script>
     
