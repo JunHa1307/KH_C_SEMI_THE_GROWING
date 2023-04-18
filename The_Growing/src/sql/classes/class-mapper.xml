@@ -215,4 +215,7 @@
 		FROM CLASS_MEMBER
 		WHERE REF_CNO = ? AND REF_UNO = ?
 	</entry>
+	<entry key="deleteClass">
+		DELETE FROM CLASS WHERE CLASS_NO = ?
+	</entry>
 </properties>
