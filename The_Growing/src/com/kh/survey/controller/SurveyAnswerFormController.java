@@ -61,10 +61,22 @@ public class SurveyAnswerFormController extends HttpServlet {
 		}else {
 			String[] mNo = request.getParameterValues("mNo");
 			String[] writeAns = request.getParameterValues("sContent");
-			String[] itemAns = new String[mNo.length];
+			String[] itemAns;
 			
-			for(int i = 0; i < mNo.length; i++) {
-				itemAns[i] = request.getParameter("mCheck"+i);
+			if(writeAns == null) {
+				writeAns = new String[1];
+				writeAns[0]= "";
+			}
+			
+			if(mNo != null) {
+				itemAns = new String[mNo.length];
+				
+				for(int i = 0; i < mNo.length; i++) {
+					itemAns[i] = request.getParameter("mCheck"+i);
+				}
+			}else {
+				itemAns = new String[1];
+				itemAns[0] = "";
 			}
 			
 			Answer ans = new Answer(qno, uno, writeAns, itemAns);

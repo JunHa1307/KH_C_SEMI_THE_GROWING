@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- google login api -->
   	<meta name ="google-signin-client_id" content="973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com">
-    <title>TheGrowing</title>
+    <title>The Growing</title>
 
     <!-- kakao login api cdn -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>    
@@ -184,7 +184,7 @@
         #buttonDiv{animation: fadeInUp 2s;}
 
 		.footer {
-			height: 7.8%;
+			height: 8.8%;
             background-color: green;
             color: white;
             display: flex;

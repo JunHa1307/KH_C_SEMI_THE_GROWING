@@ -137,36 +137,51 @@ public class SurveyDao {
 			ArrayList<String> getItemNo = new ArrayList<String>();
 			ArrayList<String> getItemContent = new ArrayList<String>();
 			
+			pstmt.setInt(1, ques.getRefSno());
+
 			for(String s : ques.getQuesType()) {
 				getQuesType.add(s);
 			}
-			for(String s : ques.getsTitle()) {
-				getsTitle.add(s);
-			}
-			for(String s : ques.getsContent()) {
-				getsContent.add(s);
-			}
-			for(String s : ques.getmTitle()) {
-				getmTitle.add(s);
-			}
-			for(String s : ques.getmContent()) {
-				getmContent.add(s);
-			}
-			for(String s : ques.getItemNo()) {
-				getItemNo.add(s);
-			}
-			for(String s : ques.getItemContent()) {
-				getItemContent.add(s);
+			
+			pstmt.setString(2, getQuesType.toString().substring(1).substring(0,  getQuesType.toString().length() - 2));
+
+			if(ques.getsTitle() != null) {
+				for(String s : ques.getsTitle()) {
+					getsTitle.add(s);
+				}
+				for(String s : ques.getsContent()) {
+					getsContent.add(s);
+				}
+				pstmt.setString(3, getsTitle.toString().substring(1).substring(0,  getsTitle.toString().length() - 2));
+				pstmt.setString(4, getsContent.toString().substring(1).substring(0,  getsContent.toString().length() - 2));
+			}else {
+				pstmt.setString(3, "");
+				pstmt.setString(4, "");
 			}
 			
-			pstmt.setInt(1, ques.getRefSno());
-			pstmt.setString(2, getQuesType.toString().substring(1).substring(0,  getQuesType.toString().length() - 2));
-			pstmt.setString(3, getsTitle.toString().substring(1).substring(0,  getsTitle.toString().length() - 2));
-			pstmt.setString(4, getsContent.toString().substring(1).substring(0,  getsContent.toString().length() - 2));
-			pstmt.setString(5, getmTitle.toString().substring(1).substring(0,  getmTitle.toString().length() - 2));
-			pstmt.setString(6, getmContent.toString().substring(1).substring(0,  getmContent.toString().length() - 2));
-			pstmt.setString(7, getItemNo.toString().substring(1).substring(0,  getItemNo.toString().length() - 2));
-			pstmt.setString(8, getItemContent.toString().substring(1).substring(0,  getItemContent.toString().length() - 2));
+			if(ques.getmTitle() != null) {
+				for(String s : ques.getmTitle()) {
+					getmTitle.add(s);
+				}
+				for(String s : ques.getmContent()) {
+					getmContent.add(s);
+				}
+				for(String s : ques.getItemNo()) {
+					getItemNo.add(s);
+				}
+				for(String s : ques.getItemContent()) {
+					getItemContent.add(s);
+				}
+				pstmt.setString(5, getmTitle.toString().substring(1).substring(0,  getmTitle.toString().length() - 2));
+				pstmt.setString(6, getmContent.toString().substring(1).substring(0,  getmContent.toString().length() - 2));
+				pstmt.setString(7, getItemNo.toString().substring(1).substring(0,  getItemNo.toString().length() - 2));
+				pstmt.setString(8, getItemContent.toString().substring(1).substring(0,  getItemContent.toString().length() - 2));
+			}else {
+				pstmt.setString(5, "");
+				pstmt.setString(6, "");
+				pstmt.setString(7, "");
+				pstmt.setString(8, "");
+			}
 			
 			result = pstmt.executeUpdate();
 
@@ -268,7 +283,7 @@ public class SurveyDao {
 	        		question.setQuesType(str);
 	        	}
 	        	
-	        	if(rset.getString("S_TITLE").contains(",")) {
+	        	if(rset.getString("S_TITLE") != null && rset.getString("S_TITLE").contains(",")) {
 	        		arr = rset.getString("S_TITLE").split(",");
 	        		question.setsTitle(arr);
 	        	}else {
@@ -277,7 +292,7 @@ public class SurveyDao {
 	        		question.setsTitle(str);
 	        	}
 	        	
-	        	if(rset.getString("M_TITLE").contains(",")) {
+	        	if(rset.getString("M_TITLE") != null && rset.getString("M_TITLE").contains(",")) {
 	        		arr = rset.getString("M_TITLE").split(",");
 	        		question.setmTitle(arr);
 	        	}else {
@@ -286,7 +301,7 @@ public class SurveyDao {
 	        		question.setmTitle(str);
 	        	}
 	        	
-	        	if(rset.getString("M_CONTENT").contains(",")) {
+	        	if(rset.getString("M_CONTENT") != null && rset.getString("M_CONTENT").contains(",")) {
 	        		arr = rset.getString("M_CONTENT").split(",");
 	        		question.setmContent(arr);
 	        	}else {
@@ -295,7 +310,7 @@ public class SurveyDao {
 	        		question.setmContent(str);
 	        	}
 	        	
-	        	if(rset.getString("ITEM_NO").contains(",")) {
+	        	if(rset.getString("ITEM_NO") != null && rset.getString("ITEM_NO").contains(",")) {
 	        		arr = rset.getString("ITEM_NO").split(",");
 	        		question.setItemNo(arr);
 	        	}else {
@@ -304,7 +319,7 @@ public class SurveyDao {
 	        		question.setItemNo(str);
 	        	}
 	        	
-	        	if(rset.getString("ITEM_CONTENT").contains(",")) {
+	        	if(rset.getString("ITEM_CONTENT") != null && rset.getString("ITEM_CONTENT").contains(",")) {
 	        		arr = rset.getString("ITEM_CONTENT").split(",");
 	        		question.setItemContent(arr);
 	        	}else {
@@ -406,24 +421,26 @@ public class SurveyDao {
 	        	ans.setRefUno(rset.getInt("REF_UNO"));
 	        	ans.setSubmitDate(rset.getDate("SUBMIT_DATE"));
 	        	
-	        	if(rset.getString("WRITE_ANS").contains(",")) {
-	        		arr = rset.getString("WRITE_ANS").split(",");
-	        		ans.setWriteAns(arr);
-	        	}else {
-	        		str = new String[1];
-	        		str[0] =  rset.getString("WRITE_ANS");
-	        		ans.setWriteAns(str);
+	        	if(rset.getString("WRITE_ANS") != null) {
+		        	if(rset.getString("WRITE_ANS").contains(",")) {
+		        		arr = rset.getString("WRITE_ANS").split(",");
+		        		ans.setWriteAns(arr);
+		        	}else {
+		        		str = new String[1];
+		        		str[0] =  rset.getString("WRITE_ANS");
+		        		ans.setWriteAns(str);
+		        	}
 	        	}
-	        	
-	        	if(rset.getString("ITEM_ANS").contains(",")) {
-	        		arr = rset.getString("ITEM_ANS").split(",");
-	        		ans.setItemAns(arr);
-	        	}else {
-	        		str = new String[1];
-	        		str[0] =  rset.getString("ITEM_ANS");
-	        		ans.setItemAns(str);
+	        	if(rset.getString("ITEM_ANS") != null) {
+		        	if(rset.getString("ITEM_ANS").contains(",")) {
+		        		arr = rset.getString("ITEM_ANS").split(",");
+		        		ans.setItemAns(arr);
+		        	}else {
+		        		str = new String[1];
+		        		str[0] =  rset.getString("ITEM_ANS");
+		        		ans.setItemAns(str);
+		        	}
 	        	}
-	        	
 	        	ans.setUserName(rset.getString("USER_NAME"));
 	        	ans.setChildName(rset.getString("CHILDREN_NAME"));
 	        	ansarr.add(ans);

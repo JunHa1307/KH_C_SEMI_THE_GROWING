@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>The Growing</title>
 <!--부트스트랩 알림을 위한 css-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -69,7 +69,7 @@
 					</table>
 				</div>
 				<div class="multiple">
-				<div id="s2"></div>
+					<div id="s2"></div>
 					<table border-collapse:collapse; id="multiple_table">
 					<br>
 						<h3 style="font-weight: bold;">객관식 질문</h3>
@@ -107,36 +107,10 @@
 						<button type="button" class="item_minus button_UI button--winona"
 							data-text="항목 삭제">항목 삭제</button>
 					</div>
-					<script>
-						$(function() {
-							$(".item_plus").click(function() {
-								let item = "<tr >"
-										+ "<td align='center'><input type='radio' name='mCheck'></td>"
-										+ "<td colspan='3'><input type='text' name='itemContent' size='55' placeholder='항목 내용을 입력해주세요' required><br></td>"
-										+ "</tr>";
-								$(this).parents('div').siblings('table').find("tr:last").after(item);
-							});
-							$(".item_minus").click(function() {
-								if($(this).parents('div').siblings('table').find("input[name=mCheck]").length > 2) {
-									$(this).parents('div').siblings('table').find("tr:last").remove();
-								}else {
-									alert("항목은 2개 이하로 삭제할 수 없습니다.");
-								}
-							});
-							$(".item_plus, .item_minus").on("click",function(){
-								console.log($(this).parents('.multiple').find('input[name=itemContent]'));
-								$(this).parents('.multiple').find('input[name=itemCheck]').attr("value",
-										$(this).parents('.multiple').find('input[name=itemContent]').length);
-							})
-						});
-					</script>
-
 				</div>
-
-
-
+				
 				<div class="short">
-				<div id="s2"></div>
+					<div id="s2"></div>
 					<table border-collapse:collapse; id="short_table">
 					<br>
 						<h3 style="font-weight:bold;">주관식 질문</h3>
@@ -154,30 +128,58 @@
 						<input type="hidden" name="type" value=2 readonly>
 					</table>
 				</div>
-
 			</div>
-			  <div id="bu_align">
+		  	<div id="bu_align">
 				<button type="submit" class=" button_UI button--winona"
 					data-text="등록">등록</button>
 			</div>  
-		<script>
-			$(function() {
-				$(".m_plus").click(function() {
-					$("#insert-su").append($(".multiple").eq(0).clone(true));
-				});
-				$(".s_plus").click(function() {
-					$("#insert-su").append($(".short").eq(0).clone(true));
-				});
-				$(".m_minus").click(function() {
-					if($("#insert-su>div").length > 3){
-						$("#insert-su>div").eq($("#insert-su>div").length-1).remove();						
-					}else {
-						alert("질문은 2개 이하로 삭제할 수 없습니다.");
-					}
-				});
-			})
-		</script>
 		</form>
 	</div>
+			<script>
+				let multipleQues = $(".multiple").eq(0).html();
+				let shortQues = $(".short").eq(0).html();
+				$(function() {
+					$(".m_plus").click(function() {
+						$("#insert-su").append("<div class='multiple'>"+multipleQues+"</div>");
+						clickEvent();
+					});
+					$(".s_plus").click(function() {
+						$("#insert-su").append("<div class='short'>"+shortQues+"</div>");
+					});
+					$(".m_minus").click(function() {
+						if($("#insert-su>div").length > 1){
+							$("#insert-su>div").eq($("#insert-su>div").length-1).remove();						
+						}else {
+							alert("질문은 0개 이하로 삭제할 수 없습니다.");
+						}
+					});
+					clickEvent();
+				});
+				
+				function clickEvent(){
+					$(".item_plus").off("click");
+					$(".item_minus").off("click");
+					$(".item_plus, .item_minus").off("click");
+					$(".item_plus").click(function() {
+						let item = "<tr >"
+								+ "<td align='center'><input type='radio' name='mCheck'></td>"
+								+ "<td colspan='3'><input type='text' name='itemContent' size='55' placeholder='항목 내용을 입력해주세요' required><br></td>"
+								+ "</tr>";
+						$(this).parents('div').siblings('table').find("tr:last").after(item);
+					});
+					$(".item_minus").click(function() {
+						if($(this).parents('div').siblings('table').find("input[name=mCheck]").length > 2) {
+							$(this).parents('div').siblings('table').find("tr:last").remove();
+						}else {
+							alert("항목은 2개 이하로 삭제할 수 없습니다.");
+						}
+					});
+					$(".item_plus, .item_minus").on("click",function(){
+						console.log($(this).parents('.multiple').find('input[name=itemContent]'));
+						$(this).parents('.multiple').find('input[name=itemCheck]').attr("value",
+								$(this).parents('.multiple').find('input[name=itemContent]').length);
+					});
+				}
+			</script>
 </body>
 </html>
