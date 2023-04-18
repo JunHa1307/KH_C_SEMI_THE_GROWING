@@ -23,19 +23,46 @@
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
 </head>
+<style>
+#survey_wrap{
+	position: relative;
+}
+@media only screen and (max-width: 780px) {
+		#survey_wrap {
+			width:90%;
+			margin: 0;
+		}
+		#s3 button {
+			width:21vw;
+		}
+}
+
+.button_UI {
+	border-color: #209dce;
+}
+
+#s1,#s2 {
+	border: 5px solid #209dce;
+}
+#s3{
+	margin:0;
+	right:0;
+	top:50%;
+	z-index:1;
+}
+</style>
 <body>
 	<div id="s3">
 		<button type="button" class="m_plus button_UI button--winona"
-					data-text="객관식 질문 추가">객관식 질문 추가</button>
+					data-text="객관식 추가">객관식 추가</button>
 			<div>
 				<button style="margin-top: 10px;"type="button" class="s_plus button_UI button--winona"
-					data-text="주관식 질문 추가">주관식 질문 추가</button>
+					data-text="주관식 추가">주관식 추가</button>
 			</div>
 			<div>
 				<button style="margin-top: 10px;" type="button" class="m_minus button_UI button--winona"

@@ -44,7 +44,7 @@ public class MoveNoticeToClass extends HttpServlet {
 		
 		if(noticeType == 1) {
 			
-			response.sendRedirect(request.getContextPath()+"/resent.bo");
+			request.getRequestDispatcher("/resent.bo").forward(request, response);
 			
 		}else if(noticeType == 2) {
 			
@@ -52,11 +52,10 @@ public class MoveNoticeToClass extends HttpServlet {
 			String search = request.getParameter("search");
 			Board b = new BoardService().selectBoard(bno);
 			
-			response.sendRedirect(request.getContextPath()+"/list.fr?boardType="+b.getBoardType()+"&search="+search);
+			request.getRequestDispatcher("/detail.fr?bno="+b.getBoardNo()+"&boardType="+b.getBoardType()).forward(request, response);
 			
 		}else if (noticeType == 3) {
-			
-			response.sendRedirect(request.getContextPath()+"/movenotice.bo");
+			request.getRequestDispatcher("/movenotice.bo").forward(request, response);
 		}
 	}
 

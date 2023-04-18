@@ -47,7 +47,7 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new MemberDao().insertMemberApi(conn, loginUser, snsLoginUser);
-		
+		int result2 = new MemberDao().insertApiAttachment(conn, snsLoginUser);
 		// 트랜잭션처리
 		if(result > 0) { // 성공
 			//커밋

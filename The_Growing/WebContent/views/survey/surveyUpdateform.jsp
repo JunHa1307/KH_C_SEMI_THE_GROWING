@@ -34,6 +34,11 @@
 <link rel="stylesheet"
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
 </head>
+<style>
+#s1,#s2 {
+	border: 5px solid #36bca5;
+}
+</style>
 <body>
 	<div id="s3">
 		<button type="button" class="m_plus button_UI button--winona"
