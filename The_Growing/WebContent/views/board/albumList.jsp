@@ -177,8 +177,8 @@ div {
 }
 
 #mo_picture_wrap {
-	width: 100%;
-	height: 100%;
+	width: 720px;
+	height: 700px;
 
 	/* background-color: aqua; */
 }
@@ -192,8 +192,8 @@ div {
 
 #slider-div>div {
 	width: 100%;
-	height: 90%;
-	padding-top:10%;
+	height: 100%;
+	
 
 
 	/* background-color: rgb(164, 123, 123); */
@@ -201,8 +201,14 @@ div {
 
 .img_1 {
 	width: 100%;
-	height:100%;
+	
 	object-fit: cover;
+	display: inline-block;
+	margin: 0;
+ 
+  height: 700px;
+  text-align: center;
+  line-height: 700px;
 }
 
 #mo_write {
@@ -816,7 +822,7 @@ div {
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
-  								'<div id="mo_writer_id">'+b.userId+'</div>'+
+  								'<div id="mo_writer_id">'+b.userName+'</div>'+
   								'<div id="mo_writer_date" class="grey">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
   				 	}else{
   				 	  result  += 
