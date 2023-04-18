@@ -546,7 +546,7 @@ div {
 				<div id="album_button" align="right" class="box">
 					<button class="button_UI button--winona" data-text="다운로드"
 						style="margin-right: 10px;" id="down">
-						<span>다운로드</span>
+						<span id="alertStart">다운로드</span>
 					</button>
 					<button class="button_UI button--winona board_album"
 						data-text="게시물 보기">
@@ -641,6 +641,9 @@ div {
 
 	<script>
       $(function () {
+    	  
+    	
+    	    
              
           $("#board_album").css("fontWeight", "700");
           $("#board_album").children().css("background", "rgb(239, 243, 239)");
@@ -717,7 +720,26 @@ div {
     	};
      
    	 $("#down").click(function(){
-    		  download1();
+   	
+   	        Swal.fire({
+   	            title: '다운로드를 하시겠습니까?',
+   	            text: "",
+   	            icon: 'question',
+   	            showCancelButton: true,
+   	            confirmButtonColor: '#3085d6',
+   	            cancelButtonColor: '#d33',
+   	            confirmButtonText: '다운',
+   	            cancelButtonText: '취소'
+   	        }).then((result) => {
+   	            if (result.isConfirmed) {
+   	                Swal.fire(
+   	                    '다운이 완료되었습니다.'
+   	                )
+   	             download1();
+   	            }
+   	        })
+   	   
+    		 
     		}); 
 });
       

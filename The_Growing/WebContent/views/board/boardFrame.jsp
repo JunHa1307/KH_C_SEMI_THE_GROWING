@@ -48,7 +48,11 @@
    	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
        
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+<script src="<%= contextPath %>/resources/js/alert.js"></script>
 
+	<!--  alret 창 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
     
     <style>
     .dropdown-toggle::after {
@@ -631,7 +635,9 @@ vertical-align: middle;
                  $("#board_manage").click(function(){
                      location.href="<%=contextPath%>/classmembermanagement.c";
                   });
-
+                 
+                 
+                
 
               });
             </script>
@@ -641,9 +647,10 @@ vertical-align: middle;
 	const msg = "<%= alertMsg  %>";
 	
 	if(msg != "null"){
-		alert(msg);
+		alertMsg(msg);
 		<% session.removeAttribute("alertMsg"); %>
 	}
+	
 	
 	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);
 	setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>)},3000);
