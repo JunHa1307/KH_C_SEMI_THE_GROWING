@@ -184,14 +184,15 @@
 	                	$.ajax({
 	                		type: "POST",
 	                		url: "<%= contextPath%>/deleteclass.ma",
-	                		data: <%= cInfo %> ,
+	                		data: {cno : <%= cInfo.getClassNo()%>} ,
 	                		success: function(){
 	                			Swal.fire({
 	    	                     	title: '클래스 삭제가 완료되었습니다.',
 	    	                        text: '새로운 클래스를 생성해보세요!',
 	    	                        icon: 'success',   
 	    	                        confirmButtonText: '확인'
-	    	                    })
+	    	                    });
+	                			location.href='<%=contextPath%>/mainpage.me';
 	                		},
 	    	                error: function(){
 	    	                	console.log("실패");
