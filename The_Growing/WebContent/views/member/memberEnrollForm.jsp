@@ -355,6 +355,10 @@ td{
 .inputTitle{
 	padding-top:10px;
 }
+#goFirst{
+
+cursor: pointer;
+}
 </style>
 </head>
 <body>
