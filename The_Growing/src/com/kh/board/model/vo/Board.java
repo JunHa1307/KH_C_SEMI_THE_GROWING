@@ -207,7 +207,7 @@ public class Board {
 
 
 
-	public int getBoardType() {
+	public int myscrap_content() {
 		return boardType;
 	}
 
@@ -216,8 +216,10 @@ public class Board {
 	public void setBoardType(int boardType) {
 		this.boardType = boardType;
 	}
-
-
+	
+	public int getBoardType() {
+		return boardType;
+	}
 
 	public int getRefUno() {
 		return refUno;

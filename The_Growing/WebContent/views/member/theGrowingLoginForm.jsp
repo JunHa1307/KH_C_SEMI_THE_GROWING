@@ -32,6 +32,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
+    	
         div {
             box-sizing: border-box;
             font-family: 'Noto Sans KR', sans-serif;
@@ -59,8 +60,7 @@
         }
 
         #header_1, #header_3 {
-            height: 100%;
-            background-color: green;
+            height: 100%;      
         }
 
         #header_2 {
@@ -88,7 +88,7 @@
         
         .content_1, .content_3 {
             height: 100%;
-            background-color: green;
+            /* background-color: green; */
         }
         
         #title_area {
