@@ -76,12 +76,12 @@ public class boardInsertController extends HttpServlet {
 					
 				 if(result > 0 ) { 
 					 request.setAttribute("boardType", boardType);
-					 request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
+					 request.getSession().setAttribute("alertMsg", "게시글 작성에 성공하였습니다.");
 					 response.sendRedirect(request.getContextPath()+"/list.fr?currentPage=1&boardType="+boardType);
 				 	}else { 
 		
 					
-					  request.setAttribute("errorMsg", "게시글 작성 실패");
+					  request.setAttribute("errorMsg", "게시글 작성에 실패하였습니다.");
 					 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response); 
 					 }
 				 

@@ -115,10 +115,10 @@ public class AlbumInsertController extends HttpServlet {
 			
 			if(result > 0) { // 성공 -> list.th를 요청
 				
-				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다");
+				request.getSession().setAttribute("alertMsg", "게시글이 업로드 되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/list.al");
 			}else {
-				request.setAttribute("errorMsg", "사진게시판 업로드 실패..");
+				request.setAttribute("errorMsg", "앨범 업로드를 실패하였습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 			

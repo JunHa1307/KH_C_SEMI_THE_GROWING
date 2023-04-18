@@ -815,7 +815,7 @@ div {
                                    'aria-haspopup="true" aria-expanded="false" style="margin-top:7px; padding:0;"><img id="alarmIcon"'+
                                       'src="/growing/resources/image/icons8-메뉴-2-48.png" /></button><div id="menu" class="dropdown-menu"'+
                                    'aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="/growing/update.al?bno='+b.boardNo+'">수정</a>'+ 
-                                   '<a class="dropdown-item" href="/growing/delete.al?bno='+b.boardNo+'">삭제</a></div></div>'+
+                                   '<a onclick="deleteAlbum('+b.boardNo+');" class="dropdown-item" >삭제</a></div></div>'+
                                    '</div></div>'+
   						'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
   									'<div id="mo_writer_profileImg"><img src="/growing/'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
@@ -849,7 +849,7 @@ div {
   				 
   				},
   				error: function(){
-  					console.log("게시글 목록조회 실패")
+  					error();
   				}
        	});   
         	  
@@ -871,7 +871,7 @@ div {
    				 
    				},
    				error: function(){
-   					console.log("게시글 목록조회 실패")
+   					error('댓글 작성에 실패했습니다.');
    				}
         	});        
          
@@ -905,7 +905,7 @@ div {
 					 
 				},
 				error: function(){
-					console.log("게시글 목록조회 실패")
+					error();
 				}
     	});
 		
@@ -942,7 +942,6 @@ div {
         
      	//좋아요 클릭 시 
         function likeClick(uno){
-        	
         let bno = $("#modal").attr("class");
   
           
@@ -969,7 +968,7 @@ div {
 					 
 				},
 				error: function(){
-					console.log("게시글 목록조회 실패")
+					error();
 				}
     	});
   
@@ -1024,7 +1023,6 @@ div {
    					bno,  lock
    				},
    				success : function(result){
-   				 
    					if(result > 0){
    						
    						$("#mo_reply_textarea").val("");
@@ -1037,7 +1035,7 @@ div {
    			   					 $(".mo_reply").html(list); 
    			   				},
    			   				error: function(){
-   			   					console.log("게시글 목록조회 실패")
+   			   					error();
    			   				}
    			        	});
    						$.ajax({
@@ -1048,18 +1046,18 @@ div {
 			   					 $("#chat_count").html(list);
 			   				},
 			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
+			   					error();
 			   				}
 			        	}); 
    						$("#lock_btn").data("lock","N");
 						$("#lock_btn").css("background", "");
    					}else{
-   						alert("댓글작성에 실패했습니다");
+   						error('댓글 작성에 실패했습니다.');
    						
    					}
    				}, 
    				error : function(){
-   					console.log("댓글 작성 실패")
+   					error('댓글 작성에 실패했습니다.');
    				} 
    			});
    		}); 
@@ -1125,33 +1123,40 @@ div {
      					
      			},
      			error: function(){
-     				console.log("게시글 스크랩 실패");
+     				error('게시글 스크랩을 실패하였습니다.');
      			}
      			
      		});
      	
-     	
-     	
      	};
      	
+     	function deleteAlbum(bno){
+     	     Swal.fire({
+                 title: '게시물을 삭제하시겠습니까?',
+                 text: "삭제된 게시물은 다시 볼 수 없습니다.",
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: '삭제',
+                 cancelButtonText: '취소'
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                	 
+                     Swal.fire(
+                         '삭제가 완료되었습니다.'
+                     )
+                     setTimeout(() =>  location.href="/growing/delete.al?bno="+bno, 1000);
+                    
+                 }
+                 
+             })
+     	};
+     		
+     		
+     	
 
-          
-      $(function(){
-          $('.scrap').on('click',function(){
-        	  
-        	  if($(this).children($(".bi-star")).hasClass('unclicked')){
-        		  $(this).children($(".bi-star")).removeClass('unclicked');
-        		  $(this).children($(".bi-star")).addClass('clicked');
-        	  }else if($(this).children($(".bi-star")).hasClass('clicked')){
-        		  $(this).children($(".bi-star")).removeClass('clicked');
-        		  $(this).children($(".bi-star")).addClass('unclicked');
-        	  }else{
-        		  $(this).children($(".bi-star")).addClass('clicked');
-        	  }
-	     		
-             });	
-          
-     });
+		
 
     </script>
 </body>
