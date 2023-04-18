@@ -19,18 +19,16 @@
 	}
 	#myscrap_content{
 		border: 2px solid #ffe4af;
-		height: 300px;
-		border-radius: 20px;
+		height: 200px;
 		margin: 10px 20px;
 		padding: 100px 0;
 		background-color: #fcffb0;
 		box-shadow: 0 3px 10px rgba(0,0,0,0.25);
 		width: 250px;
 	}
-	.disWrap{
+/* 	.disWrap{
 		display: inline-block;
-		
-	}
+	} */
 	
 	
 	#myscrap_content:hover{
@@ -41,17 +39,21 @@
 		
 	}
 	.scrapTitle{
-		margin: 10px 0px; 
-		height: 40px;
-		background-color: white;
+		/* margin: 10px 0px;  */
+		/* height: 40px;*/
+		/* background-color: white; */
 		font-weight: 700;
 		font-size: 25px;
+		position:absolute;
+		top: 10%;
+		left: 150px;
 	}
 	.conSt{
-		background-color: white;
+		/* background-color: white; */
 		display: inline-block;
 		border-radius: 10px;
 		margin-bottom: 10px;
+		text-decoration: underline;
 	}
 	.scrapDelete{
 		margin-left: 10px;
@@ -77,10 +79,91 @@
     
     #bTitle{
     	margin-bottom: 10px;
+    	position: absolute;
+    	top: 60px;
+    	left: 50px;
     }
+    .disWrap{
+    	cursor: pointer;
+    }
+    
+
+/*포스트잇 css*/
+div.rgyPostIt {
+    position: relative;
+    display: inline-block;
+    padding: 20px 45px 20px 15px;
+    margin: 5px 0;
+    border: 1px solid #f8f861;
+    border-left: 30px solid #f8f861;
+    border-bottom-right-radius: 60px 10px;
+    font-family: 'Nanum Pen Script';
+    font-size: 20px;
+    color: #555;
+    word-break: break-all;
+    background: #ffff88; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #ffff88 81%, #ffff88 82%, #ffff88 82%, #ffffc6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(81%, #ffff88), color-stop(82%, #ffff88), color-stop(82%, #ffff88), color-stop(100%, #ffffc6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #ffff88 81%, #ffff88 82%, #ffff88 82%, #ffffc6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ffff88 81%, #ffff88 82%, #ffff88 82%, #ffffc6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ffff88 81%, #ffff88 82%, #ffff88 82%, #ffffc6 100%); /* IE10+ */
+    background: linear-gradient(135deg, #ffff88 81%, #ffff88 82%, #ffff88 82%, #ffffc6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffff88', endColorstr='#ffffc6', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+}
+
+div.rgyPostIt::after {
+    content: " ";
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 35px;
+    width: 150px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 2px 35px 5px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 2px 35px 5px rgba(0, 0, 0, 0.4);
+    transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    -webkit-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    -moz-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    -ms-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    -o-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+}
+
+div.rgyPostIt:hover {
+    border-bottom-right-radius: 75px 30px;
+}
+
+div.rgyPostIt:hover::after {
+    box-shadow: 2px 37px 7px rgba(0, 0, 0, 0.37);
+    -webkit-box-shadow: 2px 37px 7px rgba(0, 0, 0, 0.37);
+}
+
+div.rgyPostIt > p {
+    padding: 5px 0 !important;
+}
+
+div.rgyPostIt > p::before {
+    content:"\f198";
+    margin-right: 7px;
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+div.rgyPostIt > p > a {
+    color: #555;
+}
+/* 포스트잇 css 끝 */
+    
 </style>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Naum+Pen+Script&display=swap" rel="stylesheet">
 </head>
 <body>
 <%@include file="myInfoFrame.jsp"%>
@@ -97,8 +180,8 @@
 			<% for(Board b : boardArr ){ %>
 
 			<input type="hidden" value="<%= b.getBoardNo() %>">
-				<div class="disWrap"data-aos="fade-up" data-aos-duration="1000">
-					<div id = "myscrap_content" onclick="goScrapBoard('<%= b.getBoardType() %>', '<%= b.getBoardNo() %>');">
+				<div class="disWrap" data-aos="fade-up" data-aos-duration="1000">
+					<div id = "myscrap_content" class="rgyPostIt" onclick="goScrapBoard('<%= b.getBoardType() %>', '<%= b.getBoardNo() %>');">
 						<% if( b.getBoardType() == 3 ) { %>
 							<div class="divStyle scrapTitle">앨범</div>
 						<% } else if( b.getBoardType() == 2) {%>

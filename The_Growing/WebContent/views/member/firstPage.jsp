@@ -144,7 +144,7 @@
 			font-size: 30px;
 			
 		}
-        #text1{animation: fadeInUp 1s; font-weight: 600;}
+        #text1, .backgroundW{animation: fadeInUp 1s; font-weight: 600;}
         #text2{animation: fadeInUp 2s; font-weight: 600;}
         #text3{animation: fadeInUp 3s; font-weight: 700;}
         #text4{animation: fadeInUp 3.5s; font-weight: 800;}
