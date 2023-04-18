@@ -388,4 +388,17 @@ public class ClassService {
 		return isClassMember;
 	}
 	
+	public int deleteClass(int cno) {
+		Connection conn = getConnection();
+		int result = new ClassDao().deleteClass(conn, cno);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+	
 }
