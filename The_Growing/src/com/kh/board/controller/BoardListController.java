@@ -35,10 +35,7 @@ public class BoardListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardType = Integer.parseInt(request.getParameter("boardType"));
 		String search = request.getParameter("search");
-		if(boardType==3) {
-			response.sendRedirect(request.getContextPath()+"/list.al");
-			return;
-		}
+		
 		int listCount; 
 		int currentPage; 
 		int pageLimit; 

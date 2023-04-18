@@ -67,6 +67,7 @@ public class MemberApiInsertController extends HttpServlet {
 			int result = new MemberService().insertMemberApi(loginUser, snsLoginUser);
 
 			if (result > 0) { // 회원 가입 성공
+				loginUser = new MemberService().loginMember(snsId, "", userLevel);
 				request.getSession().setAttribute("loginUser", loginUser);
 				request.getSession().setAttribute("snsLoginUser", snsLoginUser);
 
@@ -87,7 +88,6 @@ public class MemberApiInsertController extends HttpServlet {
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 				view.forward(request, response);
 			} else {
-				System.out.println(loginUser.toString());
 				request.getSession().setAttribute("loginUser", loginUser);
 				request.getSession().setAttribute("snsLoginUser", snsLoginUser);
 				request.getSession().setAttribute("alertMsg", "로그인에 성공함ㅎㅎ");

@@ -30,7 +30,6 @@
 #canSurvey {
 	text-decoration: none;
 	color: #000000;
-	font-weight: 700;
 }
 
 #cantSurvey {
@@ -56,13 +55,24 @@
 }
 
 .doSurvey {
-	margin: 1em 0 1em 0;
-	width: 15em;
-	height: 3em;
-	border: 0;
-	border-radius: 1em;
-	background-color: #7593ff;
-	color: #ffffff;
+		margin: 1em 0 1em 0;
+		height: 3em;
+		border: 0;
+		border-radius: 1em;
+		background-color: #7593ff;
+		color: #ffffff;
+	}
+	
+@media only screen and (min-width: 780px) {
+	.doSurvey {
+		width: 15em;
+	}
+}
+
+@media only screen and (max-width: 780px) {
+	.doSurvey {
+		width: 7em;
+	}
 }
 
 .hiddenInfo {
@@ -88,7 +98,7 @@
                 <% }else{ %>
 					<hr style="padding:0;margin:0;">                
                 <% } %>
-                <div style="margin: 1em 0 1em 0;font-size: 1.5em;"><a href='javascript:void(0);' id="canSurvey">진행 중</a> | <a href='javascript:void(0);' id="cantSurvey">종료</a></div>
+                <div style="margin: 1em 0 1em 0;font-size: 1.5em;"><a href='javascript:void(0);' id="canSurvey" style="font-weight:700;">진행 중</a> | <a href='javascript:void(0);' id="cantSurvey">종료</a></div>
                 <div id="surveying">
 	                <% for(int i = 0; i < surveyList.size(); i++) {%>
 	                <% Survey s = surveyList.get(i); %>

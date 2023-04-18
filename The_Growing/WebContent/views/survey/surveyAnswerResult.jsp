@@ -9,9 +9,10 @@
 <html>
 <head>
 <!-- 폰트 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
 <meta charset="UTF-8">
 <title>The Growing</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -40,6 +41,7 @@
 		border-radius: 1em;
 		padding: 1em;
 		margin: 1vw 0 1vw 0;
+		box-shadow: -5px -5px 7px 0px rgba(255, 255, 255, 0.5), 3px 3px 7px 0px rgba(0, 0, 0, 0.3);
 	}
 	
 	.title{

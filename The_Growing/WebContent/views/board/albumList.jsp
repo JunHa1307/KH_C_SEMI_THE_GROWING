@@ -818,7 +818,7 @@ div {
                                    '<a class="dropdown-item" href="/growing/delete.al?bno='+b.boardNo+'">삭제</a></div></div>'+
                                    '</div></div>'+
   						'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
-  									'<div id="mo_writer_profileImg"><img src="/growing/'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+  									'<div id="mo_writer_profileImg"><img src="'+( b.filePath== 'ISSNSMEMBERATTACHMENT'? b.changeName : '/growing/'+b.filePath+b.changeName)+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
@@ -834,7 +834,7 @@ div {
 
                              '</div></div>'+
 					'<div class="mo_reply_hr"><hr></div><div id="mo_writer"><div id="mo_writer_content"><div id="mo_writer_profile">'+
-								'<div id="mo_writer_profileImg"><img src="/growing/'+b.filePath+b.changeName+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
+								'<div id="mo_writer_profileImg"><img src="'+( b.filePath== 'ISSNSMEMBERATTACHMENT'? b.changeName : '/growing/'+b.filePath+b.changeName)+'" alt="" onerror="this.src=\'resources/image/noImage.png\'">'+
 								'</div></div>'+
 							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
 						'<div id="mo_writer_content2">'+

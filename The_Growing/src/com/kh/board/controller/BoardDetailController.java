@@ -39,6 +39,11 @@ public class BoardDetailController extends HttpServlet {
     	int boardNo = Integer.parseInt(request.getParameter("bno"));
     	int boardType = Integer.parseInt(request.getParameter("boardType"));
     	
+    	if(boardType==3) {
+			response.sendRedirect(request.getContextPath()+"/list.al");
+			return;
+		}
+    	
     	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		int refUno = loginUser.getUserNo();
 		int refCno = (int) request.getSession().getAttribute("cno");
