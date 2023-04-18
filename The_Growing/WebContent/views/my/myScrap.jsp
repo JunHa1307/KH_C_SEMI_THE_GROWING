@@ -26,18 +26,15 @@
 		box-shadow: 0 3px 10px rgba(0,0,0,0.25);
 		width: 250px;
 	}
-/* 	.disWrap{
+ 	.disWrap{
 		display: inline-block;
-	} */
+	} 
 	
 	
 	#myscrap_content:hover{
 		background-color: #fdfa87;
 	}
-	.divStyle{
-		text-align: center;
-		
-	}
+
 	.scrapTitle{
 		/* margin: 10px 0px;  */
 		/* height: 40px;*/
@@ -46,7 +43,7 @@
 		font-size: 25px;
 		position:absolute;
 		top: 10%;
-		left: 150px;
+		left: 20px;
 	}
 	.conSt{
 		/* background-color: white; */
@@ -81,7 +78,7 @@
     	margin-bottom: 10px;
     	position: absolute;
     	top: 60px;
-    	left: 50px;
+    	left: 20px;
     }
     .disWrap{
     	cursor: pointer;
@@ -159,7 +156,12 @@ div.rgyPostIt > p > a {
     color: #555;
 }
 /* 포스트잇 css 끝 */
-    
+
+.createDt{
+	margin-top: 40px;
+	margin-left: 20px;
+}
+
 </style>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -183,20 +185,21 @@ div.rgyPostIt > p > a {
 				<div class="disWrap" data-aos="fade-up" data-aos-duration="1000">
 					<div id = "myscrap_content" class="rgyPostIt" onclick="goScrapBoard('<%= b.getBoardType() %>', '<%= b.getBoardNo() %>');">
 						<% if( b.getBoardType() == 3 ) { %>
-							<div class="divStyle scrapTitle">앨범</div>
+							<div class="scrapTitle">앨범</div>
 						<% } else if( b.getBoardType() == 2) {%>
-							<div class="divStyle scrapTitle">알림장</div>
+							<div class="scrapTitle">알림장</div>
 						<% } else if( b.getBoardType() == 4) { %>
-							<div class="divStyle scrapTitle">자유 게시판</div>
+							<div class="scrapTitle">자유 게시판</div>
 						<% } else if( b.getBoardType() == 5)  { %>
-							<div class="divStyle scrapTitle">상담 게시판</div>
+							<div class="scrapTitle">상담 게시판</div>
 						<% } %>
-						<div id="bTitle" class="divStyle"> 제목 &nbsp;<div class="conSt"><%= b.getBoardTitle() %></div></div>
+						<div id="bTitle"> 제목 &nbsp;<div class="conSt"><%= b.getBoardTitle() %></div></div>
 						<%-- <div>내용<div style=""><%= b.getBoardContent() %></div></div> --%>
-						<div class="divStyle">생성 날짜 &nbsp;<div class="conSt"><%= b.getCreateDate() %></div></div>
+						<div class="createDt">생성 날짜 &nbsp;<div class="conSt"><%= b.getCreateDate() %></div></div>
 						
 					</div>
-					<div style="display:inline-block; margin-left: 120px; margin-top: 8px;">스크랩</div>
+					<br>
+					<div style="display:inline-block; margin-left: 100px; margin-top: 8px;">스크랩</div>
 					<button id="<%= loginUser.getUserNo() %>" type="button" class="scrapDelete" onclick="scrapDelete('<%= b.getBoardNo() %>');">취소</button>
 				
 				</div>
