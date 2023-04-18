@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 	.myScWrap{
 		/* display: inline-flex; */
@@ -166,6 +167,10 @@ div.rgyPostIt > p > a {
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Naum+Pen+Script&display=swap" rel="stylesheet">
+<script src="<%= request.getContextPath() %>/resources/js/alert.js"></script>
+<!--  alret 창 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 <body>
 <%@include file="myInfoFrame.jsp"%>
@@ -235,12 +240,12 @@ div.rgyPostIt > p > a {
 	 			
 	 			success: function(result){
 	 					console.log("스크랩 취소");
-	 					alert('스크랩이 취소되었습니다.');
+	 					/* alertMsg('스크랩이 취소되었습니다.'); */
 	 					window.location.reload();
 	 					
 	 			},
 	 			error: function(){
-	 				console.log("스크랩 취소 실패");
+	 				error("스크랩 취소 실패");
 	 			}
 	 			
 	 		});
