@@ -60,11 +60,11 @@ Member m = (Member)request.getAttribute("m");
 
 .content_title{
 width:80%;
-	height:10%;
+	height:8%;
 	background-color: white;
 	margin-bottom:10px;
-	padding-top:15px;
 	margin:auto;
+	margin-top:25px;
 }
 
 .name>div{
@@ -94,15 +94,18 @@ border: 1px solid rgb(224, 224, 224);
 	font-size:40px;
 	font-weight: 700;
 	text-align: center;
+	text-shadow: 2px 2px 6px black;
+	color:white;
 }
 .bColor{
-	background-color: rgb(235, 246, 247);
+	background-color:  rgb(243, 248, 255);
 	width:80%;
 	height:15%;
 	margin:auto;	
 	border-radius: 10px;
 	justify-content: center;
 	padding-top:15px;
+	box-shadow: 0px 8px 6px -6px #666;
 }
 .bColor>div{
 	margin: auto;
@@ -125,7 +128,7 @@ border: 1px solid rgb(224, 224, 224);
 			</div>
 			<div class="invite_content">
 				<div class="content_title" style="margin-top:30px;">클래스 코드</div>
-				<div id="class_code" class="bColor"><%=c.getClassCode() %></div>
+				<div id="class_code" class="bColor"><span class="num"><%=c.getClassCode() %></span></div>
 				<div class="content_title">클래스 가입정보</div>
 				<%if(loginUser.getUserLevel()==2) {%>
 				<div class="name bColor" >
@@ -156,15 +159,36 @@ border: 1px solid rgb(224, 224, 224);
 		          
 		          
 		          $("#button").click(function(){
-		       	   if (!confirm("탈퇴하시겠습니까?")) {
-        			   location.reload();
-        	        } else {
-        	        	location.href="<%=contextPath%>/classmemberdelete.c";
-        	        	 
-        	        }
+		        		 Swal.fire({
+		                     title: '탈퇴하시겠습니까?',
+		                     text: "",
+		                     icon: 'warning',
+		                     showCancelButton: true,
+		                     confirmButtonColor: '#3085d6',
+		                     cancelButtonColor: '#d33',
+		                     confirmButtonText: '삭제',
+		                     cancelButtonText: '취소'
+		                 }).then((result) => {
+		                     if (result.isConfirmed) {
+		                    	 
+		                         Swal.fire(
+		                             '탈퇴가 완료되었습니다.'
+		                         )
+		                         setTimeout(() => 	location.href="<%=contextPath%>/classmemberdelete.c", 1000);
+		                     }
+		                 })
 		          });
 		          
-		          
+		          $('.num').each(function(){
+				        $(this).prop('Counter', 0).animate({
+				            Counter: $(this).text()}, {
+				            duration: 1000,
+				            easing: 'swing',
+				            step: function (now){
+				                $(this).text(Math.ceil(now));
+				            }
+				        });
+				    });
 			 });
 		</script>
 </body>

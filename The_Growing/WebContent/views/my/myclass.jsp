@@ -23,7 +23,7 @@
 	height: 100%;
 }
 
-#myclass_info {
+.myclass_info {
 	width: 33.3%;
 	
 	/* background-color: bisque; */
@@ -150,7 +150,13 @@ font-weight:500;
 				for (int i =0; i<list.size(); i++) {
 					
 			%>
-			<div id="myclass_info" >
+				<%if(i%3==0){ %>
+				<div class="myclass_info" data-aos="fade-up" data-aos-duration="300" >
+				<%}else if(i%3==1){ %>
+				<div class="myclass_info" data-aos="fade-up" data-aos-duration="700" >
+				<%}else{ %>
+				<div class="myclass_info" data-aos="fade-up" data-aos-duration="1000" >
+				<%} %>
 			<div id="index<%=i%>" class="index"></div>
 				<div id="myclass_small">
 				<div id="top">
@@ -191,7 +197,7 @@ font-weight:500;
 	        
 	        $(".move").click(function(){
 	       
-	      let index = $(this).parents("#myclass_info").children(".index").attr("id").substr(-1);
+	      let index = $(this).parents(".myclass_info").children(".index").attr("id").substr(-1);
 		    		let cno = classList[index];
 		    		location.href="<%=contextPath%>/boardmove.bo?cno="+ cno;
 	        });

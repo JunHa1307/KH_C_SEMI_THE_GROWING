@@ -22,6 +22,20 @@
 
 
 <style>
+@keyframes post-ani {
+    25% {
+        transform: rotate(2deg) scale(1.01);
+    }
+ 
+    50% {
+        transform: rotate(0deg) scale(1);
+    }
+ 
+    75% {
+        transform: rotate(-2deg) scale(1.01);
+    }
+}
+
 
 /* 좋아요 하트 */
 .heart {
@@ -75,7 +89,12 @@ div {
 	margin-bottom:8px;
 	box-shadow: 0px 8px 6px -6px #666;
 	
+	
 	/* background-color: bisque; */
+}
+.album_con1:hover{
+opacity: 0.9;
+	animation: post-ani 0.8s linear 1;
 }
 
 .album_con_title {
@@ -1146,7 +1165,7 @@ div {
                      Swal.fire(
                          '삭제가 완료되었습니다.'
                      )
-                     setTimeout(() =>  location.href="/growing/delete.al?bno="+bno, 1000);
+                     setTimeout(() =>  location.href="<%=contextPath%>/delete.al?bno="+bno, 1000);
                     
                  }
                  

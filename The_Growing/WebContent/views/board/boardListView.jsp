@@ -244,7 +244,7 @@ int boardType = (int) request.getAttribute("boardType");
 							};
 							
 							function level4(){
-								alert("해당 작성자만 확인할 수 있습니다.");
+								warn('해당 작성자만 확인할 수 있습니다.');
 						
 							};
 							

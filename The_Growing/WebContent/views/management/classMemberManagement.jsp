@@ -79,6 +79,7 @@ Class c = (Class) request.getAttribute("Class");
 	font-weight: 550;
 	margin: 0;
 	height: 35px;
+	box-shadow: 0px 8px 6px -6px #666;
 }
 
 
@@ -116,6 +117,7 @@ Class c = (Class) request.getAttribute("Class");
 	height: 40px;
 	font-weight: 550;
 	margin: 0;
+	box-shadow: 0px 8px 6px -6px #666;
 }
 .modal-body>table{
 	margin: auto;

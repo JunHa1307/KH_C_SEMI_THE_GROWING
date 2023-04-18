@@ -26,7 +26,6 @@
 	margin:auto;
 	border:1px rgb(224,224,224) solid;
 	border-radius:10px;
-	box-shadow: 
 	
 	}
 
@@ -195,7 +194,7 @@ label{
 		</div>
 		</div>
 		<% if(snsType0 == 0){ %>
-	<div class="chaegepro" style="height:800px;">
+	<div class="chaegepro" style="height:800px;"  data-aos="fade-up" data-aos-duration="1000">
 	<%}else{ %>
 		<div class="chaegepro" style="height:731px;">
 	<%} %>
@@ -314,10 +313,26 @@ label{
         $("#myInfo").children().css("background","rgb(239, 243, 239)");
 	});
 		function deleteMember(){
-			if(confirm("돌이킬 수 없습니다. 정말 회원탈퇴를 하시겠습니까?")){
-				location.href="<%=request.getContextPath()%>/delete.me";
-			}
-		}
+			
+			 Swal.fire({
+                 title: '탈퇴하시겠습니까?',
+                 text: "",
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: '삭제',
+                 cancelButtonText: '취소'
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                	 
+                     Swal.fire(
+                         '탈퇴가 완료되었습니다.'
+                     )
+                     setTimeout(() =>  location.href="<%=request.getContextPath()%>/delete.me", 1000);
+                 }
+             })
+		};
 
 		
 		// 파일 선택
@@ -357,7 +372,7 @@ label{
 			if($("input[name=newPwd]").val() == $("input[name=pwdCheck]").val() && $("input[name=newPwd]").val()!=""){
 				$("#changePwdForm").submit();
 			}else{
-				alert("비밀번호가 일치하지 않습니다.");
+				warn("비밀번호가 일치하지 않습니다.");
 			}
 		});
 	</script>

@@ -382,11 +382,27 @@ font-size:30px;
 
 				<script>
 					$("#deleteBoard").click(function(){
-						if(!confirm("정말 삭제하시겠습니까?")){
-							return;
-						}
+						 Swal.fire({
+			                 title: '게시물을 삭제하시겠습니까?',
+			                 text: "삭제된 게시물은 다시 볼 수 없습니다.",
+			                 icon: 'warning',
+			                 showCancelButton: true,
+			                 confirmButtonColor: '#3085d6',
+			                 cancelButtonColor: '#d33',
+			                 confirmButtonText: '삭제',
+			                 cancelButtonText: '취소'
+			             }).then((result) => {
+			                 if (result.isConfirmed) {
+			                	 
+			                     Swal.fire(
+			                         '삭제가 완료되었습니다.'
+			                     )
+			                     setTimeout(() =>  location.href='<%=contextPath%>/delete.fr?bno=<%=b.getBoardNo()%>&boardType=<%=b.getBoardType()%>', 1000);
+			                    
+			                 }
+			                 
+			             })
 						
-						location.href = "<%=contextPath%>/delete.fr?bno=<%=b.getBoardNo()%>&boardType=<%=b.getBoardType()%>"
 					});
 											
 				</script>
@@ -581,7 +597,7 @@ font-size:30px;
    					 $("#chat_count").html(list);
    				},
    				error: function(){
-   					console.log("게시글 목록조회 실패")
+   					error();
    				}
         	});  
          	 $.ajax({
@@ -602,7 +618,7 @@ font-size:30px;
  					 
  				},
  				error: function(){
- 					console.log("게시글 목록조회 실패")
+ 					error();
  				}
      	});
          	  let j = 0;
@@ -648,7 +664,7 @@ font-size:30px;
       					 
       				},
       				error: function(){
-      					console.log("게시글 목록조회 실패")
+      					error();
       				}
           	});
            	};
@@ -696,7 +712,7 @@ font-size:30px;
 			   					
 			   				},
 			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
+			   					error();
 			   				}
 			        	});
 						$.ajax({
@@ -706,66 +722,92 @@ font-size:30px;
 			   					 $("#chat_count").html(list);
 			   				},
 			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
+			   					error();
 			   				}
 			        	}); 
 						$("#lock_btn").data("lock","N");
 						$("#lock_btn").css("background", "");
 						
 					} else {
-						alert("댓글작성에 실패했습니다");
+						error("댓글 작성에 실패하였습니다.");
 
 					}
 				},
 				error : function() {
-					console.log("댓글 작성 실패")
+					error("댓글 작성에 실패하였습니다.");
 				}
 			});
    			
 		});
            
-<%--            $(".deleteReply").click(function(){
+ $(".deleteReply").click(function(){
 				let rno = $(this).data('rno'); 
+				let bno = $(this).data('bno'); 
+				
+				 Swal.fire({
+	                 title: '댓글을 삭제하시겠습니까?',
+	                 text: "",
+	                 icon: 'warning',
+	                 showCancelButton: true,
+	                 confirmButtonColor: '#3085d6',
+	                 cancelButtonColor: '#d33',
+	                 confirmButtonText: '삭제',
+	                 cancelButtonText: '취소'
+	             }).then((result) => {
+	                 if (result.isConfirmed) {
+	                	 
 				$.ajax({
 	   				url : "<%=contextPath%>/rDelete.bo",
 	   				data : { rno},
 	   				type : "get",
 	   				success : function(result){
-	   					if(result>0){
-	   					$.ajax({
-			   				url : "<%=contextPath%>/rlist.bo",
-			   				data : { bno :<%=b.getBoardNo()%>},
-			   				type : "get",
-							dataType : "html", 
-			   				success : function(list){
-			   					 $(".mo_reply").html(list); 
-			   					
-			   				},
-			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
-			   				}
-			        	});
-						$.ajax({
-			   				url : "<%=contextPath%>/rCount.bo",
-			   				data : { bno : <%=b.getBoardNo()%>},
-			   				success : function(list){
-			   					 $("#chat_count").html(list);
-			   				},
-			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
-			   				}
-			        	}); 
-	   					}else {
-							alert("댓글삭제에 실패했습니다");
-
-						}
+	   					Swal.fire(
+		                         '삭제가 완료되었습니다.'
+		                     )
+			   					 /* albumClick(bno);  */
+			   			 		if(result>0){
+			   					$.ajax({
+					   				url : "<%=contextPath%>/rlist.bo",
+					   				data : { bno :bno},
+					   				type : "get",
+									dataType : "html", 
+					   				success : function(list){
+					   					 $(".mo_reply").html(list); 
+					   					
+					   				},
+					   				error: function(){
+					   					error();
+					   				}
+					        	});
+								$.ajax({
+					   				url : "<%=contextPath%>/rCount.bo",
+					   				data : { bno : bno},
+					   				success : function(list){
+					   					 $("#chat_count").html(list);
+					   					
+					   				},
+					   				error: function(){
+					   					error();
+					   				}
+					        	});   
+			   					}else {
+									error("댓글삭제에 실패했습니다");
+		
+								} 
 	   					
 	   				},
 	   				error: function(){
-	   					console.log("게시글 목록조회 실패")
+	   					error();
 	   				}
-	        		});
-			});  --%>
+        		});
+	                     
+	                    
+	                 }
+	                 
+	             })
+			
+			});
+	 
 	
 			/* 스크랩 */
 			$(function(){
@@ -805,7 +847,7 @@ font-size:30px;
 	     					
 	     			},
 	     			error: function(){
-	     				console.log("게시글 스크랩 실패");
+	     				error("게시글 스크랩에 실패하였습니다.");
 	     			}
 	     			
 	     		});

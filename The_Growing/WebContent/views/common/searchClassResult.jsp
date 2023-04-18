@@ -70,6 +70,7 @@ margin-bottom:20px;
 	height:40px;
 	font-weight:550;
 	font-size:1.1vw;
+	box-shadow: 0px 8px 6px -6px #666;
 	
 	
 }
