@@ -138,16 +138,16 @@ public class AlbumUpdateController extends HttpServlet {
 						// 성공시 : 상세조회페이지로 redirect
 						// 실패시 : 에러페이지로 포워딩 
 						if(result>0) {
-							request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
+							request.getSession().setAttribute("alertMsg", "게시글이 수정되었습니다.");
 							response.sendRedirect(request.getContextPath()+"/list.al");
 						}else {
-							request.setAttribute("errorMsg", "게시글 수정에 실패했습니다");
+							request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
 							request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 						}
 						
 					
 				} else {
-					request.setAttribute("errorMsg", "전송방식이 잘못되었습니다");
+					request.setAttribute("errorMsg", "전송방식이 잘못되었습니다.");
 					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 					
 				}

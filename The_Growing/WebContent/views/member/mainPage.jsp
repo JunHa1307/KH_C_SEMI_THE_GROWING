@@ -1,8 +1,6 @@
-
-<%@page import="com.kh.member.model.vo.SnsLogin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"
-   import="com.kh.classes.model.vo.Class , java.util.ArrayList, com.kh.member.model.vo.Member"%>
+   import="com.kh.classes.model.vo.Class , java.util.ArrayList, com.kh.member.model.vo.Member, com.kh.member.model.vo.SnsLogin"%>
 <%
    String contextPath = request.getContextPath();
    ArrayList<Class> list = (ArrayList<Class>) request.getAttribute("list");
@@ -47,7 +45,7 @@
 			<div class="myProfile">
 				<div class="myProfile-img">
 				    <img
-						src="<%= contextPath + loginUser.getFilePath() + loginUser.getChangeName() %>"
+						src="<%=snsLoginUser == null ? contextPath + loginUser.getFilePath() + loginUser.getChangeName() : snsLoginUser.getFilePath() %>"
 						alt=""
 						onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 				</div>
@@ -57,7 +55,6 @@
 					<span>마이페이지</span>
 				</button>
 				<% try{
-					System.out.println(snsLoginUser.getSnsType());
 					if(snsLoginUser.getSnsType() == "1"){ %>
 						<button type="button" onclick="kakaoLogout();"
 							class="button_UI button--winona" data-text="로그아웃">

@@ -8,8 +8,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="/growing/resources/js/alert.js"></script>
 </head>
 <body>
-	<h1 align="center" style="color:red;"><%= errorMsg %></h1>
+	<script>
+	error("<%=errorMsg%>");
+	</script>
+	
 </body>
 </html>

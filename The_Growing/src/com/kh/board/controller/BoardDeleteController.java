@@ -41,12 +41,9 @@ public class BoardDeleteController extends HttpServlet {
 		int result = new BoardService().deleteBoard(boardNo);
 		
 		if(result > 0) {
-			//삭제처리
-		
-			request.getSession().setAttribute("alertMsg", "성공적으로 게시글을 삭제했습니다.");
 			response.sendRedirect(request.getContextPath()+"/list.fr?boardType="+boardType);
 		}else {
-			request.setAttribute("errorMsg", "게시글작성에 실패했습니다..");
+			request.setAttribute("errorMsg", "게시글작성에 실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	

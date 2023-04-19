@@ -1,11 +1,13 @@
 <%@page import="com.kh.classes.model.vo.Class"%>
 <%@page import="com.kh.member.model.vo.Member"%>
+<%@page import="com.kh.member.model.vo.SnsLogin"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-   String contextPath = request.getContextPath();
+    String contextPath = request.getContextPath();
     Member loginUser = (Member) session.getAttribute("loginUser");
+    SnsLogin snsLoginUser = (SnsLogin) session.getAttribute("snsLoginUser");
     Class cInfo = (Class)session.getAttribute("cInfo");
 	String alertMsg = (String) session.getAttribute("alertMsg");
     %>
@@ -48,7 +50,11 @@
    	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
        
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+<script src="<%= contextPath %>/resources/js/alert.js"></script>
 
+	<!--  alret 창 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
     
     <style>
     .dropdown-toggle::after {
@@ -175,8 +181,9 @@
    
 
 /* 화면 너비 780 이하일 떄 */
-
-
+.wrap{
+	min-height:900px;
+}
 
 /* 게시판 헤더 및 정보(게시판마다 공통) */
 #classInfo, #userInfo{
@@ -631,9 +638,28 @@ vertical-align: middle;
                  $("#board_manage").click(function(){
                      location.href="<%=contextPath%>/classmembermanagement.c";
                   });
-
+                 
+                 
+                // 스크롤시 햄버거 버튼 위치 고정
+	              let hamburger = document.querySelector("#board_fix");
+	              let headerHeight = hamburger.offsetHeight;
+	
+	              window.onscroll = function () {
+	                let windowTop = window.scrollY;
+	                if(windowTop > 260){
+	                	$("#board_fix, #hamburgur").css("top",0);
+	                	$("#board").css("top",30);
+	                }
+	                else if (windowTop >= headerHeight) {
+	                	$("#board_fix, #hamburgur").css("top",230-windowTop);
+	                	$("#board").css("top",260-windowTop);
+	                }else{
+	                	console.log(headerHeight);
+	                }
+	              }
 
               });
+              
             </script>
 </head>
 <body>
@@ -641,10 +667,14 @@ vertical-align: middle;
 	const msg = "<%= alertMsg  %>";
 	
 	if(msg != "null"){
-		alert(msg);
+		alertMsg(msg);
 		<% session.removeAttribute("alertMsg"); %>
 	}
-	
+
+	window.onbeforeunload = function(){
+		<% session.removeAttribute("alertMsg"); %>
+	}
+
 	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);
 	setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>)},3000);
 </script>
@@ -692,7 +722,7 @@ vertical-align: middle;
                 <div class="info_text small"> 학급 수 : <%=cInfo.getUserCount() %></div>  
               
             </div>
-            <div id="pUser" class="profile_area"><img class="profile" src="<%= contextPath+loginUser.getFilePath()+loginUser.getChangeName()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
+            <div id="pUser" class="profile_area"><img class="profile" src="<%= snsLoginUser == null ? contextPath+loginUser.getFilePath()+loginUser.getChangeName() : snsLoginUser.getFilePath()%>" alt="" onerror="this.src='<%= contextPath %>/resources/image/noImage.png'"></div>
             <div id="userInfo" >
                 <div class="info_text big"><%=loginUser.getUserName() + " " + ( loginUser.getUserLevel() == 1 ? "선생님" : loginUser.getUserLevel() == 2 ? "부모님" : "학생") %></div>
                 <div class="info_text small"><button class="btnStyle" type="button" onclick="location.href='<%= contextPath %>/logout.me'">로그아웃</button></div>

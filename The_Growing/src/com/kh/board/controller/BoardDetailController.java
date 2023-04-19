@@ -39,6 +39,11 @@ public class BoardDetailController extends HttpServlet {
     	int boardNo = Integer.parseInt(request.getParameter("bno"));
     	int boardType = Integer.parseInt(request.getParameter("boardType"));
     	
+    	if(boardType==3) {
+			response.sendRedirect(request.getContextPath()+"/list.al");
+			return;
+		}
+    	
     	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		int refUno = loginUser.getUserNo();
 		int refCno = (int) request.getSession().getAttribute("cno");
@@ -69,7 +74,7 @@ public class BoardDetailController extends HttpServlet {
 			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 			
 		}else { 
-			request.setAttribute("errorMsg", "게시글 상세조회 실패");
+			request.setAttribute("errorMsg", "게시글 상세조회를 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

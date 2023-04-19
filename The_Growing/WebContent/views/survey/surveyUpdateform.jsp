@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>The Growing</title>
 <!--부트스트랩 알림을 위한 css-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -34,6 +34,11 @@
 <link rel="stylesheet"
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
 </head>
+<style>
+#s1,#s2 {
+	border: 5px solid #36bca5;
+}
+</style>
 <body>
 	<div id="s3">
 		<button type="button" class="m_plus button_UI button--winona"

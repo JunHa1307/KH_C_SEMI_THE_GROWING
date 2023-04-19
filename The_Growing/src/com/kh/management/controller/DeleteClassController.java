@@ -44,13 +44,13 @@ public class DeleteClassController extends HttpServlet {
 		
 		int cno = ((Class) session.getAttribute("cInfo")).getClassNo();
 		
-		/*
-		 * Attachment at = new ClassService().selectAttachment(cno);
-		 * 
-		 * int result = new ClassService().deleteClass(cno, at);
-		 */
+		int result = new ClassService().deleteClass(cno);
 		
-		
+		if(result>0) {
+			response.getWriter().print("Success");
+		}else {
+			response.getWriter().print("Fail");
+		}
 	}
 
 }

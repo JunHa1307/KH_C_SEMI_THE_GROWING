@@ -45,7 +45,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 				<div class="mo_reply_profile">
 					<div class="mo_reply_profileImg">
 						<img
-							src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
+							src="<%= "ISSNSMEMBERATTACHMENT".equals(list.get(i).getFilePath()) ? list.get(i).getChangeName() : contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
@@ -80,7 +80,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 				<div class="mo_reply_profile">
 					<div class="mo_reply_profileImg">
 						<img
-							src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
+							src="<%= "ISSNSMEMBERATTACHMENT".equals(list.get(i).getFilePath()) ? list.get(i).getChangeName() : contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>

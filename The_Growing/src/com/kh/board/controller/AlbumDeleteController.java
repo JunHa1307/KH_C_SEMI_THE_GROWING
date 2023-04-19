@@ -54,7 +54,6 @@ public class AlbumDeleteController extends HttpServlet {
 			}
 			}
 			
-			request.getSession().setAttribute("alertMsg", "성공적으로 게시글을 삭제했습니다.");
 			response.sendRedirect(request.getContextPath()+"/list.al");
 		}else {
 			request.setAttribute("errorMsg", "게시글 삭제에 실패했습니다");

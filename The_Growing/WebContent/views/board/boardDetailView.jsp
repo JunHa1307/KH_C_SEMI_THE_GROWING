@@ -16,7 +16,7 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>THE GROWING</title>
 <style>
 /* 자유게시판 상세보기 css */
 #board_area {
@@ -395,7 +395,7 @@ font-size:30px;
 			<div id="boardProfile">
 				<div id="mo_writer_profile">
 					<img
-						src="<%=contextPath + loginUser.getFilePath() + loginUser.getChangeName()%>"
+						src="<%= "ISSNSMEMBERATTACHMENT".equals(loginUser.getFilePath()) ? loginUser.getChangeName() :contextPath + loginUser.getFilePath() + loginUser.getChangeName()%>"
 						alt=""
 						onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 				</div>
@@ -460,7 +460,7 @@ font-size:30px;
 				<div class="mo_reply_profile">
 					<div class="mo_reply_profileImg">
 						<img
-							src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
+							src="<%= "ISSNSMEMBERATTACHMENT".equals(list.get(i).getFilePath()) ? list.get(i).getChangeName() : contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
@@ -495,7 +495,7 @@ font-size:30px;
 				<div class="mo_reply_profile">
 					<div class="mo_reply_profileImg">
 						<img
-							src="<%=contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
+							src="<%= "ISSNSMEMBERATTACHMENT".equals(list.get(i).getFilePath()) ? list.get(i).getChangeName() : contextPath + list.get(i).getFilePath() + list.get(i).getChangeName()%>"
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
