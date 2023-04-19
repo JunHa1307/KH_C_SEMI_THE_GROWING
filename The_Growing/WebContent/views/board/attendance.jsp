@@ -39,6 +39,8 @@
 	#attendTable {
 		border-collapse: separate;
   		border-spacing: 0;
+  		border-radius: 1em;
+  		box-shadow: -5px -5px 7px 0px rgba(255, 255, 255, 0.5), 3px 3px 7px 0px rgba(0, 0, 0, 0.3);
 	}
 	
 	tr:first-child th:first-child {
@@ -74,7 +76,7 @@
 		min-width: 25px;
 	}
 	.tableHead {
-		background-color: #73685d;
+		background-color: #ff5500;
 		color: #ffffff;
 	}
 	tr:nth-child(odd){
@@ -132,7 +134,7 @@
 						<tr>
 							<td class="memberName"><%= arr[i].split("/")[0].toString() %></td>
 							<% for(int j = 0; j < lastDay; j++){ %>
-								<td><%= arr[i].split("/")[1].toString().charAt(j) %></td>					
+								<td title="<%= arr[i].split("/")[0].toString() + " , " + (j+1)+"일" %>"><%= arr[i].split("/")[1].toString().charAt(j) %></td>					
 							<% } %>
 						</tr>
 					<% } %>
@@ -146,7 +148,7 @@ $("#board_check").css("fontWeight", "700");
 $("#board_check").children().css("background", "rgb(237, 239, 243)");
 
 	let month = ("0" + (1 + new Date().getMonth())).slice(-2)+"월";
-	$(".okc>h3").text(month);
+	$(".okc>h3").text(month+" 출석 현황");
 	
 	<% if(loginUser.getUserLevel() == 1){ %>
 		$(function(){

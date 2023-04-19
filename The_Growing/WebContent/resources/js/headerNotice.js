@@ -13,8 +13,10 @@ function userNotice(contextPath,uno){
 			oldDate = new Date(currDate);
 			if(currDate == null){
 				$(".isAlarmNew").attr('style',"display:block;");
+				$("#alarmIcon").addClass("shake-bottom");
 			}else if(newDate > oldDate){
 				$(".isAlarmNew").attr('style',"display:block;");
+				$("#alarmIcon").addClass("shake-bottom");
 			}else{
 				$(".isAlarmNew").attr('style',"display:none;");
 			}
@@ -33,7 +35,7 @@ function userNotice(contextPath,uno){
 			}
             $("#memberNotice").html(list);
 
-			$("#alarmIcon").attr("class",result[0].noticeDate);
+			$("#timeCheck").attr("class",result[0].noticeDate);
          },
          error:function(error,status,msg){
             alert("상태코드 " + status + "에러메시지" + msg );
@@ -43,7 +45,10 @@ function userNotice(contextPath,uno){
 
 $(function(){
 	$("#dropdownMenuButton, #alarmIcon").click(function(){
-		sessionStorage.setItem("currAlarmDate", $("#alarmIcon").attr("class"));
+		$("#alarmIcon").removeClass("shake-bottom");
+		$("#alarmIcon").addClass("shake-bottom");
+		setTimeout(() =>  $("#alarmIcon").removeClass("shake-bottom"), 1000);
+		sessionStorage.setItem("currAlarmDate", $("#timeCheck").attr("class"));
 		$(".isAlarmNew").attr('style',"display:none;");
 	});
 });

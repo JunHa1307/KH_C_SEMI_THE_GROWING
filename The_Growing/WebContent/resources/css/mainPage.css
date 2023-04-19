@@ -11,6 +11,11 @@
 	margin-bottom: 1vw;
 }
 
+#classEnrollForm input{
+	border-radius: 10px;
+	margin-right: 20px;
+	border-color: lightgray;
+}
 
 .school_search {
     height: 50px;   
@@ -30,7 +35,7 @@
 
 .info>h2{
 	margin: 0 1vw 0 1vw;
-	font-size: 2vw;
+	font-size: 2.5vw;
 }
 
 .info_box>input {
@@ -45,7 +50,7 @@
 .prof_img {
 	width: 100%;
     height: 100%;
-     min-height: 10vw;
+    min-height: 10vw;
     border: 1px solid black;
 	object-fit: cover;
 	cursor: pointer;
@@ -53,9 +58,14 @@
 
 @media only screen and (min-width: 780px) {
 	
-	.info>h2{
+	.info>h2 {
 		min-width: 50px;
 	}
+	
+	.info>div {
+		font-size: 2.5vw;
+	}
+	
 	.profile_img_area {
 	    height: 100%;           
 	    width: 9vw;
@@ -69,6 +79,11 @@
 }
 
 @media only screen and (max-width: 780px) {
+	
+	.info>div {
+		font-size: 3vw;
+	}
+	
 	.profile_img_area {
 	    height: 25vw;           
 	    text-align: center;
@@ -152,12 +167,32 @@
 	border-radius: 50%;
 	text-align: center; 
 	overflow: hidden;
+	box-shadow: -5px -5px 7px 0px rgba(255, 255, 255, 0.5), 3px 3px 7px 0px rgba(0, 0, 0, 0.3);
+}
+.myClass-img:hover{	
+	animation: pulsate-bck 1s ease-in-out infinite ;
+}
+
+@keyframes pulsate-bck {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .myClass-img>img {
 	width: 100%;
 	object-fit: cover;
 	cursor: pointer;
+}
+
+.myClass-btn {
+	box-shadow: -5px -5px 7px 0px rgba(255, 255, 255, 0.5), 3px 3px 7px 0px rgba(0, 0, 0, 0.3);
 }
 
 .myClass-btn>span {
@@ -234,10 +269,15 @@
 	}
 	
 	.myClass-list {
-		margin: 2em 0 0 0.3em;
+		position: relative;
+		top:1em;
+		margin: 0 0 0 2em;
+		min-height: 14vw;
 	}
 	
 	.myClass-img {
+		position:relative;
+		top:2em;
 		width: 9vw;
 		height: 100%;
 		display: inline-block;
@@ -262,7 +302,7 @@
 	}
 	
 	.myClass-text{
-	    padding: 1vw 0 1vw 0.5vw;
+	    padding: 2em 0 0 0.5vw;
 	}
 	
 	.myClass-text>h6{
@@ -274,11 +314,13 @@
 	.myClass-btn {
 		width: 8vw;
 		height: 8vw;
-		margin: auto;
+		margin: 2.5vw auto 2.5vw auto;
 		text-align: center;
 		cursor: pointer;
 		background-repeat: no-repeat;
-		background-size: 80%;background-position:center;background-color:#ffffff;
+		background-size: 80%;
+		background-position:center;
+		background-color:#ffffff;
 		border-radius:10em;
 	}
 	
@@ -297,6 +339,10 @@
 		width:fit-content;
 		min-height: 2.124vw;
 		margin: 1em auto 1em auto;
+	}
+	
+	.table-btn>button {
+		margin: 0 1em 0 1em;
 	}
 	
 	.schedule {
@@ -364,7 +410,7 @@
 		.myClass-list{
 			width:100%;
 			display:flex !important;
-			margin:0;
+			margin: 1em 0 0 0;
 		}
 		
         .myClass-img {
