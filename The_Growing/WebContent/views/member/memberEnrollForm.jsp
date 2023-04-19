@@ -289,7 +289,7 @@ td{
   overflow: hidden;
   margin: 10px;
   
-  width: 1920px;
+  width: 2117px;
   height: 1057px;
   color: #141414;
   text-align: left;
@@ -348,10 +348,14 @@ td{
   right: 0;
   z-index: 2;
 }
-.snip1361:hover figcaption,
+/* .snip1361:hover figcaption,
 .snip1361.hover figcaption {
   top: 80px;
+} */
+.click figcaption{
+	top: 80px;
 }
+
 .inputTitle{
 	padding-top:10px;
 }
@@ -363,31 +367,35 @@ cursor: pointer;
 </head>
 <body>
 	<figure class="snip1361">
-	
-		<img src="resources/image/enrollform2.jpg" />
+		<img src="resources/image/enrollform_crop.jpg"/>
 		<figcaption>
 		
 		
 	<div id="header">
-		<h1 id="goFirst" style="color:black; font-weight: 900; margin-bottom: 0px;">THE GROWING</h1>
+		<br>
+		<div style="font-size: 20px; color: gray;">Scroll & Click</div>
+		<br><br>
+		<h1 id="goFirst" style="color:black; font-weight: 900; margin-bottom: 10px;" onmouseover="randomRGB();">THE GROWING</h1>
 		
 		<br><br><br><br><br>
-		<span id="signTxt">회원가입</span>
-		
+		<span id="signTxt" style="padding-left: 50px;">회원가입</span>
 	</div>
 	<br><br>
 	
 	<div id="wrapper">
 		<form id="enroll-form" action="<%=contextPath %>/insert.me" method="post">
+	            
 	            <table>
 	                <!-- (tr>td*3)*8 -->
 	                <tr>
 	                    <td class="inputTitle">아이디</td>
-	                    <td><input type="text" id="userId" name="userId" maxlength="12" required></td>
+	                    <td><input type="text" id="userId" name="userId" maxlength="12" onkeyup="idCheck();" required></td>
 	                    <td>
-	                    	<button id="idCheckBtn" type="button" onclick="idCheck();">
+	                    	<!-- <button id="idCheckBtn" type="button">
 	                    		<img style="width: 20px;" src="resources/image/whiteCheckIc.png">
-	                    	</button>
+	                    	</button> -->
+	                    	<img id="pwd_img1" style="width: 20px; display:none;" src="resources/image/redX.png">
+	                    	<img id="pwd_img2" style="width: 20px; display:none;" src="resources/image/blackCheck.png">
 	                    </td>
 	                </tr>
 	                <tr>
@@ -402,9 +410,7 @@ cursor: pointer;
 	                </tr>
 	                <tr>
 	                    <td class="inputTitle">이름</td>
-	                    <td><input type="text" name="userName" maxlength="6" required></
-
->
+	                    <td><input type="text" name="userName" maxlength="6" required></td>
 	                    <td></td>
 	                </tr>
 	                <tr>
@@ -424,9 +430,10 @@ cursor: pointer;
 	            <br>
 	            <div align="center">
 	            	<button id="submit" type="submit" disabled>회원가입</button>
-	            	<button id="reset" type="reset">취소</button>
+	            	<button id="reset" type="reset">초기화</button>
 	            </div>
 	            <br><br>
+	            <button id="gogoFirstBtn" type="button" style="width: 150px; height: 30px; float:right; color:white; background-color: black; cursor:pointer; border-radius: 10px;">처음으로</button>
 		</form>
 		
 		
@@ -443,11 +450,43 @@ cursor: pointer;
 	
 	<script>
 	/* Demo purposes only */
-		$(".hover").mouseleave(
+		 /* $(".snip1361").ondblclick(
 		  function () {
-		    $(this).removeClass("hover");
+		    $(this).removeClass("click");
 		  }
-		);
+		); */
+
+		/* $("#goFirst").ondblclick = function(){$(this).removeClass("click");}; */
+		
+		var dbclick = false;
+		
+		$("#goFirst").click(function(){
+			$(".snip1361").addClass("click");
+		}).dblclick(function(){
+			dbclick = true;
+			$(".snip1361").removeClass("click");
+			setTimeout(function(){
+				dbclick=false
+			}, 500)
+		});
+		
+		$(window).bind('wheel', function(event){
+		    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+		        // scroll up
+		        console.log("스크롤 위로");
+		        $(".snip1361").removeClass("click");
+		    }
+		    else {
+		        // scroll down
+		        console.log("스크롤 아래로");
+		        $(".snip1361").addClass("click");
+		    }
+		});
+		
+		
+/* 		$(".hover").click(function(){
+			$(this).removeClass("hover");
+		}); */
 
 	</script>
 	
@@ -467,14 +506,22 @@ cursor: pointer;
 					
 					if(result > 0){
 						// 이미 존재하는 아이디인 경우
-						alert("이미 존재하거나 회원탈퇴한 아이디입니다.");
+						/* alert("이미 존재하거나 회원탈퇴한 아이디입니다."); */
+						$("#pwd_img1" ).css("display" ,  "block");
+                        $("#pwd_img2").css("display" ,  "none");
+                        $("#pwd_img1" ).addClass("active");
+                        $("#pwd_img2" ).removeClass("active");
 						userId.focus();
 					
 					} else {
 						console.log(userId);
 						// 사용가능한 경우
 						// confirm() 의 반환값은 true/false
-						if(confirm("사용 가능한 아이디입니다. 사용 하시겠습니까?")){
+						$("#pwd_img2" ).css("display" ,  "block");
+                        $("#pwd_img1").css("display" ,  "none");
+                        $("#pwd_img2" ).addClass("active");
+                        $("#pwd_img1" ).removeClass("active");
+                        /* if(confirm("사용 가능한 아이디입니다. 사용 하시겠습니까?")){
 							
 							// 아이디값 수정할 수 없게 막기
 							$("#userId").attr("readonly", true);
@@ -487,6 +534,26 @@ cursor: pointer;
 							$("#userId").val("");
 							$("#userId").focus();
 						}
+						 */
+							$("#userId").change(function(){
+								if($("#pwd_img2" ).hasClass("active")){
+									
+									// 아이디값 수정할 수 없게 막기
+									$("#userId").attr("readonly", true);
+									
+									// (그이전까지는 회원가입 불가능) 회원가입 버튼 활성화
+									// #enroll-form :submit
+									$("#submit").removeAttr("disabled");
+									
+									$("#reset").click(function(){
+										$("#userId").attr("readonly", false);
+									});
+								} else {
+									$("#userId").val("");
+									$("#userId").focus();
+								}
+							});
+							
 						
 					}
 
@@ -509,9 +576,20 @@ cursor: pointer;
 				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요^^");
 			}
 		});
-		$("#goFirst").click(function(){
+		$("#gogoFirstBtn").click(function(){
 			location.href="<%= contextPath %>";
 		});
+		function randomRGB(){
+			var text = document.getElementById("goFirst");
+			
+			var r = Math.round(Math.random() * 255); 
+		    var g = Math.round(Math.random() * 255);
+		    var b = Math.round(Math.random() * 255);
+
+		    var random_color = "rgb(" + r + "," + g + "," + b + ")";
+		    
+		    text.style.color = random_color;
+		}
 	</script>
 	 </figcaption>
 	</figure>
