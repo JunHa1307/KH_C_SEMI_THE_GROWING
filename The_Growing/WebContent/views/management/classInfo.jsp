@@ -155,7 +155,7 @@ border: 1px solid rgb(224, 224, 224);
 		 
 				/* 게시판목록 버튼 활성화 */
 				 $("#board_option").css("fontWeight", "700");
-		          $("#board_option").children().css("background", "rgb(239, 243, 239)");
+		          $("#board_option").children().css("background", "rgb(237, 239, 243)");
 		          
 		          
 		          $("#button").click(function(){

@@ -61,6 +61,13 @@
     
     
     <style>
+    #headerWrap{
+	width:100%;
+	height:100px;
+	background: white;
+}
+    
+    
     .dropdown-toggle::after {
     display:none;
 }
@@ -434,7 +441,6 @@ vertical-align: middle;
       background-color: white;
       top: 260px;
       border-radius: 10px;
-      max-width: 150px;
       width: 239px;
    height: 700px;
    position: fixed;
@@ -575,7 +581,7 @@ vertical-align: middle;
               $(function(){
                   $(".board_li").click(function(){
                       $(this).css("fontWeight","700").fadeIn(1000);
-                      $(this).children().css("background","rgb(239, 243, 239)");
+                      $(this).children().css("background","rgb(237, 239, 243)");
                       $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
                       $(this).siblings().children().css("background","");
                   

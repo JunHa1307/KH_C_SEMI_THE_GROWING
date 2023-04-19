@@ -161,13 +161,18 @@
         </div>
         <br>
         <div class="btnSy">
-            <button id="updateBtn"class="button_UI button--winona insert_bt" type="submit" data-text="click"><span>수정</span></button> 
-            <button id="deleteBtn" class="button_UI button--winona insert_bt" type="button" data-text="click"><span>클래스 삭제</span></button>
+            <button id="class_option"class="button_UI button--winona insert_bt" type="submit" data-text="click"><span>수정</span></button> 
+            <button id="class_option" class="button_UI button--winona insert_bt" type="button" data-text="click"><span>클래스 삭제</span></button>
         </div>
 </form>
 </div>
 	<script>
 		$().ready(function () {
+			 $("#class_option").css("fontWeight", "700");
+	          $("#class_option").children().css("background", "rgb(237, 239, 243)");
+			
+			
+			
 	        $("#deleteBtn").click(function () {
 	            Swal.fire({
 	                title: '정말 삭제하시겠습니까?',

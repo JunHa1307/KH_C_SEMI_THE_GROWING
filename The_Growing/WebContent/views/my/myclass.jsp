@@ -56,7 +56,7 @@ z-index:9;
 	width: 100%;
 	border-radius:10px;
 	 box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-	 background-color: rgb(247, 251, 246);
+	 background-color: rgb(246, 241, 252);
 	 
 	
 }
@@ -91,7 +91,7 @@ z-index:9;
 .b1{
 padding:5px; 
 font-size:16px; 
-font-weight:500;
+font-weight:300;
 border-radius: 10px;
 color:grey;
 
@@ -185,7 +185,7 @@ font-weight:500;
 	<script>
 	$(function(){
 	        $("#myClass").css("fontWeight","700").fadeIn(1000);
-	        $("#myClass").children().css("background","rgb(239, 243, 239)");
+	        $("#myClass").children().css("background","rgb(237, 239, 243)");
 	       
 	        let classList = []; 
 	       

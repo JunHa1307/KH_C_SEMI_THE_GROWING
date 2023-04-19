@@ -49,7 +49,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%><img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
 			</div>
@@ -84,7 +84,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%></div>
 			</div>

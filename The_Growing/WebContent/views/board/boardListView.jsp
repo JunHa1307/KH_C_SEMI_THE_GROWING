@@ -36,10 +36,13 @@ int boardType = (int) request.getAttribute("boardType");
         }        
 		
         #searchBoard {           
-            width: 250px;
+            width: 100%;
+            height:100%;
+            border-radius:10px;
             border: none;
             outline: none;
             background: none;
+            padding-left:10px;
             
             
         }
@@ -48,10 +51,21 @@ int boardType = (int) request.getAttribute("boardType");
             border : 1px solid rgb(224, 224, 224);
             height: 40px;
             border-radius: 10px;
+                width: 250px;
+            display: flex;
+            align-items: center;
+            position: relative;
         }
 		#searchBtn_1 >img{
 	        width:20px;
 	        height:20px;
+	            position: absolute;
+	        left:85%;
+	        cursor: pointer;
+        }
+          #searchBtn_1 :focus{
+	    box-shadow: 5px 5px 9px rgb(224,224,224) inset;
+	        
         }
 	
         .list-table {
@@ -73,16 +87,15 @@ int boardType = (int) request.getAttribute("boardType");
         .list-table tr {
             border-top: 1px solid #ddd;
             border-bottom: 1px solid #ddd;
-            background-color: rgb(244, 248, 248);
         }
 
         .list-table th {
             display: none;
         }
 
-        @media screen and (min-width: 600px) {
+      
             .list-table tr:hover:not(:first-child) {
-                background-color: white;
+                background-color: rgb(231, 231, 231);
         }
       
         .list-table th,.list-table td {
@@ -96,7 +109,7 @@ int boardType = (int) request.getAttribute("boardType");
         .list-table th, .list-table td {
             padding: 1em !important;
         }
-    	}
+    	
     	
     	.paging-area{
     			
@@ -125,8 +138,54 @@ int boardType = (int) request.getAttribute("boardType");
                     
        .pagination button:hover:not(.active) {background-color: silver;}
        
-    
+        .titleOver{
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+     white-space: nowrap;
+    width: 250px;
+    margin: 0;
+
     }
+ 
+    .user{
+    	font-size: 0.7vw;
+    	font-weight:500;
+    }
+    .cDate{
+    	color:grey;
+    	font-weight: 300;
+    	font-size: 0.7vw;
+    }
+        .count, .bNumber{
+    	font-size: 13px; 
+    	color:grey;
+    	font-weight: 300;
+    }
+  	.fontSize>th{
+ 		color:grey;
+ 		font-weight: 500;
+ 		height:57px;
+ 		 overflow: hidden;
+  text-overflow: ellipsis;
+ 	} 
+
+ 
+ #freeType{
+    border-top:3px solid grey;
+    background: rgb(253, 255, 244);
+    color: black;
+ }
+
+ #counselType{
+    border-top:3px solid rgb(206, 206, 206);
+    background:  rgb(85, 95, 131);
+    color: white;
+ }
+       
+       
+    
+    
 
  
     </style>
@@ -163,10 +222,10 @@ int boardType = (int) request.getAttribute("boardType");
 
 		<%if (boardType == 4) {%>
 		<div id="list_search" align="right">
-			<button id="searchBtn_1" type="button" >
+			<div id="searchBtn_1"  >
 				<input id="searchBoard" type="text" placeholder="게시판 검색" > 
 				<img src="resources/image/search.svg" onclick="location.href='<%=contextPath%>/list.fr?boardType=<%= boardType%>&search='+$('#searchBoard').val();">
-			</button>
+			</div>
 		</div>
 		<%} %>
 		<table class="list-table">
@@ -177,53 +236,64 @@ int boardType = (int) request.getAttribute("boardType");
 				</tr>
 				<tbody>
 				<% } else { %>
-				<tr>
-					<th width="130">글번호</th>
-					<th width="350">제목</th>
-					<th width="130">작성자</th>
-					<th width="130">작성일</th>
-					<th width="120">조회수</th>
-				</tr>
+					<% if(boardType == 4){ %>
+					<tr id="freeType" >
+						<th width="130">번호</th>
+						<th width="300">제목</th>
+						<th width="150">작성자</th>
+						<th width="150">작성일</th>
+						<th width="130">조회수</th>
+					</tr>
+					<%}else if(boardType==5){ %>
+						<tr id="counselType" >
+						<th width="130">번호</th>
+						<th width="300">제목</th>
+						<th width="150">작성자</th>
+						<th width="150">작성일</th>
+						<th width="130">조회수</th>
+					</tr>
+					<%} %>
+					
+				<%} %>
 				<% for(int i =0; i<list.size(); i++) { %>
 				<%if (boardType == 4) {%>
-				<tr  onclick="level1(<%= list.get(i).getBoardNo() %>);">
-					<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
-					<td><%= list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span></td>
-					<td><%= list.get(i).getUserId() %></td>
-					<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
-					<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
+				<tr  class="fontSize" onclick="level1(<%= list.get(i).getBoardNo() %>);">
+					<td class="bNumber"><%= list.get(i).getBoardNo() %></td>
+					<td ><p class="titleOver"><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
+					<td class="user"><%= list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
+					<td class= "cDate" ><%= list.get(i).getCreateDate() %></td>
+					<td class= "count" ><%= list.get(i).getCount() %></td>
 				</tr>
 				<%}else if(boardType==5){ %>
-						<%if (level == 1) {%>
-					<tr onclick="level2(<%= list.get(i).getBoardNo() %>);">
-						<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
-						<td><%= list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span></td>
-						<td><%= list.get(i).getUserId() %></td>
-						<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
-						<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
-
-					</tr>
-					<%}else if(loginUser.getUserId().equals(list.get(i).getUserId())){ %>
-					<tr id="level3" onclick="level3(<%= list.get(i).getBoardNo() %>);">
-						<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
-						<td><%= list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span></td>
-						<td><%= list.get(i).getUserId() %></td>
-						<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
-						<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
-					</tr>
-					
-					<%} else{%>
-					<tr onclick="level4();">
-						<td style="font-size: 13px; color:grey;"><%= list.get(i).getBoardNo() %></td>
-						<td>비밀글 입니다</td>
-						<td>비밀 작성자</td>
-						<td style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
-						<td style="font-size: 13px; color:grey;"><%= list.get(i).getCount() %></td>
-					</tr>
+							<%if (level == 1) {%>
+						<tr class="fontSize" onclick="level2(<%= list.get(i).getBoardNo() %>);">
+							<td class="bNumber"><%= list.get(i).getBoardNo() %></td>
+							<td ><p class="titleOver"><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
+							<td class="user"><%= list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
+							<td class= "cDate" style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
+							<td class= "count"><%= list.get(i).getCount() %></td>
+	
+						</tr>
+						<%}else if(loginUser.getUserId().equals(list.get(i).getUserId())){ %>
+						<tr class="fontSize" id="level3" onclick="level3(<%= list.get(i).getBoardNo() %>);">
+							<td class="bNumber"><%= list.get(i).getBoardNo() %></td>
+							<td class="titleOver"><p class="titleOver"><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
+							<td class="user"><%= list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
+							<td class= "cDate" ><%= list.get(i).getCreateDate() %></td>
+							<td class= "count"><%= list.get(i).getCount() %></td>
+						</tr>
+						
+						<%} else{%>
+						<tr class="fontSize" onclick="level4();">
+							<td class="bNumber"><%= list.get(i).getBoardNo() %></td>
+							<td>비밀글 입니다</td>
+							<td class="user">비밀 작성자</td>
+							<td class= "cDate"><%= list.get(i).getCreateDate() %></td>
+							<td class= "count"><%= list.get(i).getCount() %></td>
+						</tr>
 						<%} %>
 					<%} %>
 				<% } %>
-		<% } %>
 			
 		</table>
 		<script>
@@ -288,11 +358,11 @@ int boardType = (int) request.getAttribute("boardType");
 $(function (){
 	if(<%=boardType == 4 %>){
 		  $("#board_free").css("fontWeight", "700");
-	    $("#board_free").children().css("background", "rgb(239, 243, 239)");
+	    $("#board_free").children().css("background", "rgb(237, 239, 243)");
 		}else if(<%=boardType == 5 %>) {
 			
 			  $("#board_counsel").css("fontWeight", "700");
-	        $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+	        $("#board_counsel").children().css("background", "rgb(237, 239, 243)");
 		};
 });
 

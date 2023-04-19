@@ -80,7 +80,6 @@ public class AlbumUpdateController extends HttpServlet {
 						ArrayList<Attachment> list = new ArrayList<Attachment>();
 						
 						int index = 1;
-						int j  = 0;
 						for(int i=1; i<=5; i++) {
 							if(multi.getOriginalFileName("file"+i) != null) {
 							index = i;

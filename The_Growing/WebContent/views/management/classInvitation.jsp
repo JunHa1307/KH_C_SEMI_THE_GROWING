@@ -109,7 +109,7 @@
 		 
 		/* 게시판목록 버튼 활성화 */
 		 $("#board_invite").css("fontWeight", "700");
-          $("#board_invite").children().css("background", "rgb(239, 243, 239)");
+          $("#board_invite").children().css("background", "rgb(237, 239, 243)");
           
           
           $("#invitecode").click(function(){

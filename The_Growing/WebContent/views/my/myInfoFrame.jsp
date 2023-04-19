@@ -270,7 +270,7 @@
 		AOS.init();
 	    $(".my_li").click(function(){
 	        $(this).css("fontWeight","700").fadeIn(1000);
-	        $(this).children().css("background","rgb(239, 243, 239)");
+	        $(this).children().css("background","rgb(237, 239, 243)");
 	        $(this).siblings(".my_li").css({fontWeight:"", color:"black"})
 	        $(this).siblings().children().css("background","");
 	    

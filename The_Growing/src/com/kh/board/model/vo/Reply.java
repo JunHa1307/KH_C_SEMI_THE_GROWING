@@ -23,6 +23,8 @@ public class Reply {
 	private int rCount;
 	private String filePath;
 	private String changeName;
+	private String userName;
+	private int userLevel;
 	
 	
 	public Reply() {
@@ -62,6 +64,23 @@ public class Reply {
 
 	
 	
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(int userLevel) {
+		this.userLevel = userLevel;
+	}
+
 	public String getFilePath() {
 		return filePath;
 	}

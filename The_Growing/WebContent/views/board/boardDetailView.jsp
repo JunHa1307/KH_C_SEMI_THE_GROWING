@@ -174,7 +174,7 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 }
 
 .mo_reply_text {
-	width: 70%;
+	width: 74%;
 	word-break: break-all;
 	overflow-y: scroll;
 	position: absolute;
@@ -195,7 +195,7 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 .mo_reply_id {
 	width: 90px;
 	text-align: center;
-	font-size: 15px;
+	font-size: 13px;
 	font-weight: 600;
 	height: 30px;
 }
@@ -416,7 +416,7 @@ font-size:30px;
 						onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 				</div>
 				<div style="padding-left: 10px; height: 50px;">
-					<p style="font-size: 17px;"><%=b.getUserId()%></p>
+					<p style="font-size: 17px;"><%=b.getUserName()%><%=b.getUserLevel() == 1 ? "선생님" :  b.getUserLevel() == 2 ? "학부모" : "학생" %></p>
 					<p style="font-size: 13px; color: grey;"><%=b.getcDate()%></p>
 
 				</div>
@@ -456,7 +456,7 @@ font-size:30px;
 			<div class="mo_reply_content">
 			<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {%>
 			
-			<div class="dropdown" style="float: right; margin-top: -4%;">
+			<div class="dropdown" style="float: right; margin-top: -3%;">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
@@ -480,7 +480,7 @@ font-size:30px;
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%><img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
 			</div>
@@ -515,7 +515,7 @@ font-size:30px;
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%></div>
 			</div>
@@ -569,11 +569,11 @@ font-size:30px;
 		$(function(){
 			if(<%=boardType == 4 %>){
 			  $("#board_free").css("fontWeight", "700");
-              $("#board_free").children().css("background", "rgb(239, 243, 239)");
+              $("#board_free").children().css("background", "rgb(237, 239, 243)");
 			}else if(<%=boardType == 5 %>) {
 				
 				  $("#board_counsel").css("fontWeight", "700");
-	              $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+	              $("#board_counsel").children().css("background", "rgb(237, 239, 243)");
 			}
 			
 		<%-- 	

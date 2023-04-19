@@ -318,6 +318,9 @@
 </div> -->
 	<script>
 	$(function(){
+		$("#board_manage").css("fontWeight", "700");
+		$("#board_manage").children().css("background", "rgb(237, 239, 243)");
+		
 		$(".update").click(function(){
 			let uno = $(this).data("uno");
 			$(".detailUno").attr("value",uno);

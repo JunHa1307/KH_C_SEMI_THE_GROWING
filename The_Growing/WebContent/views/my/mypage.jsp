@@ -311,7 +311,7 @@ label{
 	<script>
 	$(function(){
         $("#myInfo").css("fontWeight","700").fadeIn(1000);
-        $("#myInfo").children().css("background","rgb(239, 243, 239)");
+        $("#myInfo").children().css("background","rgb(237, 239, 243)");
 	});
 		function deleteMember(){
 			

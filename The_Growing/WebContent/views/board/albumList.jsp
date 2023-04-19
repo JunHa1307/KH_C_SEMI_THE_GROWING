@@ -323,6 +323,7 @@ opacity: 0.9;
 	text-align:center;
 	font-weight: 600;
 	padding-left:20px;
+	font-size:13px;
 }
 
 #mo_writer_date {
@@ -355,7 +356,7 @@ opacity: 0.9;
 
 .mo_reply_profile {
 	width: 30%;
-	padding-left: 5%;
+	padding-left: 3%;
 }
 
 .mo_reply_profileImg {
@@ -363,6 +364,7 @@ opacity: 0.9;
 	height: 65px;
 	border-radius: 100%;
 	overflow: hidden;
+	margin-left:6%;
 }
 
 .mo_reply_profileImg>img {
@@ -396,6 +398,7 @@ opacity: 0.9;
 	text-align:center;
 	font-size: smaller;
 	font-weight: 600;
+	margin-right:5px;
 }
 
 .mo_reply_date {
@@ -586,7 +589,7 @@ opacity: 0.9;
 				<div class= "album_con_user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></div>
 				<div class="album_con_date_count">
 					<div id="aDate" ><%=list.get(i).getcDate()%></div>
-					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:25%; width:0.8vw; height:0.8vw; min-width:10px; min-height:10px"><%=list.get(i).getCount() %></div>
+					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:25%; width:0.8vw; height:0.8vw; min-width:8px; min-height:8px"><%=list.get(i).getCount() %></div>
 					
 					</div>
 				
@@ -778,7 +781,7 @@ opacity: 0.9;
    
    		// 목록 클릭 시 css 
           $("#board_album").css("fontWeight", "700");
-          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+          $("#board_album").children().css("background", "rgb(237, 239, 243)");
        
           });
 
@@ -841,7 +844,7 @@ opacity: 0.9;
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
-  								'<div id="mo_writer_id">'+b.userName+'</div>'+
+  								'<div id="mo_writer_id">'+b.userName+" "+(b.userLevel == 1 ? "선생님" : b.userLevel == 2 ? "학부모" : "학생")+'</div>'+
   								'<div id="mo_writer_date" class="grey">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
   				 	}else{
   				 	  result  += 
@@ -857,7 +860,7 @@ opacity: 0.9;
 								'</div></div>'+
 							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
 						'<div id="mo_writer_content2">'+
-							'<div id="mo_writer_id">'+b.userId+'</div>'+
+							'<div id="mo_writer_id">'+b.userName+" "+(b.userLevel == 1 ? "선생님" : b.userLevel == 2 ? "학부모" : "학생")+'</div>'+
 							'<div id="mo_writer_date">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
   				 		
   				 	}
@@ -942,7 +945,7 @@ opacity: 0.9;
             }
         });
         
-     /*        let j = 0;
+             let j = 0;
         $('.scrap').on('click',function(){
             if(j==0){
                 $('.bi-star').css({color : "orange", fontSize : "30px"});
@@ -952,7 +955,7 @@ opacity: 0.9;
                 j--;
             }
 
-        }); */
+        }); 
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
