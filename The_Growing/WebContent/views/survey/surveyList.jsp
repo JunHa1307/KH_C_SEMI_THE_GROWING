@@ -39,11 +39,11 @@
 
 .surveys {
 	width:100%;
-	border: 1px solid rgb(5, 3, 52);
+	border: 1px solid rgb(179, 178, 178);
 	border-radius: 1em;
-	background-color:  rgb(5, 3, 52);
+	background-color:  rgb(242, 245, 247);
 	margin-bottom: 2em;
-	color:white;
+	color: #000000;
 	box-shadow: -5px -5px 7px 0px rgba(255, 255, 255, 0.5), 3px 3px 7px 0px rgba(0, 0, 0, 0.3);
 }
 
@@ -59,8 +59,8 @@
 		height: 3em;
 		border: 0;
 		border-radius: 1em;
-		background-color: white;
-		color: rgb(5, 3, 52);
+		background-color: rgb(5, 3, 52);
+		color: #ffffff;
 		box-shadow: 0px 8px 6px -6px #666;
 	}
 	
@@ -83,9 +83,9 @@
 }
 
 .upSurvey, .surveyResult, .endSurvey {
-	border: 0.5px solid #dfd3c3;
+	border: 0.5px solid rgb(179, 178, 178);
 	border-radius: 0.5em;
-	background-color:  #dfd3c3;
+	background-color: rgb(179, 178, 178);
 	box-shadow: 0px 8px 6px -6px #666;
 }
 </style>
@@ -187,7 +187,7 @@
                        if(result != 'Fail'){
                           
                              alertMsg("설문을 종료했습니다.");
-                             location.reload();
+                             setTimeout(() =>  location.reload(), 1000);
                        }else{
                           error("설문 종료 실패");
                        }

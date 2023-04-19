@@ -314,25 +314,25 @@ label{
         $("#myInfo").children().css("background","rgb(237, 239, 243)");
 	});
 		function deleteMember(){
-			
-			 Swal.fire({
-                 title: '탈퇴하시겠습니까?',
-                 text: "",
-                 icon: 'warning',
-                 showCancelButton: true,
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: '삭제',
-                 cancelButtonText: '취소'
-             }).then((result) => {
-                 if (result.isConfirmed) {
-                	 
-                     Swal.fire(
-                         '탈퇴가 완료되었습니다.'
-                     )
-                     setTimeout(() =>  location.href="<%=request.getContextPath()%>/delete.me", 1000);
-                 }
-             })
+			 if($(".box1").eq(5).children("input").val().includes("일반")){
+				 Swal.fire({
+	                 title: '탈퇴하시겠습니까?',
+	                 text: "",
+	                 icon: 'warning',
+	                 showCancelButton: true,
+	                 confirmButtonColor: '#3085d6',
+	                 cancelButtonColor: '#d33',
+	                 confirmButtonText: '삭제',
+	                 cancelButtonText: '취소'
+	             }).then((result) => {
+	                 if (result.isConfirmed) {
+	                	 location.href="<%=request.getContextPath()%>/delete.me";
+	                     
+	                 }
+	             })
+			 }else {
+				 error("sns회원은 따로 sns에서 로그인 접근 권한을 취소하시기 바랍니다.")
+			 }
 		};
 
 		

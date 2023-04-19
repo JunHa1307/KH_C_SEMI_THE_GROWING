@@ -82,6 +82,7 @@
                aria-expanded="false">
                
                <div class="isAlarmNew"></div>
+               <div id="timeCheck"></div>
                <img id="alarmIcon" src="<%= request.getContextPath() %>/resources/image/bell.svg" />
            </button>
            <div id="memberNotice" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">

@@ -83,27 +83,18 @@ public class AlbumUpdateController extends HttpServlet {
 						for(int i=1; i<=5; i++) {
 							if(multi.getOriginalFileName("file"+i) != null) {
 							index = i;
-							System.out.println("i"+index);
 							}
 						
 						}
 							
 							for(int i=1; i<=index; i++) {
 								if(multi.getOriginalFileName("file"+i) != null) {
-									System.out.println(i);
 									Attachment at = new Attachment();
 									
 									at.setRefBno(bno);
 									at.setOriginName(multi.getOriginalFileName("file"+i));
 									at.setChangeName(multi.getFilesystemName("file"+i));
 									at.setFilePath("/resources/album_upfiles/");
-									if(list.size()==0 ) {
-										
-										at.setFileLevel(1);
-										
-									}else {
-										at.setFileLevel(i);
-									}
 									list.add(at);
 									// 첨부파일이 원래 등록되어 있을경우 원본파일의 파일번호, 수정된 이름을 hidden 넘겨받았음
 									if(multi.getParameter("originFileNo"+(i-1)) != null ) {
@@ -113,10 +104,15 @@ public class AlbumUpdateController extends HttpServlet {
 										
 										
 										// 기존의 파일번호를 저장시키기 
-										list.get(i-1).setFileNo(Integer.parseInt(multi.getParameter("originFileNo"+(i-1))));
-										System.out.println(list.get(i-1).getFileNo());
+										if(list.size() > i-1 ) {
+											list.get(i-1).setFileNo(Integer.parseInt(multi.getParameter("originFileNo"+(i-1))));
+										}else {
+											list.get(list.size()-1).setFileNo(Integer.parseInt(multi.getParameter("originFileNo"+(i-1))));
+										}
+										
 										// 기존의 첨부파일을 삭제 
 										new File(path+multi.getParameter("changeFileName"+(i-1))).delete();
+										
 									}else {
 										//기존에 첨부파일이 없는 경우 
 										// Attachment 테이블의 정보를 insert
@@ -126,8 +122,8 @@ public class AlbumUpdateController extends HttpServlet {
 										 * list.get(i-1).setRefBno(Integer.parseInt(multi.getParameter("bno")));
 										 * System.out.println((multi.getParameter("bno")));
 										 */
-										
 									}
+									list.get(list.size()-1).setFileLevel(i);
 								}
 							}	
 							
@@ -145,6 +141,13 @@ public class AlbumUpdateController extends HttpServlet {
 						// 성공시 : 상세조회페이지로 redirect
 						// 실패시 : 에러페이지로 포워딩 
 						if(result>0) {
+							ArrayList<Attachment> count  = new BoardService().selectAlbumInnerList(bno);
+							for(int i = 0; i < count.size(); i ++) {
+								if(count.get(i).getFileLevel() != i) {
+									count.get(i).setFileLevel(i+1);
+									new BoardService().updateAttachmentLevel(count.get(i));
+								}
+							}
 							request.getSession().setAttribute("alertMsg", "게시글이 수정되었습니다.");
 							response.sendRedirect(request.getContextPath()+"/list.al");
 						}else {
