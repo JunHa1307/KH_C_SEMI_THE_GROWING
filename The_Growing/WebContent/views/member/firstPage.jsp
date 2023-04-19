@@ -117,7 +117,7 @@
             margin: 1%;
             /* background-color: white; */
             background-color: #ffffff;
-        	background-color: rgba( 255, 255, 255, 0.5 );
+        	background-color: rgba( 255, 255, 255, 0.7 );
         }
 
         #teacher:hover, #parent:hover, #student:hover{
@@ -284,7 +284,7 @@
 	                <h1 id="text3">우리의 성장 기록</h1><br><br>
                 </div>
                 <div id="text4" class="btnWrap">
-                	<h1 style="color:rgb(19, 94, 54); font-weight: 900; margin-left:20px;">THE GROWING</h1>
+                	<h1 style="color:rgb(19, 94, 54); font-weight: 900; margin-top:3px; margin-left:20px;">THE GROWING</h1>
                 	<button id="grow_btn"><img src="resources/image/rightWhiteIcon.png" style="width:18px;"></button>
                 </div>
             </div>
