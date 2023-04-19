@@ -151,6 +151,9 @@
     </div>
     <script>
     	$(function(){
+    		 $("#board_survey").css("fontWeight", "700");
+    	     $("#board_survey").children().css("background", "rgb(237, 239, 243)");
+    		
     		
     		$("#canSurvey").click(function(){
     			$("#surveying").css("display","block");

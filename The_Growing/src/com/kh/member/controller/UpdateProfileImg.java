@@ -75,10 +75,10 @@ public class UpdateProfileImg extends HttpServlet {
 			if(result >0) {
 				loginUser = new MemberService().loginMember(loginUser.getUserId(), loginUser.getUserPwd(), loginUser.getUserLevel());
 				request.getSession().setAttribute("loginUser", loginUser);
-				request.getSession().setAttribute("alertMsg", "프로필 사진 수정 성공");
+				request.getSession().setAttribute("alertMsg", "프로필 사진을 수정하였습니다.");
 				response.sendRedirect(request.getContextPath()+"/myPage.me");
 			}else {
-				request.setAttribute("errorMsg", "수정 실패.");
+				request.setAttribute("errorMsg", "프로필 사진 수정 실패.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}else {

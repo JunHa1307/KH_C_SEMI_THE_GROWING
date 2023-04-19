@@ -119,22 +119,38 @@
 				
             	if(<%=boardType == 4 %>){
           		  $("#board_free").css("fontWeight", "700");
-          	    $("#board_free").children().css("background", "rgb(239, 243, 239)");
+          	    $("#board_free").children().css("background", "rgb(237, 239, 243)");
           		}else if(<%=boardType == 5 %>) {
           			
           			  $("#board_counsel").css("fontWeight", "700");
-          	        $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+          	        $("#board_counsel").children().css("background", "rgb(237, 239, 243)");
           		};
 				
             });
             
 
 			function deleteBoard(){
-				if(!confirm("정말 삭제하시겠습니까?")){
-					return;
-				}
+				   Swal.fire({
+		                 title: '게시물을 삭제하시겠습니까?',
+		                 text: "삭제된 게시물은 다시 볼 수 없습니다.",
+		                 icon: 'warning',
+		                 showCancelButton: true,
+		                 confirmButtonColor: '#3085d6',
+		                 cancelButtonColor: '#d33',
+		                 confirmButtonText: '삭제',
+		                 cancelButtonText: '취소'
+		             }).then((result) => {
+		                 if (result.isConfirmed) {
+		                	 
+		                     Swal.fire(
+		                         '삭제가 완료되었습니다.'
+		                     )
+		                     setTimeout(() =>  location.href = "<%= contextPath %>/delete.fr?bno=<%= b.getBoardNo() %>", 1000);
+		                    
+		                 }
+		                 
+		             })
 				
-				location.href = "<%= contextPath %>/delete.fr?bno=<%= b.getBoardNo() %>";
 			};
             
             </script>  
