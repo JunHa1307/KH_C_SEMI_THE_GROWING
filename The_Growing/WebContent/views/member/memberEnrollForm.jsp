@@ -20,6 +20,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+<script src="<%= contextPath %>/resources/js/alert.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <style>
     	* {
@@ -232,7 +234,7 @@ div{
 }
 #enroll-form>table{
 	margin: auto;
-	width: 500px;
+	width: 550px;
 	
 }
 input{
@@ -358,12 +360,27 @@ td{
 
 .inputTitle{
 	padding-top:10px;
+	width: 35%;
 }
 #goFirst{
 
 cursor: pointer;
 }
+.label>td{
+	width: 500px;
+	font-size: 14px;
+	font-weight: 300;
+}
+
+.inputWd{
+	width: 60%;
+}
+.label{
+	width:100%;
+}
 </style>
+
+
 </head>
 <body>
 	<figure class="snip1361">
@@ -391,7 +408,7 @@ cursor: pointer;
 	                <!-- (tr>td*3)*8 -->
 	                <tr>
 	                    <td class="inputTitle">아이디</td>
-	                    <td><input type="text" id="userId" name="userId" maxlength="12" onkeyup="idCheck();" required></td>
+	                    <td class="inputWd"><input type="text" id="userId" name="userId" maxlength="12" onkeyup="idCheck();" required></td>
 	                    <td>
 	                    	<!-- <button id="idCheckBtn" type="button">
 	                    		<img style="width: 20px;" src="resources/image/whiteCheckIc.png">
@@ -399,30 +416,34 @@ cursor: pointer;
 	                    	<img id="pwd_img1" style="width: 20px; display:none;" src="resources/image/redX.png">
 	                    	<img id="pwd_img2" style="width: 20px; display:none;" src="resources/image/blackCheck.png">
 	                    </td>
+	                    
 	                </tr>
+	                <tr class="label"><td colspan="3">✧ 첫글자는 반드시 영문자로, 그리고 영문자, 숫자를 포함하여 총 4~12자로 입력하시오.</td></tr>
 	                <tr>
 	                    <td class="inputTitle">비밀번호</td>
-	                    <td><input type="password" name="userPwd" maxlength="15" required></td>
+	                    <td class="inputWd"><input type="password" id="userPwd" name="userPwd" maxlength="15" required></td>
 	                    <td></td>
 	                </tr>
+	                <tr class="label"><td colspan="3">✧ 영문자, 숫자, 특수문자(!@#$%^)로 총 8~15자로 입력하시오.</td></tr>
 	                <tr>
 	                    <td class="inputTitle">비밀번호 확인</td>
-	                    <td><input type="password" name="userPwdCheck" maxlength="15" required></td> <!-- 단순 비교 확인 용도라 key 값을 부여 안해도 됨 -->
+	                    <td class="inputWd"><input type="password" id="checkPwd" name="userPwdCheck" maxlength="15" required></td> <!-- 단순 비교 확인 용도라 key 값을 부여 안해도 됨 -->
 	                    <td></td>
 	                </tr>
+	                <tr class="label"><td colspan="3">✧ 위의 비밀번호와 일치하게 입력하시오.</td></tr>
 	                <tr>
 	                    <td class="inputTitle">이름</td>
-	                    <td><input type="text" name="userName" maxlength="6" required></td>
+	                    <td class="inputWd"><input type="text" id="name" name="userName" maxlength="6" required></td>
 	                    <td></td>
 	                </tr>
 	                <tr>
 	                    <td class="inputTitle">전화번호</td>
-	                    <td><input type="text" name="phone" placeholder="- 없이 입력 가능"><td>
+	                    <td class="inputWd"><input type="text" name="phone" placeholder="- 없이 입력 가능"><td>
 	                    <td></td>
 	                </tr>
 	                <tr>
 	                    <td class="inputTitle">주소</td>
-	                    <td><input type="text" name="address"></td>
+	                    <td class="inputWd"><input type="text" name="address"></td>
 	                    <td></td>
 	                </tr>
 	            </table>
@@ -431,7 +452,7 @@ cursor: pointer;
 	            <div style="text-align:center;">전화번호 및 주소는 선택사항 입니다</div>
 	            <br>
 	            <div align="center">
-	            	<button id="submit" type="submit" disabled>회원가입</button>
+	            	<button id="submit" type="submit" onclick="return signUp();" disabled>회원가입</button>
 	            	<button id="reset" type="reset">초기화</button>
 	            </div>
 	            <br><br>
@@ -542,15 +563,15 @@ cursor: pointer;
 								if($("#pwd_img2" ).hasClass("active")){
 									
 									// 아이디값 수정할 수 없게 막기
-									$("#userId").attr("readonly", true);
+									/* $("#userId").attr("readonly", true); */
 									
 									// (그이전까지는 회원가입 불가능) 회원가입 버튼 활성화
 									// #enroll-form :submit
 									$("#submit").removeAttr("disabled");
 									
-									$("#reset").click(function(){
+									/* $("#reset").click(function(){
 										$("#userId").attr("readonly", false);
-									});
+									}); */
 								} else {
 									$("#userId").val("");
 									$("#userId").focus();
@@ -569,16 +590,69 @@ cursor: pointer;
 		}
 		
 		/* 비밀번호 확인 */
-		$("#submit").click(function(){
+		/* $("#submit").click(function(){
 			let userPwd = $("#enroll-form [name=userPwd]").val();
 			let userPwdCheck = $("#enroll-form [name=userPwdCheck]").val();
 			
 			if(userPwd != userPwdCheck){
 				$("#enroll-form [name=userPwdCheck]").val("");
 				$("#enroll-form [name=userPwdCheck]").focus();
-				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요^^");
+				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 			}
-		});
+		
+		}); */
+		
+		function signUp(){
+
+            // 유효성 검사 목록 : id, password, name
+
+            // input 요소 객체들 가져다 놓기
+            let userId = document.getElementById("userId");
+            let userPwd = document.getElementById("userPwd");
+            let checkPwd = document.getElementById("checkPwd");
+            let name = document.getElementById("name");
+            
+            // 1) 아이디 값 검사
+            // 첫글자 영문자, 영문자, 숫자로만 총 4~12글자로 이루어져야한다.
+            let regExp = /^[a-zA-z][a-zA-z0-9]{3,11}/;
+            
+            if(!regExp.test(userId.value)){
+            	error("아이디를 잘못입력하셨습니다. 다시 입력하세요.");
+            	userId.value="";
+                userId.select(); // 커서가 아이디 입력창으로 이동
+                return false; // 가장 중요. 
+            }
+
+            // 2) 비밀번호 검사
+            // 영문자(대소문자), 숫자, 특수문자로 이루어진 총 8~15글자
+            // 기존 regExp에 정규표현식 덮어씌우기
+            regExp = /^[a-z0-9!@#$%^]{8,15}$/i;
+
+            if(!regExp.test(userPwd.value)){
+            	error("유효한 비밀번호를 입력하세요");
+                userPwd.value="";   // 빈칸으로 만들어줌
+                userPwd.select();
+                return false;
+            }
+
+            // 3) 비밀번호 일치 확인
+            if(userPwd.value !== checkPwd.value){
+            	error("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+                checkPwd.value="";
+                checkPwd.select();
+                return false;
+            }
+
+            // 4) 이름검사
+            //  한글(결합)로만 2글자이상
+            regExp = /^[가-힣]{2,}$/; // 가-힣 : 모든 이름 결합
+            if(!regExp.test(name.value)){
+            	error("유효한 이름을 입력하세요.");
+                name.select();
+                return false;
+            }
+        };
+		
 		$("#gogoFirstBtn").click(function(){
 			location.href="<%= contextPath %>";
 		});
@@ -592,7 +666,7 @@ cursor: pointer;
 		    var random_color = "rgb(" + r + "," + g + "," + b + ")";
 		    
 		    text.style.color = random_color;
-		}
+		};
 	</script>
 	 </figcaption>
 	</figure>
