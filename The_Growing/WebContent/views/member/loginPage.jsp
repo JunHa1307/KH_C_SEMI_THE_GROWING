@@ -347,7 +347,10 @@
                     data : {snsId, snsName, snsType, filePath},
                     method : 'post',
                     success: function(data){
-                 	   alert("구글로 정상 로그인되었습니다.");
+                       alertMsg("구글로 정상 로그인되었습니다.");
+                 	   
+                 	   setTimeout(()=> location.replace("<%= request.getContextPath() %>/mainpage.me"), 1500);
+                    	
                  	   location.replace("<%= request.getContextPath() %>/mainpage.me");
                     },
                     error: function(){

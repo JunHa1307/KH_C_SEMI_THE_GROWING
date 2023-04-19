@@ -372,7 +372,11 @@ cursor: pointer;
 		
 		
 	<div id="header">
-		<br><br><br>
+
+		<br>
+		<div style="font-size: 20px; color: gray;">Scroll & Click</div>
+		<br><br>
+
 		<h1 id="goFirst" style="color:black; font-weight: 900; margin-bottom: 10px;" onmouseover="randomRGB();">THE GROWING</h1>
 		
 		<br><br><br><br><br>
@@ -428,7 +432,7 @@ cursor: pointer;
 	            <br>
 	            <div align="center">
 	            	<button id="submit" type="submit" disabled>회원가입</button>
-	            	<button id="reset" type="reset">취소</button>
+	            	<button id="reset" type="reset">초기화</button>
 	            </div>
 	            <br><br>
 	            <button id="gogoFirstBtn" type="button" style="width: 150px; height: 30px; float:right; color:white; background-color: black; cursor:pointer; border-radius: 10px;">처음으로</button>
@@ -458,16 +462,30 @@ cursor: pointer;
 		
 		var dbclick = false;
 		
-		$(".snip1361").click(function(){
-			$(this).addClass("click");
+		$("#goFirst").click(function(){
+			$(".snip1361").addClass("click");
 		}).dblclick(function(){
 			dbclick = true;
-			$(this).removeClass("click");
+			$(".snip1361").removeClass("click");
+
 			setTimeout(function(){
 				dbclick=false
 			}, 500)
 		});
 		
+		$(window).bind('wheel', function(event){
+		    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+		        // scroll up
+		        console.log("스크롤 위로");
+		        $(".snip1361").removeClass("click");
+		    }
+		    else {
+		        // scroll down
+		        console.log("스크롤 아래로");
+		        $(".snip1361").addClass("click");
+		    }
+		});
+
 		
 /* 		$(".hover").click(function(){
 			$(this).removeClass("hover");

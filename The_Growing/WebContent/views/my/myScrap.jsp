@@ -172,7 +172,6 @@ div.rgyPostIt > p > a {
 <!--  alret 창 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
 </head>
 <body>
 <%@include file="myInfoFrame.jsp"%>
