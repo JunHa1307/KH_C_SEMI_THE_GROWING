@@ -33,7 +33,7 @@
                 <div id="album_area">
                   <div id="album_title">앨범</div>
                   <div id="album_button" align="right" class="box">
-                      <button type="submit" class="button_UI button--winona" data-text="글 등록"><span>글 등록</span></button>
+                      <button type="submit" class="button_UI button--winona" data-text="글 등록" style="width:100%;"><span>글 등록</span></button>
                   </div>
                 </div>
                 <div id="album_hr">
@@ -44,8 +44,10 @@
            		 <div style="font-size:larger; font-weight:600">제목 : <input id="textInput" type="text" name="title" required style="width:100%;"></div>
                 <textarea id="summernote" name="content"></textarea>
           
-        		<div style="padding: 10px">
-					이미지 첨부
+        		<div style="text-align: center;">
+        		<br>
+					 1개 이상의 이미지를 첨부해주세요.
+					 <br><br>
 					<img id="contentImg1" width="150" height="120">
 					<img id="contentImg2" width="150" height="120">
 					<img id="contentImg3" width="150" height="120">
@@ -154,8 +156,8 @@
 				          
 					});
 					
-				      $("#board_album").css("fontWeight", "700");
-			          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+					   $("#board_album").css("fontWeight", "700");
+				          $("#board_album").children().css("background", "rgb(237, 239, 243)");
 			          
 			      
 				});

@@ -25,6 +25,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+
+<!--  alert 창 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<%= request.getContextPath() %>/resources/js/alert.js"></script>
+
+
 <link rel="stylesheet"
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
 </head>
@@ -59,14 +65,14 @@
 <body>
 	<div id="s3">
 		<button type="button" class="m_plus button_UI button--winona"
-					data-text="객관식 추가">객관식 추가</button>
+					data-text="객관식 추가"><span>객관식 추가</span></button>
 			<div>
 				<button style="margin-top: 10px;"type="button" class="s_plus button_UI button--winona"
-					data-text="주관식 추가">주관식 추가</button>
+					data-text="주관식 추가"><span>주관식 추가</span></button>
 			</div>
 			<div>
 				<button style="margin-top: 10px;" type="button" class="m_minus button_UI button--winona"
-					data-text="질문 삭제">질문 삭제</button>
+					data-text="질문 삭제"><span>질문 삭제</span></button>
 			</div>
 			
 	</div>
@@ -130,9 +136,9 @@
 					</table>
 					<div id="button_align" >
 						<button type="button" class="item_plus button_UI button--winona"
-							data-text="항목 추가">항목 추가</button>
+							data-text="항목 추가"><span>항목 추가</span></button>
 						<button type="button" class="item_minus button_UI button--winona"
-							data-text="항목 삭제">항목 삭제</button>
+							data-text="항목 삭제"><span>항목 삭제</span></button>
 					</div>
 				</div>
 				
@@ -158,7 +164,7 @@
 			</div>
 		  	<div id="bu_align">
 				<button type="submit" class=" button_UI button--winona"
-					data-text="등록">등록</button>
+					data-text="등록"><span>등록</span></button>
 			</div>  
 		</form>
 	</div>
@@ -177,7 +183,9 @@
 						if($("#insert-su>div").length > 1){
 							$("#insert-su>div").eq($("#insert-su>div").length-1).remove();						
 						}else {
-							alert("질문은 0개 이하로 삭제할 수 없습니다.");
+
+							error("질문은 0개 이하로 삭제할 수 없습니다.");
+
 						}
 					});
 					clickEvent();
@@ -198,7 +206,9 @@
 						if($(this).parents('div').siblings('table').find("input[name=mCheck]").length > 2) {
 							$(this).parents('div').siblings('table').find("tr:last").remove();
 						}else {
-							alert("항목은 2개 이하로 삭제할 수 없습니다.");
+
+							error("항목은 2개 이하로 삭제할 수 없습니다.");
+
 						}
 					});
 					$(".item_plus, .item_minus").on("click",function(){

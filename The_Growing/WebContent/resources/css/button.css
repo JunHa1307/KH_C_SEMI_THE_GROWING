@@ -20,7 +20,7 @@
 }
 
 .button_UI :active {
-	color: rgb(137, 180, 166);
+	color: rgb(154, 187, 196);
 }
 
 .button_UI:focus {
@@ -44,7 +44,7 @@
 	top: 0;
 	left: 0;
 	opacity: 0;
-	color: rgb(137, 180, 166);
+	color: rgb(154, 187, 196);
 	font-weight: 600;
 	-webkit-transform: translate3d(0, 25%, 0);
 	transform: translate3d(0, 25%, 0);
@@ -60,7 +60,7 @@
 }
 
 .button--winona:hover {
-	border-color: rgb(137, 180, 166);
+	border-color: rgb(154, 187, 196);
 	background-color: rgba(255, 255, 255, 0.1);
 }
 

@@ -53,6 +53,18 @@
 	href="<%=request.getContextPath()%>/resources/css/button.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/header.css">
+	
+	<!--  alert 창 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="<%= contextPath %>/resources/js/alert.js"></script>
+	
+<!-- AOS -->	
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Naum+Pen+Script&display=swap" rel="stylesheet">	
+	
+	
+	
 <style>
 * {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -177,6 +189,7 @@
 		background-color: white;
 		top: 150px;
 		border-radius: 10px;
+		z-index : 9;
 	}
 	#hamburgur {
 		position: fixed;
@@ -239,23 +252,27 @@
 }
 </style>
 <script>
-		const msg = "<%= alertMsg  %>";
+
+		let msg = "<%= alertMsg  %>";
 		
-		if(msg != "null"){
-			alert(msg);
-			<% session.removeAttribute("alertMsg"); %>
+		window.onpageshow = function(event) {
+		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+		    	  msg = "null";
+		    }else if(msg != "null"){
+				alertMsg(msg);
+				<% session.removeAttribute("alertMsg"); %>
+		    }
 		}
-		window.onbeforeunload = function(){
-			<% session.removeAttribute("alertMsg"); %>
-		}
+
 		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
 		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
 <script>
 	$(function(){
+		AOS.init();
 	    $(".my_li").click(function(){
 	        $(this).css("fontWeight","700").fadeIn(1000);
-	        $(this).children().css("background","rgb(239, 243, 239)");
+	        $(this).children().css("background","rgb(237, 239, 243)");
 	        $(this).siblings(".my_li").css({fontWeight:"", color:"black"})
 	        $(this).siblings().children().css("background","");
 	    
@@ -293,7 +310,7 @@
 			<div id="search">
 				<button id="searchBtn" type="button">
 					<form id="classSearchForm" action="searchClass.c" method="get">
-		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 학교 / 클래스 / 선생님을 검색해주세요">
 		               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
 	       	   		</form>
 				</button>

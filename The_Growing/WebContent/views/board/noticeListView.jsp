@@ -170,7 +170,7 @@
         	<div id="album_button" align="right" class="box">
         		<% if(loginUser.getUserLevel() == 1){ %>
                   <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
-            	  <button type="button" class="button_UI button--winona" data-text="삭제" onclick="folderDeleteClick();">삭제</button>
+            	  <button type="button" class="button_UI button--winona" data-text="삭제" onclick="folderDeleteClick();"><span>삭제</span></button>
             	<% } else{ %>
 				  <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px; display:none;"><span>글 등록</span></button>				
 				<% } %>
@@ -317,8 +317,8 @@
      </div>
      <script>
 				              $(function(){
-				            	    $("#board_notice").css("fontWeight", "700");
-				                    $("#board_notice").children().css("background", "rgb(239, 243, 239)");
+				            	   $("#board_notice").css("fontWeight", "700");
+				                   $("#board_notice").children().css("background", "rgb(237, 239, 243)");
 				            	  
 				              	if(<%= loginUser.getUserLevel() != 1 %>){
 				              		$().ready(function(){

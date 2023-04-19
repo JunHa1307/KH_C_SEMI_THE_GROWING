@@ -21,12 +21,12 @@
         }
 #enrollWrap {
 	width: 100%;
-	min-height: 615px; 
+	height:100%;
 	/* height:100%; */
 	border: 1px solid rgb(224, 224, 224);
 	border-radius: 10px;
 	padding: 20px;
-	background: rgb(247, 245, 241);
+	background: rgb(247, 247, 247);
 }
 .note-frame{
  background: white;
@@ -90,14 +90,12 @@
 						제목 : <input id="title_area" type="text" name="title" value="<%=b.getBoardTitle() %>" style="width: 100%;  required">
 					</div>
 					<textarea id="summernote" name="content"><%=b.getBoardContent() %></textarea>
-
+					</div>
 					<div id="box" style="float: right;">
-					
 						
-					<button type="submit" class="button_UI button--winona" data-text="수정" style="width: 100px;"><span>수정</span></button>
-					<button  onclick="deleteBoard();" class="button_UI button--winona" data-text="삭제" style="width: 100px;" ><span>삭제</span></button>	
+					<button type="submit" class="button_UI button--winona" data-text="수정" style="width: 150px;"><span>수정</span></button>
 					</div>	
-				</div>
+				
                     
                     
                     
@@ -119,23 +117,16 @@
 				
             	if(<%=boardType == 4 %>){
           		  $("#board_free").css("fontWeight", "700");
-          	    $("#board_free").children().css("background", "rgb(239, 243, 239)");
+          	    $("#board_free").children().css("background", "rgb(237, 239, 243)");
           		}else if(<%=boardType == 5 %>) {
           			
           			  $("#board_counsel").css("fontWeight", "700");
-          	        $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+          	        $("#board_counsel").children().css("background", "rgb(237, 239, 243)");
           		};
 				
             });
             
 
-			function deleteBoard(){
-				if(!confirm("정말 삭제하시겠습니까?")){
-					return;
-				}
-				
-				location.href = "<%= contextPath %>/delete.fr?bno=<%= b.getBoardNo() %>";
-			};
             
             </script>  
     </div>

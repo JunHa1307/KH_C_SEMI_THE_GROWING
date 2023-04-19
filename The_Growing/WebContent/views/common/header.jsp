@@ -31,6 +31,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 
+
+<!--  alert 창 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<%= request.getContextPath() %>/resources/js/alert.js"></script>
+
 <script src="<%= request.getContextPath() %>/resources/js/headerNotice.js"></script>
 
 <!-- css -->
@@ -39,15 +44,18 @@
 </head>
 <body>
 	<script>
-		const msg = "<%= alertMsg  %>";
 		
-		if(msg != "null"){
-			alert(msg);
-			<% session.removeAttribute("alertMsg"); %>
+		let msg = "<%= alertMsg  %>";
+		
+		window.onpageshow = function(event) {
+		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+		    	  msg = "null";
+		    }else if(msg != "null"){
+				alertMsg(msg);
+				<% session.removeAttribute("alertMsg"); %>
+		    }
 		}
-		window.onbeforeunload = function(){
-			<% session.removeAttribute("alertMsg"); %>
-		}
+    
 		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
 		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
@@ -59,7 +67,7 @@
        <div id="search">
            <button id="searchBtn" type="button">
 	       	   <form id="classSearchForm" action="searchClass.c" method="get">
-	               <input id="seachClass" type="text" name="searchClassName" placeholder="학교 / 클래스 / 선생님 검색">
+	               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 학교 / 클래스 / 선생님을 검색해주세요">
 	               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
        	   		</form>
            </button>

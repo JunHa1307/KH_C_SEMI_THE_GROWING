@@ -50,13 +50,22 @@
    	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
        
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/button.css">
 <script src="<%= contextPath %>/resources/js/alert.js"></script>
 
-	<!--  alret 창 -->
+
+	<!--  alert 창 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
+   
     
     <style>
+    #headerWrap{
+	width:100%;
+	height:100px;
+	background: white;
+}
+    
+    
     .dropdown-toggle::after {
     display:none;
 }
@@ -66,7 +75,9 @@
 		overflow: auto;
 	}
     
-  /* 버튼 css */
+  /* /* 버튼 css */
+
+  
  .box {
    display: flex;
    background: #ffffff;
@@ -86,7 +97,7 @@
 } 
 
 .button_UI :active {
-   color: rgb(137, 180, 166);
+   color: rgb(154, 187, 196);
 }
 
 .button_UI:focus {
@@ -110,7 +121,7 @@
    top: 0;
    left: 0;
    opacity: 0;
-   color: rgb(137, 180, 166);
+   color: rgb(154, 187, 196);
    font-weight: 600;
    -webkit-transform: translate3d(0, 25%, 0);
    transform: translate3d(0, 25%, 0);
@@ -126,7 +137,7 @@
 } 
 
 .button--winona:hover {
-   border-color: rgb(137, 180, 166);
+   border-color: rgb(154, 187, 196);
    background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -176,7 +187,7 @@
    
    
    
-   
+    */
    
    
 
@@ -431,7 +442,6 @@ vertical-align: middle;
       background-color: white;
       top: 260px;
       border-radius: 10px;
-      max-width: 150px;
       width: 239px;
    height: 700px;
    position: fixed;
@@ -572,7 +582,7 @@ vertical-align: middle;
               $(function(){
                   $(".board_li").click(function(){
                       $(this).css("fontWeight","700").fadeIn(1000);
-                      $(this).children().css("background","rgb(239, 243, 239)");
+                      $(this).children().css("background","rgb(237, 239, 243)");
                       $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
                       $(this).siblings().children().css("background","");
                   
@@ -603,7 +613,7 @@ vertical-align: middle;
                  });
                  
                  $("#mypage").click(function(){
-                    location.href="<%=contextPath%>/info.c";
+                    location.href="<%=contextPath%>/myPage.me";
                  });
                  
                  $("#hamburgur>img").click(function() {
@@ -664,15 +674,16 @@ vertical-align: middle;
 </head>
 <body>
 <script>
-	const msg = "<%= alertMsg  %>";
+	let msg = "<%= alertMsg  %>";
 	
-	if(msg != "null"){
-		alertMsg(msg);
-		<% session.removeAttribute("alertMsg"); %>
-	}
 
-	window.onbeforeunload = function(){
-		<% session.removeAttribute("alertMsg"); %>
+	window.onpageshow = function(event) {
+	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	    	  msg = "null";
+	    }else if(msg != "null"){
+			alertMsg(msg);
+			<% session.removeAttribute("alertMsg"); %>
+	    }
 	}
 
 	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);
@@ -686,7 +697,7 @@ vertical-align: middle;
             <div id="search">
                 <button id="searchBtn" type="button">
                     <form id="classSearchForm" action="searchClass.c" method="get">
-		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 학교 / 클래스 / 선생님을 검색해주세요">
 		               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
 	       	   		</form>
                 </button>
@@ -717,7 +728,7 @@ vertical-align: middle;
             </div>
             <div id="classInfo">
      
-                <div class="info_text big"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassGrade()%>학년 <%=cInfo.getClassName() %>반</div>
+                <div class="info_text big"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassGrade()%>학년 <%=cInfo.getClassName() %></div>
                 <div class="info_text small">담임 : <%=cInfo.getTeacherName() %> 선생님</div>
                 <div class="info_text small"> 학급 수 : <%=cInfo.getUserCount() %></div>  
               

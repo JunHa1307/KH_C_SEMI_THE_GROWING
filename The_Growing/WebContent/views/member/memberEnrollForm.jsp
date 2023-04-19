@@ -372,9 +372,11 @@ cursor: pointer;
 		
 		
 	<div id="header">
+
 		<br>
 		<div style="font-size: 20px; color: gray;">Scroll & Click</div>
 		<br><br>
+
 		<h1 id="goFirst" style="color:black; font-weight: 900; margin-bottom: 10px;" onmouseover="randomRGB();">THE GROWING</h1>
 		
 		<br><br><br><br><br>
@@ -465,6 +467,7 @@ cursor: pointer;
 		}).dblclick(function(){
 			dbclick = true;
 			$(".snip1361").removeClass("click");
+
 			setTimeout(function(){
 				dbclick=false
 			}, 500)
@@ -482,7 +485,7 @@ cursor: pointer;
 		        $(".snip1361").addClass("click");
 		    }
 		});
-		
+
 		
 /* 		$(".hover").click(function(){
 			$(this).removeClass("hover");

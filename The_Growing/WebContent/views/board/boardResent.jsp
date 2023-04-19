@@ -85,10 +85,13 @@
 	width: 80%;
 	height: 30px;
 	border-radius: 50px;
-	margin: auto;
+	margin: 0 auto;
 	padding-top: 3px;
 	font-weight:500;
 	box-shadow: 0px 8px 6px -6px #666;
+		display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #notice {
@@ -134,7 +137,7 @@
 	font-weight :300;
 }
 #user{
-	font-size:14px;
+	font-size:0.8vw;
 	font-weight:500;
 	 overflow: hidden;
   text-overflow: ellipsis;
@@ -150,6 +153,14 @@
 }
 #topRightRadius{
 	border-top-right-radius: 10px;
+	
+}
+.titleOver {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+	
+	margin: 0;
 	
 }
 
@@ -170,7 +181,7 @@
 			<table class="list-area" align="center">
 			<thead id="tableHead" >
 				<tr>
-					<th width="100" id="topLeftRadius">글번호</th>
+					<th width="100" id="topLeftRadius">번호</th>
 					<th width="150">카테고리</th>
 					<th width="300">제목</th>
 					<th width="150">작성자</th>
@@ -213,9 +224,9 @@
 							<td>	<div class="type" id="free">자유게시판</div></td>
 						<%} %>
 					
-						<td><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span><div id="title" onclick="count(<%=list.get(i).getBoardNo() %>);"></div></td>
+						<td ><p class="titleOver"><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
 						<td id="user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
-						<td id="cDate" ><%=list.get(i).getCreateDate() %>
+						<td id="cDate" ><%=list.get(i).getCreateDate() %>	
 					</tr>
 				<%} %>
 			<%} %>
@@ -225,6 +236,10 @@
 		
 			<script>
 	 	$(function(){ 
+	 		 $("#board_recent").css("fontWeight", "700");
+	          $("#board_recent").children().css("background", "rgb(237, 239, 243)");
+	 		
+	 		
 			 $(".list-area>tbody>tr").click(function(){
 				// 클릭시 해당 공지사항의 글번호를 알아야함
 				// tr요소의 자손중에서 첫번째 td태그의 영역안의 내용을 가져올 예정

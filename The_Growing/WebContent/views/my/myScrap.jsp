@@ -164,6 +164,7 @@ div.rgyPostIt > p > a {
 }
 
 </style>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Naum+Pen+Script&display=swap" rel="stylesheet">
@@ -214,6 +215,10 @@ div.rgyPostIt > p > a {
 	</div>
 	
 	<script>
+	 $("#myScrap").css("fontWeight", "700");
+     $("#myScrap").children().css("background", "rgb(237, 239, 243)");
+	
+	
 		function goScrapBoard(boardType, bno){
 			if(boardType==3){
 				location.href="<%= contextPath %>/list.al?bno="+bno;
@@ -254,8 +259,6 @@ div.rgyPostIt > p > a {
 	 	
 	 	};
 	</script>
-	<script>
-	  AOS.init();
-	</script>
+
 </body>
 </html>

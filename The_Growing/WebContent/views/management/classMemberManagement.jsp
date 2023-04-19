@@ -79,6 +79,7 @@
 	font-weight: 550;
 	margin: 0;
 	height: 35px;
+	box-shadow: 0px 8px 6px -6px #666;
 }
 
 
@@ -116,6 +117,7 @@
 	height: 40px;
 	font-weight: 550;
 	margin: 0;
+	box-shadow: 0px 8px 6px -6px #666;
 }
 .modal-body>table{
 	margin: auto;
@@ -316,6 +318,9 @@
 </div> -->
 	<script>
 	$(function(){
+		$("#board_manage").css("fontWeight", "700");
+		$("#board_manage").children().css("background", "rgb(237, 239, 243)");
+		
 		$(".update").click(function(){
 			let uno = $(this).data("uno");
 			$(".detailUno").attr("value",uno);

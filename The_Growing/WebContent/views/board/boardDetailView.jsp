@@ -40,31 +40,32 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 	background-color: rgb(244, 247, 247);
 	border-style: none;
 	margin: 10px;
-	width: 50px;
-	height: 50px;
+	min-width: 30px;
+	min-height: 30px;
+	width:2vw;
+	height:2vw;
 	border-radius: 50%;
 	
 }
 #lock_btn:hover {
 	background-color: rgb(233, 233, 231);
 	border-style: none;
-	width: 50px;
-	height: 50px;
+	min-width: 30px;
+	min-height: 30px;
+	width:2vw;
+	height:2vw;
+	margin: 10px;
 	border-radius: 50%;
 	
 }
 
 
-#profile_img {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	float: left;
-}
 
 #lock_img {
-	width: 35px;
-	height: 35px;
+	min-width: 20px;
+	min-height: 20px;
+	width:1.5vw;
+	height:1.5vw;
 	
 }
 
@@ -174,7 +175,7 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 }
 
 .mo_reply_text {
-	width: 70%;
+	width: 74%;
 	word-break: break-all;
 	overflow-y: scroll;
 	position: absolute;
@@ -195,7 +196,7 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 .mo_reply_id {
 	width: 90px;
 	text-align: center;
-	font-size: 15px;
+	font-size: 13px;
 	font-weight: 600;
 	height: 30px;
 }
@@ -340,7 +341,7 @@ font-size:30px;
 				<div id="album_button">
 					<a style="color: black;"
 						href="<%=contextPath%>/insert.fr?boardType=<%=boardType%>">
-						<button class="button_UI button--winona" data-text="글 등록">
+						<button class="button_UI button--winona" data-text="글 등록" style="width:100%;">
 							<span>글 등록</span>
 						</button>
 
@@ -382,11 +383,27 @@ font-size:30px;
 
 				<script>
 					$("#deleteBoard").click(function(){
-						if(!confirm("정말 삭제하시겠습니까?")){
-							return;
-						}
+						 Swal.fire({
+			                 title: '게시물을 삭제하시겠습니까?',
+			                 text: "삭제된 게시물은 다시 볼 수 없습니다.",
+			                 icon: 'warning',
+			                 showCancelButton: true,
+			                 confirmButtonColor: '#3085d6',
+			                 cancelButtonColor: '#d33',
+			                 confirmButtonText: '삭제',
+			                 cancelButtonText: '취소'
+			             }).then((result) => {
+			                 if (result.isConfirmed) {
+			                	 
+			                     Swal.fire(
+			                         '삭제가 완료되었습니다.'
+			                     )
+			                     setTimeout(() =>  location.href='<%=contextPath%>/delete.fr?bno=<%=b.getBoardNo()%>&boardType=<%=b.getBoardType()%>', 1000);
+			                    
+			                 }
+			                 
+			             })
 						
-						location.href = "<%=contextPath%>/delete.fr?bno=<%=b.getBoardNo()%>&boardType=<%=b.getBoardType()%>"
 					});
 											
 				</script>
@@ -400,7 +417,7 @@ font-size:30px;
 						onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 				</div>
 				<div style="padding-left: 10px; height: 50px;">
-					<p style="font-size: 17px;"><%=b.getUserId()%></p>
+					<p style="font-size: 17px;"><%=b.getUserName()%><%=b.getUserLevel() == 1 ? "선생님" :  b.getUserLevel() == 2 ? "학부모" : "학생" %></p>
 					<p style="font-size: 13px; color: grey;"><%=b.getcDate()%></p>
 
 				</div>
@@ -440,7 +457,7 @@ font-size:30px;
 			<div class="mo_reply_content">
 			<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {%>
 			
-			<div class="dropdown" style="float: right; margin-top: -4%;">
+			<div class="dropdown" style="float: right; margin-top: -3%;">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
@@ -464,7 +481,7 @@ font-size:30px;
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%><img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
 			</div>
@@ -499,7 +516,7 @@ font-size:30px;
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%></div>
 			</div>
@@ -553,11 +570,11 @@ font-size:30px;
 		$(function(){
 			if(<%=boardType == 4 %>){
 			  $("#board_free").css("fontWeight", "700");
-              $("#board_free").children().css("background", "rgb(239, 243, 239)");
+              $("#board_free").children().css("background", "rgb(237, 239, 243)");
 			}else if(<%=boardType == 5 %>) {
 				
 				  $("#board_counsel").css("fontWeight", "700");
-	              $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+	              $("#board_counsel").children().css("background", "rgb(237, 239, 243)");
 			}
 			
 		<%-- 	
@@ -581,7 +598,7 @@ font-size:30px;
    					 $("#chat_count").html(list);
    				},
    				error: function(){
-   					console.log("게시글 목록조회 실패")
+   					error();
    				}
         	});  
          	 $.ajax({
@@ -602,7 +619,7 @@ font-size:30px;
  					 
  				},
  				error: function(){
- 					console.log("게시글 목록조회 실패")
+ 					error();
  				}
      	});
          	  let j = 0;
@@ -648,7 +665,7 @@ font-size:30px;
       					 
       				},
       				error: function(){
-      					console.log("게시글 목록조회 실패")
+      					error();
       				}
           	});
            	};
@@ -696,7 +713,7 @@ font-size:30px;
 			   					
 			   				},
 			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
+			   					error();
 			   				}
 			        	});
 						$.ajax({
@@ -706,66 +723,92 @@ font-size:30px;
 			   					 $("#chat_count").html(list);
 			   				},
 			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
+			   					error();
 			   				}
 			        	}); 
 						$("#lock_btn").data("lock","N");
 						$("#lock_btn").css("background", "");
 						
 					} else {
-						alert("댓글작성에 실패했습니다");
+						error("댓글 작성에 실패하였습니다.");
 
 					}
 				},
 				error : function() {
-					console.log("댓글 작성 실패")
+					error("댓글 작성에 실패하였습니다.");
 				}
 			});
    			
 		});
            
-<%--            $(".deleteReply").click(function(){
+ $(".deleteReply").click(function(){
 				let rno = $(this).data('rno'); 
+				let bno = $(this).data('bno'); 
+				
+				 Swal.fire({
+	                 title: '댓글을 삭제하시겠습니까?',
+	                 text: "",
+	                 icon: 'warning',
+	                 showCancelButton: true,
+	                 confirmButtonColor: '#3085d6',
+	                 cancelButtonColor: '#d33',
+	                 confirmButtonText: '삭제',
+	                 cancelButtonText: '취소'
+	             }).then((result) => {
+	                 if (result.isConfirmed) {
+	                	 
 				$.ajax({
 	   				url : "<%=contextPath%>/rDelete.bo",
 	   				data : { rno},
 	   				type : "get",
 	   				success : function(result){
-	   					if(result>0){
-	   					$.ajax({
-			   				url : "<%=contextPath%>/rlist.bo",
-			   				data : { bno :<%=b.getBoardNo()%>},
-			   				type : "get",
-							dataType : "html", 
-			   				success : function(list){
-			   					 $(".mo_reply").html(list); 
-			   					
-			   				},
-			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
-			   				}
-			        	});
-						$.ajax({
-			   				url : "<%=contextPath%>/rCount.bo",
-			   				data : { bno : <%=b.getBoardNo()%>},
-			   				success : function(list){
-			   					 $("#chat_count").html(list);
-			   				},
-			   				error: function(){
-			   					console.log("게시글 목록조회 실패")
-			   				}
-			        	}); 
-	   					}else {
-							alert("댓글삭제에 실패했습니다");
-
-						}
+	   					Swal.fire(
+		                         '삭제가 완료되었습니다.'
+		                     )
+			   					 /* albumClick(bno);  */
+			   			 		if(result>0){
+			   					$.ajax({
+					   				url : "<%=contextPath%>/rlist.bo",
+					   				data : { bno :bno},
+					   				type : "get",
+									dataType : "html", 
+					   				success : function(list){
+					   					 $(".mo_reply").html(list); 
+					   					
+					   				},
+					   				error: function(){
+					   					error();
+					   				}
+					        	});
+								$.ajax({
+					   				url : "<%=contextPath%>/rCount.bo",
+					   				data : { bno : bno},
+					   				success : function(list){
+					   					 $("#chat_count").html(list);
+					   					
+					   				},
+					   				error: function(){
+					   					error();
+					   				}
+					        	});   
+			   					}else {
+									error("댓글삭제에 실패했습니다");
+		
+								} 
 	   					
 	   				},
 	   				error: function(){
-	   					console.log("게시글 목록조회 실패")
+	   					error();
 	   				}
-	        		});
-			});  --%>
+        		});
+	                     
+	                    
+	                 }
+	                 
+	             })
+			
+			});
+	 
 	
 			/* 스크랩 */
 			$(function(){
@@ -805,7 +848,7 @@ font-size:30px;
 	     					
 	     			},
 	     			error: function(){
-	     				console.log("게시글 스크랩 실패");
+	     				error("게시글 스크랩에 실패하였습니다.");
 	     			}
 	     			
 	     		});

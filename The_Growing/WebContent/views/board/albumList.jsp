@@ -22,6 +22,20 @@
 
 
 <style>
+@keyframes post-ani {
+    25% {
+        transform: rotate(2deg) scale(1.01);
+    }
+ 
+    50% {
+        transform: rotate(0deg) scale(1);
+    }
+ 
+    75% {
+        transform: rotate(-2deg) scale(1.01);
+    }
+}
+
 
 /* 좋아요 하트 */
 .heart {
@@ -75,7 +89,12 @@ div {
 	margin-bottom:8px;
 	box-shadow: 0px 8px 6px -6px #666;
 	
+	
 	/* background-color: bisque; */
+}
+.album_con1:hover{
+opacity: 0.9;
+	animation: post-ani 0.8s linear 1;
 }
 
 .album_con_title {
@@ -90,8 +109,10 @@ div {
 	/* background-color: aqua; */
 }
 
-.album_con_title>p:hover {
-	font-weight: 700;
+
+.album_con_title>p{
+	overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .album_con_file {
@@ -304,6 +325,7 @@ div {
 	text-align:center;
 	font-weight: 600;
 	padding-left:20px;
+	font-size:13px;
 }
 
 #mo_writer_date {
@@ -336,7 +358,7 @@ div {
 
 .mo_reply_profile {
 	width: 30%;
-	padding-left: 5%;
+	padding-left: 3%;
 }
 
 .mo_reply_profileImg {
@@ -344,6 +366,7 @@ div {
 	height: 65px;
 	border-radius: 100%;
 	overflow: hidden;
+	margin-left:6%;
 }
 
 .mo_reply_profileImg>img {
@@ -372,11 +395,11 @@ div {
 }
 
 .mo_reply_id {
-	width: 70px;
-	
+	width: 90px;
 	text-align:center;
 	font-size: smaller;
 	font-weight: 600;
+	margin-right:5px;
 }
 
 .mo_reply_date {
@@ -567,7 +590,7 @@ div {
 				<div class= "album_con_user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></div>
 				<div class="album_con_date_count">
 					<div id="aDate" ><%=list.get(i).getcDate()%></div>
-					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:25%; width:0.8vw; height:0.8vw; min-width:10px; min-height:10px"><%=list.get(i).getCount() %></div>
+					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:20%; width:0.8vw; height:0.8vw; min-width:8px; min-height:8px"><%=list.get(i).getCount() %></div>
 					
 					</div>
 				
@@ -594,92 +617,16 @@ div {
 		</div>
 		<div id="mo_write">
 		<div id="mo_write_inner">
-			<!-- <div id="mo_write_wrap">
-				<div id="mo_title">봄이 왔어요</div>
- 				<div id="mo_date">23.03.01</div>
-			</div>
-			<div class="mo_reply_hr">
-				<hr>
-			</div>
-			<div id="mo_writer">
-				<div id="mo_writer_content">
-					<div id="mo_writer_profile">
-						<div id="mo_writer_profileImg">
-							<img src="/resources/image/bono.jpg">
-						</div>
-					</div>
-					<div id="mo_writer_text">따듯한 날씨에 핀 꽃들입니다</div>
-				</div>
-				<div id="mo_writer_content2">
-					<div id="mo_writer_id">문동은 선생님</div>
-					<div id="mo_writer_date">23.03.23 11:06</div>
-				</div>
-				<div class="mo_reply_hr">
-					<hr>
-				</div>
-			</div>   -->
 </div>
 			<!-- 댓글란 -->
 
 			<div class="mo_reply_wrap" style="overflow-y: scroll;">
-				<%--     <%if(rlist.isEmpty()) {%>
-            <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                </div>
-                <div class="mo_reply_text">조회된 댓글이 없습니다 </div>
-              </div>
-              <div class="mo_reply_content2">
-              <!--   <div class="mo_reply_id">하예솔 학생</div>
-                <div class="mo_reply_date" >23.03.23 15:27</div> -->
-              </div>
-            </div>
-            <%}else{ %> --%>
-				<%--    	<%for(Reply r : rlist){ %>
-            <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text"><%=r.getReplyContent()%></div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id"><%=r.getReplyWriter() %></div>
-                <div class="mo_reply_date" ><%=r.getCreateDate() %></div>
-              </div>
-            </div>
-            	<%} %> --%>
-
-				<%-- <%} %>   --%>
+				
 
 
 				<div class="mo_reply"></div>
 			</div>
-			<!--    <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text">fff 늘 수고가 많으세요^^</div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id">박연진 부모</div>
-                <div class="mo_reply_date" >23.03.23 16:47</div>
-              </div>
-            </div>
-            <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text">ddd 늘 수고가 많으세요^^</div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id">박연진 부모</div>
-                <div class="mo_reply_date" >23.03.23 16:47</div>
-              </div>
-            </div>
-          </div> -->
+			
 
 
 			<div id="mo_reply_write">
@@ -759,7 +706,7 @@ div {
    
    		// 목록 클릭 시 css 
           $("#board_album").css("fontWeight", "700");
-          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+          $("#board_album").children().css("background", "rgb(237, 239, 243)");
        
           });
 
@@ -822,7 +769,7 @@ div {
   									'</div></div>'+
   								'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
   							'<div id="mo_writer_content2">'+
-  								'<div id="mo_writer_id">'+b.userName+'</div>'+
+  								'<div id="mo_writer_id">'+b.userName+" "+(b.userLevel == 1 ? "선생님" : b.userLevel == 2 ? "학부모" : "학생")+'</div>'+
   								'<div id="mo_writer_date" class="grey">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>'; 
   				 	}else{
   				 	  result  += 
@@ -838,7 +785,7 @@ div {
 								'</div></div>'+
 							'<div id="mo_writer_text">'+b.boardContent+'</div></div>'+
 						'<div id="mo_writer_content2">'+
-							'<div id="mo_writer_id">'+b.userId+'</div>'+
+							'<div id="mo_writer_id">'+b.userName+" "+(b.userLevel == 1 ? "선생님" : b.userLevel == 2 ? "학부모" : "학생")+'</div>'+
 							'<div id="mo_writer_date">'+b.cDate+'</div></div><div class="mo_reply_hr"><hr></div></div>';
   				 		
   				 	}
@@ -923,7 +870,7 @@ div {
             }
         });
         
-     /*        let j = 0;
+             let j = 0;
         $('.scrap').on('click',function(){
             if(j==0){
                 $('.bi-star').css({color : "orange", fontSize : "30px"});
@@ -933,7 +880,7 @@ div {
                 j--;
             }
 
-        }); */
+        }); 
 
         $('.chat').on('click',function(){
               $('#mo_reply_textarea').focus();
@@ -978,13 +925,6 @@ div {
 
         
         
-        $('.button_UI').on('click',function(){
-          if($(this).css('color')=='rgb(137, 180, 166)'){
-            $(this).css('color', "black" );
-          }else{
-            ($(this).css('color','rgb(137, 180, 166)'));
-          }
-        });
         
         
         $("#album_Enroll").click(function () {
@@ -1146,7 +1086,9 @@ div {
                      Swal.fire(
                          '삭제가 완료되었습니다.'
                      )
-                     setTimeout(() =>  location.href="/growing/delete.al?bno="+bno, 1000);
+
+                     setTimeout(() =>  location.href="<%=contextPath%>/delete.al?bno="+bno, 1000);
+
                     
                  }
                  
