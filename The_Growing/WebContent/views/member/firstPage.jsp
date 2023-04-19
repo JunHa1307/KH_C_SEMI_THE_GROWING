@@ -227,7 +227,7 @@
 		
 		.outline span:nth-child(1) {left: 0; top: 180px; width: 0; height: 5px; }
 		.outline span:nth-child(2) {left: 500px; top: 180px; bottom: 180px; width: 5px; height: 0;}
-		.outline span:nth-child(3) {right: 0; bottom: 155px; width: 0; height: 5px; }
+		.outline span:nth-child(3) {right: 0; bottom: 157px; width: 0; height: 5px; }
 		
 		.outline:hover span:nth-child(1) {width: 100%;}
 		.outline:hover span:nth-child(2) {height: 100%;}
@@ -260,6 +260,72 @@
 			border: none;
 			border-radius: 20px;
 		}
+		
+		/* 화면 작아질때 */
+	@media only screen and (max-width: 780px) {
+		#logo_img{
+			width:1vw; 
+			min-width:200px;
+			
+		}
+		#logo_txt{
+			display: none;
+		}
+		.outline span:nth-child(2) {
+			display: none;
+		}
+		.backgroundW{
+		    margin-top: 0px;
+			width: 200px;
+			height: 120px;
+		}
+		.backgroundW>h1{
+			font-size: 16px;
+		}
+		#developerW{
+			font-size: 10px;
+			font-weight: middle;
+		}
+		#gitBtn{
+			float:right;
+			
+		}
+		.c_btn{
+			width: 200px;
+			height: 120px;
+			margin-top: 350px;
+			margin-left: 0px;
+			position: absolute;
+			
+		}
+		.backgroundW{
+			display : none;
+		}
+		.mainDt{
+			color: white;
+			background-color: black;
+			border-radius: 5px;
+		}
+		.btnWrap{
+			position: absolute;
+			margin : 0px;
+			margin-left: 30px;
+			top: 230px;
+		}
+		#teacher{
+			top: 0px;
+			left: 0px;
+		}
+		#parent{
+			top: 120px;
+			right:80px;
+		}
+		#student{
+			bottom:300px;
+			left:0px;
+		}
+
+	}
     </style>
 </head>
 
