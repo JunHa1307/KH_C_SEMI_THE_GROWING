@@ -674,21 +674,16 @@ vertical-align: middle;
 </head>
 <body>
 <script>
-	const msg = "<%= alertMsg  %>";
+	let msg = "<%= alertMsg  %>";
 	
 
-	if(msg != "null" && msg != ""){
-
-		alertMsg(msg);
-		<% session.removeAttribute("alertMsg"); %>
-		msg="";
-	}
-
-	window.onbeforeunload = function(){
-		<% session.removeAttribute("alertMsg"); %>
-
-		msg=null;
-
+	window.onpageshow = function(event) {
+	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	    	  msg = "null";
+	    }else if(msg != "null"){
+			alertMsg(msg);
+			<% session.removeAttribute("alertMsg"); %>
+	    }
 	}
 
 	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);

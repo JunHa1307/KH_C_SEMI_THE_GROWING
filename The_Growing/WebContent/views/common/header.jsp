@@ -44,16 +44,18 @@
 </head>
 <body>
 	<script>
-		const msg = "<%= alertMsg  %>";
 		
-		if(msg != "null"){
-			alertMsg(msg);
-			<% session.removeAttribute("alertMsg"); %>
+		let msg = "<%= alertMsg  %>";
+		
+		window.onpageshow = function(event) {
+		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+		    	  msg = "null";
+		    }else if(msg != "null"){
+				alertMsg(msg);
+				<% session.removeAttribute("alertMsg"); %>
+		    }
 		}
-		window.onbeforeunload = function(){
-			<% session.removeAttribute("alertMsg"); %>
-		}
-
+    
 		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
 		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>
