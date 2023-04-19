@@ -14,12 +14,6 @@
  function error(word) {
                      Swal.fire({
                          icon: 'error',                        
-
-                         title: '에러 발생',         
-                         text: word, 
-                     });
-                 };
-
                          title: 'ERROR',         
                          text: word, 
                          

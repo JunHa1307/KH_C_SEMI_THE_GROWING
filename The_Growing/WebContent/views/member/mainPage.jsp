@@ -503,8 +503,10 @@
 	 	
        	let cData = <%= calendarList %>;
         calendar(
-        		<% if(calendarList.size() == 0 && calendarList.get(0).toString().equals("{}")) {%>
-        		JSON.parse(cData[index]),
+        		<% if(calendarList.size() == 0) { %>
+        		{},
+        		<% } else if( calendarList.get(0).toString().equals("{}")) {%>
+        		JSON.parse(cData[index]),        		
         		<% } else {%>
         		cData[index],
         		<% }%>
