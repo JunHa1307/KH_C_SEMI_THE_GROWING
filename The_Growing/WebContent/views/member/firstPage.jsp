@@ -11,7 +11,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>첫 화면</title>
+    <title>The Growing</title>
+	<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
@@ -193,6 +194,8 @@
         .mainTitle{
         	font-size: 30px;
         	font-weight: bold; 
+        	position: relative;
+        	top: -40px;
         }
         @keyframes ball {
 		  0% {

@@ -10,8 +10,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 폼</title>
-
+<title>The Growing</title>
+<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
