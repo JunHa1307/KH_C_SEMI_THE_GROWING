@@ -184,14 +184,14 @@
                     success:function(result){
                        if(result != 'Fail'){
                           
-                             alert("설문을 종료했습니다.");
+                             alertMsg("설문을 종료했습니다.");
                              location.reload();
                        }else{
-                          alert("설문 종료 실패");
+                          error("설문 종료 실패");
                        }
                     },
                     error:function(error,status,msg){
-                       alert("상태코드 " + status + "에러메시지" + msg );
+                       error("상태코드 " + status + "에러메시지" + msg );
                     }
                  });
     		});

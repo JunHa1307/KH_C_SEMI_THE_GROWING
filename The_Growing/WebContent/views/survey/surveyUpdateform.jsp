@@ -31,6 +31,11 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
 	rel="stylesheet">
+	
+<!--  alert 창 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<%= request.getContextPath() %>/resources/js/alert.js"></script>
+
 <link rel="stylesheet"
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
 </head>
@@ -99,7 +104,7 @@
 								</tr>
 								<% for(int j = 0; j < Integer.parseInt(ques.getItemNo()[m].replace(" ","")); j++){ %>
 								<tr>
-									<td align="center"><input type="radio" name="mCheck<%= m %>" value="<%= j %>"></td>
+									<td align="center"><input type="radio" name="mCheck" value="<%= j %>"></td>
 									<td colspan="3"><input type="text" name="itemContent" value="<%= ques.getItemContent()[item] %>" ><br></td>
 								</tr>
 								<% item++; %>
@@ -146,45 +151,51 @@
 					data-text="수정">수정</button>
 			</div>  
 			<script>
-						$(function() {
-							$(".item_plus").click(function() {
-								let item = "<tr >"
-										+ "<td align='center'><input type='radio' name='mCheck'></td>"
-										+ "<td colspan='3'><input type='text' name='itemContent' size='55' placeholder='항목 내용을 입력해주세요' required><br></td>"
-										+ "</tr>";
-								$(this).parents('div').siblings('table').find("tr:last").after(item);
-							});
-							$(".item_minus").click(function() {
-								if($(this).parents('div').siblings('table').find("input[name=mCheck]").length > 2) {
-									$(this).parents('div').siblings('table').find("tr:last").remove();
-								}else {
-									alert("항목은 2개 이하로 삭제할 수 없습니다.");
-								}
-							});
-							$(".item_plus, .item_minus").on("click",function(){
-								console.log($(this).parents('.multiple').find('input[name=itemContent]'));
-								$(this).parents('.multiple').find('input[name=itemCheck]').attr("value",
-										$(this).parents('.multiple').find('input[name=itemContent]').length);
-							})
-						});
-					</script>
-		<script>
-			$(function() {
-				$(".m_plus").click(function() {
-					$("#insert-su").append($(".multiple").eq(0).clone(true));
+				let multipleQues = $(".multiple").eq(0).html();
+				let shortQues = $(".short").eq(0).html();
+				$(function() {
+					$(".m_plus").click(function() {
+						$("#insert-su").append("<div class='multiple'>"+multipleQues+"</div>");
+						clickEvent();
+					});
+					$(".s_plus").click(function() {
+						$("#insert-su").append("<div class='short'>"+shortQues+"</div>");
+					});
+					$(".m_minus").click(function() {
+						if($("#insert-su>div").length > 1){
+							$("#insert-su>div").eq($("#insert-su>div").length-1).remove();						
+						}else {
+							error("질문은 0개 이하로 삭제할 수 없습니다.");
+						}
+					});
+					clickEvent();
 				});
-				$(".s_plus").click(function() {
-					$("#insert-su").append($(".short").eq(0).clone(true));
-				});
-				$(".m_minus").click(function() {
-					if($("#insert-su>div").length > 3){
-						$("#insert-su>div").eq($("#insert-su>div").length-1).remove();						
-					}else {
-						alert("질문은 2개 이하로 삭제할 수 없습니다.");
-					}
-				});
-			})
-		</script>
+				
+				function clickEvent(){
+					$(".item_plus").off("click");
+					$(".item_minus").off("click");
+					$(".item_plus, .item_minus").off("click");
+					$(".item_plus").click(function() {
+						let item = "<tr >"
+								+ "<td align='center'><input type='radio' name='mCheck'></td>"
+								+ "<td colspan='3'><input type='text' name='itemContent' size='55' placeholder='항목 내용을 입력해주세요' required><br></td>"
+								+ "</tr>";
+						$(this).parents('div').siblings('table').find("tr:last").after(item);
+					});
+					$(".item_minus").click(function() {
+						if($(this).parents('div').siblings('table').find("input[name=mCheck]").length > 2) {
+							$(this).parents('div').siblings('table').find("tr:last").remove();
+						}else {
+							error("항목은 2개 이하로 삭제할 수 없습니다.");
+						}
+					});
+					$(".item_plus, .item_minus").on("click",function(){
+						console.log($(this).parents('.multiple').find('input[name=itemContent]'));
+						$(this).parents('.multiple').find('input[name=itemCheck]').attr("value",
+								$(this).parents('.multiple').find('input[name=itemContent]').length);
+					});
+				}
+			</script>
 		</form>
 	</div>
 </body>
