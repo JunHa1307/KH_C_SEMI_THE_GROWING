@@ -65,14 +65,14 @@
 <body>
 	<div id="s3">
 		<button type="button" class="m_plus button_UI button--winona"
-					data-text="객관식 추가">객관식 추가</button>
+					data-text="객관식 추가"><span>객관식 추가</span></button>
 			<div>
 				<button style="margin-top: 10px;"type="button" class="s_plus button_UI button--winona"
-					data-text="주관식 추가">주관식 추가</button>
+					data-text="주관식 추가"><span>주관식 추가</span></button>
 			</div>
 			<div>
 				<button style="margin-top: 10px;" type="button" class="m_minus button_UI button--winona"
-					data-text="질문 삭제">질문 삭제</button>
+					data-text="질문 삭제"><span>질문 삭제</span></button>
 			</div>
 			
 	</div>
@@ -136,9 +136,9 @@
 					</table>
 					<div id="button_align" >
 						<button type="button" class="item_plus button_UI button--winona"
-							data-text="항목 추가">항목 추가</button>
+							data-text="항목 추가"><span>항목 추가</span></button>
 						<button type="button" class="item_minus button_UI button--winona"
-							data-text="항목 삭제">항목 삭제</button>
+							data-text="항목 삭제"><span>항목 삭제</span></button>
 					</div>
 				</div>
 				
@@ -164,7 +164,7 @@
 			</div>
 		  	<div id="bu_align">
 				<button type="submit" class=" button_UI button--winona"
-					data-text="등록">등록</button>
+					data-text="등록"><span>등록</span></button>
 			</div>  
 		</form>
 	</div>

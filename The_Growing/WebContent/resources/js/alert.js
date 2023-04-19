@@ -22,6 +22,7 @@
 
                          title: 'ERROR',         
                          text: word, 
+                         
                      });
                  };
                  

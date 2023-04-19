@@ -109,8 +109,10 @@ opacity: 0.9;
 	/* background-color: aqua; */
 }
 
-.album_con_title>p:hover {
-	font-weight: 700;
+
+.album_con_title>p{
+	overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .album_con_file {
@@ -615,92 +617,16 @@ opacity: 0.9;
 		</div>
 		<div id="mo_write">
 		<div id="mo_write_inner">
-			<!-- <div id="mo_write_wrap">
-				<div id="mo_title">봄이 왔어요</div>
- 				<div id="mo_date">23.03.01</div>
-			</div>
-			<div class="mo_reply_hr">
-				<hr>
-			</div>
-			<div id="mo_writer">
-				<div id="mo_writer_content">
-					<div id="mo_writer_profile">
-						<div id="mo_writer_profileImg">
-							<img src="/resources/image/bono.jpg">
-						</div>
-					</div>
-					<div id="mo_writer_text">따듯한 날씨에 핀 꽃들입니다</div>
-				</div>
-				<div id="mo_writer_content2">
-					<div id="mo_writer_id">문동은 선생님</div>
-					<div id="mo_writer_date">23.03.23 11:06</div>
-				</div>
-				<div class="mo_reply_hr">
-					<hr>
-				</div>
-			</div>   -->
 </div>
 			<!-- 댓글란 -->
 
 			<div class="mo_reply_wrap" style="overflow-y: scroll;">
-				<%--     <%if(rlist.isEmpty()) {%>
-            <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                </div>
-                <div class="mo_reply_text">조회된 댓글이 없습니다 </div>
-              </div>
-              <div class="mo_reply_content2">
-              <!--   <div class="mo_reply_id">하예솔 학생</div>
-                <div class="mo_reply_date" >23.03.23 15:27</div> -->
-              </div>
-            </div>
-            <%}else{ %> --%>
-				<%--    	<%for(Reply r : rlist){ %>
-            <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text"><%=r.getReplyContent()%></div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id"><%=r.getReplyWriter() %></div>
-                <div class="mo_reply_date" ><%=r.getCreateDate() %></div>
-              </div>
-            </div>
-            	<%} %> --%>
-
-				<%-- <%} %>   --%>
+				
 
 
 				<div class="mo_reply"></div>
 			</div>
-			<!--    <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text">fff 늘 수고가 많으세요^^</div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id">박연진 부모</div>
-                <div class="mo_reply_date" >23.03.23 16:47</div>
-              </div>
-            </div>
-            <div class="mo_reply">
-              <div class="mo_reply_content">
-                <div class="mo_reply_profile">
-                  <div class="mo_reply_profileImg"><img src="/resources/image/bono.jpg"></div>
-                </div>
-                <div class="mo_reply_text">ddd 늘 수고가 많으세요^^</div>
-              </div>
-              <div class="mo_reply_content2">
-                <div class="mo_reply_id">박연진 부모</div>
-                <div class="mo_reply_date" >23.03.23 16:47</div>
-              </div>
-            </div>
-          </div> -->
+			
 
 
 			<div id="mo_reply_write">
@@ -999,13 +925,6 @@ opacity: 0.9;
 
         
         
-        $('.button_UI').on('click',function(){
-          if($(this).css('color')=='rgb(137, 180, 166)'){
-            $(this).css('color', "black" );
-          }else{
-            ($(this).css('color','rgb(137, 180, 166)'));
-          }
-        });
         
         
         $("#album_Enroll").click(function () {

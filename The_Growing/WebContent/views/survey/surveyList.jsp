@@ -39,11 +39,11 @@
 
 .surveys {
 	width:100%;
-	border: 1px solid #cff0cc;
+	border: 1px solid rgb(5, 3, 52);
 	border-radius: 1em;
-	background-color: #36bca5;
+	background-color:  rgb(5, 3, 52);
 	margin-bottom: 2em;
-	color:#ffffff;
+	color:white;
 	box-shadow: -5px -5px 7px 0px rgba(255, 255, 255, 0.5), 3px 3px 7px 0px rgba(0, 0, 0, 0.3);
 }
 
@@ -59,8 +59,9 @@
 		height: 3em;
 		border: 0;
 		border-radius: 1em;
-		background-color: #7593ff;
+		background-color: rgb(179, 178, 178);
 		color: #ffffff;
+		box-shadow: 0px 8px 6px -6px #666;
 	}
 	
 @media only screen and (min-width: 780px) {
@@ -82,9 +83,10 @@
 }
 
 .upSurvey, .surveyResult, .endSurvey {
-	border: 0.5px solid gray;
+	border: 0.5px solid #dfd3c3;
 	border-radius: 0.5em;
-	background-color: #ffffff;
+	background-color:  #dfd3c3;
+	box-shadow: 0px 8px 6px -6px #666;
 }
 </style>
 <body>
@@ -109,7 +111,7 @@
 				                        <span><h4><b><%= s.getTitle() %></b></h4> <%= s.getFirstDate() %> ~ <%= s.getLastDate() %></span>
 				                        <button type="button" class="doSurvey">설문하기</button></div>
 			                    <% if(loginUser.getUserLevel() == 1) { %>    
-				                    <hr style="background-color: #000000;margin: 0;">
+				                    <hr style="background-color: grey;margin: 0;">
 				                    <div class="hiddenInfo">
 				                        응답인원 수 : <%= s.getSurveyCount() %> 
 				                        <div style="padding: 0 0.5em 0.5em 0.5em;">
