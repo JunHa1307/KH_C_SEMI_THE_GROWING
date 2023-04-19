@@ -386,7 +386,7 @@ cursor: pointer;
 		 width:1vw;
 		 min-width:500px;
 	}
-	#header>h1{
+	#header>#goFirst{
 		 width:1vw;
 		 min-width:400px;
 		 font-size: 40px;
