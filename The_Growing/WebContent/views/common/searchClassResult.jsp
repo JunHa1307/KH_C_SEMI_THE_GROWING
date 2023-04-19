@@ -70,6 +70,7 @@ margin-bottom:20px;
 	height:40px;
 	font-weight:550;
 	font-size:1.1vw;
+	box-shadow: 0px 8px 6px -6px #666;
 	
 	
 }
@@ -151,7 +152,7 @@ margin-bottom:20px;
 			
 			<span style="font-size:1.4vw; font-weight:600;"><%= list.get(i).getClassTypeName() + " " +(list.get(i).getClassGrade()+"").substring(5)+"학년 " + list.get(i).getClassName()+"반" %></span>
 			<br><br>
-			<span style="font-size:0.9vw; font-weight:600; color:grey; word-break:break-all;">구성원 <%= list.get(i).getUserCount() %>명 | 담임 : <%= list.get(i).getTeacherName() %> 선생님 | <%=(list.get(i).getClassGrade()+"").substring(0,4)+"년 " %></span>
+			<span style="font-size:0.9vw; font-weight:500; color:grey; word-break:break-all;">구성원 <%= list.get(i).getUserCount() %>명 | 담임 : <%= list.get(i).getTeacherName() %> 선생님 | <%=(list.get(i).getClassGrade()+"").substring(0,4)+"년 " %></span>
 		</div>
 		<div style="width:23%"><button data-cno="<%= list.get(i).getClassNo() %>" class="apply ">가입 신청</button></div>
 	</div>

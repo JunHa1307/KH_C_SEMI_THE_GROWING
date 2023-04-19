@@ -51,7 +51,6 @@
                   <div id="album_title">앨범</div>
                   <div id="album_button" align="right" class="box">
                       <button type="submit" class="button_UI button--winona" data-text="수정"><span>수정</span></button>
-                       <button type="button" class="button_UI button--winona" data-text="삭제"><span>삭제</span></button>
                   </div>
                 </div>
                 <div id="album_hr">
@@ -138,7 +137,7 @@
 		   					
 		   				},
 		   				error: function(){
-		   					console.log("게시글 목록조회 실패")
+		   					error("게시글 목록조회 실패")
 		   				}
 		        	});  
 		     
@@ -180,8 +179,8 @@
 					}
 				}
 			
-				      $("#board_album").css("fontWeight", "700");
-			          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+				   $("#board_album").css("fontWeight", "700");
+			          $("#board_album").children().css("background", "rgb(237, 239, 243)");
 			          
 			     
 			      	

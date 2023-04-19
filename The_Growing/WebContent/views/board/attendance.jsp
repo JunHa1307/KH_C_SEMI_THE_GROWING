@@ -142,6 +142,9 @@
  	</div>
 </div>
 <script>
+$("#board_check").css("fontWeight", "700");
+$("#board_check").children().css("background", "rgb(237, 239, 243)");
+
 	let month = ("0" + (1 + new Date().getMonth())).slice(-2)+"월";
 	$(".okc>h3").text(month);
 	
