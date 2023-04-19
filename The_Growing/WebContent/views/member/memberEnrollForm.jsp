@@ -30,10 +30,11 @@
 		  div{
 		  	/* border: 1px solid red; */
 		  }
+
 html {
     height: 100%;
+    
 }
-
 /* body {
     margin: 0;
     height: 100%;
@@ -378,6 +379,30 @@ cursor: pointer;
 .label{
 	width:100%;
 }
+
+/* 화면 작아질때 */
+@media only screen and (max-width: 780px) {
+	#header>div{
+		 width:1vw;
+		 min-width:500px;
+	}
+	#header>h1{
+		 width:1vw;
+		 min-width:400px;
+		 font-size: 40px;
+	}
+	#signTxt{
+		width:1vw;
+		min-width:40px;
+		
+		font-size: 20px;
+	}
+	#wrapper{
+		width:1vw;
+		min-width:500px;
+		font-size: 20px;
+	}
+}
 </style>
 
 
@@ -418,19 +443,19 @@ cursor: pointer;
 	                    </td>
 	                    
 	                </tr>
-	                <tr class="label"><td colspan="3">✧ 첫글자는 반드시 영문자로, 그리고 영문자, 숫자를 포함하여 총 4~12자로 입력하시오.</td></tr>
+	                <tr class="label"><td colspan="3">✧ 첫글자는 반드시 영문자로, 그리고 영문자, 숫자를 포함하여 총 4~12자로 입력하세요.</td></tr>
 	                <tr>
 	                    <td class="inputTitle">비밀번호</td>
 	                    <td class="inputWd"><input type="password" id="userPwd" name="userPwd" maxlength="15" required></td>
 	                    <td></td>
 	                </tr>
-	                <tr class="label"><td colspan="3">✧ 영문자, 숫자, 특수문자(!@#$%^)로 총 8~15자로 입력하시오.</td></tr>
+	                <tr class="label"><td colspan="3">✧ 영문자, 숫자, 특수문자(!@#$%^)를 포함하여 총 8~15자로 입력하세요.</td></tr>
 	                <tr>
 	                    <td class="inputTitle">비밀번호 확인</td>
 	                    <td class="inputWd"><input type="password" id="checkPwd" name="userPwdCheck" maxlength="15" required></td> <!-- 단순 비교 확인 용도라 key 값을 부여 안해도 됨 -->
 	                    <td></td>
 	                </tr>
-	                <tr class="label"><td colspan="3">✧ 위의 비밀번호와 일치하게 입력하시오.</td></tr>
+	                <tr class="label"><td colspan="3">✧ 위의 비밀번호와 일치하게 입력하세요.</td></tr>
 	                <tr>
 	                    <td class="inputTitle">이름</td>
 	                    <td class="inputWd"><input type="text" id="name" name="userName" maxlength="6" required></td>
@@ -449,7 +474,7 @@ cursor: pointer;
 	            </table>
 	            
 	            <br><br><br><br>
-	            <div style="text-align:center;">전화번호 및 주소는 선택사항 입니다</div>
+	            <div style="text-align:center;">전화번호 및 주소는 선택사항 입니다.</div>
 	            <br>
 	            <div align="center">
 	            	<button id="submit" type="submit" onclick="return signUp();" disabled>회원가입</button>
@@ -537,7 +562,7 @@ cursor: pointer;
                         $("#pwd_img2" ).removeClass("active");
 						userId.focus();
 					
-					} else {
+					} else{
 						console.log(userId);
 						// 사용가능한 경우
 						// confirm() 의 반환값은 true/false
@@ -575,10 +600,10 @@ cursor: pointer;
 								} else {
 									$("#userId").val("");
 									$("#userId").focus();
+									
 								}
 							});
 							
-						
 					}
 
 				},
