@@ -292,7 +292,7 @@ td{
   overflow: hidden;
   margin: 10px;
   
-  width: 2117px;
+  width: 100%;
   height: 1057px;
   color: #141414;
   text-align: left;
@@ -382,6 +382,10 @@ cursor: pointer;
 
 /* 화면 작아질때 */
 @media only screen and (max-width: 780px) {
+	.snip1361{
+		width :2000px;
+		
+	}
 	#header>div{
 		 width:1vw;
 		 min-width:500px;
