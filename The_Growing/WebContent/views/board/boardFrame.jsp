@@ -676,13 +676,15 @@ vertical-align: middle;
 <script>
 	const msg = "<%= alertMsg  %>";
 	
-	if(msg != "null"){
+	if(msg != "null" && msg != ""){
 		alertMsg(msg);
 		<% session.removeAttribute("alertMsg"); %>
+		msg="";
 	}
 
 	window.onbeforeunload = function(){
 		<% session.removeAttribute("alertMsg"); %>
+		msg=null;
 	}
 
 	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);

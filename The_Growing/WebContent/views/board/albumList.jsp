@@ -393,8 +393,7 @@ opacity: 0.9;
 }
 
 .mo_reply_id {
-	width: 70px;
-	
+	width: 90px;
 	text-align:center;
 	font-size: smaller;
 	font-weight: 600;
@@ -589,7 +588,7 @@ opacity: 0.9;
 				<div class= "album_con_user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></div>
 				<div class="album_con_date_count">
 					<div id="aDate" ><%=list.get(i).getcDate()%></div>
-					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:25%; width:0.8vw; height:0.8vw; min-width:8px; min-height:8px"><%=list.get(i).getCount() %></div>
+					<div id="aCount" align="right"><img src="/growing/resources/image/eye-fill.svg" style="margin-bottom:3px; margin-right:20%; width:0.8vw; height:0.8vw; min-width:8px; min-height:8px"><%=list.get(i).getCount() %></div>
 					
 					</div>
 				

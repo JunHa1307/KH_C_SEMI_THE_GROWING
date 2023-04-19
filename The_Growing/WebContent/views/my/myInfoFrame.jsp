@@ -260,6 +260,7 @@
 		}
 		window.onbeforeunload = function(){
 			<% session.removeAttribute("alertMsg"); %>
+			msg=null;
 		}
 
 		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
