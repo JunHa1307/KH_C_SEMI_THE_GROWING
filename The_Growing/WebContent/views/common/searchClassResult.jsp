@@ -173,11 +173,11 @@ $(function(){
 				dataType:"text",
 				success : function(result){
 					if(result == "0"){
-						alert("이미 가입/가입신청 되었습니다");
+						error("이미 가입/가입신청 되었습니다");
 					}else if(result == "1"){
-						alert("가입신청에 성공했습니다.");
+						alertMsg("가입신청에 성공했습니다.");
 					}else{
-						alert("가입신청에 실패했습니다");
+						error("가입신청에 실패했습니다");
 					}
 				},
 		 	error:function(error,status,msg){

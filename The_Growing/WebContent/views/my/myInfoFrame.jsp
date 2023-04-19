@@ -255,7 +255,7 @@
 		const msg = "<%= alertMsg  %>";
 		
 		if(msg != "null"){
-			alert(msg);
+			alertMsg(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
 		window.onbeforeunload = function(){

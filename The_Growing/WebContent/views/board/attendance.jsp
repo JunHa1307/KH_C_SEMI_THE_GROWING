@@ -118,7 +118,7 @@
 		</div>  
 			<div class="okc">
 				<% if(loginUser.getUserLevel() == 1){ %>
-					<p style="font-size:1vw;">표 안을 클릭하면 출석 상태가 변경됩니다.( 'X' = 미출석, 'O' = 출석, '/' = 기타 )</p>
+					<p style="font-size:1vw;">표 안을 클릭하면 출석 상태가 변경됩니다.( 'X' = 미출석, 'O' = 출석, 'E' = 기타 )</p>
 				<%} %>
 				<h3></h3>
 				<table id="attendTable">
@@ -156,7 +156,7 @@ $("#board_check").children().css("background", "rgb(237, 239, 243)");
 				}
 				else if($(this).text() == "O"){
 					$(this).attr("class","attendChecked");
-				}else if($(this).text() == "/"){
+				}else if($(this).text() == "E"){
 					$(this).attr("class","attendLate");
 				}
 			});
@@ -167,7 +167,7 @@ $("#board_check").children().css("background", "rgb(237, 239, 243)");
 				}else if($(this).attr("class") == "attendChecked"){
 					$(this).removeClass("attendChecked");
 					$(this).attr("class","attendLate");
-					$(this).text("/");
+					$(this).text("E");
 				}else if($(this).attr("class") == "attendLate"){
 					$(this).removeClass("attendLate");
 					$(this).attr("class","notAttend");
@@ -209,14 +209,14 @@ $("#board_check").children().css("background", "rgb(237, 239, 243)");
 	             success:function(result){
 	                if(result != 'Fail'){
 	                   
-	                      alert("수정되었습니다");
-	                      location.reload();
+	                      alertMsg("수정되었습니다");
+	                      setTimeout(() =>  location.reload(), 1000);
 	                }else{
-	                   alert("수정 실패");
+	                   error("수정 실패");
 	                }
 	             },
 	             error:function(error,status,msg){
-	                alert("상태코드 " + status + "에러메시지" + msg );
+	                error("상태코드 " + status + "에러메시지" + msg );
 	             }
 	          });
 		}

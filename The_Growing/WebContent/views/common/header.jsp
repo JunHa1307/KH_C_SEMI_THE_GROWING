@@ -31,6 +31,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 
+
+<!--  alert 창 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<%= request.getContextPath() %>/resources/js/alert.js"></script>
+
 <script src="<%= request.getContextPath() %>/resources/js/headerNotice.js"></script>
 
 <!-- css -->
@@ -42,7 +47,7 @@
 		const msg = "<%= alertMsg  %>";
 		
 		if(msg != "null"){
-			alert(msg);
+			alertMsg(msg);
 			<% session.removeAttribute("alertMsg"); %>
 		}
 		window.onbeforeunload = function(){
