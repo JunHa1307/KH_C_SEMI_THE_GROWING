@@ -198,6 +198,9 @@
             list-style: none;
         }
     </style>
+    
+    <script src="<%= contextPath %>/resources/js/alert.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
     <div class="wrap">
@@ -304,13 +307,15 @@
                            data : {snsId, snsName, snsType, filePath},
                            method : 'post',
                            success: function(data){
-                        	   alert("카카오로 정상 로그인되었습니다.");
-                        	   location.replace("<%= request.getContextPath() %>/mainpage.me");
+                        	   alertMsg("카카오로 정상 로그인되었습니다.");
+                        	   
+                        	   setTimeout(()=> location.replace("<%= request.getContextPath() %>/mainpage.me"), 1500);
                            },
                            error: function(){
-                              console.log("카카오로그인db저장실패");
+                              error("카카오 로그인 실패");
                            }
                         });
+                        
                     },
                     fail: function (error) {
                         console.log(error)
