@@ -155,15 +155,19 @@
 	border-top-right-radius: 10px;
 	
 }
-.titleOver {
-	overflow: hidden;
+.titleOver>p {
+overflow: hidden;
 	text-overflow: ellipsis;
-	
-	
-	margin: 0;
+	 margin: 0;
+	 max-width:250px;
+	 white-space:nowrap;
+	 margin: auto;
+	  
 	
 }
-
+#recent>*{
+font-size:0.9vw;
+}
 </style>
 </head>
 <body>
@@ -180,11 +184,11 @@
 		</div>
 			<table class="list-area" align="center">
 			<thead id="tableHead" >
-				<tr>
+				<tr id="recent">
 					<th width="100" id="topLeftRadius">번호</th>
 					<th width="150">카테고리</th>
 					<th width="300">제목</th>
-					<th width="150">작성자</th>
+					<th width="100">작성자</th>
 					<th width="150" id="topRightRadius">작성일</th>
 				</tr>
 			</thead>
@@ -194,23 +198,6 @@
 					<td colspan="6">조회된 리스트가 없습니다.</td>
 				</tr>
 			<%} else { %>
-				<%-- <% for(int i =0; i<list.size(); i++) { %>
-					<tr>
-						<td id="bno"><%=list.get(i).getBoardNo() %></td>
-						<input type="hidden" id="type" value="<%=list.get(i).getBoardType() %>">
-						<%if (list.get(i).getBoardType()==2){%>
-							<td>	<div class="type" id="notice">알림장</div></td>
-						<% }else if (list.get(i).getBoardType()==3) {%>
-							<td>	<div class="type" id="album">앨범</div></td>
-						<%}else if (list.get(i).getBoardType()==4){ %>
-							<td>	<div class="type" id="free">자유게시판</div></td>
-						<%} %>
-					
-						<td ><%=list.get(i).getBoardTitle() %><span style="font-size:14px; font-weight:600; "><%=r.get(i) == 0 ? "" :"["+r.get(i)+"]" %> </span><div id="title" onclick="count(<%=list.get(i).getBoardNo() %>);"></div></td>
-						<td><%=list.get(i).getUserId() %></td>
-						<td style=" font-size: 0.8vw; color:grey;"><%=list.get(i).getCreateDate() %>
-					</tr>
-				<%} %> --%>
 				
 				<% for(int i =0; i<list.size(); i++) { %>
 					<tr>
@@ -224,7 +211,7 @@
 							<td>	<div class="type" id="free">자유게시판</div></td>
 						<%} %>
 					
-						<td ><p class="titleOver"><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
+						<td class="titleOver"><p ><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
 						<td id="user"><%=list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
 						<td id="cDate" ><%=list.get(i).getCreateDate() %>	
 					</tr>
@@ -241,11 +228,8 @@
 	 		
 	 		
 			 $(".list-area>tbody>tr").click(function(){
-				// 클릭시 해당 공지사항의 글번호를 알아야함
-				// tr요소의 자손중에서 첫번째 td태그의 영역안의 내용을 가져올 예정
 				
 				let bno = $(this).children().eq(0).text();
-				// 현재 내가 클릭한 tr의 자손들 중 0번째에 위치한 자식의 textNode값을 가져온다. 
 				let type = $(this).children("#type").val();
 				console.log(type);
 				

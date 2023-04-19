@@ -252,6 +252,13 @@ div {
 font-weight:600;
 font-size:30px;
 }
+#boardTitle p {
+		overflow: hidden;
+	text-overflow: ellipsis;
+	  margin: 0;
+	 white-space:nowrap;
+}
+
 
 #boardProfile {
 	height: 60px;
@@ -358,7 +365,7 @@ font-size:30px;
 
 		<div id="board_content">
 			<div id="boardTitle">
-				<span><%=b.getBoardTitle()%></<span>
+				<span><p><%=b.getBoardTitle()%></p></<span>
 				<%
 					if ( (loginUser != null && loginUser.getUserId().equals(b.getUserId()) ) || loginUser.getUserLevel() ==1) {
 				%>

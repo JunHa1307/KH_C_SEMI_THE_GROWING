@@ -69,7 +69,7 @@ int boardType = (int) request.getAttribute("boardType");
 	margin: auto;
 	margin-top: 20px;
 	max-width: 100%;
-	border-collapse: collapse;
+	border : 1px solid rgb(224,224,224);
 	text-align: center;
 }
 
@@ -84,9 +84,6 @@ int boardType = (int) request.getAttribute("boardType");
 	border-bottom: 1px solid #ddd;
 }
 
-.list-table th {
-	display: none;
-}
 
 .list-table tr:hover:not(:first-child) {
 	background-color: rgb(231, 231, 231);
@@ -170,7 +167,7 @@ int boardType = (int) request.getAttribute("boardType");
 }
 
 #freeType {
-	border-top: 3px solid grey;
+	border-top: 3px solid rgb(206, 206, 206);
 	background: rgb(253, 255, 244);
 	color: black;
 	height:58px;
@@ -181,8 +178,8 @@ int boardType = (int) request.getAttribute("boardType");
 
 #counselType {
 	border-top: 3px solid rgb(206, 206, 206);
-	background: rgb(85, 95, 131);
-	color: white;
+	background:  rgb(247, 247, 247);
+	color: grey;
 	height:58px;
 }
 #counselType>th {
@@ -248,19 +245,19 @@ int boardType = (int) request.getAttribute("boardType");
 				<% } else { %>
 					<% if(boardType == 4){ %>
 					<tr id="freeType" >
-						<th width="130">번호</th>
+						<th width="100">번호</th>
 						<th width="300">제목</th>
 						<th width="150">작성자</th>
 						<th width="150">작성일</th>
-						<th width="130">조회수</th>
+						<th width="100">조회수</th>
 					</tr>
 					<%}else if(boardType==5){ %>
 						<tr id="counselType" >
-						<th width="130">번호</th>
+						<th width="100">번호</th>
 						<th width="300">제목</th>
 						<th width="150">작성자</th>
 						<th width="150">작성일</th>
-						<th width="130">조회수</th>
+						<th width="100">조회수</th>
 					</tr>
 					<%} %>
 					
@@ -269,7 +266,7 @@ int boardType = (int) request.getAttribute("boardType");
 				<%if (boardType == 4) {%>
 				<tr  class="fontSize" onclick="level1(<%= list.get(i).getBoardNo() %>);">
 					<td class="bNumber"><%= list.get(i).getBoardNo() %></td>
-					<td class="titleOver"><p ><%=list.get(i).getBoardTitle() %></p><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></td>
+					<td class="titleOver"><p ><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
 					<td class="user"><%= list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
 					<td class= "cDate" ><%= list.get(i).getCreateDate() %></td>
 					<td class= "count" ><%= list.get(i).getCount() %></td>
@@ -278,7 +275,7 @@ int boardType = (int) request.getAttribute("boardType");
 							<%if (level == 1) {%>
 						<tr class="fontSize" onclick="level2(<%= list.get(i).getBoardNo() %>);">
 							<td class="bNumber"><%= list.get(i).getBoardNo() %></td>
-							<td class="titleOver"><p ><%=list.get(i).getBoardTitle() %></p><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></td>
+							<td class="titleOver"><p ><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
 							<td class="user"><%= list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
 							<td class= "cDate" style="font-size: 0.8vw;"><%= list.get(i).getCreateDate() %></td>
 							<td class= "count"><%= list.get(i).getCount() %></td>
@@ -287,7 +284,7 @@ int boardType = (int) request.getAttribute("boardType");
 						<%}else if(loginUser.getUserId().equals(list.get(i).getUserId())){ %>
 						<tr class="fontSize" id="level3" onclick="level3(<%= list.get(i).getBoardNo() %>);">
 							<td class="bNumber"><%= list.get(i).getBoardNo() %></td>
-							<td class="titleOver"><p><%=list.get(i).getBoardTitle() %></p><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></td>
+							<td class="titleOver"><p><%=list.get(i).getBoardTitle() %><span style=" font-size:14px; font-weight:400; color:rgb(64, 106, 131);"><%=r.get(i) == 0 ? "" : "  <img style='margin-bottom:4px; widht:13px; height:13px;' src="+ contextPath+"/resources/image/chat.svg>  "+r.get(i) %> </span></p></td>
 							<td class="user"><%= list.get(i).getUserName() %> <%=list.get(i).getUserLevel() ==1 ? "선생님" :list.get(i).getUserLevel() ==2? "학부모" : "학생" %></td>
 							<td class= "cDate" ><%= list.get(i).getCreateDate() %></td>
 							<td class= "count"><%= list.get(i).getCount() %></td>
