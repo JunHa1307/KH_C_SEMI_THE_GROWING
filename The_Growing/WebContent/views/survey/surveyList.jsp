@@ -59,8 +59,8 @@
 		height: 3em;
 		border: 0;
 		border-radius: 1em;
-		background-color: rgb(179, 178, 178);
-		color: #ffffff;
+		background-color: white;
+		color: rgb(5, 3, 52);
 		box-shadow: 0px 8px 6px -6px #666;
 	}
 	

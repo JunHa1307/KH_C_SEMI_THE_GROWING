@@ -22,6 +22,10 @@
 
 
 <style>
+
+
+
+
 @keyframes post-ani {
     25% {
         transform: rotate(2deg) scale(1.01);
@@ -47,7 +51,7 @@
 	cursor: pointer;
 	animation: fave-heart 1s steps(28);
 	top:55%;
-	left:5%;
+	left:5.5%;
 	position: absolute;
 }
 
@@ -171,8 +175,11 @@ opacity: 0.9;
 }
 
 #modal {
-	width: 1200px;
-	height: 700px;
+	width: 72vw;
+	height: 41vw;
+	min-width: 700px;
+	min-height: 500px;
+	
 	/* background-color: aqua; */
 	position: fixed;
 	top: 0;
@@ -181,7 +188,7 @@ opacity: 0.9;
 	right: 0;
 	margin: auto;
 	visibility: hidden;
-	z-index: 5;
+	z-index: 9;
 	border-radius:10px; 
 	
 }
@@ -193,13 +200,17 @@ opacity: 0.9;
 }
 
 #mo_picture {
-	width: 60%;
+	width: 40vw;
 	background-color: black;
+ 	min-width: 367px;
+	min-height: 500px; 
 }
 
 #mo_picture_wrap {
-	width: 720px;
-	height: 700px;
+	width: 40vw;
+	height: 41vw;
+	min-width: 367px;
+	min-height: 500px; 
 
 	/* background-color: aqua; */
 }
@@ -221,15 +232,17 @@ opacity: 0.9;
 }
 
 .img_1 {
-	width: 100%;
+	width: 35.2vw;
+	min-width: 367px;
+	min-height: 500px; 
 	
 	object-fit: cover;
 	display: inline-block;
 	margin: 0;
  
-  height: 700px;
+  height: 41vw;
   text-align: center;
-  line-height: 700px;
+  line-height: 41vw;
 }
 
 #mo_write {
@@ -245,7 +258,8 @@ opacity: 0.9;
 
 #mo_write_wrap {
 	width: 100%;
-	height: 50px;
+	height: 3vw;
+	min-height:25px;
 	
 }
 
@@ -267,25 +281,29 @@ opacity: 0.9;
 }
 
 #mo_writer {
-	height: 165px;
+	min-height: 70px;
+	height:8vw;
 	width: 100%;
 	/* background-color: aqua */
 }
 
 #mo_writer_content {
 	width: 100%;
-	height: 130px;
+	min-height: 70px;
+	height:8vw;
 	/* background-color: azure; */
 }
 
 #mo_writer_content>div {
 	float: left;
-	height: 100%;
+	height: 8vw;
+	min-height:75px;
 }
 
 #mo_writer_content2 {
 	width: 100%;
-	height: 30px;
+	height:2vw;
+	min-height: 20px;
 	/* background-color: rgb(95, 73, 46); */
 }
 
@@ -321,17 +339,16 @@ opacity: 0.9;
 }
 
 #mo_writer_id {
-	width: 100px;
+	width: 28%;
 	text-align:center;
 	font-weight: 600;
-	padding-left:20px;
-	font-size:13px;
+	font-size:1vw;
 }
 
 #mo_writer_date {
-	width:340px;
+	width:72%;
 	text-align: right;
-	font-size: smaller;
+	font-size: 0.8vw;
 }
 
 .mo_reply {
@@ -342,7 +359,7 @@ opacity: 0.9;
 
 .mo_reply_content {
 	width: 100%;
-	height: 69%;
+	height: 67px;
 	position: relative;
 }
 
@@ -357,16 +374,18 @@ opacity: 0.9;
 }
 
 .mo_reply_profile {
-	width: 30%;
-	padding-left: 3%;
+	width: 22%;
+	padding-left: 1vw;
 }
 
 .mo_reply_profileImg {
-	width: 65px;
-	height: 65px;
+	width: 4vw;
+	height: 4vw;
+	min-width:30px;
+	min-height:30px;
 	border-radius: 100%;
 	overflow: hidden;
-	margin-left:6%;
+	margin : auto;
 }
 
 .mo_reply_profileImg>img {
@@ -377,12 +396,11 @@ opacity: 0.9;
 }
 
 .mo_reply_text {
-	width: 73%;
+	padding-left:1vw;
+	width: 60%;
 	word-break: break-all;
 	overflow-y: scroll;
-	position: absolute;
-	top: 0;
-	left: 100px;
+	
 	/* background-color: aqua; */
 }
 .mo_reply_text::-webkit-scrollbar {
@@ -395,22 +413,25 @@ opacity: 0.9;
 }
 
 .mo_reply_id {
-	width: 90px;
+	width: 5.5vw;
+	min-width:60px;
 	text-align:center;
-	font-size: smaller;
+	font-size: 0.7vw;
 	font-weight: 600;
-	margin-right:5px;
+	margin-top:0.2vw;
+	
 }
 
 .mo_reply_date {
 	width: 95%;
 	text-align: right;
-	font-size: smaller;
+	font-size: 0.8vw;
 }
 
 .mo_reply_wrap {
 	width: 100%;
-	height: 300px;
+	min-height:220px;
+	height:18.3vw;
 	/* background-color: antiquewhite; */
 	-ms-overflow-style: none;
 }
@@ -421,7 +442,7 @@ opacity: 0.9;
 
 #mo_reply_write {
 	width: 100%;
-	height: 140px;
+	height:130px;
 }
 
 #mo_reply_list {
@@ -451,19 +472,29 @@ opacity: 0.9;
 #mo_reply_list>ul>li {
 	list-style-type: none;
 	float: left;
-	width: 115px;
+	width: 7vw;
+	min-width:90px;
 	font-weight: 600;
 	text-align: right;
 	cursor: pointer;
+	font-size:1vw;
+	
 }
+
+
+
 
 #mo_reply_write_text>div {
 	float: left;
+	align-items: center;
 }
 
 #mo_reply_write_text {
-	height: 90px;
-	padding:10px 10px 0px 10px;
+	height: 50%;
+	min-height:55px;
+	padding:0.5vw 0.5vw 0px 0.5vw;
+	display: flex;
+	
 	/* background-color: antiquewhite; */
 }
 
@@ -501,7 +532,7 @@ opacity: 0.9;
 	left:-70px;
 } */
 #boardReplyIcon {
-	height: 50px;
+	height: 45px;
 	border-bottom: 1px solid rgb(224, 224, 224);
 	border-top: 1px solid rgb(224, 224, 224);
 	display: flex;
@@ -523,31 +554,35 @@ opacity: 0.9;
 #lock_btn {
 	background-color: white;
 	border-style: none;
-	
-	margin-top:17px;
+	margin:1vw;
 	margin-right:5px;
 	margin-left:5px;
-	width: 40px;
-	height: 40px;
+	width: 2vw;
+	height: 2vw;
+	min-width:25px;
+	min-height:25px;
 	border-radius: 50%;
 	
 }
 #lock_btn:hover {
 	background-color: rgb(233, 233, 231);
 	border-style: none;
-	width: 40px;
-	height: 40px;
+	width: 2vw;
+	height: 2vw;
 	border-radius: 50%;
-	
+	min-width:25px;
+	min-height:25px;
 }
 
 
 
 #lock_img {
-	width: 25px;
-	height: 25px;
-	
+	width: 1.2vw;
+	height: 1.2vw;
+	min-width:15px;
+	min-height:15px;
 }
+
 </style>
 </head>
 <body>
@@ -605,7 +640,7 @@ opacity: 0.9;
 		<div id="mo_picture">
 			<div id="mo_picture_wrap">
 				<div
-					style="width: 100%; height: 100%; padding-left: 60px; padding-right: 60px;"
+					style="width: 100%; height: 100%; padding: 2.2em; "
 					>
 
 					<div id="slider-div">
@@ -639,7 +674,7 @@ opacity: 0.9;
 						<li class="chat"><i class="bi bi-chat-quote"></i>댓글 <span
 							id="chat_count">0</span>개</li>
 						<li id="<%= uno %>" class="scrap" style="padding-right: 15px;" onclick="scrapClick();">
-							<i class="bi bi-star" style="padding-right: 10px;"></i>
+							<i class="bi bi-star" style="padding-right: 0.5vw;"></i>
 							스크랩
 						</li>
 					</ul>
@@ -660,7 +695,7 @@ opacity: 0.9;
 					</div>
 					<div id="mo_reply_bt" class="box">
 						<button class="button_UI button--winona insert_bt"
-							data-text="click" id="insertReply" style="margin-top:15px">
+							data-text="click" id="insertReply" style="margin-top:0.5vw; min-width:50px; height:2vw;">
 							<span>등록</span>
 						</button>
 					</div>
@@ -756,7 +791,7 @@ opacity: 0.9;
   							'<div id="mo_date" class="grey">'+
   							
   							'<div id="menu" class="dropdown"'+
-                                'style="float: right; margin: -7% 0% 0% 10%;">'+
+                                'style="float: right; width:30px; height:30px; margin: -7% 0% 0% 10%;">'+
                                 '<button class="btn btn-secondary" type="button"'+
                                    'id="dropdownMenuButton" data-toggle="dropdown"'+
                                    'aria-haspopup="true" aria-expanded="false" style="margin-top:7px; padding:0;"><img id="alarmIcon"'+
@@ -942,13 +977,13 @@ opacity: 0.9;
           		if(i==0){
         		 $(this).data("lock","Y");
         		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
-        		$("#lock_img").css({"width":"30px", "height":"30px"});
+        		$("#lock_img").css({"width":"25px", "height":"25px"});
         		
         		i++;
           		}else{
           		 $(this).data("lock","N");
          		$(this).children("#lock_img").attr("src","/growing/resources/image/unlock.png");
-         		$("#lock_img").css({"width":"25px", "height":"25px"});
+         		$("#lock_img").css({"width":"20px", "height":"20px"});
          		i--;
           		}
         	});
@@ -1001,50 +1036,7 @@ opacity: 0.9;
    				} 
    			});
    		}); 
-<%--         $(".deleteReply").click(function(){
-			let rno = $(this).data('rno'); 
-			let bno = $(this).data('bno'); 
-			$.ajax({
-   				url : "<%=contextPath%>/rDelete.bo",
-   				data : { rno},
-   				type : "get",
-   				success : function(result){
-   					 /* albumClick(bno);  */
-   			- 		if(result>0){
-   					$.ajax({
-		   				url : "<%=contextPath%>/rlist.bo",
-		   				data : { bno :bno},
-		   				type : "get",
-						dataType : "html", 
-		   				success : function(list){
-		   					 $(".mo_reply").html(list); 
-		   					
-		   				},
-		   				error: function(){
-		   					console.log("게시글 목록조회 실패")
-		   				}
-		        	});
-					$.ajax({
-		   				url : "<%=contextPath%>/rCount.bo",
-		   				data : { bno : bno},
-		   				success : function(list){
-		   					 $("#chat_count").html(list);
-		   				},
-		   				error: function(){
-		   					console.log("게시글 목록조회 실패")
-		   				}
-		        	});   
-   					}else {
-						alert("댓글삭제에 실패했습니다");
 
-					} 
-   					
-   				},
-   				error: function(){
-   					console.log("게시글 목록조회 실패")
-   				}
-        		});
-		}); --%>
      
 		//스크랩
      	function scrapClick(){

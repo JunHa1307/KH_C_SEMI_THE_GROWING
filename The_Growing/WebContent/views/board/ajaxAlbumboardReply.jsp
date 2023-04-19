@@ -13,11 +13,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
-<!-- <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head> -->
+
 <body>
 
 	<%if(list.size()!=0){ %>
