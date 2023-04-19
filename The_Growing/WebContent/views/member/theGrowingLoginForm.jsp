@@ -41,7 +41,8 @@
         html, body {
             width: 100%;
             height: 100%;    
-            margin: 0; 
+            margin: 0;
+            padding: 0;
               
         }
 
@@ -100,25 +101,18 @@
         }   
 
         #userId, #userPwd {
-            width: 70%;
+            width: 30%;
             height: 70%;
-            font-size: 1.5vw;
+            font-size: 1vw;
             border-color: rgb(161, 160, 160);
-            border-radius: 500px;
+            border-radius: 10px;
             border-style: solid;
             background-size: 45px; 
             background-repeat: no-repeat;
             background-position: left; 
             text-align: center;
         }
-        
-        #userId {
-        	background-image: url('https://search.pstatic.net/sunny/?src=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F94160753%3Fv%3D4%3Fs%3D400&type=a340');
-        }
-        
-        #userPwd {
-        	background-image: url('https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F00%2F5e%2Fe3%2F005ee3d4096f948347b994294e5a552a.jpg&type=a340');
-        }
+
        
         #start_btn {
             margin: 2.5% 5% 5% 5%;
@@ -164,11 +158,12 @@
         }
        
         #title_1 {
-            font-size: 4vw;
+            font-size: 2.5vw;
         }
         
         #title_2 {
         	font-size: 1.5vw;
+        	margin-top:20px;
         }
         
 		@media only screen and (min-width: 780px) {
@@ -198,6 +193,9 @@
         		width: 80%;
 			}
 		}
+		.goFirst{
+			cursor:pointer;
+		}
     </style>
 </head>
 <body>
@@ -206,7 +204,8 @@
             <div id="header_1"></div>
             
             <div id="header_2">
-                <img id="tree_img" class="goFirst" src="<%= request.getContextPath() %>/resources/image/removeBackgroundLogo.png" height="100%">
+            <br>
+                <img id="tree_img" class="goFirst" src="<%= request.getContextPath() %>/resources/image/treelogo.png" height="100%">
             </div>
            
             <div id="header_3"></div>
@@ -218,6 +217,7 @@
 	
 	            <div class="content_2">
 	                <div id="title_area">
+	                   <br><br>
 	                   <h1 id="title_1">일반 계정으로 로그인</h1>
 	                   <h2 id="title_2">The Growing 회원가입 후에 이용 가능한 서비스 입니다.</h2>
 	                   
@@ -244,6 +244,8 @@
 	                <div id="loginEnroll_area"> <!-- 회원가입 버튼-->
 	                        <button id="enroll_btn" type="button" onclick="enrollPage();">회원가입 바로가기</button>
 	                </div>
+	                <br><br><br><br>
+	                <div>ⓒ 2023. (RYUJEANS) all rights reserved.</div>
                 </div>
                 
                 <div class="content_3"></div>

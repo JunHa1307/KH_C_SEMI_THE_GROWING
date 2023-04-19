@@ -55,8 +55,8 @@
 	href="<%=request.getContextPath()%>/resources/css/header.css">
 	
 	<!--  alert 창 -->
-    <script src="<%= contextPath %>/resources/js/alert.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="<%= contextPath %>/resources/js/alert.js"></script>
 	
 <!-- AOS -->	
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -189,6 +189,7 @@
 		background-color: white;
 		top: 150px;
 		border-radius: 10px;
+		z-index : 9;
 	}
 	#hamburgur {
 		position: fixed;
@@ -255,7 +256,7 @@
 		let msg = "<%= alertMsg  %>";
 		
 		window.onpageshow = function(event) {
-		      if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
 		    	  msg = "null";
 		    }else if(msg != "null"){
 				alertMsg(msg);

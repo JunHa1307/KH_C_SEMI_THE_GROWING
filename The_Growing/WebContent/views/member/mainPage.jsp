@@ -34,6 +34,17 @@
       font-size: 2vw;
    }
 }
+#classEnrollForm input{
+	border-radius: 10px;
+	margin-right: 20px;
+	border-color: lightgray;
+}
+
+.info>div{
+	font-size: 25px;
+}
+
+
 </style>
 
 </head>
@@ -201,12 +212,16 @@
                            <input class="school_search" type="text" name="classTypeName"
                               placeholder="내용을 입력해주세요">
                         </div>
-
+		
                         <div class="info">
-                           <h2>연도</h2>
-                           <h2>학년</h2>
+                        	<div class="inputInfo">연도&nbsp; / &nbsp;</div>
+                        	<div class="inputInfo">학년&nbsp; / &nbsp;</div>
+                        	<div class="class_name1">클래스 이름&nbsp; / &nbsp;</div>
+                        	<div class="class_name1">선생님 이름</div>
+                           <!-- <h2 id="inputYear">연도</h2>
+                           <h2 id="grade">학년</h2>
                            <h2 class="class_name1">클래스 이름</h2>
-                           <h2 class="class_name1">선생님 이름</h2>
+                           <h2 class="class_name1">선생님 이름</h2> -->
                         </div>
 
                         <div class="info_box">
@@ -488,8 +503,10 @@
 	 	
        	let cData = <%= calendarList %>;
         calendar(
-        		<% if(calendarList.size() == 0 && calendarList.get(0).toString().equals("{}")) {%>
-        		JSON.parse(cData[index]),
+        		<% if(calendarList.size() == 0) { %>
+        		{},
+        		<% } else if( calendarList.get(0).toString().equals("{}")) {%>
+        		JSON.parse(cData[index]),        		
         		<% } else {%>
         		cData[index],
         		<% }%>

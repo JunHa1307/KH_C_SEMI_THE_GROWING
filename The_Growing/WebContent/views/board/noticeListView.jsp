@@ -170,7 +170,7 @@
         	<div id="album_button" align="right" class="box">
         		<% if(loginUser.getUserLevel() == 1){ %>
                   <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px;"><span>글 등록</span></button>
-            	  <button type="button" class="button_UI button--winona" data-text="삭제" onclick="folderDeleteClick();">삭제</button>
+            	  <button type="button" class="button_UI button--winona" data-text="삭제" onclick="folderDeleteClick();"><span>삭제</span></button>
             	<% } else{ %>
 				  <button id="notice_Enroll" type="submit" class="button_UI button--winona" data-text="글 등록" style="margin-right: 10px; display:none;"><span>글 등록</span></button>				
 				<% } %>
@@ -196,7 +196,7 @@
     	          checkBoxArr : JSON.stringify(checkBoxArr)      
     	      },
     	      success: function(result){
-    	      	console.log(result);
+    	    	  alertMsg('선택한 게시물이 모두 삭제되었습니다.');
     	      },
     	      error: function(xhr, status, error) {
     	      	alert(error);
@@ -331,7 +331,7 @@
 				              				  	showCancelButton: true,
 					              	            confirmButtonColor: '#3085d6',
 					              	            cancelButtonColor: '#d33',
-					              	            confirmButtonText: '<button type="button" onclick="noticeCheck('+bno+');">확인</button>',
+					              	            confirmButtonText: '<button type="button" style="border:none; background-color: #3085D6; color: white;" onclick="noticeCheck('+bno+');">확인</button>',
 					              	            cancelButtonText: '취소'
 				              						
 				              				}).then((result) => {
@@ -340,7 +340,8 @@
 				              		                Swal.fire({
 				              		                	icon: 'success',
 						              					title: '확인되었습니다!'
-						              					/* ,confirmButtonText: '<button type="button" onclick="checkFin();">확인</button>' */
+						              					,confirmButtonText: '확인'
+						              						/* '<button type="button" onclick="checkFin();">확인</button>'  */
 				              		                });
 				              		              
 				              		            }
@@ -375,12 +376,9 @@
 				              				let result = "";
 				              				console.log(list);
 				              				for(let i = 0 ; i< list.length ; i++){
-				              					result += '<div class="dropdown-item">'+list[i].userName
-						              					/* if(list[i].userLevel == 2){
-						              						+" 부모님"
-						              					}else if(list[i].userLevel == 3){
-						              						+" 학생"
-						              					} */
+				              					result += '<div class="dropdown-item">'
+				              							+list[i].userName
+						              					
 						              					+'</div>'
 				              				}
 				              				console.log(result);

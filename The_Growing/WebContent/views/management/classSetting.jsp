@@ -26,7 +26,7 @@
         text-align: center;
      }
      .bold{
-     	font-weight: 900;
+     	font-weight: 600;
      }
      .classInfo{
      	border: 1px solid rgb(224, 224, 224);

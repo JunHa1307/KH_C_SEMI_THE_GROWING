@@ -40,31 +40,32 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 	background-color: rgb(244, 247, 247);
 	border-style: none;
 	margin: 10px;
-	width: 50px;
-	height: 50px;
+	min-width: 30px;
+	min-height: 30px;
+	width:2vw;
+	height:2vw;
 	border-radius: 50%;
 	
 }
 #lock_btn:hover {
 	background-color: rgb(233, 233, 231);
 	border-style: none;
-	width: 50px;
-	height: 50px;
+	min-width: 30px;
+	min-height: 30px;
+	width:2vw;
+	height:2vw;
+	margin: 10px;
 	border-radius: 50%;
 	
 }
 
 
-#profile_img {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	float: left;
-}
 
 #lock_img {
-	width: 35px;
-	height: 35px;
+	min-width: 20px;
+	min-height: 20px;
+	width:1.5vw;
+	height:1.5vw;
 	
 }
 
@@ -340,7 +341,7 @@ font-size:30px;
 				<div id="album_button">
 					<a style="color: black;"
 						href="<%=contextPath%>/insert.fr?boardType=<%=boardType%>">
-						<button class="button_UI button--winona" data-text="글 등록">
+						<button class="button_UI button--winona" data-text="글 등록" style="width:100%;">
 							<span>글 등록</span>
 						</button>
 
