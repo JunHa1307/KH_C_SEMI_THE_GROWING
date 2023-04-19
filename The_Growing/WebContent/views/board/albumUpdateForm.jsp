@@ -92,6 +92,7 @@
 							<input type="hidden" name="originFileNo<%=i %>" value="<%=list.get(i).getFileNo() %>">
 							<input type="hidden" name="changeFileName<%=i %>" value="<%=list.get(i).getChangeName() %>">
 							<input type="hidden" name="filelevel<%=i %>" value="<%=list.get(i).getFileLevel() %>">
+							
 						<%} %>
 							
 					<%} %>
@@ -135,14 +136,17 @@
 		   				url : "<%=contextPath%>/deleteAttachment.al",
 		   				data : { bno, index, level},
 		   				success : function(list){
-		   					
 		   				},
 		   				error: function(){
 		   					error("게시글 목록조회 실패")
 		   				}
-		        	});  
-		     
-		      		
+		        	});
+		      	  	let element1 = document.getElementsByName("originFileNo" + (index-1));
+		      		element1.parentNode.removeChild(element);
+		      		let element2 = document.getElementsByName("changeFileName" + (index-1));
+		      		element2.parentNode.removeChild(element);
+		      		let element3 = document.getElementsByName("filelevel" + (index-1));
+		      		element3.parentNode.removeChild(element);
 		      		
 		      	});
 				

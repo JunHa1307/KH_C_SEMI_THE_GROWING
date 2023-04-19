@@ -1534,5 +1534,27 @@ public int insertBoardNotice(Connection conn, int code, int rowNum, int uno) {
 
 }
 
+public int updateAttachmentLevel(Connection conn, Attachment at) {
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	
+	String sql = prop.getProperty("updateAttachmentLevel");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, at.getFileLevel());
+		pstmt.setInt(2, at.getFileNo());
+		
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
+
 }
 

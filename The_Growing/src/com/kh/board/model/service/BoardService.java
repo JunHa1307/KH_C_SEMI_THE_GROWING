@@ -632,4 +632,19 @@ public int selectCountReply(int bno ) {
 		
 	}
 	
+	public int updateAttachmentLevel(Attachment at) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updateAttachmentLevel(conn, at);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }
