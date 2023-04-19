@@ -34,15 +34,6 @@
       font-size: 2vw;
    }
 }
-#classEnrollForm input{
-	border-radius: 10px;
-	margin-right: 20px;
-	border-color: lightgray;
-}
-
-.info>div{
-	font-size: 25px;
-}
 
 
 </style>
@@ -102,7 +93,7 @@
 										onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
 								</div>
 								<div class="myClass-text-list">
-									<div class="myClass-text"><h6><%= list.get(i).getClassTypeName()%><%=" "+ (list.get(i).getClassGrade()+"").substring(5) %>학년<br><%= list.get(i).getClassName() %></h6></div>
+									<div class="myClass-text"><h6><%= list.get(i).getClassTypeName()%><br><%= (list.get(i).getClassGrade()+"").substring(5) %>학년<br><%= list.get(i).getClassName() %></h6></div>
 									<div class="myClass-text">
 										가입자 수 :
 										<%= list.get(i).getUserCount()%>명
@@ -127,8 +118,8 @@
 				<nav class="myClass-btn" onclick="location.href='<%= contextPath %>/info.c'"
 					style="background-image: url('<%= contextPath %>/resources/image/houses-fill.svg');">
 					<img src="<%= contextPath %>/resources/image/houses-fill.svg"
-						alt="클래스 더보기" width="0" height="90%"> <span>클래스<br>더보기
-					</span>
+						alt="클래스 더보기" width="0" height="90%"> 
+						<span>클래스<br>더보기</span>
 				</nav>
 				<%if( loginUser.getUserLevel() == 1) {%>
 					<div class="myClass-btn" data-toggle="modal"
@@ -204,13 +195,13 @@
                   <form action="classEnrollForm.c" method="post"
                      enctype="multipart/form-data" id="classEnrollForm">
                      <div class="modal-body">
-                        <div class="title">
+                        <div class="title" title="학교이름을 입력해주세요. ex) 신성초등학교">
                            <h2>학교</h2>
                         </div>
 
                         <div class="title_box">
                            <input class="school_search" type="text" name="classTypeName"
-                              placeholder="내용을 입력해주세요">
+                              placeholder="학교이름을 입력해주세요" title="정확한 이름으로 입력해주세요. ex) 신성초등학교">
                         </div>
 		
                         <div class="info">
@@ -225,18 +216,16 @@
                         </div>
 
                         <div class="info_box">
-                           <input class="year" type="number" name="classYear" min="2010"
-                              max="2099" step="1" value="2023"> <input class="grade"
-                              type="number" name="classGrade" min="1" max="6" step="1"
-                              value="1"> <input class="class_name2" type="text"
-                              name="className" placeholder="학교이름을 입력해주세요"> <input
-                              class="class_name2" type="text" name="teacherName"
-                              placeholder="선생님 이름을 입력하세요">
+                           <input class="year" type="number" name="classYear" min="2010" max="2099" step="1" value="2023"> 
+                           <input class="grade" type="number" name="classGrade" min="1" max="6" step="1" value="1"> 
+                           <input class="class_name2" type="text" name="className" placeholder="클래스이름을 입력해주세요" title="ex)2반"> 
+                           <input class="class_name2" type="text" name="teacherName"
+                              placeholder="선생님 이름을 입력하세요" title="선생님 이름은 반드시 선생님 계정의 이름과 같아야 합니다.">
                         </div>
-                        <div class="info">
+                        <div class="info" title="급식표 생성을 위한 교육청 선택란입니다. 교육청에 맞는 학교의 급식표를 볼 수 있습니다. 이후 변경은 불가.">
                            <h2>관할 교육청</h2>
                         </div>
-                        <div class="info_box">
+                        <div class="info_box" title="급식표 생성을 위한 교육청 선택란입니다. 교육청에 맞는 학교의 급식표를 볼 수 있습니다. 이후 변경은 불가.">
                            <select name="atCode" form="classEnrollForm">
                               <option value="Z00">없음</option>
                               <option value="B10">서울특별시교육청</option>
@@ -260,7 +249,7 @@
                            </select>
                         </div>
                         <h2>대표 이미지 설정</h2>
-                        <div class="profile_img_area">
+                        <div class="profile_img_area" title="이미지를 클릭하거나 수정버튼을 누르면 대표이미지를 설정할 수 있습니다.">
                            <img class="prof_img" src=""
                               onerror="this.src='<%= contextPath %>/resources/image/noImage.png'">
                         </div>
@@ -308,7 +297,7 @@
             <div class="modal-dialog modal-dialog-centered modal-xl">
                <div class="modal-content">
                   <div class="modal-header">
-                     <h5 class="modal-title" id="modalLabel"></h5>
+                     <h5 class="modal-title" id="modalLabel">시간표 자세히 보기</h5>
                      <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -582,23 +571,25 @@
             data: tabledata[index], // 테이블 데이터 설정
             layout: "fitDataFill", // 데이터에 맞춰서 보이기(보이는 방식 설정)
             columns: [ // 테이블 열 설정( 선생님일때 포매터 : editor <- 수정 , 아닐 때 : textarea <- 조회)
-            	{formatter:"buttonCross", title:"삭제", headerSort:false, cellClick:function(e, cell){ // 행 삭제 버튼 열
-	            		Swal.fire({
-	                        title: '행 삭제',
-	                        text: "정말 이 행을 삭제하시겠습니까?",
-	                        icon: 'warning',
-	                        showCancelButton: true,
-	                        confirmButtonColor: '#3085d6',
-	                        cancelButtonColor: '#d33',
-	                        confirmButtonText: '삭제',
-	                        cancelButtonText: '취소'
-	                    }).then((result) => {
-	                        if (result.isConfirmed) {
-	    		    		  cell.getRow().delete();
-	                        }
-	                    });
-            		}
-            	},
+            	<% if(loginUser.getUserLevel() == 1){ %>
+	            	{formatter:"buttonCross", title:"삭제", headerSort:false, cellClick:function(e, cell){ // 행 삭제 버튼 열
+		            		Swal.fire({
+		                        title: '행 삭제',
+		                        text: "정말 이 행을 삭제하시겠습니까?",
+		                        icon: 'warning',
+		                        showCancelButton: true,
+		                        confirmButtonColor: '#3085d6',
+		                        cancelButtonColor: '#d33',
+		                        confirmButtonText: '삭제',
+		                        cancelButtonText: '취소'
+		                    }).then((result) => {
+		                        if (result.isConfirmed) {
+		    		    		  cell.getRow().delete();
+		                        }
+		                    });
+	            		}
+	            	},
+            	<% } %> 
                 { title: "제목", field: "name", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
                 { title: "월요일", field: "mon", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },
                 { title: "화요일", field: "tue", editor:"input", editable:editCheck, variableHeight: true, headerSort: false },

@@ -33,7 +33,7 @@ public class MemberDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String userPwd =((Member)request.getSession().getAttribute("loginUser")).getUserPwd();
-	
+
 		int result = new MemberService().deleteMember(userId,userPwd);
 		
 			if(result > 0) { 
@@ -57,7 +57,7 @@ public class MemberDeleteController extends HttpServlet {
 			 
 			} else{ // 실패시 -> 에러페이지 포워딩 or 안내문구 전송
 				request.setAttribute("alertMsg",  "회원 탈퇴에 실패했습니다");
-				response.sendRedirect(request.getContextPath()+"/infor.bo");
+				response.sendRedirect(request.getContextPath()+"/myPage.me");
 			}
 			
 	}

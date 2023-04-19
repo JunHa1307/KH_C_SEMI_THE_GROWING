@@ -41,6 +41,11 @@ public class CalendarUpdateController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String arr = request.getParameter("cArr");
+		
+		if(arr.equals("[\"{}\"]")){
+			arr = "[]";
+		}
+		
 		int classNo = Integer.parseInt(request.getParameter("cno"));
 		
 		int updateTable = new ClassService().updateCalendar(classNo,arr);

@@ -75,6 +75,37 @@
 		overflow: auto;
 	}
     
+    .shake-bottom{
+	animation:shake-bottom .8s cubic-bezier(.455,.03,.515,.955) both;
+	}
+	
+	@keyframes shake-bottom {
+	  0%,
+	  100% {
+	    transform: rotate(0deg);
+	    transform-origin: 50% 100%;
+	  }
+	  10% {
+	    transform: rotate(2deg);
+	  }
+	  20%,
+	  40%,
+	  60% {
+	    transform: rotate(-4deg);
+	  }
+	  30%,
+	  50%,
+	  70% {
+	    transform: rotate(4deg);
+	  }
+	  80% {
+	    transform: rotate(-2deg);
+	  }
+	  90% {
+	    transform: rotate(2deg);
+	  }
+	}
+    
   /* /* 버튼 css */
 
   
@@ -712,6 +743,7 @@ vertical-align: middle;
                     aria-expanded="false">
                     
                     <div class="isAlarmNew"></div>
+                    <div id="timeCheck"></div>
                     <img id="alarmIcon" src="resources/image/bell.svg"/>
                 </button>
                 <div id="memberNotice" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
