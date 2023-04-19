@@ -50,6 +50,7 @@
    	<script src="<%= contextPath %>/resources/js/headerNotice.js"></script>   
        
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/button.css">
 <script src="<%= contextPath %>/resources/js/alert.js"></script>
 
 	<!--  alert 창 -->
@@ -77,7 +78,9 @@
 		overflow: auto;
 	}
     
-  /* 버튼 css */
+  /* /* 버튼 css */
+
+  
  .box {
    display: flex;
    background: #ffffff;
@@ -97,7 +100,7 @@
 } 
 
 .button_UI :active {
-   color: rgb(137, 180, 166);
+   color: rgb(154, 187, 196);
 }
 
 .button_UI:focus {
@@ -121,7 +124,7 @@
    top: 0;
    left: 0;
    opacity: 0;
-   color: rgb(137, 180, 166);
+   color: rgb(154, 187, 196);
    font-weight: 600;
    -webkit-transform: translate3d(0, 25%, 0);
    transform: translate3d(0, 25%, 0);
@@ -137,7 +140,7 @@
 } 
 
 .button--winona:hover {
-   border-color: rgb(137, 180, 166);
+   border-color: rgb(154, 187, 196);
    background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -187,7 +190,7 @@
    
    
    
-   
+    */
    
    
 
@@ -613,7 +616,7 @@ vertical-align: middle;
                  });
                  
                  $("#mypage").click(function(){
-                    location.href="<%=contextPath%>/info.c";
+                    location.href="<%=contextPath%>/myPage.me";
                  });
                  
                  $("#hamburgur>img").click(function() {
@@ -729,7 +732,7 @@ vertical-align: middle;
             </div>
             <div id="classInfo">
      
-                <div class="info_text big"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassGrade()%>학년 <%=cInfo.getClassName() %>반</div>
+                <div class="info_text big"><%=cInfo.getClassTypeName() %> <%=cInfo.getClassGrade()%>학년 <%=cInfo.getClassName() %></div>
                 <div class="info_text small">담임 : <%=cInfo.getTeacherName() %> 선생님</div>
                 <div class="info_text small"> 학급 수 : <%=cInfo.getUserCount() %></div>  
               

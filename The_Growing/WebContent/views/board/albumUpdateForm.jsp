@@ -50,7 +50,7 @@
                 <div id="album_area">
                   <div id="album_title">앨범</div>
                   <div id="album_button" align="right" class="box">
-                      <button type="submit" class="button_UI button--winona" data-text="수정"><span>수정</span></button>
+                      <button type="submit" class="button_UI button--winona enter" data-text="수정" style="width:100%;"><span>수정</span></button>
                   </div>
                 </div>
                 <div id="album_hr">
@@ -64,8 +64,9 @@
               
               
           
-        		<div style="padding: 10px">
-					<div style="height:60px;">이미지를 첨부해주세요.</div>
+        		<div style="text-align: center;">
+        		<br>
+					1개 이상의 이미지를 첨부해주세요.<br><br><br>
 					<div >
 					<%for (int i = 1; i<=list.size(); i++){ %>
 					<span  style="position:relative; width:155px"><img id="contentImg<%=i%>"  src="resources/album_upfiles/<%=list.get(i-1).getChangeName() %>" style="width:150px; height:120px;"><img data-bno="<%=b.getBoardNo()%>" data-index="<%=i%>" data-level="<%=list.get(i-1).getFileLevel() %>"  class="x" src="resources/image/x-circle.svg"></span>

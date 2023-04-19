@@ -670,13 +670,6 @@ div {
             });
       
    
-            $('.button_UI').on('click',function(){
-                if($(this).css('color')=='rgb(137, 180, 166)'){
-                  $(this).css('color', "black" );
-                }else{
-                  ($(this).css('color','rgb(137, 180, 166)'));
-                }
-              });
 
             
        //파일 다운로드

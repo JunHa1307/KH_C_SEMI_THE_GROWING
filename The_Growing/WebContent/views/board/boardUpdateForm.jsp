@@ -21,12 +21,12 @@
         }
 #enrollWrap {
 	width: 100%;
-	min-height: 615px; 
+	height:100%;
 	/* height:100%; */
 	border: 1px solid rgb(224, 224, 224);
 	border-radius: 10px;
 	padding: 20px;
-	background: rgb(247, 245, 241);
+	background: rgb(247, 247, 247);
 }
 .note-frame{
  background: white;
@@ -90,14 +90,12 @@
 						제목 : <input id="title_area" type="text" name="title" value="<%=b.getBoardTitle() %>" style="width: 100%;  required">
 					</div>
 					<textarea id="summernote" name="content"><%=b.getBoardContent() %></textarea>
-
+					</div>
 					<div id="box" style="float: right;">
-					
 						
-					<button type="submit" class="button_UI button--winona" data-text="수정" style="width: 100px;"><span>수정</span></button>
-					<button  onclick="deleteBoard();" class="button_UI button--winona" data-text="삭제" style="width: 100px;" ><span>삭제</span></button>	
+					<button type="submit" class="button_UI button--winona" data-text="수정" style="width: 150px;"><span>수정</span></button>
 					</div>	
-				</div>
+				
                     
                     
                     
@@ -129,29 +127,6 @@
             });
             
 
-			function deleteBoard(){
-				   Swal.fire({
-		                 title: '게시물을 삭제하시겠습니까?',
-		                 text: "삭제된 게시물은 다시 볼 수 없습니다.",
-		                 icon: 'warning',
-		                 showCancelButton: true,
-		                 confirmButtonColor: '#3085d6',
-		                 cancelButtonColor: '#d33',
-		                 confirmButtonText: '삭제',
-		                 cancelButtonText: '취소'
-		             }).then((result) => {
-		                 if (result.isConfirmed) {
-		                	 
-		                     Swal.fire(
-		                         '삭제가 완료되었습니다.'
-		                     )
-		                     setTimeout(() =>  location.href = "<%= contextPath %>/delete.fr?bno=<%= b.getBoardNo() %>", 1000);
-		                    
-		                 }
-		                 
-		             })
-				
-			};
             
             </script>  
     </div>

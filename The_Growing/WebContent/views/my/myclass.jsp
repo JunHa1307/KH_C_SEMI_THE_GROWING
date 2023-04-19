@@ -99,12 +99,12 @@ color:grey;
 .b2{
 text-align: center; 
 padding-top:25px;
-font-size:25px; 
+font-size:20px; 
 font-weight:700;
 }
 .b3{
 text-align: center;
-font-size:20px; 
+font-size:17px; 
 font-weight:500;
 }
 .b_hover:hover{
@@ -115,7 +115,7 @@ font-weight:500;
 
 
 @media only screen and (max-width: 1000px){
-#myclass_info {
+.myclass_info {
 	width: 50%;
 	
 
@@ -124,7 +124,7 @@ font-weight:500;
 
 }
 @media only screen and (max-width: 800px){
-#myclass_info {
+.myclass_info {
 	width: 100%;
 
 }
@@ -165,7 +165,7 @@ font-weight:500;
 				</div>
 				<div id="bottom">
 				 	<div class="b1 move"><%=list.get(i).getClassDate()%>년</div>
-					<div class="b2 b_hover move" ><%=list.get(i).getClassTypeName() %> <%=list.get(i).getClassGrade()%>학년 <%=list.get(i).getClassName() %>반</div>
+					<div class="b2 b_hover move" ><%=list.get(i).getClassTypeName() %> <%=list.get(i).getClassGrade()%>학년 <%=list.get(i).getClassName() %></div>
 					<div class="b3 b_hover move">
 						담임 : <%=list.get(i).getTeacherName() %> 선생님 <br>학급 수 : <%=list.get(i).getUserCount() %>명
 					</div>

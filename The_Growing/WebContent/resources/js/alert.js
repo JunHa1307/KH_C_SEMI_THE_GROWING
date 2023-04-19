@@ -16,6 +16,7 @@
                          icon: 'error',                        
                          title: 'ERROR',         
                          text: word, 
+                         
                      });
                  };
                  

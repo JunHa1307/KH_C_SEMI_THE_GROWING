@@ -19,12 +19,12 @@
 
 #enrollWrap {
 	width: 100%;
-	min-height: 615px; 
+	height:100%;
 	/* height:100%; */
 	border: 1px solid rgb(224, 224, 224);
 	border-radius: 10px;
 	padding: 20px;
-	background: rgb(247, 245, 241);
+	background: rgb(247, 247, 247);
 }
 .note-frame{
  background: white;
@@ -87,18 +87,18 @@
 							style="width: 100%;">
 					</div>
 					<textarea id="summernote" name="content"></textarea>
-
+					</div>
 					<div id="box" style="float: right;">
 						<button type="submit" class="button_UI button--winona"
 							data-text="등록" style="width: 100px;">
 							<span>등록</span>
 						</button>
-						<button type="reset" class="button_UI button--winona"
+						<button type="button" class="button_UI button--winona back"
 							data-text="취소" style="width: 100px;">
 							<span>취소</span>
 						</button>
 					</div>	
-				</div>
+				
 			</form>
 		</div>
 	</div>
@@ -144,6 +144,10 @@
           
       
 	});
+	
+	$(".back").click(function(){
+		history.back();
+	})
 	</script>
 	</div>
 </body>
