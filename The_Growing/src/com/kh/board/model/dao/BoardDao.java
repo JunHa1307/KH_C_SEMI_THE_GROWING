@@ -220,6 +220,8 @@ public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 			r.setFilePath(rset.getString("FILE_PATH"));
 			r.setChangeName(rset.getString("CHANGE_NAME"));
 			r.setReplySecret(rset.getString("REPLY_SECRET"));
+			r.setUserLevel(rset.getInt("USER_LEVEL"));
+			r.setUserName(rset.getString("USER_NAME"));
 			list.add(r);
 		}
 	} catch (SQLException e) {
@@ -616,6 +618,8 @@ try {
 		b.setCreateDate(rset.getDate("CREATE_DATE"));
 		b.setRefCno(rset.getInt("REF_CNO"));		
 		b.setCount(rset.getInt("BOARD_COUNT"));
+		b.setUserName(rset.getString("USER_NAME"));
+		b.setUserLevel(rset.getInt("USER_LEVEL"));
 				           
 		list.add(b);
 	}
@@ -662,6 +666,8 @@ try {
 		b.setCreateDate(rset.getDate("CREATE_DATE"));
 		b.setRefCno(rset.getInt("REF_CNO"));		
 		b.setCount(rset.getInt("BOARD_COUNT"));
+		b.setUserName(rset.getString("USER_NAME"));
+		b.setUserLevel(rset.getInt("USER_LEVEL"));
 				           
 		list.add(b);
 	}
@@ -872,6 +878,8 @@ public Board selectBoard(Connection conn, int boardNo) {
 			b.setcDate(rset.getString("C_DATE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
 			b.setRefCno(rset.getInt("REF_CNO"));
+			b.setUserName(rset.getString("USER_NAME"));
+			b.setUserLevel(rset.getInt("USER_LEVEL"));
 					   
 		}
 		
@@ -1058,6 +1066,8 @@ public Board selectBoard(Connection conn, int boardNo) {
 				r.setReplyContent(rset.getString("REPLY_CONTENT"));
 				r.setReplyNo(rset.getInt("REPLY_NO"));	
 				r.setReplySecret(rset.getString("REPLY_SECRET"));
+				r.setUserName(rset.getString("USER_NAME"));
+				r.setUserLevel(rset.getInt("USER_LEVEL"));
 			}
 			
 		} catch (SQLException e) {

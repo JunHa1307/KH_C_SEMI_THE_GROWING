@@ -51,7 +51,6 @@ public class ClassCodeController extends HttpServlet {
 		if(result>0) {
 			Class cInfo = new ClassService().selectClass(cno, uno);
 			request.getSession().setAttribute("cInfo", cInfo);
-			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
 			response.sendRedirect(request.getContextPath()+"/invite.bo");
 		}else {
 			request.setAttribute("errorMsg", "초대코드를 다시 받지 못했습니다");

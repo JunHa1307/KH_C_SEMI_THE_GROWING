@@ -154,8 +154,8 @@
 				          
 					});
 					
-				      $("#board_album").css("fontWeight", "700");
-			          $("#board_album").children().css("background", "rgb(239, 243, 239)");
+					   $("#board_album").css("fontWeight", "700");
+				          $("#board_album").children().css("background", "rgb(237, 239, 243)");
 			          
 			      
 				});

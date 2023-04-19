@@ -14,10 +14,24 @@
  function error(word) {
                      Swal.fire({
                          icon: 'error',                        
+
                          title: '에러 발생',         
                          text: word, 
                      });
                  };
+
+                         title: 'ERROR',         
+                         text: word, 
+                     });
+                 };
+                 
+  function warn(word) {
+                     Swal.fire({
+                         icon: 'warning',                        
+                         title: '경고',         
+                         text: word, 
+                     });
+                 };               
 
  function alertMsg(word) {
                      Swal.fire({

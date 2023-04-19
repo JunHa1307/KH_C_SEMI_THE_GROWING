@@ -52,11 +52,19 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
 <script src="<%= contextPath %>/resources/js/alert.js"></script>
 
-	<!--  alret 창 -->
+
+	<!--  alert 창 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
+   
     
     <style>
+    #headerWrap{
+	width:100%;
+	height:100px;
+	background: white;
+}
+    
+    
     .dropdown-toggle::after {
     display:none;
 }
@@ -431,7 +439,6 @@ vertical-align: middle;
       background-color: white;
       top: 260px;
       border-radius: 10px;
-      max-width: 150px;
       width: 239px;
    height: 700px;
    position: fixed;
@@ -572,7 +579,7 @@ vertical-align: middle;
               $(function(){
                   $(".board_li").click(function(){
                       $(this).css("fontWeight","700").fadeIn(1000);
-                      $(this).children().css("background","rgb(239, 243, 239)");
+                      $(this).children().css("background","rgb(237, 239, 243)");
                       $(this).siblings(".board_li").css({fontWeight:"", color:"black"})
                       $(this).siblings().children().css("background","");
                   
@@ -666,13 +673,19 @@ vertical-align: middle;
 <script>
 	const msg = "<%= alertMsg  %>";
 	
-	if(msg != "null"){
+
+	if(msg != "null" && msg != ""){
+
 		alertMsg(msg);
 		<% session.removeAttribute("alertMsg"); %>
+		msg="";
 	}
 
 	window.onbeforeunload = function(){
 		<% session.removeAttribute("alertMsg"); %>
+
+		msg=null;
+
 	}
 
 	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);
@@ -686,7 +699,7 @@ vertical-align: middle;
             <div id="search">
                 <button id="searchBtn" type="button">
                     <form id="classSearchForm" action="searchClass.c" method="get">
-		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 클래스를 입력해주세요.">
+		               <input id="seachClass" type="text" name="searchClassName" placeholder="찾으시는 학교 / 클래스 / 선생님을 검색해주세요">
 		               <img onclick="$('#classSearchForm').submit();" src="<%= request.getContextPath() %>/resources/image/search.svg">
 	       	   		</form>
                 </button>

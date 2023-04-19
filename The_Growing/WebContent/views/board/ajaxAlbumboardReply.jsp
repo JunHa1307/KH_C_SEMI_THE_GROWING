@@ -49,7 +49,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%><img class="secretImg" src="<%=contextPath%>/resources/image/lock-fill.svg"></div>
 			</div>
@@ -84,7 +84,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 							alt=""
 							onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 					</div>
-					<div class="mo_reply_id"><%=list.get(i).getReplyWriter()%></div>
+					<div class="mo_reply_id"><%=list.get(i).getUserName()%> <%=list.get(i).getUserLevel() == 1 ? "선생님" : list.get(i).getUserLevel() == 2 ? "학부모" : "학생" %></div>
 				</div>
 				<div class="mo_reply_text"><%=list.get(i).getReplyContent()%></div>
 			</div>
@@ -106,13 +106,27 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
  		   $(".deleteReply").click(function(){
 				let rno = $(this).data('rno'); 
 				let bno = $(this).data('bno'); 
-			
+				
+				 Swal.fire({
+	                 title: '댓글을 삭제하시겠습니까?',
+	                 text: "",
+	                 icon: 'warning',
+	                 showCancelButton: true,
+	                 confirmButtonColor: '#3085d6',
+	                 cancelButtonColor: '#d33',
+	                 confirmButtonText: '삭제',
+	                 cancelButtonText: '취소'
+	             }).then((result) => {
+	                 if (result.isConfirmed) {
+	                	 
 				$.ajax({
 	   				url : "<%=contextPath%>/rDelete.bo",
 	   				data : { rno},
 	   				type : "get",
 	   				success : function(result){
-			   					
+	   					Swal.fire(
+		                         '삭제가 완료되었습니다.'
+		                     )
 			   					 /* albumClick(bno);  */
 			   			 		if(result>0){
 			   					$.ajax({
@@ -125,7 +139,7 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 					   					
 					   				},
 					   				error: function(){
-					   					console.log("게시글 목록조회 실패")
+					   					error();
 					   				}
 					        	});
 								$.ajax({
@@ -136,19 +150,25 @@ Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 					   					
 					   				},
 					   				error: function(){
-					   					console.log("게시글 목록조회 실패")
+					   					error();
 					   				}
 					        	});   
 			   					}else {
-									alert("댓글삭제에 실패했습니다");
+									error("댓글삭제에 실패했습니다");
 		
 								} 
 	   					
 	   				},
 	   				error: function(){
-	   					console.log("게시글 목록조회 실패")
+	   					error();
 	   				}
         		});
+	                     
+	                    
+	                 }
+	                 
+	             })
+			
 			});
 	 
 		</script>

@@ -317,8 +317,8 @@
      </div>
      <script>
 				              $(function(){
-				            	    $("#board_notice").css("fontWeight", "700");
-				                    $("#board_notice").children().css("background", "rgb(239, 243, 239)");
+				            	   $("#board_notice").css("fontWeight", "700");
+				                   $("#board_notice").children().css("background", "rgb(237, 239, 243)");
 				            	  
 				              	if(<%= loginUser.getUserLevel() != 1 %>){
 				              		$().ready(function(){

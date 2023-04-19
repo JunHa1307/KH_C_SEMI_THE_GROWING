@@ -106,9 +106,7 @@ public class AlbumInsertController extends HttpServlet {
 			}
 			
 			
-			
-			Class cInfo = new ClassService().selectClass(cno, uno);
-			request.setAttribute("cInfo", cInfo);
+		
 			
 			
 			int result = new BoardService().insertAlbumBoard(b, list);

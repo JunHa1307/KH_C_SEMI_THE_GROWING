@@ -135,11 +135,11 @@
 		
 		if(<%=boardType == 4 %>){
 			  $("#board_free").css("fontWeight", "700");
-		    $("#board_free").children().css("background", "rgb(239, 243, 239)");
+		    $("#board_free").children().css("background", "rgb(237, 239, 243)");
 			}else if(<%=boardType == 5 %>) {
 				
 				  $("#board_counsel").css("fontWeight", "700");
-		        $("#board_counsel").children().css("background", "rgb(239, 243, 239)");
+		        $("#board_counsel").children().css("background", "rgb(237, 239, 243)");
 			};
           
       
