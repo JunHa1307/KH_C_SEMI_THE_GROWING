@@ -11,7 +11,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Notice List View Page</title>
+<title>The Growing</title>
+<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 <style>
 	.notice_con1 .divSt{
 		display: inline-flex;

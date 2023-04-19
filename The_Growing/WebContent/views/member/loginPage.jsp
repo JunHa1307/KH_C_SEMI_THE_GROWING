@@ -19,6 +19,7 @@
     <!-- google login api -->
   	<meta name ="google-signin-client_id" content="973318692376-c7o87b7cpr11prfeltj32j3pc0i3n3c1.apps.googleusercontent.com">
     <title>The Growing</title>
+	<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 
     <!-- kakao login api cdn -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>    

@@ -16,7 +16,8 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>THE GROWING</title>
+<title>The Growing</title>
+<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 <style>
 /* 자유게시판 상세보기 css */
 #board_area {

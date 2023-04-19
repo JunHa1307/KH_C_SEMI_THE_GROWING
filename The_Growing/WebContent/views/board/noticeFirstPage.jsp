@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>알림장 게시판 페이지</title>
+<title>The Growing</title>
+<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 </head>
 <body>
 <%@ include file="boardFrame.jsp" %>
