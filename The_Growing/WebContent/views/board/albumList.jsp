@@ -166,10 +166,10 @@ opacity: 0.9;
 }
 
 #aDate{
-	width:80%;
+	width:75%;
 }
 #aCount{
-	width:20%;
+	width:25%;
 	font-size:0.5vw; 
 	margin-top:2px;
 }
@@ -233,7 +233,7 @@ opacity: 0.9;
 
 .img_1 {
 	width: 35.2vw;
-	min-width: 367px;
+	min-width: 297px;
 	min-height: 500px; 
 	
 	object-fit: cover;
