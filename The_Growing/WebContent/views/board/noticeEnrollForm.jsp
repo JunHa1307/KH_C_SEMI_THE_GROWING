@@ -13,7 +13,7 @@
 	border: 1px solid rgb(224, 224, 224);
 	border-radius: 10px;
 	padding: 20px;
-	background: rgb(247, 245, 241);
+	background: rgb(247, 247, 247);
 }
 .note-frame{
  background: white;
@@ -36,7 +36,7 @@
                 <div id="album_area">
                   <div id="album_title">알림장</div>
                   <div id="album_button" align="right" class="box">
-                      <button type="submit" class="button_UI button--winona" data-text="알림장 등록"><span>등록하기</span></button>
+                      <button type="submit" class="button_UI button--winona" data-text="알림장 등록" style="width:100%;"><span>등록하기</span></button>
                   </div>
                 </div>
                 <div id="album_hr">

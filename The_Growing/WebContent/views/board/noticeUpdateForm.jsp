@@ -10,7 +10,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+#enrollWrap {
+	width: 100%;
+	min-height: 470px; 
+	/* height:100%; */
+	border: 1px solid rgb(224, 224, 224);
+	border-radius: 10px;
+	padding: 20px;
+	background: rgb(247, 247, 247);
+}
+.note-frame{
+ background: white;
+}
 
+.note-toolbar {
+	background: rgb(242, 242, 250);
+}
+
+#textInput {
+	border: 1px solid rgb(224, 224, 224);
+}
 </style>
 </head>
 <body>
@@ -21,16 +40,22 @@
                 <div id="album_area">
                   <div id="album_title">알림장</div>
                   <div id="album_button" align="right" class="box">
-                      <button type="submit" class="button_UI button--winona" data-text="알림장 등록"><span>등록하기</span></button>
+                      <button type="submit" class="button_UI button--winona" data-text="알림장 등록" style="width:100%;"><span>등록하기</span></button>
                   </div>
                 </div>
                 <div id="album_hr">
                   <hr />
                 </div>
               </div>
-                  <div style="font-size:larger; font-weight:600">제목 <input type="text" name="title" value="<%= b.getBoardTitle() %>" required size="99"></div>
-                <br>
-                <textarea id="summernote" name="content"><%= b.getBoardContent() %></textarea>
+              
+              	<div id="enrollWrap">
+					<div style="font-size: larger; font-weight: 600">
+						제목 : <input id="textInput" type="text" name="title" required value="<%= b.getBoardTitle() %>"
+							style="width: 100%;">
+					</div>
+					<textarea id="summernote" name="content"><%= b.getBoardContent() %></textarea>
+				</div>
+              
     
       </form>
    
