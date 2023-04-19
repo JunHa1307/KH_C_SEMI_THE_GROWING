@@ -150,13 +150,6 @@
 	
 	</entry>
 	
-	<entry key="updateBoard">
-		UPDATE BOARD
-		SET BOARD_TITLE = ?,
-		BOARD_CONTENT = ?
-		WHERE BOARD_NO = ? 
-	</entry>
-	
 	<entry key="updateAttachment">
 		UPDATE ATTACHMENT
 		SET ORIGIN_NAME = ?,
@@ -392,4 +385,9 @@
 					?, SEQ_BNO.CURRVAL, SYSDATE, 3)
 	</entry>
 
+	<entry key="updateAttachmentLevel">
+		UPDATE ATTACHMENT 
+		SET FILE_LEVEL = ?
+		WHERE FILE_NO = ?
+	</entry>
 </properties>
