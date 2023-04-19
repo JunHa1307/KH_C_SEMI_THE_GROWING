@@ -388,6 +388,10 @@ cursor: pointer;
 
 /* 화면 작아질때 */
 @media only screen and (max-width: 780px) {
+	.snip1361{
+		width :2000px;
+		
+	}
 	#header>div{
 		 width:1vw;
 		 min-width:500px;
