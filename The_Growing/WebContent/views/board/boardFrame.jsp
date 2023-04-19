@@ -192,8 +192,9 @@
    
 
 /* 화면 너비 780 이하일 떄 */
-
-
+.wrap{
+	min-height:900px;
+}
 
 /* 게시판 헤더 및 정보(게시판마다 공통) */
 #classInfo, #userInfo{
@@ -649,9 +650,26 @@ vertical-align: middle;
                   });
                  
                  
-                
+                // 스크롤시 햄버거 버튼 위치 고정
+	              let hamburger = document.querySelector("#board_fix");
+	              let headerHeight = hamburger.offsetHeight;
+	
+	              window.onscroll = function () {
+	                let windowTop = window.scrollY;
+	                if(windowTop > 260){
+	                	$("#board_fix, #hamburgur").css("top",0);
+	                	$("#board").css("top",30);
+	                }
+	                else if (windowTop >= headerHeight) {
+	                	$("#board_fix, #hamburgur").css("top",230-windowTop);
+	                	$("#board").css("top",260-windowTop);
+	                }else{
+	                	console.log(headerHeight);
+	                }
+	              }
 
               });
+              
             </script>
 </head>
 <body>
