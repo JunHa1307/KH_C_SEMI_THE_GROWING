@@ -52,13 +52,10 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/header.css">
 <script src="<%= contextPath %>/resources/js/alert.js"></script>
 
+
 	<!--  alert 창 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
    
-    
-    
-    
     
     <style>
     #headerWrap{
@@ -676,7 +673,9 @@ vertical-align: middle;
 <script>
 	const msg = "<%= alertMsg  %>";
 	
+
 	if(msg != "null" && msg != ""){
+
 		alertMsg(msg);
 		<% session.removeAttribute("alertMsg"); %>
 		msg="";
@@ -684,7 +683,9 @@ vertical-align: middle;
 
 	window.onbeforeunload = function(){
 		<% session.removeAttribute("alertMsg"); %>
+
 		msg=null;
+
 	}
 
 	userNotice("<%= request.getContextPath()%>",<%= loginUser.getUserNo()%>);

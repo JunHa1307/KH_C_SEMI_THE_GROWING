@@ -1167,7 +1167,9 @@ opacity: 0.9;
                      Swal.fire(
                          '삭제가 완료되었습니다.'
                      )
+
                      setTimeout(() =>  location.href="<%=contextPath%>/delete.al?bno="+bno, 1000);
+
                     
                  }
                  

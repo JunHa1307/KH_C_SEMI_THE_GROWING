@@ -53,6 +53,7 @@
 		window.onbeforeunload = function(){
 			<% session.removeAttribute("alertMsg"); %>
 		}
+
 		userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>);
 		setInterval(function(){userNotice("<%= request.getContextPath()%>",<%= loginUser1.getUserNo()%>)},3000);
 	</script>

@@ -25,9 +25,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+
 <!--  alert 창 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<%= request.getContextPath() %>/resources/js/alert.js"></script>
+
 
 <link rel="stylesheet"
    href="<%= request.getContextPath() %>/resources/css/surveyForm.css">
@@ -181,7 +183,9 @@
 						if($("#insert-su>div").length > 1){
 							$("#insert-su>div").eq($("#insert-su>div").length-1).remove();						
 						}else {
+
 							error("질문은 0개 이하로 삭제할 수 없습니다.");
+
 						}
 					});
 					clickEvent();
@@ -202,7 +206,9 @@
 						if($(this).parents('div').siblings('table').find("input[name=mCheck]").length > 2) {
 							$(this).parents('div').siblings('table').find("tr:last").remove();
 						}else {
+
 							error("항목은 2개 이하로 삭제할 수 없습니다.");
+
 						}
 					});
 					$(".item_plus, .item_minus").on("click",function(){
