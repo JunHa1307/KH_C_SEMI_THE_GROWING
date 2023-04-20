@@ -355,7 +355,7 @@
    						error("탈퇴 실패");	
    					}else{
    						alertMsg("탈퇴 성공");
-   						location.reload();
+   						setTimeout(() =>  location.reload(), 1200);
    					}
    				},
    			 	error:function(error,status,msg){

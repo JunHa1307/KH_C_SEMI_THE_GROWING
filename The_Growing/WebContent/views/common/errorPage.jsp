@@ -16,7 +16,7 @@
 	<script>
 	error("<%=errorMsg%>");
 
-	setTimeout(() =>  history.back(), 2000);
+	setTimeout(() =>  history.back(), 1200);
 
 	</script>
 	
