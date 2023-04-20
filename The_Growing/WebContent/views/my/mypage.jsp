@@ -286,15 +286,15 @@ label{
                          <span aria-hidden="true">&times;</span>
                       </button>
                       <h5>현재 비밀번호와 변경할 비밀번호를 입력하세요.</h5>
-                      <span>현재 비밀번호 : </span><input type="password" name="oldPwd"><br><br>
-                      <span>변경할 비밀번호 : </span><input type="password" name="newPwd"><br><br>
-                      <span>비밀번호 확인 : </span><input type="password" name="pwdCheck"><br><br>
+                      <span>현재 비밀번호 : </span><input type="password" id="oldPwd" name="oldPwd"><br><br>
+                      <span>변경할 비밀번호 : </span><input type="password" id="newPwd" name="newPwd"><br><br>
+                      <span>비밀번호 확인 : </span><input type="password" id="pwdCheck" name="pwdCheck"><br><br>
                    </div>
 
                    <div class="modal-footer">
                       <button type="button" class="btn btn-secondary"
                          data-dismiss="modal">취소</button>
-                      <button type="button" id="btn_register" class="btn btn-primary">확인</button>
+                      <button type="button" id="btn_register" onclick="return pwdCheck();" class="btn btn-primary">확인</button>
                    </div>
                 </form>
              </div>
@@ -372,6 +372,29 @@ label{
 				warn("비밀번호가 일치하지 않습니다.");
 			}
 		});
+		
+		function pwdCheck(){
+			let oldPwd = document.getElementById("oldPwd");
+			let newPwd = document.getElementById("newPwd");
+			let pwdCheck = document.getElementById("pwdCheck");
+			
+			regExp = /^[a-z0-9!@#$%^]{8,15}$/i;
+			
+			if(!regExp.test(oldPwd.value)){
+            	error("유효한 비밀번호를 입력하세요");
+            	oldPwd.value="";   
+            	oldPwd.select();
+                return false;
+            }
+			
+			if(!regExp.test(newPwd.value)){
+            	error("유효한 비밀번호를 입력하세요");
+            	newPwd.value="";   
+            	newPwd.select();
+                return false;
+            }
+			
+		};
 	</script>
 
 </body>

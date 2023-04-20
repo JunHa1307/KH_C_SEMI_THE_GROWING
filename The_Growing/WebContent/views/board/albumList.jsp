@@ -177,7 +177,7 @@ opacity: 0.9;
 #modal {
 	width: 72vw;
 	height: 41vw;
-	min-width: 700px;
+	min-width: 750px;
 	min-height: 500px;
 	
 	/* background-color: aqua; */
@@ -202,14 +202,13 @@ opacity: 0.9;
 #mo_picture {
 	width: 40vw;
 	background-color: black;
- 	min-width: 367px;
 	min-height: 500px; 
 }
 
 #mo_picture_wrap {
 	width: 40vw;
 	height: 41vw;
-	min-width: 367px;
+	
 	min-height: 500px; 
 
 	/* background-color: aqua; */
@@ -232,14 +231,11 @@ opacity: 0.9;
 }
 
 .img_1 {
-	width: 35.2vw;
-	min-width: 297px;
+	width: 100%;
 	min-height: 500px; 
-	
 	object-fit: cover;
 	display: inline-block;
 	margin: 0;
- 
   height: 41vw;
   text-align: center;
   line-height: 41vw;
@@ -248,6 +244,7 @@ opacity: 0.9;
 #mo_write {
 	width: 40%;
 	background-color: white;
+	min-width: 330px;
 	
 }
 #a {
@@ -258,8 +255,7 @@ opacity: 0.9;
 
 #mo_write_wrap {
 	width: 100%;
-	height: 3vw;
-	min-height:25px;
+	height: 100%;
 	
 }
 
@@ -273,6 +269,12 @@ opacity: 0.9;
 	font-weight: 700;
 	font-size: 20px;
 }
+#mo_title>p {
+	
+	overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
 
 #mo_date {
 	width: 20%;
@@ -281,7 +283,7 @@ opacity: 0.9;
 }
 
 #mo_writer {
-	min-height: 70px;
+	min-height: 105px;
 	height:8vw;
 	width: 100%;
 	/* background-color: aqua */
@@ -289,7 +291,7 @@ opacity: 0.9;
 
 #mo_writer_content {
 	width: 100%;
-	min-height: 70px;
+	min-height: 95px;
 	height:8vw;
 	/* background-color: azure; */
 }
@@ -297,18 +299,19 @@ opacity: 0.9;
 #mo_writer_content>div {
 	float: left;
 	height: 8vw;
-	min-height:75px;
+	min-height:95px;
 }
 
 #mo_writer_content2 {
 	width: 100%;
 	height:2vw;
-	min-height: 20px;
+	min-height: 26px;
 	/* background-color: rgb(95, 73, 46); */
 }
 
 #mo_writer_profile {
-	width: 30%;
+	width: 8vw;
+	min-width: 95px;
 }
 
 #mo_writer_profileImg {
@@ -381,8 +384,8 @@ opacity: 0.9;
 .mo_reply_profileImg {
 	width: 4vw;
 	height: 4vw;
-	min-width:30px;
-	min-height:30px;
+	min-width:50px;
+	min-height:50px;
 	border-radius: 100%;
 	overflow: hidden;
 	margin : auto;
@@ -430,8 +433,9 @@ opacity: 0.9;
 
 .mo_reply_wrap {
 	width: 100%;
-	min-height:220px;
-	height:18.3vw;
+	
+	height:calc(67% - 130px);
+	min-height:205px;
 	/* background-color: antiquewhite; */
 	-ms-overflow-style: none;
 }
@@ -442,12 +446,12 @@ opacity: 0.9;
 
 #mo_reply_write {
 	width: 100%;
-	height:130px;
+	height:125px;
 }
 
 #mo_reply_list {
 	width: 100%;
-	height: 45px;
+	height: 50px;
 	margin-bottom: 5px;
 	position:relative;
 	/* background-color: antiquewhite; */
@@ -472,7 +476,7 @@ opacity: 0.9;
 #mo_reply_list>ul>li {
 	list-style-type: none;
 	float: left;
-	width: 7vw;
+	width: 8vw;
 	min-width:90px;
 	font-weight: 600;
 	text-align: right;
@@ -490,10 +494,11 @@ opacity: 0.9;
 }
 
 #mo_reply_write_text {
-	height: 50%;
-	min-height:55px;
-	padding:0.5vw 0.5vw 0px 0.5vw;
+	height:75px;
+	padding:10px 10px 0 10px;
 	display: flex;
+	position: relative;
+	text-align: center;
 	
 	/* background-color: antiquewhite; */
 }
@@ -504,7 +509,7 @@ opacity: 0.9;
 }
 
 #mo_reply_bt {
-	width: 15%;
+	width: 18%;
 	height: 90%;
 }
 
@@ -532,7 +537,7 @@ opacity: 0.9;
 	left:-70px;
 } */
 #boardReplyIcon {
-	height: 45px;
+	height: 50px;
 	border-bottom: 1px solid rgb(224, 224, 224);
 	border-top: 1px solid rgb(224, 224, 224);
 	display: flex;
@@ -540,7 +545,11 @@ opacity: 0.9;
 	background-color: rgb(244, 247, 247);
 }
 #mo_write_inner{
-	padding:15px;
+	padding:0.4vw;
+	height: 3vw;
+	min-height:40px;
+	
+	
 }
 #mo_reply_textarea {
 	border: 1px solid rgb(224, 224, 224);
@@ -554,33 +563,41 @@ opacity: 0.9;
 #lock_btn {
 	background-color: white;
 	border-style: none;
-	margin:1vw;
+	margin-top:15px;
 	margin-right:5px;
 	margin-left:5px;
-	width: 2vw;
-	height: 2vw;
-	min-width:25px;
-	min-height:25px;
+	width: 30px;
+	height: 30px;
+	
 	border-radius: 50%;
 	
 }
-#lock_btn:hover {
-	background-color: rgb(233, 233, 231);
-	border-style: none;
-	width: 2vw;
-	height: 2vw;
-	border-radius: 50%;
-	min-width:25px;
-	min-height:25px;
-}
+
 
 
 
 #lock_img {
-	width: 1.2vw;
-	height: 1.2vw;
-	min-width:15px;
-	min-height:15px;
+	width: 20px;
+	height: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+#mo_write{
+	display: none;
+}
+#mo_picture{
+	height:100%;
+	width:100%;
+}
+#mo_picture_wrap{
+	height:100%;
+	width:100%;
+}
+#modal{
+min-height:500px;
+	min-width:400px;
+}
+   
 }
 
 </style>
@@ -640,7 +657,7 @@ opacity: 0.9;
 		<div id="mo_picture">
 			<div id="mo_picture_wrap">
 				<div
-					style="width: 100%; height: 100%; padding: 2.2em; "
+					style="width: 100%; height: 100%; padding: 30px; "
 					>
 
 					<div id="slider-div">
@@ -695,7 +712,7 @@ opacity: 0.9;
 					</div>
 					<div id="mo_reply_bt" class="box">
 						<button class="button_UI button--winona insert_bt"
-							data-text="click" id="insertReply" style="margin-top:0.5vw; min-width:50px; height:2vw;">
+							data-text="click" id="insertReply" style="margin-top:0.5vw; min-width:50px;">
 							<span>등록</span>
 						</button>
 					</div>
@@ -787,14 +804,14 @@ opacity: 0.9;
   						  result  += 
   		   						 
   								'<div id="mo_write_wrap">'+
-  							'<div id="mo_title">'+b.boardTitle+'</div>'+
+  							'<div id="mo_title"><p>'+b.boardTitle+'</p></div>'+
   							'<div id="mo_date" class="grey">'+
   							
   							'<div id="menu" class="dropdown"'+
-                                'style="float: right; width:30px; height:30px; margin: -7% 0% 0% 10%;">'+
+                                'style="float: right; margin: -7% 0% 0% 10%;">'+
                                 '<button class="btn btn-secondary" type="button"'+
                                    'id="dropdownMenuButton" data-toggle="dropdown"'+
-                                   'aria-haspopup="true" aria-expanded="false" style="margin-top:7px; padding:0;"><img id="alarmIcon"'+
+                                   'aria-haspopup="true" aria-expanded="false" style="margin-top:0.4vw; padding:0;"><img id="alarmIcon"'+
                                       'src="/growing/resources/image/icons8-메뉴-2-48.png" /></button><div id="menu" class="dropdown-menu"'+
                                    'aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="/growing/update.al?bno='+b.boardNo+'">수정</a>'+ 
                                    '<a onclick="deleteAlbum('+b.boardNo+');" class="dropdown-item" >삭제</a></div></div>'+
@@ -977,7 +994,7 @@ opacity: 0.9;
           		if(i==0){
         		 $(this).data("lock","Y");
         		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
-        		$("#lock_img").css({"width":"25px", "height":"25px"});
+        		$("#lock_img").css({"width":"23px", "height":"26px", "margin-right":"3px"});
         		
         		i++;
           		}else{
