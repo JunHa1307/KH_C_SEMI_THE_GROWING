@@ -830,7 +830,7 @@ min-height:500px;
 	   						
 							'<div id="mo_write_wrap">'+
 						'<div id="mo_title">'+b.boardTitle+'</div>'+
-						'<div id="mo_date">'+b.cDate+
+						'<div id="mo_date">'+
 						
 
                              '</div></div>'+
