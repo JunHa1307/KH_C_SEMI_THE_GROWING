@@ -240,12 +240,17 @@ div {
 /* 	margin-top: 10px; */
 font-weight:600;
 font-size:30px;
+width:80%;
 }
 #boardTitle p {
 		overflow: hidden;
 	text-overflow: ellipsis;
 	  margin: 0;
 	 white-space:nowrap;
+}
+#boardTitle>div {
+	float: left;
+	height: 100%;
 }
 
 
@@ -292,7 +297,7 @@ font-size:30px;
 }
 
 #boardReplyWrite {
-	height: 80px;
+	height: 85px;
 	background-color: rgb(244, 247, 247);
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
@@ -354,7 +359,7 @@ font-size:30px;
 
 		<div id="board_content">
 			<div id="boardTitle">
-				<span><p><%=b.getBoardTitle()%></p></<span>
+				<div style="width:80%"><span><p><%=b.getBoardTitle()%></p></span></div>
 				<%
 					if ( (loginUser != null && loginUser.getUserId().equals(b.getUserId()) ) || loginUser.getUserLevel() ==1) {
 				%>
@@ -362,7 +367,7 @@ font-size:30px;
 				<div class="dropdown" style="float: right; ">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">
+						aria-haspopup="true" aria-expanded="false" >
 
 						<img id="alarmIcon"
 							src="<%=contextPath%>/resources/image/icons8-메뉴-2-48.png">
@@ -453,7 +458,7 @@ font-size:30px;
 			<div class="mo_reply_content">
 			<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {%>
 			
-			<div class="dropdown" style="float: right; margin-top: -3%;">
+			<div class="dropdown" style="float: right; margin-top: -3%; margin-right:1%">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">

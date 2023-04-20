@@ -32,6 +32,7 @@
 	} 
 	.notice_confirm{
 		width:100%;
+		display:flex;
 		border-bottom: 1px solid #BEBEBE;
 	}
 	.notice_confirm>th{
@@ -40,9 +41,8 @@
 	.notice_date{
 		width: 60%;
 		margin-top: 15px;
-		margin-left: 150px;
-		font-size:20px;
-		position: absolute;
+		justify-content :center;
+		font-size:1.2vw;
 	}
 
 	.notice_con_title{
@@ -57,9 +57,10 @@
 		height: 100%;	
 	}
 
+
 	
 	.notice_con_content{
-		width:850px;
+		width:100%;
 		background-color: white;
 		border-radius: 15px;
 		margin: auto;
@@ -69,6 +70,11 @@
 		text-decoration: underline;
 		text-decoration-color: #D3D3D3;
 	}
+/* 		.notice_con_content>pre>p{
+		margin: 0;
+		width:100%;
+		height:100%;
+	} */
 	
 	.controllBtn{
 		float: right;
@@ -134,6 +140,8 @@
 		text-align: center;
 		margin-bottom: 10px;
 		position: relative;
+		display:flex;
+		width:100%;
 	}
 	#checkList{
 		border: 2px solid white;
@@ -152,12 +160,12 @@
 		margin-right: 15px;
 		boarder: 2px solid black;
 	}
-	.thStampWrap{
+/* 	.thStampWrap{
 		margin-left: 500px;
 		
-	}
+	} */
 	
-	@media only screen and (max-width: 780px) {
+/* 	@media only screen and (max-width: 780px) {
 		.notice_con_content{
 			width: 1vw;
 			min-width:450px;
@@ -167,7 +175,7 @@
 			position: absolute;
 			left: 50px;
 		}
-	}
+	} */
 	
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -210,8 +218,8 @@
     	          checkBoxArr : JSON.stringify(checkBoxArr)      
     	      },
     	      success: function(result){
-    	    	  alertMsg('선택한 게시물이 모두 삭제되었습니다.');
-    	    	  <%-- setTimeout(()=> location.replace("<%= contextPath %>/movenotice.bo"), 1500); --%>
+    	    	  alertMsg("선택된 게시물이 모두 삭제되었습니다.");
+    	    	  setTimeout(()=> location.reload(), 1500);
     	    	  
     	      },
     	      error: function(xhr, status, error) {
@@ -219,7 +227,6 @@
     	      }  
     	   });
     	  
-    	  location.reload();
     	  
     	  /* $("#board_area").load(window.location.href + " #board_area");  */
     	};
@@ -258,11 +265,11 @@
 			<div class="notice_con1">
 				<div class="notice_confirm marginSt">
 					<div class="noticeHeader">
-						<span class="notice_date divSt"><fmt:formatDate value="<%=b.getCreateDate() %>" pattern="yyyy년 M월 dd일" /></span>
-						<div class="divSt thStampWrap"><div class="marginSt">선생님<br>확&nbsp;&nbsp; 인</div>
+						<div class="notice_date divSt"><fmt:formatDate value="<%=b.getCreateDate() %>" pattern="yyyy년 M월 dd일" /></div>
+						<div class="divSt thStampWrap" style="width:140px;"><div class="marginSt" style="width:100px; ">선생님<br>확&nbsp;&nbsp; 인</div>
 							<img class="divSt" id="teacherStamp" src="<%= contextPath %>/resources/image/teacherStampIc.png" style="width: 50px; height: 50px;">
 						</div>
-						<div class="mycheck divSt"><div class="marginSt">학부모<label style="font-size: small; font-weight: 400; margin-bottom: 0px;">/(본인)</label><br>확&nbsp;&nbsp; 인</div>
+						<div class="mycheck divSt" style="width:150px"><div class="marginSt" style="width:100px; ">학부모<label style="font-size: small; font-weight: 400; margin-bottom: 0px;">/(본인)</label><br>확&nbsp;&nbsp; 인</div>
 							<div class="dropdown">
 
 			                <%if(loginUser.getUserLevel() == 1){ %>
@@ -314,7 +321,7 @@
 						<p style="width: 50px; margin-left: 20px;">(공지)</p> <p style="width: 750px; margin-left: 70px;"><%= b.getBoardTitle() %></p>
 					</div>
 					<div class="notice_con_content">
-						<pre style="height: 100%;"><%=b.getBoardContent() %></pre>
+						<pre style="height: 100%; width:100%;"><%=b.getBoardContent() %></pre>
 					</div>
 				</div>
 				<div id="mo_reply_list">
