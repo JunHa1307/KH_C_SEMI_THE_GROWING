@@ -12,7 +12,6 @@
 <head>
 <meta charset="UTF-8">
 <title>The Growing</title>
-<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 <!-- 제이쿼리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -35,10 +34,6 @@
 html {
     height: 100%;
     
-}
-html, body {
-	margin: 0;
-    padding: 0;
 }
 /* body {
     margin: 0;
@@ -295,7 +290,7 @@ td{
   font-family: 'Quattrocento', Arial, sans-serif;
   position: relative;
   overflow: hidden;
-  margin: 0;
+  margin: 10px;
   
   width: 100%;
   height: 1057px;
@@ -303,7 +298,6 @@ td{
   text-align: left;
   line-height: 1.4em;
   font-size: 16px;
-  overflow: hidden;
 }
 .snip1361 * {
   -webkit-box-sizing: border-box;
@@ -312,8 +306,8 @@ td{
   transition: all 0.35s ease;
 }
 .snip1361 img {
-  max-width: 2117px;
-  object-fit: fill;
+  max-width: 100%;
+  vertical-align: top;
 }
 .snip1361 figcaption {
   position: absolute;
@@ -388,10 +382,6 @@ cursor: pointer;
 
 /* 화면 작아질때 */
 @media only screen and (max-width: 780px) {
-	.snip1361{
-		width :2000px;
-		
-	}
 	#header>div{
 		 width:1vw;
 		 min-width:500px;
@@ -411,7 +401,6 @@ cursor: pointer;
 		width:1vw;
 		min-width:500px;
 		font-size: 20px;
-		margin: auto;
 	}
 }
 </style>
