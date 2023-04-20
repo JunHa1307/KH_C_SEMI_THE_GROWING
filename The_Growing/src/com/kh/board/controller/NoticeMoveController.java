@@ -47,7 +47,6 @@ public class NoticeMoveController extends HttpServlet {
 		ArrayList<Board> list2 = new BoardService().selectNoticeList(refCno);
 		
 		request.setAttribute("arr", arr);
-		System.out.println(arr.toString());
 		
 		request.getSession().setAttribute("list2", list2);
 		

@@ -178,7 +178,6 @@
     		
     		$(".endSurvey").click(function(){
     			let sno = $(this).closest(".surveys").children("input[name='sno']").val();
-        		console.log(sno);
         		$.ajax({
                     url : "<%= contextPath %>/list.su",
                     method : 'POST',

@@ -47,8 +47,6 @@ public class LikeController extends HttpServlet {
 		like = new BoardService().selectLike(bno, uno);
 		int likes = new BoardService().selectLikeCount(bno);
 		// JSONArray<JSONObject>
-		System.out.println(like);
-		System.out.println(likes);
 		response.getWriter().print(like+","+likes);
 		
 	}

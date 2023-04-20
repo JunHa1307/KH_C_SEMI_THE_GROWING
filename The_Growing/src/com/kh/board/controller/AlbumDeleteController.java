@@ -33,7 +33,7 @@ public class AlbumDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("이동");
+		
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		/*
 		 * int uno =

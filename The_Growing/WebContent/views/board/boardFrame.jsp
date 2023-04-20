@@ -694,8 +694,6 @@ vertical-align: middle;
 	                else if (windowTop >= headerHeight) {
 	                	$("#board_fix, #hamburgur").css("top",230-windowTop);
 	                	$("#board").css("top",260-windowTop);
-	                }else{
-	                	console.log(headerHeight);
 	                }
 	              }
 

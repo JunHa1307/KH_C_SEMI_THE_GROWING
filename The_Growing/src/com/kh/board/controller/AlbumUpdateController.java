@@ -120,7 +120,7 @@ public class AlbumUpdateController extends HttpServlet {
 										// REF_BNO에 현재 게시글 번호를 추가시켜줌. 
 										/*
 										 * list.get(i-1).setRefBno(Integer.parseInt(multi.getParameter("bno")));
-										 * System.out.println((multi.getParameter("bno")));
+										 * 
 										 */
 									}
 									list.get(list.size()-1).setFileLevel(i);

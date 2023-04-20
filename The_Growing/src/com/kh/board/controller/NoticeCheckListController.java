@@ -47,18 +47,10 @@ public class NoticeCheckListController extends HttpServlet {
 		
 		int cno = (int) request.getSession().getAttribute("refCno");
 		int bno = Integer.parseInt( request.getParameter("bno")); 
-		System.out.println(cno);
-		System.out.println(bno);
+		
 		
 		ArrayList<NoticeCheck> noticeCheckList = new BoardService().selectUserName(cno, bno);
 		
-		/*
-		 * request.getSession().setAttribute("noticeCheckList", noticeCheckList);
-		 * System.out.println(noticeCheckList);
-		 * 
-		 * request.getRequestDispatcher("views/board/noticeListView.jsp").forward(
-		 * request, response);
-		 */
 		response.setContentType("application/json; charset=UTF-8");
 		      // JSONArray<JSONObject>
 		new Gson().toJson(noticeCheckList, response.getWriter());

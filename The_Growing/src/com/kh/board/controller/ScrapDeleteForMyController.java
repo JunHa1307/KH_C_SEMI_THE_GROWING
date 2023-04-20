@@ -45,10 +45,7 @@ public class ScrapDeleteForMyController extends HttpServlet {
 		int result = new BoardService().deleteScrap(bno, uno);
 		
 		if(result > 0) {
-			/* request.getRequestDispatcher("views/my/myScrap.jsp"); */
 			request.getRequestDispatcher(request.getContextPath()+"/views/my/myScrap.jsp");
-		}else {
-			System.out.println("에러~");
 		}
 		
 	}

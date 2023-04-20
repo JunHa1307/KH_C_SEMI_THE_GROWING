@@ -61,10 +61,6 @@ public class UpdateClassController extends HttpServlet {
 			String className = multi.getParameter("className");
 			
 			Class cInfo = (Class) request.getSession().getAttribute("cInfo");
-			
-			System.out.println(classYear);
-			System.out.println(classGrade);
-			System.out.println(className);
 
 			Attachment at = null;
 			
@@ -74,11 +70,7 @@ public class UpdateClassController extends HttpServlet {
 				at.setOriginName(multi.getOriginalFileName("classImg"));
 				at.setChangeName(multi.getFilesystemName("classImg"));
 				at.setFilePath("/resources/image/classProfile/");
-				System.out.println(at.getOriginName());
-				System.out.println(at.getChangeName());
-				System.out.println(multi.getParameter("originFileRefCno"));
 				if(multi.getParameter("originFileRefCno") != null) {
-					System.out.println(multi.getParameter("originFileNo"));
 					at.setFileNo(Integer.parseInt(multi.getParameter("originFileNo") ) );
 					
 					new File(savePath + multi.getParameter("changeFileName")).delete();

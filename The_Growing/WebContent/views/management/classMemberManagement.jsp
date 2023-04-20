@@ -331,7 +331,6 @@
 				method : 'POST',
    				data : { uno},
    				success : function(list){
-   					console.log(list);
    					$("#updateDetail input[name=userName]").attr("value",list[1]);
    					$("#updateDetail input[name=childName]").attr("value",list[2]);
    					$("#updateDetail input[name=phone]").attr("value",list[3]);

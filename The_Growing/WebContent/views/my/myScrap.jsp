@@ -244,8 +244,6 @@ div.rgyPostIt > p > a {
 	 			data: {bno, uno},
 	 			
 	 			success: function(result){
-	 					console.log("스크랩 취소");
-	 					/* alertMsg('스크랩이 취소되었습니다.'); */
 	 					window.location.reload();
 	 					
 	 			},

@@ -42,10 +42,6 @@ public class TableUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		/*
-		 * Enumeration e = request.getParameterNames(); while(e.hasMoreElements()) {
-		 * System.out.println(e.nextElement()); }
-		 */
 
 		String arr = request.getParameter("arr");
 		int classNo = Integer.parseInt(request.getParameter("cno"));

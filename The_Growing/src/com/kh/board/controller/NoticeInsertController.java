@@ -51,7 +51,6 @@ public class NoticeInsertController extends HttpServlet {
 		b2.setRefUno(refUno);
 		b2.setRefCno(refCno);
 		
-		System.out.println(b2.toString());
 		int result = new BoardService().insertNotice(b2);
 		
 		if(result > 0) { // 성공적으로 작성 => 최신글 목록으로 이동

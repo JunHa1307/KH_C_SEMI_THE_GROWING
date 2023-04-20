@@ -32,7 +32,6 @@ public class ClassCodeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("넘어감");
 		
 		ArrayList<Class> list = new ClassService().selectClassListAll();
 		

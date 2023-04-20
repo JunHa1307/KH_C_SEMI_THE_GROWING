@@ -54,11 +54,11 @@ public class NoticeCheckInsertController extends HttpServlet {
 		int bno = Integer.parseInt( request.getParameter("bno"));
 		
 		int result = new BoardService().twoNoCheck(uno, cno); // 유저번호, 클래스번호가 같은 사람이있냐 체크함
-		System.out.println("result"+result);
+		
 		// 유저, 클래스번호가 같지 않을때 insert
 		if(result <= 0) {
 			int result2 = new BoardService().insertNoticeCheck(uno, cno, bno, loginUser.getUserName(), loginUser.getUserLevel());
-			System.out.println("result22"+result2);
+			
 			if(result2>0) {
 				/* request.setAttribute("bno", bno); */
 				/* response.sendRedirect("views/board/noticeListView.jsp"+bno); */
@@ -70,14 +70,14 @@ public class NoticeCheckInsertController extends HttpServlet {
 			}
 		}else { // 유저, 클래스 번호가 같을때
 			int result3 = new BoardService().threeNoCheck(uno, cno, bno); // 여기서 문제남
-			System.out.println("result3"+result3);
+			
 			// bno를 체크해서 bno값도 같다면?
 			if(result3 > 0) {
 				/* session.setAttribute("alertMsg","이미 확인되었습니다. 감사합니다 ^^"); */
 				response.sendRedirect(request.getContextPath()+"/checklist.no");
 			}else { // bno값이 같지 않다면?
 				int result2 = new BoardService().insertNoticeCheck(uno, cno, bno, loginUser.getUserName(), loginUser.getUserLevel());
-				System.out.println("result2 : "+result2);
+				
 				if(result2>0) {
 					/* request.setAttribute("bno", bno); */
 					/* response.sendRedirect("views/board/noticeListView.jsp"+bno); */

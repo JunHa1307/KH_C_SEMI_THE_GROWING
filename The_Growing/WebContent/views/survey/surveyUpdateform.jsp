@@ -191,7 +191,6 @@
 						}
 					});
 					$(".item_plus, .item_minus").on("click",function(){
-						console.log($(this).parents('.multiple').find('input[name=itemContent]'));
 						$(this).parents('.multiple').find('input[name=itemCheck]').attr("value",
 								$(this).parents('.multiple').find('input[name=itemContent]').length);
 					});

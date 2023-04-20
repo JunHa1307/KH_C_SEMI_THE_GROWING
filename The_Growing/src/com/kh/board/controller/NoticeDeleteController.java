@@ -43,10 +43,6 @@ public class NoticeDeleteController extends HttpServlet {
 		/* JSON Array는 문자열 */
 		
 		ArrayList<String> checkBoxArr =  new Gson().fromJson( request.getParameter("checkBoxArr") , ArrayList.class );
-		System.out.println(checkBoxArr);
-		System.out.println(checkBoxArr.getClass());
-		System.out.println(checkBoxArr.getClass().getName());
-		System.out.println(checkBoxArr.size());
 		
 		int[] arr = new int[checkBoxArr.size()];
 		
@@ -65,8 +61,6 @@ public class NoticeDeleteController extends HttpServlet {
 
 			request.getSession().setAttribute("list2", list2);
 			
-			/* request.getSession().setAttribute("alertMsg", "게시물이 삭제되었습니다."); */
-			/* response.sendRedirect(request.getContextPath()+"/updateview.no"); */
 			response.getWriter().print("선택된 게시물이 모두 삭제되었습니다.");
 		}else {
 			request.setAttribute("errorMsg", "게시물 삭제 실패");

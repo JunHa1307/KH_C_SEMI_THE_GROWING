@@ -832,8 +832,6 @@ width:80%;
 	     			data: {bno, uno},
 	     			/* 성공시 데이터 스크랩리스트 받아서 for문 돌리면서 하나하ㅏ 색변하게 */
 	     			success: function(scrap){
-	     					console.log(scrap);
-	     					console.log("스크랩 잘됨");
 	     					
 	     			},
 	     			error: function(){

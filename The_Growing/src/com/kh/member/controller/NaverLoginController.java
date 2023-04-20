@@ -93,7 +93,6 @@ public class NaverLoginController extends HttpServlet {
 			  response.sendRedirect(request.getContextPath()+"/views/member/naverLoginForm.jsp");
 		      
 	      }else {
-	    	  System.out.println(res.toString());
 	    	  br.close();
 	      }
 	    } catch (Exception e) {

@@ -210,12 +210,6 @@
 	        });
 	    });
 		
-		/* $(function(){
-			$("button[class=swal2-confirm]").click(function(){
-				console.log("?");
-			});
-			
-		}); */
 	</script>
 	
 	<script>

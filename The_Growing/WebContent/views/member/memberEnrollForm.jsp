@@ -522,12 +522,10 @@ cursor: pointer;
 		$(window).bind('wheel', function(event){
 		    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
 		        // scroll up
-		        console.log("스크롤 위로");
 		        $(".snip1361").removeClass("click");
 		    }
 		    else {
 		        // scroll down
-		        console.log("스크롤 아래로");
 		        $(".snip1361").addClass("click");
 		    }
 		});
@@ -563,7 +561,6 @@ cursor: pointer;
 						userId.focus();
 					
 					} else{
-						console.log(userId);
 						// 사용가능한 경우
 						// confirm() 의 반환값은 true/false
 						$("#pwd_img2" ).css("display" ,  "block");

@@ -425,15 +425,6 @@
 		            nowIndicator: true, // 현재 시간 마크
 		            dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
 		            locale: 'ko', // 한국어 설정
-		            //   eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
-		            //     console.log(obj);
-		            //   },
-		            //   eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
-		            //     console.log(obj);
-		            //   },
-		            //   eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
-		            //     console.log(obj);
-		            //   },
 		            select: function (arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
 		            	let title = "";
 		            	(async () => {
@@ -466,7 +457,6 @@
 		        		cArr.push("{}");
 		        	}
 		        	cArr = JSON.stringify(cArr);
-		        	console.log(cArr);
 		           	$.ajax({
 			    		url : contextPath + "/calendarUpdate.c",
 			    		method : 'POST',

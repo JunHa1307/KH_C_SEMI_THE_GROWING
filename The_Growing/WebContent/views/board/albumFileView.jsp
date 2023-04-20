@@ -720,7 +720,6 @@ div {
     	};
      
    	 $("#down").click(function(){
-   		 console.log(a[0])
    		if(a[0] != null){
    	        Swal.fire({
    	            title: '다운로드를 하시겠습니까?',

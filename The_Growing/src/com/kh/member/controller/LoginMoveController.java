@@ -40,7 +40,6 @@ public class LoginMoveController extends HttpServlet {
 			session.setAttribute("userLevel", userLevel);
 			
 			request.getRequestDispatcher("views/member/loginPage.jsp").forward(request,response);
-			System.out.println("로그인 페이지로 이동");
 			
 		}else { 
 			request.setAttribute("errorMsg", "로그인 페이지 이동 실패");

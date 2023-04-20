@@ -39,7 +39,7 @@ public class ReplyInsertController extends HttpServlet {
 		String content = request.getParameter("content");
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		String lock = request.getParameter("lock");
-		System.out.println(lock);
+
 		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		

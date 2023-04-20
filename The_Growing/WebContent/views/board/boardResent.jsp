@@ -232,7 +232,6 @@ font-size:0.9vw;
 				
 				let bno = $(this).children().eq(0).text();
 				let type = $(this).children("#type").val();
-				console.log(type);
 				
 				if(type==2){
 					location.href = "<%=contextPath %>/movenotice.bo#"+"noDiV"+bno;

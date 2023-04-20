@@ -208,7 +208,6 @@
     	  var checkBoxArr = []; 
     	  $("input:checkbox[name='folderCheckname']:checked").each(function() {
     	  	checkBoxArr.push($(this).attr("id"));     // 체크된 것만 값을 뽑아서 배열에 push
-    	  	console.log(checkBoxArr);
     	  });
 		
     	  $.ajax({
@@ -381,7 +380,6 @@
 				              			url: "<%=contextPath%>/checkinsert.no",
 				              			data: {bno},
 				              			success: function(result){
-				              				console.log(result);
 				              			},
 				              			error: function(){
 				              				console.log("실패");			              			
@@ -397,14 +395,12 @@
 				              			dataType: "json",
 				              			success: function(list){
 				              				let result = "";
-				              				console.log(list);
 				              				for(let i = 0 ; i< list.length ; i++){
 				              					result += '<div class="dropdown-item">'
 				              							+list[i].userName
 						              					
 						              					+'</div>'
 				              				}
-				              				console.log(result);
 				              			/* 	$("#name").html(result);*/
 				              			$('.dropdown-menu').html(result);
 				              			},
@@ -445,8 +441,6 @@
      			data: {bno, uno},
      			
      			success: function(scrap){
-     					console.log(scrap);
-     					console.log("스크랩 잘됨");
      					
      			},
      			error: function(){

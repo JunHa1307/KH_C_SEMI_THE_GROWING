@@ -34,7 +34,7 @@ public class AlbumInnerList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	int bno = Integer.parseInt(request.getParameter("bno"));
-		System.out.println(bno);
+		
 		
 		int result = new BoardService().increaseCount(bno);
 		if(result > 0 ) { 

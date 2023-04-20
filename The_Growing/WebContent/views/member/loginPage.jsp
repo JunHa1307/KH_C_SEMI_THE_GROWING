@@ -292,11 +292,6 @@
                     success: function (response) {
                        let accessToken = Kakao.Auth.getAccessToken();
                        Kakao.Auth.setAccessToken(accessToken);
-                    	
-                       console.log(response);
-                       console.log(response.id);
-                       console.log(response.properties.nickname);
-                       console.log(response.properties.profile_image);
                         
                         let snsId = response.id;
                         let snsName = response.properties.nickname;
@@ -355,7 +350,7 @@
                  	   location.replace("<%= request.getContextPath() %>/mainpage.me");
                     },
                     error: function(){
-                       console.log("구글로그인db저장실패근데왜db저장이죠");
+                       console.log("구글로그인 실패");
                     }
                  });
 	        }

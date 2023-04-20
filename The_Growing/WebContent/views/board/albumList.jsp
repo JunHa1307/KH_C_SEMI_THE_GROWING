@@ -860,7 +860,7 @@ min-height:500px;
    				url : "<%=contextPath%>/innerlist.al",
    				data : { bno},
    				success : function(list){
-   					console.log(list);
+   					
    				let slength = $("#slider-div .slick-slide").length;
    					 for(let i = 0; i<slength; i++){ 
    						$("#slider-div").slick('slickRemove',false);
@@ -1036,7 +1036,6 @@ min-height:500px;
 			   				url : "<%=contextPath%>/rCount.bo",
 			   				data : { bno },
 			   				success : function(list){
-			   					console.log(list);
 			   					 $("#chat_count").html(list);
 			   				},
 			   				error: function(){
@@ -1069,8 +1068,6 @@ min-height:500px;
      			data: {bno, uno},
      			
      			success: function(scrap){
-     					console.log(scrap);
-     					console.log("스크랩 잘됨");
      					
      			},
      			error: function(){
