@@ -187,8 +187,8 @@ font-size:0.9vw;
 			<thead id="tableHead" >
 				<tr id="recent">
 					<th width="100" id="topLeftRadius">번호</th>
-					<th width="150">카테고리</th>
-					<th width="300">제목</th>
+					<th width="200">카테고리</th>
+					<th width="330">제목</th>
 					<th width="100">작성자</th>
 					<th width="150" id="topRightRadius">작성일</th>
 				</tr>
