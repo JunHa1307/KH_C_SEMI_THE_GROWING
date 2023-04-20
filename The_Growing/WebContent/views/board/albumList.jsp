@@ -117,6 +117,7 @@ opacity: 0.9;
 .album_con_title>p{
 	overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .album_con_file {
@@ -274,6 +275,7 @@ opacity: 0.9;
 	overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
+  white-space: nowrap;
 }
 
 #mo_date {
