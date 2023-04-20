@@ -414,9 +414,10 @@
 		}
 		
         .myClass-img {
-            width: 35%;
-            height: 25vw;
+            width: 27vw;
+            height: 27vw;
             display:inline-block;
+            margin:2.5vw;
         }
 
 		.myClass-img>img {

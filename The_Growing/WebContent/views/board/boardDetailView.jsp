@@ -30,6 +30,7 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 	height: 90%;
 	display: flex;
 	align-items: center;
+	text-align: center;
 }
 
 /* #reply-area>*{
@@ -40,9 +41,9 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 #lock_btn {
 	background-color: rgb(244, 247, 247);
 	border-style: none;
-	width: 30px;
-	height: 30px;
 	border-radius: 50%;
+	width:100%;
+	
 	
 	
 }
@@ -297,7 +298,7 @@ width:80%;
 }
 
 #boardReplyWrite {
-	height: 85px;
+	height: 88px;
 	background-color: rgb(244, 247, 247);
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
@@ -556,7 +557,7 @@ width:80%;
 
 					<div id="replyInsert" style="width: 18%">
 						<button id="insertReply" class="button_UI button--winona"
-							data-text="등록" style="width: 80px;">
+							data-text="등록" style="width: 7vw;">
 							<span>등록</span>
 						</button>
 					</div>
@@ -664,7 +665,7 @@ width:80%;
            		if(i==0){
          		 $(this).data("lock","Y");
          		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
-         		$("#lock_img").css({"width":"30px", "height":"30px"});
+         		$("#lock_img").css({"width":"28px", "height":"30px"});
          		
          		i++;
            		}else{

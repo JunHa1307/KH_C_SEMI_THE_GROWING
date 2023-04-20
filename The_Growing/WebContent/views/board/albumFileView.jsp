@@ -239,8 +239,11 @@ div {
 }
 
 #modal {
-	width: 800px;
-	height: 700px;
+	width: 39vw;
+	height: 41vw;
+	min-width: 450px;
+	min-height: 500px;
+	
 	/* background-color: aqua; */
 	position: fixed;
 	top: 0;
@@ -249,7 +252,8 @@ div {
 	right: 0;
 	margin: auto;
 	visibility: hidden;
-	z-index: 5;
+	z-index: 9;
+	border-radius:10px; 
 }
 
 #modal>div {
@@ -271,19 +275,21 @@ div {
 	/* background-color: black; */
 }
 
-
+ 
 #slider-div>div {
 	width: 100%;
-	height: 90%;
-	padding-top:10%;
-	}
+	height: 100%;
+	} 
 
 .img_1 {
-	width: 90%;
-	height: 100%;
-	margin: auto;
+	width: 100%;
+	min-height: 500px; 
 	object-fit: cover;
-	vertical-align: middle;
+	display: inline-block;
+	margin: 0;
+  height: 41vw;
+  text-align: center;
+  line-height: 41vw;
 }
 
 #mo_write {
@@ -592,7 +598,7 @@ div {
 	<div id="modal">
 		<div id="mo_picture_wrap">
 			<div
-				style="width: 100%; height: 100%; padding-left: 60px; padding-right: 60px;">
+				style="width: 100%; height: 100%; padding:30px">
 				<div id="slider-div">
 
 					<%
