@@ -25,7 +25,8 @@ int boardType = (int) request.getAttribute("boardType");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>자유게시판 리스트</title>
+    <title>The Growing</title>
+    <link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 <style>
 /* 자유게시판 테이블 css */
 #list_search {

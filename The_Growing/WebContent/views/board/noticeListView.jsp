@@ -11,7 +11,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Notice List View Page</title>
+<title>The Growing</title>
+<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 <style>
 	.notice_con1 .divSt{
 		display: inline-flex;
@@ -155,6 +156,19 @@
 		margin-left: 500px;
 		
 	}
+	
+	@media only screen and (max-width: 780px) {
+		.notice_con_content{
+			width: 1vw;
+			min-width:450px;
+		}
+		.thStampWrap{
+			margin: 0px;
+			position: absolute;
+			left: 50px;
+		}
+	}
+	
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -197,6 +211,8 @@
     	      },
     	      success: function(result){
     	    	  alertMsg('선택한 게시물이 모두 삭제되었습니다.');
+    	    	  <%-- setTimeout(()=> location.replace("<%= contextPath %>/movenotice.bo"), 1500); --%>
+    	    	  
     	      },
     	      error: function(xhr, status, error) {
     	      	alert(error);

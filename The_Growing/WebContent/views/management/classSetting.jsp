@@ -13,7 +13,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<title>클래스 설정</title>
+<title>The Growing</title>
+<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 <style>
     /*  form{
          border: 1px solid red;

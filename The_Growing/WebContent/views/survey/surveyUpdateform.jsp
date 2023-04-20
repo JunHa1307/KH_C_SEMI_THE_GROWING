@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>The Growing</title>
+<link rel="shortcut icon" type="image/svg" href="<%= request.getContextPath() %>/favicon.svg"/>
 <!--부트스트랩 알림을 위한 css-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
