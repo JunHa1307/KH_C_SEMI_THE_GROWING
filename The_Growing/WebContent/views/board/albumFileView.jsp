@@ -660,7 +660,7 @@ div {
                 if($("#modal").css("visibility")=="hidden"){
                    $("#modal").css("visibility","visible");
                     $('body').css({overflow :"hidden",scroll:"no"});
-                    $("#veil").css("display","block");
+                    $("#veil").css({display :"block", zIndex:4});
                     $('#slider-div').slick('goTo', $(this).siblings("#index").val());
                 }
                 
