@@ -338,7 +338,7 @@
    					$("#updateDetail input[name=id]").attr("value",list[5]);
    				},
    			 	error:function(error,status,msg){
-                 alert("상태코드 " + status + "에러메시지" + msg );
+                 error("상태코드 " + status + "에러메시지" + msg );
                 },
 			});
 		});
@@ -351,14 +351,14 @@
    				data : { uno},
    				success : function(result){
    					if(result == "Fail"){
-   						alert("탈퇴 실패");	
+   						error("탈퇴 실패");	
    					}else{
-   						alert("탈퇴 성공");
+   						alertMsg("탈퇴 성공");
    						location.reload();
    					}
    				},
    			 	error:function(error,status,msg){
-                 alert("상태코드 " + status + "에러메시지" + msg );
+                 error("상태코드 " + status + "에러메시지" + msg );
                 },
 			});
 		});
