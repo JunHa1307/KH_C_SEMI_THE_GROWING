@@ -40,33 +40,20 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 #lock_btn {
 	background-color: rgb(244, 247, 247);
 	border-style: none;
-	margin: 10px;
-	min-width: 30px;
-	min-height: 30px;
-	width:2vw;
-	height:2vw;
+	width: 30px;
+	height: 30px;
 	border-radius: 50%;
 	
-}
-#lock_btn:hover {
-	background-color: rgb(233, 233, 231);
-	border-style: none;
-	min-width: 30px;
-	min-height: 30px;
-	width:2vw;
-	height:2vw;
-	margin: 10px;
-	border-radius: 50%;
 	
 }
+
 
 
 
 #lock_img {
-	min-width: 20px;
-	min-height: 20px;
-	width:1.5vw;
-	height:1.5vw;
+	width: 25px;
+	height: 25px;
+	
 	
 }
 
@@ -176,12 +163,13 @@ ArrayList<Integer> arr = (ArrayList<Integer>) request.getAttribute("arr");
 }
 
 .mo_reply_text {
-	width: 74%;
+	width: calc(100% - 170px);
 	word-break: break-all;
 	overflow-y: scroll;
 	position: absolute;
 	top: 0;
-	left: 120px;
+	left:130px;
+	margin-right:30px;
 	/* background-color: aqua; */
 }
 
@@ -252,12 +240,17 @@ div {
 /* 	margin-top: 10px; */
 font-weight:600;
 font-size:30px;
+width:80%;
 }
 #boardTitle p {
 		overflow: hidden;
 	text-overflow: ellipsis;
 	  margin: 0;
 	 white-space:nowrap;
+}
+#boardTitle>div {
+	float: left;
+	height: 100%;
 }
 
 
@@ -304,7 +297,7 @@ font-size:30px;
 }
 
 #boardReplyWrite {
-	height: 80px;
+	height: 85px;
 	background-color: rgb(244, 247, 247);
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
@@ -366,7 +359,7 @@ font-size:30px;
 
 		<div id="board_content">
 			<div id="boardTitle">
-				<span><p><%=b.getBoardTitle()%></p></<span>
+				<div style="width:80%"><span><p><%=b.getBoardTitle()%></p></span></div>
 				<%
 					if ( (loginUser != null && loginUser.getUserId().equals(b.getUserId()) ) || loginUser.getUserLevel() ==1) {
 				%>
@@ -374,7 +367,7 @@ font-size:30px;
 				<div class="dropdown" style="float: right; ">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">
+						aria-haspopup="true" aria-expanded="false" >
 
 						<img id="alarmIcon"
 							src="<%=contextPath%>/resources/image/icons8-메뉴-2-48.png">
@@ -465,7 +458,7 @@ font-size:30px;
 			<div class="mo_reply_content">
 			<%if (loginUser.getUserId().equals(list.get(i).getReplyWriter())) {%>
 			
-			<div class="dropdown" style="float: right; margin-top: -3%;">
+			<div class="dropdown" style="float: right; margin-top: -3%; margin-right:1%">
 					<button class="btn btn-secondary" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
@@ -554,7 +547,7 @@ font-size:30px;
 						<textarea id="mo_reply_textarea" placeholder="댓글을 입력하여 주세요."
 							style="resize: none; width: 100%; height: 100%;"></textarea>
 					</div>
-					<div style="width: 12%">
+					<div style="width: 10%">
 						<button id="lock_btn" data-lock="N">
 							<img id="lock_img"
 								src="<%=contextPath%>/resources/image/unlock.png" >
@@ -584,20 +577,7 @@ font-size:30px;
 				  $("#board_counsel").css("fontWeight", "700");
 	              $("#board_counsel").children().css("background", "rgb(237, 239, 243)");
 			}
-			
-		<%-- 	
-		 $.ajax({
-   				url : "<%=contextPath%>/rlist.bo",
-   				data : { bno :<%=b.getBoardNo()%>},
-   				type : "get",
-				dataType : "html", 
-   				success : function(list){
-   					 $(".mo_reply").html(list); 
-   				},
-   				error: function(){
-   					console.log("게시글 목록조회 실패")
-   				}
-        	});  --%>
+	
         	
          	$.ajax({
    				url : "<%=contextPath%>/rCount.bo",
@@ -684,13 +664,13 @@ font-size:30px;
            		if(i==0){
          		 $(this).data("lock","Y");
          		$("#lock_img").attr("src","/growing/resources/image/icons8-잠금-해제-66.png");
-         		$("#lock_img").css({"width":"40px", "height":"40px"});
+         		$("#lock_img").css({"width":"30px", "height":"30px"});
          		
          		i++;
            		}else{
            		 $(this).data("lock","N");
           		$(this).children("#lock_img").attr("src","/growing/resources/image/unlock.png");
-          		$("#lock_img").css({"width":"35px", "height":"35px"});
+          		$("#lock_img").css({"width":"25px", "height":"25px"});
           		i--;
            		}
          	});
