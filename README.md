@@ -7,19 +7,19 @@
 "편리"하고
 "안전하게 소통"할 수 있도록 도움을 주고자 기획
 
-========================================================================================================================
+--------------------------------------------------------------------------------------------
 
 
 류준하 장하은 오현지 이충영 오민석
 
 
-========================================================================================================================
+--------------------------------------------------------------------------------------------
 
 소개 ppt
 
 https://www.canva.com/design/DAFdDG-dqc8/3Wg3zdhd6wvgospYQQkOag/edit
 
-========================================================================================================================
+--------------------------------------------------------------------------------------------
 
 사용 언어 & API & 라이브러리
 
@@ -27,25 +27,31 @@ Java(11), Oracle DataBase, JavaScript html css
 
 Apach Tomcat 9.0 , JQuery 3.6.3
 
-Bootstrap 4.5.3 , Tabulator , sweetalert2 , summernote, AOS(Animate on scroll) , slick , FullCalendar, chart.js
+Bootstrap 4.5.3 , Tabulator , sweetalert2 , summernote, AOS(Animate on scroll) ,
 
-========================================================================================================================
+slick , FullCalendar, chart.js
 
+--------------------------------------------------------------------------------------------
+===============================================================================
 summernote, classes 제외 cloc 코드 분석
 
-http://cloc.sourceforge.net v 1.09  T=1.0 s (141.0 files/s, 25256.0 lines/s)
--------------------------------------------------------------------------------
-Language          files     blank   comment      code    scale   3rd gen. equiv
--------------------------------------------------------------------------------
-JSP                  40      1814       473     10061 x   1.48 =       14890.28
-Java                 89      2870      1380      6833 x   1.36 =        9292.88
-CSS                   4       146        16       855 x   1.00 =         855.00
-XML                   5        73         8       604 x   1.90 =        1147.60
-Javascript            3        15         9        99 x   1.48 =         146.52
--------------------------------------------------------------------------------
+Language &nbsp;&nbsp;&nbsp;&nbsp; files &nbsp;&nbsp;&nbsp;&nbsp; blank &nbsp;&nbsp;&nbsp;&nbsp; comment &nbsp;&nbsp;&nbsp;&nbsp; code &nbsp;&nbsp;&nbsp;&nbsp; scale   &nbsp;&nbsp;&nbsp;&nbsp; 3rd gem. &nbsp;&nbsp;&nbsp;&nbsp; equiv
+
+JSP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 40 &nbsp;&nbsp;&nbsp;&nbsp; 1814 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 473 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10061 &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.48 = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14890.28
+
+Java &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 89 &nbsp;&nbsp;&nbsp;&nbsp; 2870 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1380 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6833 &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.36 = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9292.88
+
+CSS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 146 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6833 &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.00 = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 855.00
+
+XML &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 73 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 604 &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.90 = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1147.60
+
+Javascript &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 99 &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.48 = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 146.52
+
+===============================================================================
+
 SUM:                141      4918      1886     18452 x   1.43 =       26332.28
 
-========================================================================================================================
+--------------------------------------------------------------------------------------------
 
 주요 기능
 
