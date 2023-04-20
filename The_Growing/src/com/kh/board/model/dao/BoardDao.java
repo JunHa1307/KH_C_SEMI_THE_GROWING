@@ -893,6 +893,49 @@ public Board selectBoard(Connection conn, int boardNo) {
 	return b;
 }
 
+public Board selectBoard2(Connection conn, int boardNo) {
+	
+	Board b = null;
+	
+	PreparedStatement pstmt = null;
+	
+	ResultSet rset = null;
+	
+	String sql = prop.getProperty("selectBoard2");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()) {
+			b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO")); 
+			b.setBoardType(rset.getInt("BOARD_TYPE"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setUserId(rset.getString("USER_ID"));
+			b.setRefUno(rset.getInt("USER_NO"));
+			b.setcDate(rset.getString("C_DATE"));
+			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+			b.setRefCno(rset.getInt("REF_CNO"));
+			b.setUserName(rset.getString("USER_NAME"));
+			b.setUserLevel(rset.getInt("USER_LEVEL"));
+			b.setChangeName(rset.getString("CHANGE_NAME"));
+			b.setFilePath(rset.getString("FILE_PATH"));
+					   
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return b;
+}
+
 	public int insertNotice(Connection conn, Board b) {
 		//Insert문 => 처리된 행의 갯수
 		int result = 0;

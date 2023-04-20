@@ -115,65 +115,88 @@ public class AttendanceController extends HttpServlet {
 				if(tableCheck.size() > memberName.size()) { // 출석체크표가 더 많을 때(회원이 탈퇴했을 때)
 					for(int i = 0; i < tableCheck.size(); i++) {
 							for(int j = memberName.size(); j < tableCheck.size(); j++) { // 더미(회원이 빈 곳) 넣어서 사이즈 통일
-								memberName.add(j," ");
+								memberName.add(j,"힣힣힣힣");
 							}
 							String memberstr = memberName.get(i);
+							String tablestr = tableCheck.get(i);
 							if(!tableCheck.get(i).equals(memberstr)) { // 다르면 update 필요
 								isUpdated = false;
-								if(tableCheck.contains(memberstr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {
-									continue; // 동일한 문자가 같은 수로 존재한다면 다음으로 넘어감
-								}else if(!memberstr.equals(" ")){ // 더미값이 아니라면 추가
+								if(memberName.contains(tablestr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {
+									continue;// 동일한 문자가 같은 수로 존재한다면 다음으로 넘어감
+								}else if(!tableCheck.contains(memberstr) && !memberstr.equals("힣힣힣힣")){ // 테이블에 없을 때 추가
 									attendTable.add(addAttendMember(memberstr,lastDay));
-									tableCheck.add(memberstr);
-									Collections.sort(tableCheck);
-								}else { // 더미라면 삭제
-									attendTable.remove(i);
-									tableCheck.remove(i);
+									if (memberstr.equals("힣힣힣힣")) {
+										tableCheck.set(i,memberstr);
+									}else {
+										tableCheck.add(memberstr);
+									}
 								}
+								if(!memberName.contains(tablestr)) { // 회원이름 배열에 출첵이름이 없다면 삭제
+									for(int j = 0; j < tableCheck.size(); j++) {
+										if(tableCheck.get(j).equals(tablestr)) {
+											attendTable.remove(j);
+											tableCheck.remove(j);
+										}
+									}
+								}
+								Collections.sort(tableCheck);
 							}
 					}
 				}else if (tableCheck.size() < memberName.size()) { // 출석체크표가 더 적을 때 (회원이 등록되었을 때)
 					for(int i = 0; i < memberName.size(); i++) {
 						for(int j = tableCheck.size(); j < memberName.size(); j++) {
-							tableCheck.add(j," ");
+							tableCheck.add(j,"힣힣힣힣");
 						}
 						String memberstr = memberName.get(i);
 						if(!tableCheck.get(i).equals(memberstr)) {
 							isUpdated = false;
-							if(tableCheck.contains(memberstr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {
+							if(tableCheck.contains(memberstr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {							
 								continue;
-							}else if(tableCheck.get(i).equals(" ")){ // 더미(출석체크에 없다) 라면 추가
+							}else if(!tableCheck.contains(memberstr) || (Collections.frequency(tableCheck, memberstr) != Collections.frequency(memberName, memberstr))) {								
 								attendTable.add(addAttendMember(memberstr,lastDay));
-								tableCheck.add(memberstr);
-								Collections.sort(tableCheck);
-							}else {
-								attendTable.remove(i);
-								memberName.remove(i);
+								if (memberstr.equals("힣힣힣힣")) {
+									tableCheck.set(i,memberstr);
+								}else {
+									tableCheck.add(memberstr);
+								}
 							}
+							if(!memberName.contains(tableCheck.get(i))){
+								for(int j = 0; j < tableCheck.size(); j++) {
+									if(tableCheck.get(i).equals(memberstr)) {
+										attendTable.remove(j);
+										tableCheck.remove(j);
+									}
+								}
+							}
+							Collections.sort(tableCheck);
 						}
 					}
 				}else { // 회원 수 는 같지만 클래스 멤버가 다를 때 (등록 탈퇴 수가 다를 때)
 					for(int i = 0; i < tableCheck.size(); i++) {
 						String memberstr = memberName.get(i);
+						String tablestr = tableCheck.get(i);
 						if(!tableCheck.get(i).equals(memberstr)) {
 							isUpdated = false;
 							if(tableCheck.contains(memberstr) && (Collections.frequency(tableCheck, memberstr) == Collections.frequency(memberName, memberstr))) {
 								continue;
-							}else if(memberName.contains(tableCheck.get(i))){ // 출석표 i번째 학생은 있고 멤버 i 학생은 없다면
+							}else if(!memberName.contains(tablestr)){ // 출석표 i번째 학생은 있고 멤버 i 학생은 없다면
+								for(int j = 0; j < tableCheck.size(); j++) {
+									if(tableCheck.get(i).equals(tablestr)) {
+										attendTable.remove(j);
+										tableCheck.remove(j);
+									}
+								}
 								attendTable.add(addAttendMember(memberstr,lastDay));
-								tableCheck.add(memberstr);
-								Collections.sort(tableCheck);
-							}else { // 출석표에 클래스 멤버에 없는 학생이 등록되어있다면
-								attendTable.remove(i);
-								tableCheck.remove(i);
-								Collections.sort(tableCheck);
+								tableCheck.add(memberstr);	
 							}
+							Collections.sort(tableCheck);
 						}
 					}
 				}
 				
 				 if(!isUpdated) {
-					int result = service.updateAttendTable(attendTable.toString(), cno, month);
+					String attend = attendTable.toString().replace("[", "").replace("]", "");
+					int result = service.updateAttendTable(attend, cno, month);
 						
 					if(result > 0) {
 						attendTable = service.selectAttendTable(cno, month);

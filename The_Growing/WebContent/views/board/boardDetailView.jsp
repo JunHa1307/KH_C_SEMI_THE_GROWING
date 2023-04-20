@@ -414,7 +414,7 @@ width:80%;
 			<div id="boardProfile">
 				<div id="mo_writer_profile">
 					<img
-						src="<%= "ISSNSMEMBERATTACHMENT".equals(loginUser.getFilePath()) ? loginUser.getChangeName() :contextPath + loginUser.getFilePath() + loginUser.getChangeName()%>"
+						src="<%= "ISSNSMEMBERATTACHMENT".equals(b.getFilePath()) ? b.getChangeName() :contextPath + b.getFilePath() + b.getChangeName()%>"
 						alt=""
 						onerror="this.src='<%=contextPath%>/resources/image/noImage.png'">
 				</div>

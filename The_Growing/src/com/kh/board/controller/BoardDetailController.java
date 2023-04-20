@@ -62,7 +62,7 @@ public class BoardDetailController extends HttpServlet {
 		int result = bService.increaseCount(boardNo);
 		
 		if(result > 0 ) { 
-			Board b = bService.selectBoard(boardNo);
+			Board b = bService.selectBoard2(boardNo);
 			ArrayList<Reply> list = new BoardService().selectReplyList(boardNo);
 			
 			request.setAttribute("boardType", boardType);

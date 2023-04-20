@@ -379,6 +379,16 @@ public class BoardService {
 		return b;
 	}
 	
+	public Board selectBoard2(int boardNo) {
+		Connection conn = getConnection();
+		
+		Board b = new BoardDao().selectBoard2(conn, boardNo);
+		
+		close(conn);
+		
+		return b;
+	}
+	
 	public int updateBoard(Board b) {
 		
 		Connection conn = getConnection();

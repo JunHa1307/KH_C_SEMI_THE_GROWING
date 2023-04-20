@@ -110,6 +110,27 @@
 		  AND B.STATUS = 'Y'
 	</entry>
 	
+	<entry key="selectBoard2">
+		SELECT 
+			BOARD_NO,
+			BOARD_TYPE,
+			BOARD_TITLE,
+			USER_ID,
+			USER_NO,
+			TO_CHAR(CREATE_DATE, 'MM.DD HH:MI') AS C_DATE,
+			BOARD_CONTENT,
+			B.REF_CNO,
+			USER_NAME,
+			USER_LEVEL,
+            CHANGE_NAME,
+            FILE_PATH
+		FROM BOARD B
+		JOIN MEMBER ON (REF_UNO = USER_NO)
+        JOIN ATTACHMENT USING (REF_UNO)
+		WHERE BOARD_NO = ?
+		  AND B.STATUS = 'Y'
+	</entry>
+	
 	<entry key="updateBoard">
 		UPDATE BOARD
 		SET 
