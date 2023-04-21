@@ -23,7 +23,7 @@ https://www.canva.com/design/DAFdDG-dqc8/3Wg3zdhd6wvgospYQQkOag/edit
 
 사용 언어 & API & 라이브러리
 ================================================================
-Java(11), Oracle DataBase, JavaScript html css
+Java(11.0.17, eclipse 2020.09), Oracle DataBase(sqldeveloper 11g Standard Edition), JavaScript html css
 
 Apach Tomcat 9.0 , JQuery 3.6.3
 
