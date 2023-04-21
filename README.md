@@ -32,9 +32,8 @@ Bootstrap 4.5.3 , Tabulator , sweetalert2 , summernote, AOS(Animate on scroll) ,
 slick , FullCalendar, chart.js
 
 나이스 교육정보 개방포털 - 학교기본정보 API , 급식 식단 정보 API
-KaKao Login API
-Naver Login API
-Google Login API
+
+KaKao , Naver , Google Login API
 
 --------------------------------------------------------------------------------------------
 
