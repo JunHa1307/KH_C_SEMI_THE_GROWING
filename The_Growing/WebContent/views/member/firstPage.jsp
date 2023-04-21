@@ -400,7 +400,7 @@
         <div id="footer">
         	<span></span>
         	<div id="developerW">
-        		<div id="developer" style="font-weight: 700; width: 100px; margin-left: 10px;">Developer</div><div style="font-weight: 500; width: 150px;">OH HYUNJI<br>RYU JUNHA<br>JANG HAEUN</div><div style="font-weight: 500; width: 200px;">LEE CHOONGYOONG<br>OH MINSEOK</div>      	
+        		<div id="developer" style="font-weight: 700; width: 100px; margin-left: 10px;">Developer</div><div style="font-weight: 500; width: 150px;">RYU JUNHA<br>OH MINSEOK<br>OH HYUNJI</div><div style="font-weight: 500; width: 200px;">LEE CHOONGYOONG<br>JANG HAEUN</div>      	
         	</div>
         	<br><br><br><br><br>
         	<button id="gitBtn" type="button" style="margin-left: 45px;">GitHub</button>
