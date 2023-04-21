@@ -115,7 +115,7 @@
 				                    <hr style="background-color: grey;margin: 0;">
 				                    <div class="hiddenInfo">
 				                        응답인원 수 : <%= s.getSurveyCount() %> 
-				                        <div style="padding: 0 0.5em 0.5em 0.5em;">
+				                        <div style="padding: 0 0.5em 0.5em 0.5em;width:100%;">
 					                        <a href="javascript:void(0);"><button type="button" class="upSurvey">수정하기</button></a>&nbsp;
 					                        <a href="javascript:void(0);"><button type="button" class="surveyResult">결과보기</button></a>&nbsp;
 					                        <a href="javascript:void(0);"><button type="button" class="endSurvey">종료</button></a>
@@ -139,7 +139,7 @@
 				                    <hr style="background-color: #000000;margin: 0;">
 				                    <div class="hiddenInfo">
 				                        응답인원 수 : <%= s.getSurveyCount() %> 
-				                        <div style="padding: 0 0.5em 0.5em 0.5em;"> 
+				                        <div style="padding: 0 0.5em 0.5em 0.5em;width:100%;"> 
 				                        <a href="javascript:void(0);"><button type="button" class="surveyResult">결과보기</button></a>&nbsp;
 				                        </div>
 				                    </div>
