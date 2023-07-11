@@ -51,21 +51,15 @@ KaKao , Naver , Google Login API
 
 전 페이지 Css 미디어 쿼리 적용하여 반응형 웹 구현
 
---------------------------------------------------------------------------------------------
-
 목차
 ================================================================
   
   - [로그인 페이지](#로그인-페이지)
-  - 
   - [메인 페이지](#메인-페이지)
-  - [지도 페이지](#지도-페이지)
-  - [분양 페이지](#분양-페이지)
-  - [알림 페이지](#알림-페이지)
-  - [일반 회원 마이 페이지](#일반-회원-마이-페이지)
-  - [공인중개사 마이 페이지](#공인중개사-회원-마이-페이지)
-  - [매물 페이지](#매물-페이지)
-  - [관리자 페이지](#관리자-페이지)
+  - [게시판 페이지](#게시판-페이지)
+  - [수업관리 페이지](#수업관리-페이지)
+  - [클래스관리 페이지](#클래스관리-페이지)
+  - [마이 페이지](#마이-페이지)
 
 --------------------------------------------------------------------------------------------
 세부 기능
@@ -74,12 +68,136 @@ KaKao , Naver , Google Login API
 
 <h4>[로그인 페이지]</h4>
 <details>
+  <summary>로그인</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
   <summary>회원가입</summary>
   <div markdown="1">
   </div>
 </details>
+<details>
+  <summary>SNS로그인</summary>
+  <div markdown="1">
+  </div>
+</details>
+
 <hr>
---------------------------------------------------------------------------------------------
+
+
+<h4>[메인 페이지]</h4>
+
+전체영상
+
+<details>
+  <summary>클래스 만들기</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>클래스 가입</summary>
+  <div markdown="1">
+  </div>
+</details>
+
+<hr>
+
+<h4>[게시판 페이지]</h4>
+
+
+<details>
+  <summary>최근 게시글</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>알림장</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>앨범</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>자유게시판</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>상담게시판</summary>
+  <div markdown="1">
+  </div>
+</details>
+
+<hr>
+
+
+<h4>[수업관리 페이지]</h4>
+
+
+<details>
+  <summary>설문조사</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>출석체크</summary>
+  <div markdown="1">
+  </div>
+</details>
+
+<hr>
+
+<h4>[클래스관리 페이지]</h4>
+
+
+<details>
+  <summary>클래스 설정</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>구성원 관리</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>초대하기</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>클래스 정보</summary>
+  <div markdown="1">
+  </div>
+</details>
+
+
+<hr>
+
+<h4>[마이 페이지]</h4>
+
+
+<details>
+  <summary>개인정보</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>나의 클래스</summary>
+  <div markdown="1">
+  </div>
+</details>
+<details>
+  <summary>나의 스크랩</summary>
+  <div markdown="1">
+  </div>
+</details>
+
+<hr>
 
 summernote, classes 제외 cloc 코드 분석
 ================================================================
