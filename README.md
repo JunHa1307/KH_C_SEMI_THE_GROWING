@@ -18,7 +18,7 @@
 소개 ppt
 ================================================================
 
-https://www.canva.com/design/DAFdDG-dqc8/3Wg3zdhd6wvgospYQQkOag/edit?utm_content=DAFdDG-dqc8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+[https://www.canva.com/design/DAFdDG-dqc8/3Wg3zdhd6wvgospYQQkOag/edit?utm_content=DAFdDG-dqc8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton](https://www.canva.com/design/DAFdDG-dqc8/tMEWDxaZ3OvVO3rdmM65fw/view?utm_content=DAFdDG-dqc8&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
 --------------------------------------------------------------------------------------------
 
