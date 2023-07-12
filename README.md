@@ -1,16 +1,10 @@
 # KH_C_SEMI_THE_Growing
 
 <h3>학급 관리 & 커뮤니티 사이트</h3>
-선생님과 학부모와 학생 모두가
-"다양하고 풍성한 정보"를
-"편리"하고
-"안전하게 소통"할 수 있도록 기획
+<p>선생님과 학부모와 학생 모두가 "다양하고 풍성한 정보"를 "편리"하고 "안전하게 소통"할 수 있도록 기획</p>
 
-<br>
-<br>
 <h3>구성원</h3>
-류준하(JunHa1307) 장하은(hasusungbin, JangHaEun) 오현지(hongdii) 이충영(cylee0328) 오민석(ohy794)
-
+<p>류준하(JunHa1307) 장하은(hasusungbin, JangHaEun) 오현지(hongdii) 이충영(cylee0328) 오민석(ohy794)</p>
 
 --------------------------------------------------------------------------------------------
 
@@ -23,35 +17,62 @@
 
 사용 언어 & API & 라이브러리
 ================================================================
-Java(11.0.17, eclipse 2020.09), Oracle DataBase(sqldeveloper 11g Standard Edition), JavaScript html css
+<div>
+  <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Oracle%20SQL-F80000? style=flat&logo=Oracle&logoColor=white"/>
+  <img src="https://img.shields.io/badge/ApacheTomcat-F8DC75?style=flat&logo=apachetomcat&logoColor=white"/>
+</div>
 
-Apach Tomcat 9.0 , JQuery 3.6.3
+<div>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jQuery&logoColor=white"/>
+  <img src="https://img.shields.io/badge/bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white"/>
+</div>
 
-Bootstrap 4.5.3 , Tabulator , sweetalert2 , summernote, AOS(Animate on scroll) ,
+<br>
 
-slick , FullCalendar, chart.js
+<p>
+  Java(11.0.17, eclipse 2020.09), Oracle DataBase(Oracle Database 11g Enterprise Edition 11.2.0.1.0,sqldeveloper 11g Standard Edition),
+  
+  JavaScript, JQuery 3.6.3, html, css,
+  
+  Apache Tomcat 9.0
+</p>
 
-나이스 교육정보 개방포털 - 학교기본정보 API , 급식 식단 정보 API
+<br>
 
-KaKao , Naver , Google Login API
+<p>  
+  Bootstrap 4.5.3 , Tabulator , sweetalert2 , summernote, AOS(Animate on scroll) ,
+  
+  slick , FullCalendar, chart.js
+</p>
+
+<br>
+
+<p>
+  나이스 교육정보 개방포털 - 학교기본정보 API , 급식 식단 정보 API
+  
+  KaKao , Naver , Google Login API
+</p>
 
 --------------------------------------------------------------------------------------------
 
 주요 기능
 ================================================================
-로그인, API 이용 로그인, 회원가입, 알림, 사용자 정보 CRUD
-
-시간표, 급식표, 일정표, 클래스 CRUD, 임시계정생성, 클래스 정보 , 회원 정보 CRUD
-
-게시판(알림장, 자유게시판, 상담게시판), 
-비밀글 & 비밀댓글, 댓글, 좋아요, 조회수, 검색, 인쇄, 파일 다운로드, 스크랩, CRUD
-
-출석 체크 & 설문 조사 CRUD
-
-전 페이지 Css 미디어 쿼리 적용하여 반응형 웹 구현
-
-목차
-================================================================
+<p>
+  로그인, API 이용 로그인, 회원가입, 알림, 사용자 정보 CRUD
+  
+  시간표, 급식표, 일정표, 클래스 CRUD, 임시계정생성, 클래스 정보 , 회원 정보 CRUD
+  
+  게시판(알림장, 자유게시판, 상담게시판), 
+  비밀글 & 비밀댓글, 댓글, 좋아요, 조회수, 검색, 인쇄, 파일 다운로드, 스크랩, CRUD
+  
+  출석 체크 & 설문 조사 CRUD
+  
+  전 페이지 Css 미디어 쿼리 적용하여 반응형 웹 구현
+</p>
   
   - [로그인 페이지](#로그인-페이지)
   - [메인 페이지](#메인-페이지)
