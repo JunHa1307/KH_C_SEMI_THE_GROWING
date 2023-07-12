@@ -147,10 +147,23 @@
   <div markdown="1">
     
 - 앨범 등록
+  
+![ezgif com-video-to-gif (18)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/88df8911-672a-4f9c-990e-2a74ed22b15b)
+  
 
-- 댓글 등록(비밀댓글)/삭제/좋아요/스크랩
+- 앨범 상세조회( 댓글 등록(비밀댓글)/삭제/좋아요/스크랩 )
 
-- 사진 다운로드 
+![ezgif com-video-to-gif (17)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/8d54d13c-5898-41ec-88e5-9dee7bdbba77)
+
+- 댓글 등록 시 알림
+
+![ezgif com-video-to-gif (19)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/91e5ed19-73fc-4410-bd9f-2c52842e88a8)
+
+
+- 사진 다운로드
+
+![ezgif com-video-to-gif (16)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/e3b9756c-5fc3-4e5d-baf0-ba6354846caa)
+
 
     
   </div>
