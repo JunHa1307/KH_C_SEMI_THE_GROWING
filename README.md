@@ -118,6 +118,13 @@ KaKao , Naver , Google Login API
 <details>
   <summary>앨범</summary>
   <div markdown="1">
+    - 앨범 등록
+
+    - 댓글 등록(비밀댓글)/삭제/좋아요/스크랩
+
+    - 사진 다운로드 
+
+    
   </div>
 </details>
 <details>
