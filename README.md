@@ -99,7 +99,6 @@
 <details>
   <summary>회원가입</summary>
   <div markdown="1">
-  <br>
     <p>* 선생님, 학부모, 학생 모두 방식 동일</p>
   <br>
   
@@ -113,9 +112,9 @@
 <details>
   <summary>로그인</summary>
   <div markdown="1">
-  <br>
   <p>* 선생님, 학부모, 학생 모두 방식 동일</p>
   <br>
+  
   ![ezgif com-video-to-gif (6)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/6500b053-8f8c-4e61-939b-dbda311fd8e1)
 
     
