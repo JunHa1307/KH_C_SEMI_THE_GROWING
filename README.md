@@ -93,14 +93,30 @@
 
 
 <h4>[로그인 페이지]</h4>
+
+![ezgif com-video-to-gif (4)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/436f6122-fb21-46da-afb0-190b4fe43137)
+
+
 <details>
   <summary>로그인</summary>
   <div markdown="1">
+
+
+
+    
   </div>
 </details>
 <details>
   <summary>회원가입</summary>
   <div markdown="1">
+  <br>
+    <p>선생님, 학부모, 학생 모두 방식 동일</p>
+
+  ![ezgif com-video-to-gif (5)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/eee24502-4cd1-4b90-9eb9-6bd6b5b09b4b)
+  
+  <br>
+  
+    
   </div>
 </details>
 <details>
