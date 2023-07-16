@@ -98,8 +98,10 @@
 <details>
   <summary>반응형 웹</summary>
   <div markdown="1">
-    <br><br><br><br>
     
+    
+  ![ezgif com-video-to-gif (10)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/17ac408b-2bc8-42b3-ad7d-73d53ef419fb)
+
 
   </div>
 </details>
