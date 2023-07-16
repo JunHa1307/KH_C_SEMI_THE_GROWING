@@ -95,7 +95,14 @@
 <h4>[로그인 페이지]</h4>
 
 ![ezgif com-video-to-gif (4)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/436f6122-fb21-46da-afb0-190b4fe43137)
+<details>
+  <summary>반응형 웹</summary>
+  <div markdown="1">
+    <br><br><br><br>
+    
 
+  </div>
+</details>
 <details>
   <summary>회원가입</summary>
   <div markdown="1">
@@ -109,15 +116,7 @@
     
   </div>
 </details>
-<details>
-  <summary>반응형 웹</summary>
-  <div markdown="1">
-    <br><br><br><br>
-    
-  ![ezgif com-video-to-gif (11)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/8854e4cb-b574-46b8-a5fc-20503ca03d22)
 
-  </div>
-</details>
 <details>
   <summary>로그인</summary>
   <div markdown="1">
