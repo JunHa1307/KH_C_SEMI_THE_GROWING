@@ -210,6 +210,17 @@
 <details>
   <summary>상담게시판</summary>
   <div markdown="1">
+
+  - 등록
+
+![ezgif com-video-to-gif (21)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/cc2a8a53-56e9-496a-83a7-60608841e4c2)
+
+
+  - 삭제
+
+![ezgif com-video-to-gif (24)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/eb2d0751-121d-497b-b64b-443c1498ad72)
+
+    
   </div>
 </details>
 
@@ -248,11 +259,17 @@
 <details>
   <summary>초대하기</summary>
   <div markdown="1">
+
+![ezgif com-video-to-gif (23)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/fead41e9-23eb-4ca4-b97c-a54118f6cacc)
+
   </div>
 </details>
 <details>
   <summary>클래스 정보</summary>
   <div markdown="1">
+
+![ezgif com-video-to-gif (22)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/b2ee1330-de08-42a7-be7b-f3206e054428)
+
   </div>
 </details>
 
@@ -265,6 +282,10 @@
 <details>
   <summary>개인정보</summary>
   <div markdown="1">
+
+![ezgif com-video-to-gif (20)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/2bdeb154-992f-4895-ac99-d5acca3b1410)
+
+    
   </div>
 </details>
 <details>
