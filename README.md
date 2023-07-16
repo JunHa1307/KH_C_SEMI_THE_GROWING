@@ -134,22 +134,23 @@
   <summary>SNS로그인</summary>
   <div markdown="1">
     <p>* 선생님, 학부모, 학생 모두 방식 동일</p>
-    <br>
-    <p>KAKAO 로그인</p>
-    <hr>
+    
+- KAKAO 로그인
     
   ![ezgif com-video-to-gif (7)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/7366996b-eb8e-460c-82c1-5963dae98f3b)  
-    
-  <p>NAVER 로그인</p>
-  <hr>
+    <br>
+- NAVER 로그인
+
   
   ![ezgif com-video-to-gif (8)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/62189d5d-28ef-4356-9a33-eba103c7efe3)
 
-  <p>GOOGLE 로그인</p>
-  <hr>
+  <br>
+  
+- GOOGLE 로그인
+
   
   ![ezgif com-video-to-gif (9)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/8c927427-c27d-4027-9aa5-213de79f1fa6)
-
+<br>
   </div>
 </details>
 
