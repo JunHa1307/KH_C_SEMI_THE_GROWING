@@ -96,16 +96,6 @@
 
 ![ezgif com-video-to-gif (4)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/436f6122-fb21-46da-afb0-190b4fe43137)
 
-
-<details>
-  <summary>로그인</summary>
-  <div markdown="1">
-
-
-
-    
-  </div>
-</details>
 <details>
   <summary>회원가입</summary>
   <div markdown="1">
@@ -120,8 +110,29 @@
   </div>
 </details>
 <details>
+  <summary>로그인</summary>
+  <div markdown="1">
+  <br>
+  <p>선생님, 학부모, 학생 모두 방식 동일</p>
+
+  ![ezgif com-video-to-gif (6)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/6500b053-8f8c-4e61-939b-dbda311fd8e1)
+
+    
+  </div>
+</details>
+<details>
   <summary>SNS로그인</summary>
   <div markdown="1">
+    <p>선생님, 학부모, 학생 모두 방식 동일</p>
+    <br>
+    <hr>
+    <p>KAKAO 로그인</p>
+  
+  ![ezgif com-video-to-gif (7)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/7366996b-eb8e-460c-82c1-5963dae98f3b)  
+    <p>NAVER 로그인</p>
+  
+    <p>GOOGLE 로그인</p>
+
   </div>
 </details>
 
