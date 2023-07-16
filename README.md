@@ -260,6 +260,8 @@
   <summary>초대하기</summary>
   <div markdown="1">
 
+- 새로운 초대코드 생성 
+
 ![ezgif com-video-to-gif (23)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/fead41e9-23eb-4ca4-b97c-a54118f6cacc)
 
   </div>
@@ -267,7 +269,9 @@
 <details>
   <summary>클래스 정보</summary>
   <div markdown="1">
-
+    
+- 클래스 탈퇴
+    
 ![ezgif com-video-to-gif (22)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/b2ee1330-de08-42a7-be7b-f3206e054428)
 
   </div>
