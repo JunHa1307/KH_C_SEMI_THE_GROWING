@@ -100,8 +100,9 @@
   <summary>회원가입</summary>
   <div markdown="1">
   <br>
-    <p>선생님, 학부모, 학생 모두 방식 동일</p>
-
+    <p>* 선생님, 학부모, 학생 모두 방식 동일</p>
+  <br>
+  
   ![ezgif com-video-to-gif (5)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/eee24502-4cd1-4b90-9eb9-6bd6b5b09b4b)
   
   <br>
@@ -114,7 +115,7 @@
   <div markdown="1">
   <br>
   <p>* 선생님, 학부모, 학생 모두 방식 동일</p>
-
+  <br>
   ![ezgif com-video-to-gif (6)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/6500b053-8f8c-4e61-939b-dbda311fd8e1)
 
     
