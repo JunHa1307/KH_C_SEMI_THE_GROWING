@@ -110,6 +110,15 @@
   </div>
 </details>
 <details>
+  <summary>반응형 웹</summary>
+  <div markdown="1">
+    <br><br><br><br>
+    
+  ![ezgif com-video-to-gif (11)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/8854e4cb-b574-46b8-a5fc-20503ca03d22)
+
+  </div>
+</details>
+<details>
   <summary>로그인</summary>
   <div markdown="1">
   <p>* 선생님, 학부모, 학생 모두 방식 동일</p>
