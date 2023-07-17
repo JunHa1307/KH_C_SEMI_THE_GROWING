@@ -198,14 +198,25 @@ ERD
   <summary>알림장</summary>
   <div markdown="1">
 
-  - 알림장 등록 (선생님 유저만 가능)
+  - 등록 (선생님 유저만 가능)
 
 ![ezgif com-video-to-gif (4)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/9e29c5ea-9936-4a49-850f-770a3ff6d5d8)
 
-  - 알림장 확인/인쇄 (학부모 및 학생 유저만 가능)
+<br>
+
+  - 알림장 확인(학부모 및 학생 유저만 가능), 인쇄
+    
 ![ezgif com-video-to-gif (5)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/200728a2-eae9-443a-8ea3-42302bb14b69)
 
-- 알림장 확인한 유저 목록 조회/인쇄/수정 (선생님 유저만 가능)
+<br>
+
+- 알림장 확인한 유저 목록 조회/수정(선생님 유저만 가능), 인쇄
+![ezgif com-video-to-gif (6)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/7496b0ee-8910-43ba-b999-89f521a44b76)
+
+<br>
+
+- 다중 삭제
+![ezgif com-video-to-gif (7)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/0718d8c8-fd30-4d5d-90d6-b31689209e35)
 
 
   </div>
@@ -301,6 +312,11 @@ ERD
 <details>
   <summary>클래스 설정</summary>
   <div markdown="1">
+
+![ezgif com-video-to-gif (10)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/76cfb2ae-73f0-4296-8f1a-edcd77435c23)
+
+
+    
   </div>
 </details>
 <details>
@@ -356,6 +372,11 @@ ERD
 <details>
   <summary>나의 스크랩</summary>
   <div markdown="1">
+- 스크랩 버튼/스크랩 취소/스크랩한 게시물 바로가기
+
+![ezgif com-video-to-gif (9)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/15cbdb75-a650-4274-9bdb-15b39b0158fd)
+
+    
   </div>
 </details>
 
