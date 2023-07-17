@@ -228,6 +228,24 @@ ERD
 <details>
   <summary>자유게시판</summary>
   <div markdown="1">
+
+  - 등록
+
+  ![ezgif com-video-to-gif (26)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/d5c35e07-9000-4c62-b184-5cfc8833efc1)
+
+
+  - 수정
+
+  ![ezgif com-video-to-gif (28)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/4a54667a-17d4-4f96-a45b-16b11c072114)
+
+
+  - 삭제
+    
+  ![ezgif com-video-to-gif (27)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/6207d130-9153-4443-aee4-f175522a3c6f)
+
+  - 검색
+
+    
   </div>
 </details>
 <details>
@@ -318,6 +336,10 @@ ERD
 <details>
   <summary>나의 클래스</summary>
   <div markdown="1">
+
+![ezgif com-video-to-gif (25)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/2b4c526a-338e-4b63-a2f8-9a69f39f561a)
+
+    
   </div>
 </details>
 <details>
