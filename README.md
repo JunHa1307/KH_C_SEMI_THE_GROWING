@@ -211,11 +211,13 @@ ERD
 <br>
 
 - 알림장 확인한 유저 목록 조회/수정(선생님 유저만 가능), 인쇄
+
 ![ezgif com-video-to-gif (6)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/7496b0ee-8910-43ba-b999-89f521a44b76)
 
 <br>
 
 - 다중 삭제
+
 ![ezgif com-video-to-gif (7)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/0718d8c8-fd30-4d5d-90d6-b31689209e35)
 
 
@@ -372,6 +374,7 @@ ERD
 <details>
   <summary>나의 스크랩</summary>
   <div markdown="1">
+    
 - 스크랩 버튼/스크랩 취소/스크랩한 게시물 바로가기
 
 ![ezgif com-video-to-gif (9)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/15cbdb75-a650-4274-9bdb-15b39b0158fd)
