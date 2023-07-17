@@ -197,6 +197,17 @@ ERD
 <details>
   <summary>알림장</summary>
   <div markdown="1">
+
+  - 알림장 등록 (선생님 유저만 가능)
+
+![ezgif com-video-to-gif (4)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/9e29c5ea-9936-4a49-850f-770a3ff6d5d8)
+
+  - 알림장 확인/인쇄 (학부모 및 학생 유저만 가능)
+![ezgif com-video-to-gif (5)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/93081185/200728a2-eae9-443a-8ea3-42302bb14b69)
+
+- 알림장 확인한 유저 목록 조회/인쇄/수정 (선생님 유저만 가능)
+
+
   </div>
 </details>
 <details>
