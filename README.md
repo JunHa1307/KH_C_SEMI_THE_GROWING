@@ -72,7 +72,7 @@
 
 ERD
 ================================================================
-
+<a href="https://www.erdcloud.com/d/NxdaPGFTpqXBmsqEM">ERD 바로가기</a>
 
 <br><br><br>
 
