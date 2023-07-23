@@ -192,6 +192,10 @@ ERD
 <details>
   <summary>최근 게시글</summary>
   <div markdown="1">
+
+![ezgif com-video-to-gif (29)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/0f03f98c-817c-4570-b2a7-49df40fe7bf4)
+
+    
   </div>
 </details>
 <details>
@@ -269,6 +273,8 @@ ERD
 
   - 검색
 
+![ezgif com-video-to-gif (30)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/a0493c49-4865-49bb-a877-2cda5994d1f2)
+
     
   </div>
 </details>
@@ -286,7 +292,13 @@ ERD
 ![ezgif com-video-to-gif (24)](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/eb2d0751-121d-497b-b64b-443c1498ad72)
 
     
-  </div>
+
+
+  - 타 유저 조회시
+
+![bandicam 2023-07-17 16-01-37-239](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/397178fd-3578-4e78-b661-005a655a6e60)
+
+    </div>
 </details>
 
 <hr>
