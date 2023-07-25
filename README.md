@@ -298,7 +298,7 @@ ERD
 
 ![bandicam 2023-07-17 16-01-37-239](https://github.com/JunHa1307/KH_C_SEMI_THE_GROWING/assets/117424784/397178fd-3578-4e78-b661-005a655a6e60)
 
-    </div>
+  </div>
 </details>
 
 <hr>
